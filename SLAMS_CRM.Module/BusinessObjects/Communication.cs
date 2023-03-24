@@ -11,6 +11,7 @@ using System.Linq;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
+    [NavigationItem("Communications")]
     public class Communication : BaseObject
     {
         public Communication(Session session)

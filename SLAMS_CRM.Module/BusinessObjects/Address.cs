@@ -17,9 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     //[DefaultClassOptions]
     [DefaultProperty("FullAddress")]
     public class Address : BaseObject
-    { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
-        // Use CodeRush to create XPO classes and properties with a few keystrokes.
-        // https://docs.devexpress.com/CodeRushForRoslyn/118557
+    { 
         public Address(Session session)
             : base(session)
         {

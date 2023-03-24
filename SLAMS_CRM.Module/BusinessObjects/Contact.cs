@@ -18,7 +18,8 @@ using DevExpress.Persistent.Base.General;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
-    [DefaultClassOptions]
+    //[DefaultClassOptions]
+    [NavigationItem("Contacts")]
 
 
     [ObjectCaptionFormat("{0:FullName}")]
@@ -69,7 +70,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
 
-        [RuleRegularExpression("RuleRegularExpression for Contact.PhoneNumber", DefaultContexts.Save, "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")]
+        [RuleRegularExpression("RuleRegularExpression for Contact.PhoneNumber", DefaultContexts.Save, @"^\(\d{3}\) \d{3}-\d{4}$")]
         [RuleRequiredField("RuleRequiredField for Contact.PhoneNumber", DefaultContexts.Save)]
         public string PhoneNumber
         {
@@ -77,10 +78,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set { SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value); }
         }
         [RuleRequiredField("RuleRequiredField for Contact.Address", DefaultContexts.Save)]
+        //[DevExpress.Xpo.Association("Contact-Address")]
         public Address Address { get; set; }
 
 
-        [RuleRegularExpression("RuleRegularExpression for Contact.EmailAddress", DefaultContexts.Save, "^([\\w\\-]+\\.)*[\\w\\-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$")]
+        [RuleRegularExpression("RuleRegularExpression for Contact.EmailAddress", DefaultContexts.Save, @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]
         [RuleRequiredField("RuleRequiredField for Contact.EmailAddress", DefaultContexts.Save)]
         public string EmailAddress
         {
@@ -100,9 +102,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Browsable(false)]
         public Communication Communication { get; set; }
 
-
-
-
+        [Browsable(false)]
         [SearchMemberOptions(SearchMemberMode.Exclude)]
         public String FullName
         {
@@ -112,6 +112,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
         }
 
+        [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public String DisplayName
         {

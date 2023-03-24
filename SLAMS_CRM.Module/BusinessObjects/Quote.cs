@@ -16,6 +16,8 @@ using System.Text;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
+
+    [NavigationItem("Quotes")]
     
     public class Quote : BaseObject
     { 

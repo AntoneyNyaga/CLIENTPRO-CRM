@@ -1,6 +1,7 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -11,12 +12,17 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
-    [DefaultClassOptions]
+    //[DefaultClassOptions]
+    [NavigationItem("Leads")]
+
+    [ObjectCaptionFormat("{0:FullName}")]
+    [DefaultProperty(nameof(FullName))]
     public class Lead : BaseObject
     {
         public Lead(Session session)
@@ -30,6 +36,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        private const string V = "{FirstName} {LastName}";
         string notes;
         int score;
         string source;
@@ -38,6 +45,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string company;
         string lastName;
         string firstName;
+        string status;
 
         [Size(50)]
         [RuleRequiredField("RuleRequiredField for Lead.FirstName", DefaultContexts.Save)]
@@ -75,9 +83,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        [Size(20)]
+        [RuleRegularExpression("RuleRegularExpression for Lead.PhoneNumber", DefaultContexts.Save, @"^\(\d{3}\) \d{3}-\d{4}$")]
         [RuleRequiredField("RuleRequiredField for Lead.PhoneNumber", DefaultContexts.Save)]
-        [RegularExpression(@"^\+?\d{0,2}\-?\d{4,5}\-?\d{4}$", ErrorMessage = "Invalid phone number format")]
         public string PhoneNumber
         {
             get => phoneNumber;
@@ -88,18 +95,39 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public Address Address { get; set; }
 
 
-        [Size(50)]
-        [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]
-        public string Source
+        /*[Size(50)]
+        [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]*/
+
+        [Browsable(false)]
+        public int Source
         {
-            get => source;
-            set => SetPropertyValue(nameof(Source), ref source, value);
+            get => source == null ? 0 : (int)Enum.Parse(typeof(SourceType), source);
+            set => SetPropertyValue(nameof(Source), ref source, Enum.GetName(typeof(SourceType), value));
         }
-        public LeadStatus Status { get; set; }
+
+        [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]
+
+        [NotMapped]
+
+        public SourceType? SourceType { get; set; }
+
+        [Browsable(false)]
+        public int Status
+        {
+            get => status == null ? 0 : (int)Enum.Parse(typeof(LeadStatus), status);
+            set => SetPropertyValue(nameof(Status), ref status, Enum.GetName(typeof(LeadStatus), value));
+        }
+
+        [RuleRequiredField("RuleRequiredField for Lead.Status", DefaultContexts.Save)]
+
+        [NotMapped]
+        public LeadStatus? LeadStatus { get; set; }
 
 
-        [Range(0, 100)]
+        //[Range(0, 100)]
         //[RuleRequiredField("RuleRequiredField for Lead.Score", DefaultContexts.Save)]
+        //[ReadOnly(true)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public int Score
         {
             get => score;
@@ -119,12 +147,69 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [Browsable(false)]
         public Communication Communication { get; set; }
+
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+            if (propertyName == nameof(FirstName) || propertyName == nameof(LastName) || propertyName == nameof(Company) ||
+                propertyName == nameof(EmailAddress) || propertyName == nameof(PhoneNumber) || propertyName == nameof(Source))
+            {
+                CalculateScore();
+            }
+        }
+
+        private void CalculateScore()
+        {
+            int score = 0;
+            if (!string.IsNullOrEmpty(FirstName)) score += 10;
+            if (!string.IsNullOrEmpty(LastName)) score += 10;
+            if (!string.IsNullOrEmpty(Company)) score += 10;
+            if (!string.IsNullOrEmpty(EmailAddress)) score += 10;
+            if (!string.IsNullOrEmpty(PhoneNumber)) score += 10;
+            //if (!string.IsNullOrEmpty(Source)) score += 10;
+
+            Score = score;
+        }
+
+        [Browsable (false)]
+        [SearchMemberOptions(SearchMemberMode.Exclude)]
+        public String FullName
+        {
+            get
+            {
+                return ObjectFormatter.Format(FullNameFormat, this, EmptyEntriesMode.RemoveDelimiterWhenEntryIsEmpty);
+            }
+        }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public String DisplayName
+        {
+            get
+            {
+                return FullName;
+            }
+        }
+
+        public static String FullNameFormat = V;
+
     }
 
     public enum LeadStatus
     {
+        None,
+        Unknown,
         New,
         Contacted,
         Qualified
+    }
+
+    public enum SourceType
+    {
+        Online,
+        Referral,
+        Advertisement,
+        Event,
+        Other
     }
 }
