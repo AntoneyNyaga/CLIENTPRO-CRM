@@ -18,7 +18,7 @@ using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
-    //[DefaultClassOptions]
+    [DefaultClassOptions]
     [NavigationItem("Opportunities")]
 
     [ObjectCaptionFormat("{0:FullName}")]

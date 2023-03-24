@@ -1,11 +1,40 @@
-﻿<?xml version="1.0" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="SLAMS_CRM">
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
   </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Communications">
+        <Items>
+          <Item Id="Communication_ListView" ImageName="FunctionsInformation" />
+        </Items>
+      </Item>
+      <Item Id="Contacts">
+        <Items>
+          <Item Id="Contact_ListView" ImageName="BO_Contact" />
+        </Items>
+      </Item>
+      <Item Id="Opportunities">
+        <Items>
+          <Item Id="Lead_ListView" ImageName="BO_Lead" />
+          <Item Id="Opportunity_ListView" ImageName="BO_Opportunity" />
+        </Items>
+      </Item>
+      <Item Id="sales">
+        <Items>
+          <Item Id="Quote_ListView" ImageName="BO_Quote" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="22.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+  </SchemaModules>
   <Views>
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
   </Views>

@@ -18,7 +18,7 @@ using DevExpress.Persistent.Base.General;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
-    //[DefaultClassOptions]
+    [DefaultClassOptions]
     [NavigationItem("Contacts")]
 
 
