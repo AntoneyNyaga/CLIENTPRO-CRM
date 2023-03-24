@@ -41,7 +41,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [RuleRequiredField("RuleRequiredField for Communication.Type", DefaultContexts.Save)]
 
         [NotMapped]
-        public CommunicationType CommunicationType { get; set;  }
+        public CommunicationType? CommunicationType { get; set;  }
+
 
         [RuleRequiredField("RuleRequiredField for Communication.DateTime", DefaultContexts.Save)]
         public DateTime DateTime
@@ -49,6 +50,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => dateTime;
             set => SetPropertyValue(nameof(DateTime), ref dateTime, value);
         }
+
 
         [RuleRequiredField("RuleRequiredField for Communication.Subject", DefaultContexts.Save)]
         [Size(100)]
@@ -90,7 +92,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [RuleRequiredField("RuleRequiredField for Communication.Outcome", DefaultContexts.Save)]
 
         [NotMapped]
-        public CommunicationOutcome CommunicationOutcome { get; set;  }
+        public CommunicationOutcome? CommunicationOutcome { get; set;  }
+
 
 
         [Size(SizeAttribute.Unlimited)]

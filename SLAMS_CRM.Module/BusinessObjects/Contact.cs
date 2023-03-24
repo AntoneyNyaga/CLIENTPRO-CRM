@@ -60,6 +60,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [Size(100)]
+        [RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
         public string Company
         {
             get => company;
@@ -69,6 +70,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [RuleRegularExpression("RuleRegularExpression for Contact.PhoneNumber", DefaultContexts.Save, "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")]
+        [RuleRequiredField("RuleRequiredField for Contact.PhoneNumber", DefaultContexts.Save)]
         public string PhoneNumber
         {
             get { return phoneNumber; }
@@ -79,6 +81,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [RuleRegularExpression("RuleRegularExpression for Contact.EmailAddress", DefaultContexts.Save, "^([\\w\\-]+\\.)*[\\w\\-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$")]
+        [RuleRequiredField("RuleRequiredField for Contact.EmailAddress", DefaultContexts.Save)]
         public string EmailAddress
         {
             get => emailAddress;
@@ -94,6 +97,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
 
+        [Browsable(false)]
         public Communication Communication { get; set; }
 
 

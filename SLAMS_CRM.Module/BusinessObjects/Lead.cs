@@ -57,6 +57,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [Size(50)]
+        [RuleRequiredField("RuleRequiredField for Lead.Company", DefaultContexts.Save)]
         public string Company
         {
             get => company;
@@ -75,6 +76,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [Size(20)]
+        [RuleRequiredField("RuleRequiredField for Lead.PhoneNumber", DefaultContexts.Save)]
         [RegularExpression(@"^\+?\d{0,2}\-?\d{4,5}\-?\d{4}$", ErrorMessage = "Invalid phone number format")]
         public string PhoneNumber
         {
@@ -87,6 +89,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [Size(50)]
+        [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]
         public string Source
         {
             get => source;
@@ -96,6 +99,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [Range(0, 100)]
+        //[RuleRequiredField("RuleRequiredField for Lead.Score", DefaultContexts.Save)]
         public int Score
         {
             get => score;
@@ -109,6 +113,12 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => notes;
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
+
+        [Browsable(false)]
+        public Quote Quote { get; set; }
+
+        [Browsable(false)]
+        public Communication Communication { get; set; }
     }
 
     public enum LeadStatus
