@@ -4,6 +4,8 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace SLAMS_CRM.Module.BusinessObjects
@@ -29,13 +31,17 @@ namespace SLAMS_CRM.Module.BusinessObjects
         DateTime dateTime;
         string type;
 
-        [RuleRequiredField("RuleRequiredField for Communication.Type", DefaultContexts.Save)]
-        [Size(50)]
-        public string Type
+        [Browsable(false)]
+        public int Type
         {
-            get => type;
-            set => SetPropertyValue(nameof(Type), ref type, value);
+            get => type == null ? 0 : (int)Enum.Parse(typeof(CommunicationType), type);
+            set => SetPropertyValue(nameof(Type), ref type, Enum.GetName(typeof(CommunicationType), value));
         }
+
+        [RuleRequiredField("RuleRequiredField for Communication.Type", DefaultContexts.Save)]
+
+        [NotMapped]
+        public CommunicationType CommunicationType { get; set;  }
 
         [RuleRequiredField("RuleRequiredField for Communication.DateTime", DefaultContexts.Save)]
         public DateTime DateTime
@@ -62,19 +68,29 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        /*[Association("Communication-Leads")]
+        public XPCollection<Lead> Leads => GetCollection<Lead>(nameof(Leads));
+
+        [Association("Communication-Contacts")]
+        public XPCollection<Contact> Contacts => GetCollection<Contact>(nameof(Contacts));*/
 
         public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
 
         public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
 
 
-        [RuleRequiredField("RuleRequiredField for Communication.Outcome", DefaultContexts.Save)]
-        [Size(50)]
-        public string Outcome
+
+        [Browsable(false)]
+        public int Outcome
         {
-            get => outcome;
-            set => SetPropertyValue(nameof(Outcome), ref outcome, value);
+            get => outcome == null ? 0 : (int)Enum.Parse(typeof(CommunicationOutcome), outcome);
+            set => SetPropertyValue(nameof(Outcome), ref outcome, Enum.GetName(typeof(CommunicationOutcome), value));
         }
+
+        [RuleRequiredField("RuleRequiredField for Communication.Outcome", DefaultContexts.Save)]
+
+        [NotMapped]
+        public CommunicationOutcome CommunicationOutcome { get; set;  }
 
 
         [Size(SizeAttribute.Unlimited)]
@@ -85,7 +101,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
     }
 
-    public class TypeConverter : EnumConverterBase<CommunicationType>
+    /*public class TypeConverter : EnumConverterBase<CommunicationType>
     {
         public override Enum GetEnumValue(object value)
         {
@@ -111,7 +127,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 default: return CommunicationOutcome.Unknown;
             }
         }
-    }
+    }*/
 
     public enum CommunicationType
     {
