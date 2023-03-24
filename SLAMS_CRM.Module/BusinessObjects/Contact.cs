@@ -103,6 +103,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public Communication Communication { get; set; }
 
         [Browsable(false)]
+        public Opportunity Opportunity { get; set; }
+
+        
+
+        [Browsable(false)]
         [SearchMemberOptions(SearchMemberMode.Exclude)]
         public String FullName
         {

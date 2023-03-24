@@ -17,7 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
 
-    [NavigationItem("Quotes")]
+    [NavigationItem("sales")]
     
     public class Quote : BaseObject
     { 
@@ -93,6 +93,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     {
         public Product(Session session) : base(session) { }
 
+        string description;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
@@ -100,6 +101,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             get => _name;
             set => SetPropertyValue(nameof(Name), ref _name, value);
+        }
+
+
+        [RuleRequiredField("RuleRequiredField for Product.Description", DefaultContexts.Save)]
+        [Size(SizeAttribute.Unlimited)]
+        public string Description
+        {
+            get => description;
+            set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
         private decimal _price;

@@ -19,7 +19,7 @@ using System.Text;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     //[DefaultClassOptions]
-    [NavigationItem("Leads")]
+    [NavigationItem("Opportunities")]
 
     [ObjectCaptionFormat("{0:FullName}")]
     [DefaultProperty(nameof(FullName))]
@@ -147,6 +147,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [Browsable(false)]
         public Communication Communication { get; set; }
+
+        [Browsable(false)]
+        public Opportunity Opportunity { get; set; }
 
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {
