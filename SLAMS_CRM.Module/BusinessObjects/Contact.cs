@@ -70,7 +70,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
 
-        [RuleRegularExpression("RuleRegularExpression for Contact.PhoneNumber", DefaultContexts.Save, @"^\(\d{3}\) \d{3}-\d{4}$")]
+        [RuleRegularExpression("RuleRegularExpression for Contact.PhoneNumber", DefaultContexts.Save, @"^(\+)?\d+(\s*\-\s*\d+)*$")]
         [RuleRequiredField("RuleRequiredField for Contact.PhoneNumber", DefaultContexts.Save)]
         public string PhoneNumber
         {
@@ -78,7 +78,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set { SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value); }
         }
         [RuleRequiredField("RuleRequiredField for Contact.Address", DefaultContexts.Save)]
-        //[DevExpress.Xpo.Association("Contact-Address")]
+        //[DevExpress.Xpo.Association("Contacts-Address")]
+        [ExpandObjectMembers(ExpandObjectMembers.Always)]
         public Address Address { get; set; }
 
 
@@ -89,8 +90,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => emailAddress;
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
-
-
 
         [Size(SizeAttribute.Unlimited)]
         public string Notes

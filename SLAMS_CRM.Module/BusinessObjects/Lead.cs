@@ -83,7 +83,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        [RuleRegularExpression("RuleRegularExpression for Lead.PhoneNumber", DefaultContexts.Save, @"^\(\d{3}\) \d{3}-\d{4}$")]
+        [RuleRegularExpression("RuleRegularExpression for Lead.PhoneNumber", DefaultContexts.Save, @"^(\+)?\d+(\s*\-\s*\d+)*$")]
         [RuleRequiredField("RuleRequiredField for Lead.PhoneNumber", DefaultContexts.Save)]
         public string PhoneNumber
         {
@@ -124,9 +124,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public LeadStatus? LeadStatus { get; set; }
 
 
-        //[Range(0, 100)]
-        //[RuleRequiredField("RuleRequiredField for Lead.Score", DefaultContexts.Save)]
-        //[ReadOnly(true)]
+        
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int Score
         {
@@ -215,4 +213,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         Event,
         Other
     }
+
+
 }

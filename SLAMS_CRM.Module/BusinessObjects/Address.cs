@@ -8,6 +8,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     //[DefaultClassOptions]
     [DefaultProperty("FullAddress")]
+
     public class Address : BaseObject
     { 
         public Address(Session session)
@@ -27,7 +29,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
-        private String defaultFullAddressFormat = "{Country}; {StateProvince}; {City}; {Street}; {ZipPostal}";
+        private String defaultFullAddressFormat = "{Country}, {StateProvince}, {City}, {Street}, {ZipPostal}";
 
 
         string country;
@@ -75,6 +77,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Country), ref country, value);
         }
 
+        [Browsable(false)]
         public String FullAddress
         {
             get
@@ -82,5 +85,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 return ObjectFormatter.Format(defaultFullAddressFormat, this, EmptyEntriesMode.RemoveDelimiterWhenEntryIsEmpty);
             }
         }
+        [Browsable(false)]
+        public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
+
+        [Browsable(false)]
+        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
     }
 }

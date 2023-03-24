@@ -71,7 +71,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
         }
 
-        //[RuleRequiredField("RuleRequiredField for Opportunity.Stage", DefaultContexts.Save)]
         [NotMapped]
         public StageType StageType
         {
@@ -80,7 +79,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        //[RuleRequiredField("RuleRequiredField for Opportunity.ProbabilityOfClosing", DefaultContexts.Save)]
         [ReadOnly(false)]
         public double ProbabilityOfClosing
         {

@@ -70,13 +70,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-
-        /*[Association("Communication-Leads")]
-        public XPCollection<Lead> Leads => GetCollection<Lead>(nameof(Leads));
-
-        [Association("Communication-Contacts")]
-        public XPCollection<Contact> Contacts => GetCollection<Contact>(nameof(Contacts));*/
-
         public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
 
         public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
@@ -104,34 +97,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
     }
-
-    /*public class TypeConverter : EnumConverterBase<CommunicationType>
-    {
-        public override Enum GetEnumValue(object value)
-        {
-            switch (value?.ToString()?.ToLower())
-            {
-                case "email": return CommunicationType.Email;
-                case "phone call": return CommunicationType.PhoneCall;
-                case "meeting": return CommunicationType.Meeting;
-                default: return CommunicationType.Unknown;
-            }
-        }
-    }
-
-    public class OutcomeConverter : EnumConverterBase<CommunicationOutcome>
-    {
-        public override Enum GetEnumValue(object value)
-        {
-            switch (value?.ToString()?.ToLower())
-            {
-                case "successful": return CommunicationOutcome.Successful;
-                case "unsuccessful": return CommunicationOutcome.Unsuccessful;
-                case "follow-up required": return CommunicationOutcome.FollowUpRequired;
-                default: return CommunicationOutcome.Unknown;
-            }
-        }
-    }*/
 
     public enum CommunicationType
     {
