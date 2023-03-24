@@ -17,7 +17,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
 
-    [NavigationItem("sales")]
+    [NavigationItem("Sales")]
+    [DefaultProperty("Description")]
+    [Persistent("Quote")]
+
     
     public class Quote : BaseObject
     { 
@@ -59,7 +62,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [RuleRequiredField("RuleRequiredField for Quote.Products", DefaultContexts.Save)]
         public XPCollection<Product> Products
         {
-            get => _products ?? (_products = new XPCollection<Product>(Session));
+            get => _products ?? (_products = new  XPCollection<Product>(Session));
         }
 
         private decimal _price;
@@ -87,44 +90,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => _notes;
             set => SetPropertyValue(nameof(Notes), ref _notes, value);
         }
-    }
-
-    public class Product : BaseObject
-    {
-        public Product(Session session) : base(session) { }
-
-        string description;
-        private string _name;
-        [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
-        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        public string Name
-        {
-            get => _name;
-            set => SetPropertyValue(nameof(Name), ref _name, value);
-        }
-
-
-        [RuleRequiredField("RuleRequiredField for Product.Description", DefaultContexts.Save)]
-        [Size(SizeAttribute.Unlimited)]
-        public string Description
-        {
-            get => description;
-            set => SetPropertyValue(nameof(Description), ref description, value);
-        }
-
-        private decimal _price;
-        //[RuleRequiredField("RuleRequiredField for Product.Price", DefaultContexts.Save)]
-        [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
-
-        public decimal Price
-        {
-            get => _price;
-            set => SetPropertyValue(nameof(Price), ref _price, value);
-        }
-
-        [Association("Quote-Products")]
-        [Browsable(false)]
-        public XPCollection<Quote> Quotes => GetCollection<Quote>(nameof(Quotes));
     }
 
     public enum QuoteStatus

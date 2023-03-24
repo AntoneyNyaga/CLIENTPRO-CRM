@@ -12,6 +12,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [NavigationItem("Communications")]
+    [Persistent("Communication")]
     public class Communication : BaseObject
     {
         public Communication(Session session)
@@ -70,6 +71,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
+        
+        /*private XPCollection<Lead> _leads;
+        [DevExpress.Xpo.Association("Lead-Communications")]
+        [RuleRequiredField("RuleRequiredField for Communication.Lead", DefaultContexts.Save)]
+        public XPCollection<Lead> Leads
+        {
+            get => _leads ?? (_leads = new XPCollection<Lead>(Session));
+        }*/
+
         public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
 
         public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
@@ -113,4 +123,5 @@ namespace SLAMS_CRM.Module.BusinessObjects
         Unsuccessful,
         FollowUpRequired
     }
+
 }

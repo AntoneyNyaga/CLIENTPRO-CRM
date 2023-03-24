@@ -18,6 +18,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [NavigationItem("Opportunities")]
+    [Persistent("Opportunity")]
     
     public class Opportunity : BaseObject
     { 

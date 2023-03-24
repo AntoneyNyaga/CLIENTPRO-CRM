@@ -22,8 +22,9 @@
         </Items>
       </Item>
       <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" />
-      <Item Id="sales" ImageName="ProductQuicTopSalesperson">
+      <Item Id="Sales" ImageName="ProductQuicTopSalesperson">
         <Items>
+          <Item Id="Product_ListView" ImageName="BO_Product" />
           <Item Id="Quote_ListView" ImageName="BO_Quote" />
         </Items>
       </Item>

@@ -15,11 +15,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using SLAMS_CRM.Module.BusinessObjects;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [NavigationItem("Opportunities")]
+    [Persistent("Lead")]
 
     [ObjectCaptionFormat("{0:FullName}")]
     [DefaultProperty(nameof(FullName))]
@@ -145,6 +147,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [Browsable(false)]
         public Communication Communication { get; set; }
+
+        /*[DevExpress.Xpo.Association("Lead-Communicatons")]
+        //[Browsable(false)]
+        public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));*/
 
         [Browsable(false)]
         public Opportunity Opportunity { get; set; }

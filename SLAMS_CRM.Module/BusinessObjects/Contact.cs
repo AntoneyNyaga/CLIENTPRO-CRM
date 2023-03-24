@@ -20,6 +20,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [NavigationItem("Contacts")]
+    [Persistent("Contact")]
 
 
     [ObjectCaptionFormat("{0:FullName}")]

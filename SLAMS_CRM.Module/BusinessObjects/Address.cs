@@ -17,6 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     //[DefaultClassOptions]
     [DefaultProperty("FullAddress")]
+    [Persistent("Address")]
 
     public class Address : BaseObject
     { 
@@ -85,10 +86,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 return ObjectFormatter.Format(defaultFullAddressFormat, this, EmptyEntriesMode.RemoveDelimiterWhenEntryIsEmpty);
             }
         }
-        [Browsable(false)]
+        /*[Browsable(false)]
         public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
 
         [Browsable(false)]
-        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
+        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();*/
     }
 }
