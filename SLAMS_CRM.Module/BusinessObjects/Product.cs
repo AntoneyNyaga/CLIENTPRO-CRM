@@ -22,6 +22,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     {
         public Product(Session session) : base(session) { }
 
+        Quote quote;
         string description;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
@@ -51,8 +52,18 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Price), ref _price, value);
         }
 
-        [Association("Quote-Products")]
+        /*[Association("Quote-Products")]
         [Browsable(false)]
-        public XPCollection<Quote> Quotes => GetCollection<Quote>(nameof(Quotes));
+        public XPCollection<Quote> Quotes => GetCollection<Quote>(nameof(Quotes));*/
+
+        
+        // the many part of the association
+        [Association("Quote-Products")]
+        public Quote Quote
+        {
+            get => quote;
+            set => SetPropertyValue(nameof(Quote), ref quote, value);
+        }
+
     }
 }

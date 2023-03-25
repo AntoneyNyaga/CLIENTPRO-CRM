@@ -22,6 +22,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [DefaultClassOptions]
     [NavigationItem("Opportunities")]
     [Persistent("Lead")]
+    [ImageName("BO_Lead")]
 
     [ObjectCaptionFormat("{0:FullName}")]
     [DefaultProperty(nameof(FullName))]
@@ -38,6 +39,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        Communication communication;
+        Opportunity opportunity;
+        Quote quote;
         private const string V = "{FirstName} {LastName}";
         string notes;
         int score;
@@ -126,7 +130,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public LeadStatus? LeadStatus { get; set; }
 
 
-        
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int Score
         {
@@ -134,7 +138,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Score), ref score, value);
         }
 
-        
+
         [Size(SizeAttribute.Unlimited)]
         public string Notes
         {
@@ -142,18 +146,48 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
 
-        [Browsable(false)]
-        public Quote Quote { get; set; }
+        /*[Browsable(false)]
+        public Quote Quote { get; set; }*/
 
-        [Browsable(false)]
-        public Communication Communication { get; set; }
+
+        [DevExpress.Xpo.Association("Quote-Leads")]
+        public Quote Quote
+        {
+            get => quote;
+            set => SetPropertyValue(nameof(Quote), ref quote, value);
+        }
+
+        /*[Browsable(false)]
+        public Communication Communication { get; set; }*/
+
+
+        
+        [DevExpress.Xpo.Association("Communication-Leads")]
+        public Communication Communication
+        {
+            get => communication;
+            set => SetPropertyValue(nameof(Communication), ref communication, value);
+        }
+
+
 
         /*[DevExpress.Xpo.Association("Lead-Communicatons")]
         //[Browsable(false)]
         public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));*/
 
-        [Browsable(false)]
-        public Opportunity Opportunity { get; set; }
+        /*[Browsable(false)]
+        public Opportunity Opportunity { get; set; }*/
+
+
+
+        [DevExpress.Xpo.Association("Opportunity-Leads")]
+        public Opportunity Opportunity
+        {
+            get => opportunity;
+            set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
+        }
+
+
 
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {

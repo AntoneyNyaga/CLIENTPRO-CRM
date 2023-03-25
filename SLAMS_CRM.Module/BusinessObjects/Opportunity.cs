@@ -19,6 +19,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [DefaultClassOptions]
     [NavigationItem("Opportunities")]
     [Persistent("Opportunity")]
+    [ImageName("BO_Opportunity")]
     
     public class Opportunity : BaseObject
     { 
@@ -57,9 +58,31 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(OpportunityDescription), ref opportunityDescription, value);
         }
 
-        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
+        //public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
 
-        public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
+        [Association("Opportunity-Leads")]
+        public XPCollection<Lead> Leads
+        {
+            get
+            {
+                return GetCollection<Lead>(nameof(Leads));
+            }
+        }
+
+
+
+        //public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
+
+        [Association("Opportunity-Contacts")]
+        public XPCollection<Contact> Contacts
+        {
+            get
+            {
+                return GetCollection<Contact>(nameof(Contacts));
+            }
+        }
+
+
 
         [Browsable(false)]
         public int Stage

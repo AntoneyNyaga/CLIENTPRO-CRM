@@ -11,8 +11,9 @@ using System.Linq;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("Communications")]
+    [NavigationItem("Inbox")]
     [Persistent("Communication")]
+    [ImageName("Actions_EnvelopeOpen")]
     public class Communication : BaseObject
     {
         public Communication(Session session)
@@ -71,7 +72,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-        
+
         /*private XPCollection<Lead> _leads;
         [DevExpress.Xpo.Association("Lead-Communications")]
         [RuleRequiredField("RuleRequiredField for Communication.Lead", DefaultContexts.Save)]
@@ -80,9 +81,28 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => _leads ?? (_leads = new XPCollection<Lead>(Session));
         }*/
 
-        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
+        //public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
 
-        public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
+        [Association("Communication-Leads")]
+        public XPCollection<Lead> Leads
+        {
+            get
+            {
+                return GetCollection<Lead>(nameof(Leads));
+            }
+        }
+
+        //public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
+
+
+        [Association("Communication-Contacts")]
+        public XPCollection<Contact> Contacts
+        {
+            get
+            {
+                return GetCollection<Contact>(nameof(Contacts));
+            }
+        }
 
 
 

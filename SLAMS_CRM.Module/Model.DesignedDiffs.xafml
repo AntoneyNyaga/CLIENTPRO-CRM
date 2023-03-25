@@ -5,14 +5,14 @@
   </BOModel>
   <NavigationItems>
     <Items>
-      <Item Id="Communications" ImageName="MoveChartNewSheet">
-        <Items>
-          <Item Id="Communication_ListView" ImageName="FunctionsInformation" />
-        </Items>
-      </Item>
       <Item Id="Contacts" ImageName="BO_Contact">
         <Items>
           <Item Id="Contact_ListView" ImageName="NewCustomer" />
+        </Items>
+      </Item>
+      <Item Id="Inbox" ImageName="Actions_EnvelopeOpen">
+        <Items>
+          <Item Id="Communication_ListView" ImageName="NewComment" />
         </Items>
       </Item>
       <Item Id="Opportunities" ImageName="BO_Opportunity">

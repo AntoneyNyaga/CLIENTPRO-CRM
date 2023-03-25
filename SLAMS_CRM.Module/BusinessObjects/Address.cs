@@ -31,8 +31,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
         private String defaultFullAddressFormat = "{Country}, {StateProvince}, {City}, {Street}, {ZipPostal}";
-
-
         string country;
         string zipPostal;
         string stateProvince;

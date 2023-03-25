@@ -20,6 +20,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [NavigationItem("Sales")]
     [DefaultProperty("Description")]
     [Persistent("Quote")]
+    [ImageName("BO_Quote")]
 
     
     public class Quote : BaseObject
@@ -34,8 +35,17 @@ namespace SLAMS_CRM.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
-        [RuleRequiredField("RuleRequiredField for Quote.Lead", DefaultContexts.Save)]
-        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
+        /*[RuleRequiredField("RuleRequiredField for Quote.Lead", DefaultContexts.Save)]
+        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();*/
+
+        [Association("Quote-Leads")]
+        public XPCollection<Lead> Leads
+        {
+            get
+            {
+                return GetCollection<Lead>(nameof(Leads));
+            }
+        }
 
 
         string description;
@@ -56,14 +66,32 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-        
-        private XPCollection<Product> _products;
+
+        /*private XPCollection<Product> _products;
         [Association("Quote-Products")]
         [RuleRequiredField("RuleRequiredField for Quote.Products", DefaultContexts.Save)]
         public XPCollection<Product> Products
         {
             get => _products ?? (_products = new  XPCollection<Product>(Session));
+        }*/
+
+
+        /*[DevExpress.Xpo.Aggregated, Association]
+        public XPCollection<Product> Products
+        {
+            get { return GetCollection<Product>(nameof(Products)); }
+        }*/
+
+        // the one part of the Association
+        [Association("Quote-Products")]
+        public XPCollection<Product> Products
+        {
+            get
+            {
+                return GetCollection<Product>(nameof(Products));
+            }
         }
+
 
         private decimal _price;
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]

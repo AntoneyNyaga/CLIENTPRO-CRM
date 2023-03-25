@@ -21,6 +21,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [DefaultClassOptions]
     [NavigationItem("Contacts")]
     [Persistent("Contact")]
+    [ImageName("NewCustomer")]
 
 
     [ObjectCaptionFormat("{0:FullName}")]
@@ -38,6 +39,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        Communication communication;
+        Opportunity opportunity;
         string notes;
         string company;
         private const string V = "{FirstName} {LastName}";
@@ -70,7 +73,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-
         [RuleRegularExpression("RuleRegularExpression for Contact.PhoneNumber", DefaultContexts.Save, @"^(\+)?\d+(\s*\-\s*\d+)*$")]
         [RuleRequiredField("RuleRequiredField for Contact.PhoneNumber", DefaultContexts.Save)]
         public string PhoneNumber
@@ -99,13 +101,31 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
 
-        [Browsable(false)]
-        public Communication Communication { get; set; }
+        /* [Browsable(false)]
+         public Communication Communication { get; set; }*/
 
-        [Browsable(false)]
-        public Opportunity Opportunity { get; set; }
 
         
+        [DevExpress.Xpo.Association("Communication-Contacts")]
+        public Communication Communication
+        {
+            get => communication;
+            set => SetPropertyValue(nameof(Communication), ref communication, value);
+        }
+
+
+
+        /*[Browsable(false)]
+        public Opportunity Opportunity { get; set; }*/
+
+
+        [DevExpress.Xpo.Association("Opportunity-Contacts")]
+        public Opportunity Opportunity
+        {
+            get => opportunity;
+            set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
+        }
+
 
         [Browsable(false)]
         [SearchMemberOptions(SearchMemberMode.Exclude)]
