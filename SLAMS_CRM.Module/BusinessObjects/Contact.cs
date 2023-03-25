@@ -82,8 +82,19 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
         [RuleRequiredField("RuleRequiredField for Contact.Address", DefaultContexts.Save)]
         //[DevExpress.Xpo.Association("Contacts-Address")]
-        [ExpandObjectMembers(ExpandObjectMembers.Always)]
-        public Address Address { get; set; }
+        //[ExpandObjectMembers(ExpandObjectMembers.Always)]
+        //[VisibleInDetailView(true)]
+        //public Address Address { get; set; }
+
+        [VisibleInDetailView(true)]
+        [DevExpress.Xpo.Association("Contact-Addresses")]
+        public XPCollection<Address> Addresses
+        {
+            get
+            {
+                return GetCollection<Address>(nameof(Addresses));
+            }
+        }
 
 
         [RuleRegularExpression("RuleRegularExpression for Contact.EmailAddress", DefaultContexts.Save, @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]
@@ -128,6 +139,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [Browsable(false)]
+        [ReadOnly(true)]
         [SearchMemberOptions(SearchMemberMode.Exclude)]
         public String FullName
         {
@@ -138,6 +150,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [Browsable(false)]
+        [ReadOnly(true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public String DisplayName
         {
@@ -147,7 +160,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
         }
 
-        public static String FullNameFormat = V;
+     
+        private static String FullNameFormat = V;
 
 
     }

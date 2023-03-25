@@ -212,7 +212,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             Score = score;
         }
 
-        [Browsable (false)]
+        //[Browsable (false)]
+        [ReadOnly(true)]
         [SearchMemberOptions(SearchMemberMode.Exclude)]
         public String FullName
         {
@@ -232,7 +233,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
         }
 
-        public static String FullNameFormat = V;
+        private static String FullNameFormat = V;
 
     }
 
