@@ -14,9 +14,10 @@ using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
-    //[DefaultClassOptions]
+    [DefaultClassOptions]
     [DefaultProperty("Name")]
-    [NavigationItem("Sales")]
+    //[NavigationItem("Sales")]
+    [ImageName("BO_Product")]
     [Persistent("Product")]
     public class Product : BaseObject
     {

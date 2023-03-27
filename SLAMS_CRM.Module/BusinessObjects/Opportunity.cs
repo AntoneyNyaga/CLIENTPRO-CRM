@@ -17,7 +17,7 @@ using System.Text;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("Opportunities")]
+    //[NavigationItem("Opportunities")]
     [Persistent("Opportunity")]
     [ImageName("BO_Opportunity")]
     

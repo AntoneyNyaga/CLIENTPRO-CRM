@@ -20,7 +20,7 @@ using SLAMS_CRM.Module.BusinessObjects;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("Opportunities")]
+    //[NavigationItem("Opportunities")]
     [Persistent("Lead")]
     [ImageName("BO_Lead")]
 

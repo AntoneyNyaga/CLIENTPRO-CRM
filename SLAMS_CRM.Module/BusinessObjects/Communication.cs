@@ -11,7 +11,7 @@ using System.Linq;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("Inbox")]
+    //[NavigationItem("Inbox")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
     public class Communication : BaseObject

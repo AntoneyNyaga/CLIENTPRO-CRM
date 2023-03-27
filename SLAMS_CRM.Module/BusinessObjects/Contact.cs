@@ -19,7 +19,7 @@ using DevExpress.Persistent.Base.General;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("Contacts")]
+    //[NavigationItem("Contacts")]
     [Persistent("Contact")]
     [ImageName("NewCustomer")]
 
