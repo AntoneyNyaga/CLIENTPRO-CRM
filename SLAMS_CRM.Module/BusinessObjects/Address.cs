@@ -31,8 +31,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
-        Contact contact;
-        private String defaultFullAddressFormat = "{Country}: {StateProvince}: {City}: {Street}: {ZipPostal}";
+        //Contact contact;
+        private String defaultFullAddressFormat = "{Country}, {StateProvince}, {City}, {Street}, {ZipPostal}";
         string country;
         string zipPostal;
         string stateProvince;
@@ -93,11 +93,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();*/
 
         
-        [Association("Contact-Addresses")]
+        /*[Association("Contact-Addresses")]
         public Contact Contact
         {
             get => contact;
             set => SetPropertyValue(nameof(Contact), ref contact, value);
-        }
+        }*/
     }
 }

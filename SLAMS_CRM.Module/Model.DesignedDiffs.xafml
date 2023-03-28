@@ -17,10 +17,41 @@
   </SchemaModules>
   <Views>
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
-    <ListView Id="Contact_Addresses_ListView">
-      <Columns>
-        <ColumnInfo Id="FullAddress" SortOrder="Ascending" />
-      </Columns>
-    </ListView>
+    <DetailView Id="Lead_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" Removed="True">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="27.10843373493976" IsNewNode="True">
+            <LayoutGroup Id="Lead" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="51.111111111111114" Caption="Lead Details" IsNewNode="True">
+              <LayoutGroup Id="Lead_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="FirstName" ViewItem="FirstName" Index="0" RelativeSize="36.734693877551024" IsNewNode="True" />
+                <LayoutItem Id="LastName" ViewItem="LastName" Index="1" RelativeSize="26.53061224489796" IsNewNode="True" />
+                <LayoutItem Id="EmailAddress" ViewItem="EmailAddress" Index="2" RelativeSize="36.734693877551024" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Lead_col2" ShowCaption="False" Index="1" RelativeSize="50" Caption="Lead_col2" IsNewNode="True">
+                <LayoutItem Id="PhoneNumber" ViewItem="PhoneNumber" Index="0" RelativeSize="36.734693877551024" IsNewNode="True" />
+                <LayoutItem Id="Company" ViewItem="Company" Index="1" RelativeSize="26.53061224489796" IsNewNode="True" />
+                <LayoutItem Id="FullName" ViewItem="FullName" Index="2" RelativeSize="36.734693877551024" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" Caption="Additional Information" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="48.888888888888886" IsNewNode="True">
+              <LayoutGroup Id="Auto9e65d28b-c192-4776-a733-c94a67e26e03" ShowCaption="False" Caption="Auto9e65d28b-c192-4776-a733-c94a67e26e03(15)" Index="0" RelativeSize="49.71857410881801" IsNewNode="True">
+                <LayoutItem Id="Address" ViewItem="Address" Index="0" RelativeSize="36.734693877551024" IsNewNode="True" />
+                <LayoutItem Id="SourceType" ViewItem="SourceType" Index="1" RelativeSize="26.53061224489796" IsNewNode="True" />
+                <LayoutItem Id="LeadStatus" ViewItem="LeadStatus" Index="2" RelativeSize="36.734693877551024" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto808b1219-5dd1-4364-907b-a4c7e4da6c47" ShowCaption="False" Caption="Auto808b1219-5dd1-4364-907b-a4c7e4da6c47(19)" Index="1" RelativeSize="50.28142589118199" IsNewNode="True">
+                <LayoutItem Id="Inbox" ViewItem="Inbox" Index="0" RelativeSize="36.734693877551024" IsNewNode="True" />
+                <LayoutItem Id="Quote" ViewItem="Quote" Index="1" RelativeSize="26.53061224489796" IsNewNode="True" />
+                <LayoutItem Id="Score" ViewItem="Score" Index="2" RelativeSize="26.53061224489796" IsNewNode="True" />
+                <LayoutItem Id="Item1" Index="3" RelativeSize="10.204081632653061" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Caption="Notes" Index="1" RelativeSize="72.89156626506023" IsNewNode="True">
+            <LayoutItem Id="Notes" ViewItem="Notes" Index="0" RelativeSize="100" IsNewNode="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>

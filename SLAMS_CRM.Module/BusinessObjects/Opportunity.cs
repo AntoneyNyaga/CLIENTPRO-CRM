@@ -40,6 +40,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string opportunityDescription;
         string opportunityName;
         string stage;
+        string leadSource;
 
         [RuleRequiredField("RuleRequiredField for Opportunity.Opportunityname", DefaultContexts.Save)]
         [Size(50)]
@@ -58,27 +59,12 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(OpportunityDescription), ref opportunityDescription, value);
         }
 
-        //public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
-
-        [Association("Opportunity-Leads")]
-        public XPCollection<Lead> Leads
-        {
-            get
-            {
-                return GetCollection<Lead>(nameof(Leads));
-            }
-        }
-
-
-
-        //public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
-
         [Association("Opportunity-Contacts")]
-        public XPCollection<Contact> Contacts
+        public XPCollection<Contact> AssignedTo
         {
             get
             {
-                return GetCollection<Contact>(nameof(Contacts));
+                return GetCollection<Contact>(nameof(AssignedTo));
             }
         }
 
@@ -118,7 +104,37 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(EstimatedCloseDate), ref estimatedCloseDate, value);
         }
 
-        
+
+        /*private LeadSource leadSource;
+        [ImmediatePostData]
+        [NotMapped]
+        public LeadSource LeadSource
+        {
+            get => leadSource;
+            set => SetPropertyValue(nameof(LeadSource), ref leadSource, value);
+        }*/
+
+
+        [Browsable(false)]
+        public int LeadSource
+        {
+            get => leadSource == null ? 0 : (int)Enum.Parse(typeof(LeadSource), leadSource);
+            set
+            {
+                SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value));
+            }
+        }
+
+        [NotMapped]
+        public LeadSource LeadSourceType
+        {
+            get => (LeadSource)LeadSource;
+            set => LeadSource = (int)value;
+        }
+
+
+
+
         [Size(SizeAttribute.Unlimited)]
         public string Comments
         {
@@ -131,6 +147,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             base.OnSaving();
             CalculateProbabilityOfClosing();
         }
+
 
         public void CalculateProbabilityOfClosing()
         {
@@ -185,6 +202,25 @@ namespace SLAMS_CRM.Module.BusinessObjects
         NegotiationReview,
         ClosedWon,
         ClosedLost
+    }
+
+    public enum LeadSource
+    {
+        ColdCall,
+        ExistingCustomer,
+        SelfGenerated,
+        Employee,
+        Partner,
+        PublicRelations,
+        DirectMail,
+        Conference,
+        TradeShow,
+        Website,
+        WordOfMouth,
+        Email,
+        Campaign,
+        Other
+
     }
 
 }

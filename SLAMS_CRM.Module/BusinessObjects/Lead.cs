@@ -39,8 +39,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        string jobTitle;
         Inbox inbox;
-        Opportunity opportunity;
+        //Opportunity opportunity;
         Quote quote;
         private const string V = "{FirstName} {LastName}";
         string notes;
@@ -67,6 +68,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             get => lastName;
             set => SetPropertyValue(nameof(LastName), ref lastName, value);
+        }
+
+        
+        [Size(50)]
+        public string JobTitle
+        {
+            get => jobTitle;
+            set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value);
         }
 
 
@@ -98,11 +107,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [RuleRequiredField("RuleRequiredField for Lead.Address", DefaultContexts.Save)]
+        
         public Address Address { get; set; }
 
-
-        /*[Size(50)]
-        [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]*/
 
         [Browsable(false)]
         public int Source
@@ -139,7 +146,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        [Size(SizeAttribute.Unlimited)]
+        [Size(4096)]
         public string Notes
         {
             get => notes;
@@ -171,24 +178,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
 
-        /*[DevExpress.Xpo.Association("Lead-Communicatons")]
-        //[Browsable(false)]
-        public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));*/
-
-        /*[Browsable(false)]
-        public Opportunity Opportunity { get; set; }*/
-
-
-
-        [DevExpress.Xpo.Association("Opportunity-Leads")]
-        public Opportunity Opportunity
-        {
-            get => opportunity;
-            set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
-        }
-
-
-
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {
             base.OnChanged(propertyName, oldValue, newValue);
@@ -202,11 +191,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
         private void CalculateScore()
         {
             int score = 0;
-            if (!string.IsNullOrEmpty(FirstName)) score += 10;
-            if (!string.IsNullOrEmpty(LastName)) score += 10;
-            if (!string.IsNullOrEmpty(Company)) score += 10;
-            if (!string.IsNullOrEmpty(EmailAddress)) score += 10;
-            if (!string.IsNullOrEmpty(PhoneNumber)) score += 10;
+            if (!string.IsNullOrEmpty(FirstName)) score += 20;
+            if (!string.IsNullOrEmpty(LastName)) score += 20;
+            if (!string.IsNullOrEmpty(Company)) score += 20;
+            if (!string.IsNullOrEmpty(EmailAddress)) score += 20;
+            if (!string.IsNullOrEmpty(PhoneNumber)) score += 20;
             //if (!string.IsNullOrEmpty(Source)) score += 10;
 
             Score = score;
@@ -248,10 +237,19 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
     public enum SourceType
     {
-        Online,
-        Referral,
-        Advertisement,
-        Event,
+        ColdCall,
+        ExistingCustomer,
+        SelfGenerated,
+        Employee,
+        Partner,
+        PublicRelations,
+        DirectMail,
+        Conference,
+        TradeShow,
+        Website,
+        WordOfMouth,
+        Email,
+        Campaign,
         Other
     }
 

@@ -15,6 +15,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base.General;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
@@ -39,6 +40,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        string jobTitle;
         Inbox inbox;
         Opportunity opportunity;
         string notes;
@@ -48,6 +50,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string emailAddress;
         string lastName;
         string firstName;
+        string leadSource;
 
         [RuleRequiredField("RuleRequiredField for Contact.FirstName", DefaultContexts.Save)]
         public string FirstName
@@ -63,9 +66,16 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(LastName), ref lastName, value);
         }
 
+        [Size(50)]
+        public string JobTitle
+        {
+            get => jobTitle;
+            set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value);
+        }
+
 
         [Size(100)]
-        [RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
+        //[RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
         public string Company
         {
             get => company;
@@ -81,20 +91,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set { SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value); }
         }
         [RuleRequiredField("RuleRequiredField for Contact.Address", DefaultContexts.Save)]
-        //[DevExpress.Xpo.Association("Contacts-Address")]
-        //[ExpandObjectMembers(ExpandObjectMembers.Always)]
-        //[VisibleInDetailView(true)]
-        //public Address Address { get; set; }
-
-        [VisibleInDetailView(true)]
-        [DevExpress.Xpo.Association("Contact-Addresses")]
-        public XPCollection<Address> Addresses
-        {
-            get
-            {
-                return GetCollection<Address>(nameof(Addresses));
-            }
-        }
+        public Address Address { get; set; }
 
 
         [RuleRegularExpression("RuleRegularExpression for Contact.EmailAddress", DefaultContexts.Save, @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]
@@ -111,12 +108,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => notes;
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
-
-        /* [Browsable(false)]
-         public Communication Communication { get; set; }*/
-
-
-        
+ 
         [DevExpress.Xpo.Association("Inbox-Contacts")]
         public Inbox Inbox
         {
@@ -124,12 +116,24 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Inbox), ref inbox, value);
         }
 
+        [Browsable(false)]
+        public int LeadSource
+        {
+            get => leadSource == null ? 0 : (int)Enum.Parse(typeof(LeadSource), leadSource);
+            set
+            {
+                SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value));
+            }
+        }
 
+        [NotMapped]
+        public LeadSource LeadSourceType
+        {
+            get => (LeadSource)LeadSource;
+            set => LeadSource = (int)value;
+        }
 
-        /*[Browsable(false)]
-        public Opportunity Opportunity { get; set; }*/
-
-
+        [Browsable(false)]
         [DevExpress.Xpo.Association("Opportunity-Contacts")]
         public Opportunity Opportunity
         {

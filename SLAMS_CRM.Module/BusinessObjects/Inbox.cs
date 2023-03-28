@@ -12,7 +12,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     //[NavigationItem("Inbox")]
-    [Persistent("Communication")]
+    [Persistent("Inbox")]
     [ImageName("Actions_EnvelopeOpen")]
     public class Inbox : BaseObject
     {
@@ -71,17 +71,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => description;
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
-
-
-        /*private XPCollection<Lead> _leads;
-        [DevExpress.Xpo.Association("Lead-Communications")]
-        [RuleRequiredField("RuleRequiredField for Communication.Lead", DefaultContexts.Save)]
-        public XPCollection<Lead> Leads
-        {
-            get => _leads ?? (_leads = new XPCollection<Lead>(Session));
-        }*/
-
-        //public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
 
         [Association("Inbox-Leads")]
         public XPCollection<Lead> Leads

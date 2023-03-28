@@ -66,22 +66,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-
-        /*private XPCollection<Product> _products;
-        [Association("Quote-Products")]
-        [RuleRequiredField("RuleRequiredField for Quote.Products", DefaultContexts.Save)]
-        public XPCollection<Product> Products
-        {
-            get => _products ?? (_products = new  XPCollection<Product>(Session));
-        }*/
-
-
-        /*[DevExpress.Xpo.Aggregated, Association]
-        public XPCollection<Product> Products
-        {
-            get { return GetCollection<Product>(nameof(Products)); }
-        }*/
-
         // the one part of the Association
         [Association("Quote-Products")]
         public XPCollection<Product> Products
@@ -95,7 +79,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         private decimal _price;
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
-        //[RuleRequiredField("RuleRequiredField for Quote.Price", DefaultContexts.Save)]
         public decimal Price
         {
             get => _price;
@@ -103,7 +86,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         private QuoteStatus _status;
-        //[RuleRequiredField("RuleRequiredField for Quote.Status", DefaultContexts.Save)]
 
         public QuoteStatus Status
         {
