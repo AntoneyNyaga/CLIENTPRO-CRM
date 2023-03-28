@@ -39,7 +39,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        Communication communication;
+        Inbox inbox;
         Opportunity opportunity;
         string notes;
         string company;
@@ -105,7 +105,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
 
-        [Size(SizeAttribute.Unlimited)]
+        [Size(4096)]
         public string Notes
         {
             get => notes;
@@ -117,11 +117,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         
-        [DevExpress.Xpo.Association("Communication-Contacts")]
-        public Communication Communication
+        [DevExpress.Xpo.Association("Inbox-Contacts")]
+        public Inbox Inbox
         {
-            get => communication;
-            set => SetPropertyValue(nameof(Communication), ref communication, value);
+            get => inbox;
+            set => SetPropertyValue(nameof(Inbox), ref inbox, value);
         }
 
 

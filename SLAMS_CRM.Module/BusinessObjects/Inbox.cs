@@ -14,9 +14,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
     //[NavigationItem("Inbox")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
-    public class Communication : BaseObject
+    public class Inbox : BaseObject
     {
-        public Communication(Session session)
+        public Inbox(Session session)
             : base(session)
         {
         }
@@ -83,7 +83,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         //public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();
 
-        [Association("Communication-Leads")]
+        [Association("Inbox-Leads")]
         public XPCollection<Lead> Leads
         {
             get
@@ -95,7 +95,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         //public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
 
 
-        [Association("Communication-Contacts")]
+        [Association("Inbox-Contacts")]
         public XPCollection<Contact> Contacts
         {
             get

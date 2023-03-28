@@ -3,31 +3,9 @@
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
   </BOModel>
-  <NavigationItems StartupNavigationItem="Dashboards">
+  <NavigationItems StartupNavigationItem="Inbox_ListView">
     <Items>
-      <Item Id="Contacts" ImageName="BO_Contact">
-        <Items>
-          <Item Id="Contact_ListView" ImageName="NewCustomer" />
-        </Items>
-      </Item>
-      <Item Id="Inbox" ImageName="Actions_EnvelopeOpen">
-        <Items>
-          <Item Id="Communication_ListView" ImageName="NewComment" />
-        </Items>
-      </Item>
-      <Item Id="Opportunities" ImageName="BO_Opportunity">
-        <Items>
-          <Item Id="Lead_ListView" ImageName="BO_Lead" />
-          <Item Id="Opportunity_ListView" ImageName="Business_Idea" />
-        </Items>
-      </Item>
       <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" />
-      <Item Id="Sales" ImageName="ProductQuicTopSalesperson">
-        <Items>
-          <Item Id="Product_ListView" ImageName="BO_Product" />
-          <Item Id="Quote_ListView" ImageName="BO_Quote" />
-        </Items>
-      </Item>
     </Items>
   </NavigationItems>
   <Options>

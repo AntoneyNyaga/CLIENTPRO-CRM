@@ -39,7 +39,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        Communication communication;
+        Inbox inbox;
         Opportunity opportunity;
         Quote quote;
         private const string V = "{FirstName} {LastName}";
@@ -162,11 +162,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         
-        [DevExpress.Xpo.Association("Communication-Leads")]
-        public Communication Communication
+        [DevExpress.Xpo.Association("Inbox-Leads")]
+        public Inbox Inbox
         {
-            get => communication;
-            set => SetPropertyValue(nameof(Communication), ref communication, value);
+            get => inbox;
+            set => SetPropertyValue(nameof(Inbox), ref inbox, value);
         }
 
 
