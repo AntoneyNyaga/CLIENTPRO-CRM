@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
@@ -27,4 +28,10 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
         result.User = this;
         return result;
     }
+
+    [Browsable(false)]
+    public IList<Quote> Quotes { get; set; } = new ObservableCollection<Quote>();
+
+    [Browsable(false)]
+    public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
 }

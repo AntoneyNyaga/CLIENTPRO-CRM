@@ -92,12 +92,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Browsable(false)]
         public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();*/
 
-        
+
         /*[Association("Contact-Addresses")]
         public Contact Contact
         {
             get => contact;
             set => SetPropertyValue(nameof(Contact), ref contact, value);
         }*/
+        [Browsable(false)]
+        public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
     }
 }

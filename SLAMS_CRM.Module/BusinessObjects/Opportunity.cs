@@ -17,16 +17,16 @@ using System.Text;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    //[NavigationItem("Opportunities")]
+    [NavigationItem("SLAMS CRM")]
     [Persistent("Opportunity")]
     [ImageName("BO_Opportunity")]
-    
+
     public class Opportunity : BaseObject
-    { 
-        public Opportunity(Session session)
-            : base(session)
+    {
+        public Opportunity(Session session) : base(session)
         {
         }
+
         public override void AfterConstruction()
         {
             base.AfterConstruction();
@@ -34,13 +34,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        string comments;
+        decimal opportunityAmount;
         DateTime estimatedCloseDate;
         double probabilityOfClosing;
         string opportunityDescription;
         string opportunityName;
         string stage;
         string leadSource;
+        ApplicationUser assignedTo;
 
         [RuleRequiredField("RuleRequiredField for Opportunity.Opportunityname", DefaultContexts.Save)]
         [Size(50)]
@@ -52,22 +53,20 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [RuleRequiredField("RuleRequiredField for Opportunity.OpportunityDescription", DefaultContexts.Save)]
-        [Size(SizeAttribute.Unlimited)]
+        [Size(4096)]
         public string OpportunityDescription
         {
             get => opportunityDescription;
             set => SetPropertyValue(nameof(OpportunityDescription), ref opportunityDescription, value);
         }
 
-        [Association("Opportunity-Contacts")]
-        public XPCollection<Contact> AssignedTo
+        public ApplicationUser AssignedTo
         {
-            get
-            {
-                return GetCollection<Contact>(nameof(AssignedTo));
-            }
+            get => assignedTo;
+            set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
 
+        public Account AccountName { get; set; }
 
 
         [Browsable(false)]
@@ -82,11 +81,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [NotMapped]
-        public StageType StageType
-        {
-            get => (StageType)Stage;
-            set => Stage = (int)value;
-        }
+        public StageType StageType { get => (StageType)Stage; set => Stage = (int)value; }
 
 
         [ReadOnly(false)]
@@ -97,49 +92,32 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [RuleRequiredField("RuleRequiredField for Opportunity.EstimatedCloseDate", DefaultContexts.Save)]
-        
+
         public DateTime EstimatedCloseDate
         {
             get => estimatedCloseDate;
             set => SetPropertyValue(nameof(EstimatedCloseDate), ref estimatedCloseDate, value);
         }
 
-
-        /*private LeadSource leadSource;
-        [ImmediatePostData]
-        [NotMapped]
-        public LeadSource LeadSource
-        {
-            get => leadSource;
-            set => SetPropertyValue(nameof(LeadSource), ref leadSource, value);
-        }*/
+        [Browsable(false)]
+        public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
 
         [Browsable(false)]
         public int LeadSource
         {
             get => leadSource == null ? 0 : (int)Enum.Parse(typeof(LeadSource), leadSource);
-            set
-            {
-                SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value));
-            }
+            set { SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value)); }
         }
 
         [NotMapped]
-        public LeadSource LeadSourceType
+        public LeadSource LeadSourceType { get => (LeadSource)LeadSource; set => LeadSource = (int)value; }
+
+
+        public decimal OpportunityAmount
         {
-            get => (LeadSource)LeadSource;
-            set => LeadSource = (int)value;
-        }
-
-
-
-
-        [Size(SizeAttribute.Unlimited)]
-        public string Comments
-        {
-            get => comments;
-            set => SetPropertyValue(nameof(Comments), ref comments, value);
+            get => opportunityAmount;
+            set => SetPropertyValue(nameof(OpportunityAmount), ref opportunityAmount, value);
         }
 
         protected override void OnSaving()
@@ -151,7 +129,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public void CalculateProbabilityOfClosing()
         {
-            switch (StageType)
+            switch(StageType)
             {
                 case StageType.Prospecting:
                     ProbabilityOfClosing = 0.1;
@@ -220,7 +198,5 @@ namespace SLAMS_CRM.Module.BusinessObjects
         Email,
         Campaign,
         Other
-
     }
-
 }

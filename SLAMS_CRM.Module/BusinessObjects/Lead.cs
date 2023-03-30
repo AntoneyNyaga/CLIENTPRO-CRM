@@ -20,7 +20,7 @@ using SLAMS_CRM.Module.BusinessObjects;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    //[NavigationItem("Opportunities")]
+    [NavigationItem("SLAMS CRM")]
     [Persistent("Lead")]
     [ImageName("BO_Lead")]
 
@@ -40,7 +40,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         string jobTitle;
-        Inbox inbox;
+        Dashboard inbox;
         //Opportunity opportunity;
         Quote quote;
         private const string V = "{FirstName} {LastName}";
@@ -157,20 +157,20 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public Quote Quote { get; set; }*/
 
 
-        [DevExpress.Xpo.Association("Quote-Leads")]
+        /*[DevExpress.Xpo.Association("Quote-Leads")]
         public Quote Quote
         {
             get => quote;
             set => SetPropertyValue(nameof(Quote), ref quote, value);
-        }
+        }*/
 
         /*[Browsable(false)]
         public Communication Communication { get; set; }*/
 
 
         
-        [DevExpress.Xpo.Association("Inbox-Leads")]
-        public Inbox Inbox
+        [DevExpress.Xpo.Association("Dashboard-Leads")]
+        public Dashboard Inbox
         {
             get => inbox;
             set => SetPropertyValue(nameof(Inbox), ref inbox, value);

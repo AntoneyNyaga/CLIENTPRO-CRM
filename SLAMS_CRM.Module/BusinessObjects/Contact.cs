@@ -16,11 +16,12 @@ using System.ComponentModel.DataAnnotations;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base.General;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.ObjectModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    //[NavigationItem("Contacts")]
+    [NavigationItem("SLAMS CRM")]
     [Persistent("Contact")]
     [ImageName("NewCustomer")]
 
@@ -41,7 +42,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         string jobTitle;
-        Inbox inbox;
+        Dashboard inbox;
         Opportunity opportunity;
         string notes;
         string company;
@@ -109,8 +110,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
  
-        [DevExpress.Xpo.Association("Inbox-Contacts")]
-        public Inbox Inbox
+        [DevExpress.Xpo.Association("Dashboard-Contacts")]
+        public Dashboard Inbox
         {
             get => inbox;
             set => SetPropertyValue(nameof(Inbox), ref inbox, value);
@@ -134,12 +135,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [Browsable(false)]
-        [DevExpress.Xpo.Association("Opportunity-Contacts")]
-        public Opportunity Opportunity
-        {
-            get => opportunity;
-            set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
-        }
+        public IList <Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
 
         [Browsable(false)]

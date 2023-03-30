@@ -16,7 +16,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [DefaultProperty("Name")]
-    //[NavigationItem("Sales")]
+    [NavigationItem("SLAMS CRM")]
     [ImageName("BO_Product")]
     [Persistent("Product")]
     public class Product : BaseObject

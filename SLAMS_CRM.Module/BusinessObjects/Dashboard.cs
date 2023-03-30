@@ -12,12 +12,12 @@ using System.Linq;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    //[NavigationItem("Inbox")]
+    [NavigationItem("SLAMS CRM")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
-    public class Inbox : BaseObject
+    public class Dashboard : BaseObject
     {
-        public Inbox(Session session)
+        public Dashboard(Session session)
             : base(session)
         {
         }
@@ -73,7 +73,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-        [Association("Inbox-Leads")]
+        [Association("Dashboard-Leads")]
         public XPCollection<Lead> Leads
         {
             get
@@ -85,7 +85,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         //public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
 
 
-        [Association("Inbox-Contacts")]
+        [Association("Dashboard-Contacts")]
         public XPCollection<Contact> Contacts
         {
             get
@@ -116,6 +116,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => notes;
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
+
+        /*[ExpandObjectMembers(ExpandObjectMembers.Always)]
+        public MyActivityStream MyActivityStream { get; set; }*/
     }
 
     public enum CommunicationType

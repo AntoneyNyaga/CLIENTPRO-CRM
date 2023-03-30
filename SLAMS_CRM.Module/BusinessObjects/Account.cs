@@ -15,10 +15,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using SLAMS_CRM.Module.BusinessObjects;
+using System.Collections.ObjectModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
+    [NavigationItem("SLAMS CRM")]
 
     public class Account : BaseObject
     {
@@ -30,11 +33,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
-
+            createdOn = DateTime.Now;
         }
 
 
-        bool isNewObject;
         DateTime modifiedOn;
         DateTime createdOn;
         double annualRevenue;
@@ -110,6 +112,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [Editable(false)]
         [ReadOnly(false)]
+        [Browsable(false)]
         public DateTime CreatedOn
         {
             get => createdOn;
@@ -118,29 +121,47 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [Editable(false)]
         [ReadOnly(true)]
+        [Browsable(false)]
         public DateTime ModifiedOn
         {
             get => modifiedOn;
             set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
         }
 
-        //public bool IsNewObject { get; private set; }
-        
-        public bool IsNewObject
-        {
-            get => isNewObject;
-            set => SetPropertyValue(nameof(IsNewObject), ref isNewObject, value);
-        }
+        [Browsable(false)]
+        public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
 
         protected override void OnSaving()
         {
-            if(IsNewObject)
+            if (Session.IsNewObject(this))
             {
                 CreatedOn = DateTime.Now;
+                AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            else
+            {
+                AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
             }
             ModifiedOn = DateTime.Now;
             base.OnSaving();
         }
+
+        private void AddActivityStreamEntry(string action, ApplicationUser applicationUser)
+        {
+            var activityStreamEntry = new MyActivityStream(Session)
+            {
+                AccountName = Name,
+                Action = action,
+                Date = DateTime.Now,
+                CreatedBy = applicationUser != null ? applicationUser.UserName : null
+            };
+            activityStreamEntry.Save();
+        }
+
+        [Browsable(false)]
+        public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
+
+
     }
 
     public enum AccountType

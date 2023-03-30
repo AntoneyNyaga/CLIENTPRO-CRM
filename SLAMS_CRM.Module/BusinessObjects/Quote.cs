@@ -17,18 +17,18 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
 
-    //[NavigationItem("Sales")]
+    [NavigationItem("SLAMS CRM")]
     [DefaultProperty("Description")]
     [Persistent("Quote")]
     [ImageName("BO_Quote")]
 
-    
+
     public class Quote : BaseObject
-    { 
-        public Quote(Session session)
-            : base(session)
+    {
+        public Quote(Session session) : base(session)
         {
         }
+
         public override void AfterConstruction()
         {
             base.AfterConstruction();
@@ -38,74 +38,111 @@ namespace SLAMS_CRM.Module.BusinessObjects
         /*[RuleRequiredField("RuleRequiredField for Quote.Lead", DefaultContexts.Save)]
         public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();*/
 
-        [Association("Quote-Leads")]
+        /*[Association("Quote-Leads")]
         public XPCollection<Lead> Leads
         {
             get
             {
                 return GetCollection<Lead>(nameof(Leads));
             }
-        }
+        }*/
 
 
-        string description;
-        DateTime dateCreated;
+        [Size(50)]
+        [RuleRequiredField("RuleRequiredField for Quote.Title", DefaultContexts.Save)]
+        public string Title { get => title; set => SetPropertyValue(nameof(Title ), ref title, value); }
+
+        // one to one relationship between Quote and Account
+        public Account Account { get; set; }
+
+        public Opportunity Opportunity { get; set; }
+
+        public Contact Contact { get; set; }
+
+        public Address ShippingAddress { get; set; }
+
+        public Address BillingAddress { get; set; }
+
+
+        string title;
+        string approvalIssues;
+        DateTime validUntil;
+        ApplicationUser assignedTo;
 
         [RuleRequiredField("RuleRequiredField for Quote.DateCreated", DefaultContexts.Save)]
-        public DateTime DateCreated
+        public DateTime ValidUntil
         {
-            get => dateCreated;
-            set => SetPropertyValue(nameof(DateCreated), ref dateCreated, value);
+            get => validUntil;
+            set => SetPropertyValue(nameof(ValidUntil), ref validUntil, value);
         }
 
-        [RuleRequiredField("RuleRequiredField for Quote.Description", DefaultContexts.Save)]
-        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        public string Description
+        public ApplicationUser AssignedTo
         {
-            get => description;
-            set => SetPropertyValue(nameof(Description), ref description, value);
+            get => assignedTo;
+            set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
+
 
         // the one part of the Association
         [Association("Quote-Products")]
-        public XPCollection<Product> Products
-        {
-            get
-            {
-                return GetCollection<Product>(nameof(Products));
-            }
-        }
+        public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
 
         private decimal _price;
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
-        public decimal Price
-        {
-            get => _price;
-            set => SetPropertyValue(nameof(Price), ref _price, value);
-        }
+        public decimal Price { get => _price; set => SetPropertyValue(nameof(Price), ref _price, value); }
 
-        private QuoteStatus _status;
+        private ApprovalStatus _status;
 
-        public QuoteStatus Status
+        public ApprovalStatus ApprovalStatus
         {
             get => _status;
-            set => SetPropertyValue(nameof(Status), ref _status, value);
+            set => SetPropertyValue(nameof(ApprovalStatus), ref _status, value);
         }
 
-        private string _notes;
-        [Size(SizeAttribute.Unlimited)]
-        public string Notes
+        private QuoteStage quoteStage;
+
+        public QuoteStage QuoteStage
         {
-            get => _notes;
-            set => SetPropertyValue(nameof(Notes), ref _notes, value);
+            get => quoteStage;
+            set => SetPropertyValue(nameof(QuoteStage), ref quoteStage, value);
+        }
+
+        private InvoiceStatus invoiceStatus;
+
+        public InvoiceStatus InvoiceStatus
+        {
+            get => invoiceStatus;
+            set => SetPropertyValue(nameof(InvoiceStatus), ref invoiceStatus, value);
+        }
+
+        [RuleRequiredField("RuleRequiredField for Quote.ApprovalIssues", DefaultContexts.Save)]
+        [Size(4096)]
+        public string ApprovalIssues
+        {
+            get => approvalIssues;
+            set => SetPropertyValue(nameof(ApprovalIssues), ref approvalIssues, value);
         }
     }
 
-    public enum QuoteStatus
+    public enum ApprovalStatus
     {
+        Approved,
+        NotApproved
+    }
+
+    public enum QuoteStage
+    {
+        Draft,
         Sent,
+        OnHold,
         Accepted,
         Declined
+    }
+
+    public enum InvoiceStatus
+    {
+        NotInvoiced,
+        Invoiced
     }
 }
