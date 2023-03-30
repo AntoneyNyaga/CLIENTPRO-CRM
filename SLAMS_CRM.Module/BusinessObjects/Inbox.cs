@@ -1,4 +1,5 @@
-﻿using DevExpress.Persistent.Base;
+﻿using DevExpress.DashboardCommon;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -12,7 +13,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     //[NavigationItem("Inbox")]
-    [Persistent("Inbox")]
+    [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
     public class Inbox : BaseObject
     {
