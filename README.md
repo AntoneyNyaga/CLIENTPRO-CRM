@@ -23,7 +23,7 @@ To install the SLAMS CRM system, follow these steps:
 
 To use the SLAMS CRM system, follow these steps:
 
-1. Log in with your credentials and the first page you will see is the dashboard
+1. Log in with your credentials and the first page you will see is the dashboard <br> <br>
 ![image](https://user-images.githubusercontent.com/25669630/229128816-5c8ee412-7997-4b19-a987-8ff6be0619d6.png)
 
 2. Navigate to the appropriate module to access customer data or sales reports
