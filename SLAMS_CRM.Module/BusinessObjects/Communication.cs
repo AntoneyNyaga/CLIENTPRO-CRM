@@ -15,9 +15,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [NavigationItem("SLAMS CRM")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
-    public class Dashboard : BaseObject
+    public class Communication : BaseObject
     {
-        public Dashboard(Session session)
+        public Communication(Session session)
             : base(session)
         {
         }
@@ -73,7 +73,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-        [Association("Dashboard-Leads")]
+        [Association("Communication-Leads")]
         public XPCollection<Lead> Leads
         {
             get
@@ -85,7 +85,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         //public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
 
 
-        [Association("Dashboard-Contacts")]
+        [Association("Communication-Contacts")]
         public XPCollection<Contact> Contacts
         {
             get
@@ -116,9 +116,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => notes;
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
-
-        /*[ExpandObjectMembers(ExpandObjectMembers.Always)]
-        public MyActivityStream MyActivityStream { get; set; }*/
     }
 
     public enum CommunicationType

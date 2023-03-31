@@ -35,18 +35,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
-        /*[RuleRequiredField("RuleRequiredField for Quote.Lead", DefaultContexts.Save)]
-        public IList<Lead> Lead { get; set; } = new ObservableCollection<Lead>();*/
-
-        /*[Association("Quote-Leads")]
-        public XPCollection<Lead> Leads
-        {
-            get
-            {
-                return GetCollection<Lead>(nameof(Leads));
-            }
-        }*/
-
 
         [Size(50)]
         [RuleRequiredField("RuleRequiredField for Quote.Title", DefaultContexts.Save)]
@@ -57,11 +45,19 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public Opportunity Opportunity { get; set; }
 
+        [RuleRequiredField("RuleRequiredField for Quote.Contact", DefaultContexts.Save)]
         public Contact Contact { get; set; }
 
+        [RuleRequiredField("RuleRequiredField for Quote.ShippingAddress", DefaultContexts.Save)]
         public Address ShippingAddress { get; set; }
 
+        [RuleRequiredField("RuleRequiredField for Quote.BillingAddress", DefaultContexts.Save)]
         public Address BillingAddress { get; set; }
+
+        [RuleRequiredField("RuleRequiredField for Quote.Product", DefaultContexts.Save)]
+        [VisibleInListView(false)]
+        public Product Product { get; set; }
+
 
 
         string title;
@@ -84,9 +80,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         // the one part of the Association
-        [Association("Quote-Products")]
-        public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
-
+        //[Association("Quote-Products")]
+        //public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
         private decimal _price;
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
@@ -102,6 +97,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         private QuoteStage quoteStage;
 
+        //[RuleRequiredField("RuleRequiredField for Quote.QuoteStage", DefaultContexts.Save)]
         public QuoteStage QuoteStage
         {
             get => quoteStage;

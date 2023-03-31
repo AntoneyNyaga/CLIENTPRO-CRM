@@ -22,6 +22,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [NavigationItem("SLAMS CRM")]
+    //[ImageName("BO_EmployeeProfile")]
 
     public class Account : BaseObject
     {

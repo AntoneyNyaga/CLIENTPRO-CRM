@@ -40,9 +40,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         string jobTitle;
-        Dashboard inbox;
+        Communication inbox;
         //Opportunity opportunity;
-        Quote quote;
         private const string V = "{FirstName} {LastName}";
         string notes;
         int score;
@@ -121,7 +120,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]
 
         [NotMapped]
-
+      
         public SourceType? SourceType { get; set; }
 
         [Browsable(false)]
@@ -152,25 +151,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => notes;
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
-
-        /*[Browsable(false)]
-        public Quote Quote { get; set; }*/
-
-
-        /*[DevExpress.Xpo.Association("Quote-Leads")]
-        public Quote Quote
-        {
-            get => quote;
-            set => SetPropertyValue(nameof(Quote), ref quote, value);
-        }*/
-
-        /*[Browsable(false)]
-        public Communication Communication { get; set; }*/
-
-
         
-        [DevExpress.Xpo.Association("Dashboard-Leads")]
-        public Dashboard Inbox
+        [DevExpress.Xpo.Association("Communication-Leads")]
+        public Communication Inbox
         {
             get => inbox;
             set => SetPropertyValue(nameof(Inbox), ref inbox, value);

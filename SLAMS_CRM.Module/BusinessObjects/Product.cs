@@ -8,6 +8,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -21,50 +22,56 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [Persistent("Product")]
     public class Product : BaseObject
     {
-        public Product(Session session) : base(session) { }
+        public Product(Session session) : base(session)
+        {
+        }
 
-        Quote quote;
-        string description;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        public string Name
-        {
-            get => _name;
-            set => SetPropertyValue(nameof(Name), ref _name, value);
-        }
+        public string Name { get => _name; set => SetPropertyValue(nameof(Name), ref _name, value); }
 
-
+        private string _description;
         [RuleRequiredField("RuleRequiredField for Product.Description", DefaultContexts.Save)]
         [Size(SizeAttribute.Unlimited)]
         public string Description
         {
-            get => description;
-            set => SetPropertyValue(nameof(Description), ref description, value);
+            get => _description;
+            set => SetPropertyValue(nameof(Description), ref _description, value);
         }
 
         private decimal _price;
-        //[RuleRequiredField("RuleRequiredField for Product.Price", DefaultContexts.Save)]
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
+        public decimal Price { get => _price; set => SetPropertyValue(nameof(Price), ref _price, value); }
 
-        public decimal Price
+        private ProductLine _productLine;
+        [Association("ProductLine-Products")]
+        [RuleRequiredField("RuleRequiredField for Product.ProductLine", DefaultContexts.Save)]
+        public ProductLine ProductLine
         {
-            get => _price;
-            set => SetPropertyValue(nameof(Price), ref _price, value);
+            get => _productLine;
+            set => SetPropertyValue(nameof(ProductLine), ref _productLine, value);
+        }
+    }
+
+    //[DefaultClassOptions]
+    [DefaultProperty("Name")]
+    //[NavigationItem("SLAMS CRM")]
+    [ImageName("BO_ProductLine")]
+    [Persistent("ProductLine")]
+    public class ProductLine : BaseObject
+    {
+        public ProductLine(Session session) : base(session)
+        {
         }
 
-        /*[Association("Quote-Products")]
+        private string _name;
+        [RuleRequiredField("RuleRequiredField for ProductLine.Name", DefaultContexts.Save)]
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        public string Name { get => _name; set => SetPropertyValue(nameof(Name), ref _name, value); }
+
         [Browsable(false)]
-        public XPCollection<Quote> Quotes => GetCollection<Quote>(nameof(Quotes));*/
-
-        
-        // the many part of the association
-        [Association("Quote-Products")]
-        public Quote Quote
-        {
-            get => quote;
-            set => SetPropertyValue(nameof(Quote), ref quote, value);
-        }
-
+        [Association("ProductLine-Products")]
+        public XPCollection<Product> Products => GetCollection<Product>(nameof(Products));
     }
 }

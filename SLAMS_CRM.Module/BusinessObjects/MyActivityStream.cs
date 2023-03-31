@@ -16,7 +16,7 @@ using System.Text;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("SLAMS CRM")]
+    //[NavigationItem("SLAMS CRM")]
     public class MyActivityStream : BaseObject
     {
         public MyActivityStream(Session session) : base(session)
@@ -92,8 +92,5 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 activityStreamEntry.Save();
             }
         }
-
-        /*[Browsable(false)]
-        public IList<Dashboard> dashboards { get; set; } = new ObservableCollection<Dashboard>();*/
     }
 }

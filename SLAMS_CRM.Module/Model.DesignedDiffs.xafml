@@ -3,9 +3,16 @@
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
   </BOModel>
-  <NavigationItems StartupNavigationItem="Dashboard_ListView">
+  <NavigationItems StartupNavigationItem="Dashboard">
     <Items>
+      <Item Id="Dashboard" ViewId="Dashboard" IsNewNode="True" />
       <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" />
+      <Item Id="SLAMS CRM" ImageName="BO_Project">
+        <Items>
+          <Item Id="Account_ListView" ImageName="Business_Bank" />
+          <Item Id="Contact_ListView" ImageName="BO_Person" />
+        </Items>
+      </Item>
     </Items>
   </NavigationItems>
   <Options>
@@ -16,8 +23,42 @@
     <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <ListView Id="Account_ListView" ShowAutoFilterRow="True" />
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
-    <ListView Id="Dashboard_ListView" ShowAutoFilterRow="True" />
+    <ListView Id="Communication_ListView" ShowAutoFilterRow="True" />
+    <ListView Id="Contact_ListView" ShowAutoFilterRow="True" />
+    <DashboardView Id="Dashboard" IsNewNode="True">
+      <Items IsNewNode="True">
+        <DashboardViewItem Id="ActivityStream" ViewId="AuditDataItemPersistent_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="Contacts" ViewId="Contact_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="Leads" ViewId="Lead_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="MyAccounts" ViewId="Account_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="TopOpenOpportunities" ViewId="Opportunity_ListView" Criteria="" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" Direction="Horizontal" IsNewNode="True">
+          <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="50" IsNewNode="True">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="33.375156838143035" Caption="Contacts" IsNewNode="True">
+              <LayoutItem Id="Contacts" ViewItem="Contacts" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="33.249686323713924" Caption="Leads" IsNewNode="True">
+              <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item3" ShowCaption="True" Caption="Top Open Opportunities" CaptionLocation="Top" Index="2" RelativeSize="33.375156838143035" IsNewNode="True">
+              <LayoutItem Id="TopOpenOpportunities" ViewItem="TopOpenOpportunities" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50" IsNewNode="True">
+            <LayoutGroup Id="Item5" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="49.937264742785445" Caption="My Activity Stream" IsNewNode="True">
+              <LayoutItem Id="ActivityStream" ViewItem="ActivityStream" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="50.062735257214555" Caption="My Accounts" IsNewNode="True">
+              <LayoutItem Id="MyAccounts" ViewItem="MyAccounts" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DashboardView>
     <DetailView Id="Lead_DetailView">
       <Layout>
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" Removed="True">
@@ -54,6 +95,22 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Lead_ListView" ShowAutoFilterRow="True">
+      <Columns>
+        <ColumnInfo Id="FirstName" Index="-1" />
+        <ColumnInfo Id="LastName" Index="-1" />
+        <ColumnInfo Id="FullName" SortOrder="Ascending" />
+        <ColumnInfo Id="JobTitle" Index="1" />
+        <ColumnInfo Id="Company" Index="2" />
+        <ColumnInfo Id="EmailAddress" Index="3" />
+        <ColumnInfo Id="PhoneNumber" Index="4" />
+        <ColumnInfo Id="Address" Index="5" />
+        <ColumnInfo Id="SourceType" Index="6" />
+        <ColumnInfo Id="LeadStatus" Index="7" />
+        <ColumnInfo Id="Score" Index="8" />
+        <ColumnInfo Id="Inbox" Index="9" />
+      </Columns>
+    </ListView>
     <DetailView Id="Opportunity_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -82,19 +139,21 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Opportunity_ListView" ShowAutoFilterRow="True" />
+    <ListView Id="Product_ListView" ShowAutoFilterRow="True" />
     <DetailView Id="Quote_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="26.348808030112924" IsNewNode="True" Removed="True">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="26.31578947368421" IsNewNode="True" Removed="True">
             <LayoutGroup Id="Quote" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="100" Caption="Overview" IsNewNode="True">
-              <LayoutGroup Id="Quote_col1" ShowCaption="False" Index="0" RelativeSize="49.95083579154375" IsNewNode="True">
+              <LayoutGroup Id="Quote_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
                 <LayoutItem Id="Title" ViewItem="Title" Index="0" RelativeSize="20.481927710843372" IsNewNode="True" />
                 <LayoutItem Id="Opportunity" ViewItem="Opportunity" Index="1" RelativeSize="15.662650602409638" IsNewNode="True" />
                 <LayoutItem Id="ValidUntil" ViewItem="ValidUntil" Index="2" RelativeSize="15.662650602409638" IsNewNode="True" />
                 <LayoutItem Id="AssignedTo" ViewItem="AssignedTo" Index="3" RelativeSize="15.662650602409638" IsNewNode="True" />
                 <LayoutItem Id="ApprovalStatus" ViewItem="ApprovalStatus" Index="4" RelativeSize="32.53012048192771" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Quote_col2" ShowCaption="False" Index="1" RelativeSize="50.04916420845625" IsNewNode="True">
+              <LayoutGroup Id="Quote_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
                 <LayoutItem Id="Price" ViewItem="Price" Index="0" RelativeSize="20.481927710843372" IsNewNode="True" />
                 <LayoutItem Id="QuoteStage" ViewItem="QuoteStage" Index="1" RelativeSize="15.662650602409638" IsNewNode="True" />
                 <LayoutItem Id="InvoiceStatus" ViewItem="InvoiceStatus" Index="2" RelativeSize="15.662650602409638" IsNewNode="True" />
@@ -102,19 +161,16 @@
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="12.547051442910917" Direction="Horizontal" Caption="Address Information" IsNewNode="True">
-            <LayoutGroup Id="Auto6c90b1ed-1e6c-40bc-8510-5e446f38859d" ShowCaption="False" Caption="Auto6c90b1ed-1e6c-40bc-8510-5e446f38859d(15)" Index="0" RelativeSize="49.95083579154375" IsNewNode="True">
-              <LayoutItem Id="Account" ViewItem="Account" Index="0" RelativeSize="48.57142857142857" IsNewNode="True" />
-              <LayoutItem Id="Contact" ViewItem="Contact" Index="1" RelativeSize="51.42857142857143" IsNewNode="True" />
+          <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="73.6842105263158" Direction="Horizontal" Caption="Address Information" IsNewNode="True">
+            <LayoutGroup Id="Auto6c90b1ed-1e6c-40bc-8510-5e446f38859d" ShowCaption="False" Caption="Auto6c90b1ed-1e6c-40bc-8510-5e446f38859d(15)" Index="0" RelativeSize="50" IsNewNode="True">
+              <LayoutItem Id="Account" ViewItem="Account" Index="0" RelativeSize="6.181818181818182" IsNewNode="True" />
+              <LayoutItem Id="Contact" ViewItem="Contact" Index="1" RelativeSize="4.7272727272727275" IsNewNode="True" />
+              <LayoutItem Id="Product" ViewItem="Product" Index="2" RelativeSize="89.0909090909091" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Auto8718efbd-047c-4697-aa77-59023dcd2d93" ShowCaption="False" Caption="Auto8718efbd-047c-4697-aa77-59023dcd2d93(18)" Index="1" RelativeSize="50.04916420845625" IsNewNode="True">
-              <LayoutItem Id="ShippingAddress" ViewItem="ShippingAddress" Index="0" RelativeSize="48.57142857142857" IsNewNode="True" />
-              <LayoutItem Id="BillingAddress" ViewItem="BillingAddress" Index="1" RelativeSize="37.142857142857146" IsNewNode="True" />
-              <LayoutItem Id="Item1" Index="2" RelativeSize="14.285714285714286" IsNewNode="True" />
+            <LayoutGroup Id="Auto8718efbd-047c-4697-aa77-59023dcd2d93" ShowCaption="False" Caption="Auto8718efbd-047c-4697-aa77-59023dcd2d93(18)" Index="1" RelativeSize="50" IsNewNode="True">
+              <LayoutItem Id="ShippingAddress" ViewItem="ShippingAddress" Index="0" RelativeSize="6.181818181818182" IsNewNode="True" />
+              <LayoutItem Id="BillingAddress" ViewItem="BillingAddress" Index="1" RelativeSize="93.81818181818181" IsNewNode="True" />
             </LayoutGroup>
-          </LayoutGroup>
-          <LayoutGroup Id="Products_Group" Direction="Vertical" Index="2" RelativeSize="61.10414052697616">
-            <LayoutItem Id="Products" RelativeSize="100" />
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" Caption="Approval Issues" Index="2" RelativeSize="30.363864491844417" Removed="True">
             <LayoutItem Id="ApprovalIssues" Removed="True" />
@@ -122,5 +178,6 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Quote_ListView" ShowAutoFilterRow="True" />
   </Views>
 </Application>

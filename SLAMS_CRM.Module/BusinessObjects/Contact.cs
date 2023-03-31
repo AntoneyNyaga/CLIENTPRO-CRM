@@ -42,8 +42,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         string jobTitle;
-        Dashboard inbox;
-        Opportunity opportunity;
+        Communication inbox;
         string notes;
         string company;
         private const string V = "{FirstName} {LastName}";
@@ -110,8 +109,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
  
-        [DevExpress.Xpo.Association("Dashboard-Contacts")]
-        public Dashboard Inbox
+        [DevExpress.Xpo.Association("Communication-Contacts")]
+        public Communication Inbox
         {
             get => inbox;
             set => SetPropertyValue(nameof(Inbox), ref inbox, value);
