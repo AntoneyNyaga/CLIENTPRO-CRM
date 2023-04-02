@@ -39,6 +39,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        Address address;
         string jobTitle;
         Communication inbox;
         //Opportunity opportunity;
@@ -69,7 +70,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(LastName), ref lastName, value);
         }
 
-        
+
         [Size(50)]
         public string JobTitle
         {
@@ -106,9 +107,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [RuleRequiredField("RuleRequiredField for Lead.Address", DefaultContexts.Save)]
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [DevExpress.Xpo.Aggregated]
         
-        public Address Address { get; set; }
-
+        public Address Address
+        {
+            get => address;
+            set => SetPropertyValue(nameof(Address), ref address, value);
+        }
 
         [Browsable(false)]
         public int Source

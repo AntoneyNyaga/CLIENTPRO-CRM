@@ -49,17 +49,30 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public Contact Contact { get; set; }
 
         [RuleRequiredField("RuleRequiredField for Quote.ShippingAddress", DefaultContexts.Save)]
-        public Address ShippingAddress { get; set; }
-
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [DevExpress.Xpo.Aggregated]
+        public Address ShippingAddress
+        {
+            get => shippingAddress;
+            set => SetPropertyValue(nameof(ShippingAddress), ref shippingAddress, value);
+        }
         [RuleRequiredField("RuleRequiredField for Quote.BillingAddress", DefaultContexts.Save)]
-        public Address BillingAddress { get; set; }
-
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [DevExpress.Xpo.Aggregated]
+        
+        public Address BillingAddress
+        {
+            get => billingAddress;
+            set => SetPropertyValue(nameof(BillingAddress), ref billingAddress, value);
+        }
         [RuleRequiredField("RuleRequiredField for Quote.Product", DefaultContexts.Save)]
         [VisibleInListView(false)]
         public Product Product { get; set; }
 
 
 
+        Address billingAddress;
+        Address shippingAddress;
         string title;
         string approvalIssues;
         DateTime validUntil;

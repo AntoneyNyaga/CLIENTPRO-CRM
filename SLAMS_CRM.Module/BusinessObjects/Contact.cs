@@ -41,6 +41,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        Address address;
         string jobTitle;
         Communication inbox;
         string notes;
@@ -91,8 +92,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set { SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value); }
         }
         [RuleRequiredField("RuleRequiredField for Contact.Address", DefaultContexts.Save)]
-        public Address Address { get; set; }
-
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [DevExpress.Xpo.Aggregated]
+        
+        public Address Address
+        {
+            get => address;
+            set => SetPropertyValue(nameof(Address), ref address, value);
+        }
 
         [RuleRegularExpression("RuleRegularExpression for Contact.EmailAddress", DefaultContexts.Save, @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]
         [RuleRequiredField("RuleRequiredField for Contact.EmailAddress", DefaultContexts.Save)]
@@ -127,9 +134,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [NotMapped]
-        public LeadSource LeadSourceType
+        public SourceType SourceType
         {
-            get => (LeadSource)LeadSource;
+            get => (SourceType)LeadSource;
             set => LeadSource = (int)value;
         }
 
