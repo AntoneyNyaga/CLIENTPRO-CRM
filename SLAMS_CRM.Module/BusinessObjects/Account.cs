@@ -21,8 +21,8 @@ using System.Collections.ObjectModel;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("SLAMS CRM")]
-    //[ImageName("BO_EmployeeProfile")]
+    [NavigationItem("Accounting")]
+    [ImageName("AccountingNumberFormat")]
 
     public class Account : BaseObject
     {
@@ -38,6 +38,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        Address shippingAddress;
         DateTime modifiedOn;
         DateTime createdOn;
         double annualRevenue;
@@ -72,7 +73,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(OfficePhone), ref officePhone, value);
         }
 
-        public Address ShippingAddress;
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [DevExpress.Xpo.Aggregated]
+        
+        public Address ShippingAddress
+        {
+            get => shippingAddress;
+            set => SetPropertyValue(nameof(ShippingAddress), ref shippingAddress, value);
+        }
 
 
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]

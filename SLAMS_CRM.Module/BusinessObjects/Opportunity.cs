@@ -17,9 +17,9 @@ using System.Text;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("SLAMS CRM")]
+    [NavigationItem("Opportunities")]
     [Persistent("Opportunity")]
-    [ImageName("BO_Opportunity")]
+    [ImageName("ProductQuickShippments")]
 
     public class Opportunity : BaseObject
     {

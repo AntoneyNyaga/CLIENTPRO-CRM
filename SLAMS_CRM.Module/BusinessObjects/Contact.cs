@@ -21,19 +21,19 @@ using System.Collections.ObjectModel;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("SLAMS CRM")]
+    [NavigationItem("Clients and Leads")]
     [Persistent("Contact")]
-    [ImageName("NewCustomer")]
+    [ImageName("BO_Person")]
 
 
     [ObjectCaptionFormat("{0:FullName}")]
     [DefaultProperty(nameof(FullName))]
     public class Contact : BaseObject
-    { 
-        public Contact(Session session)
-            : base(session)
+    {
+        public Contact(Session session) : base(session)
         {
         }
+
         public override void AfterConstruction()
         {
             base.AfterConstruction();
@@ -43,65 +43,56 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         Address address;
         string jobTitle;
-        Communication inbox;
         string notes;
-        string company;
+        Company company;
         private const string V = "{FirstName} {LastName}";
         string phoneNumber;
         string emailAddress;
         string lastName;
         string firstName;
         string leadSource;
+        Account account;
 
         [RuleRequiredField("RuleRequiredField for Contact.FirstName", DefaultContexts.Save)]
-        public string FirstName
-        {
-            get => firstName;
-            set => SetPropertyValue(nameof(FirstName), ref firstName, value);
-        }
+        public string FirstName { get => firstName; set => SetPropertyValue(nameof(FirstName), ref firstName, value); }
 
         [RuleRequiredField("RuleRequiredField for Contact.LastName", DefaultContexts.Save)]
-        public string LastName
-        {
-            get => lastName;
-            set => SetPropertyValue(nameof(LastName), ref lastName, value);
-        }
+        public string LastName { get => lastName; set => SetPropertyValue(nameof(LastName), ref lastName, value); }
 
         [Size(50)]
-        public string JobTitle
-        {
-            get => jobTitle;
-            set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value);
-        }
+        public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
 
-        [Size(100)]
-        //[RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
-        public string Company
-        {
-            get => company;
-            set => SetPropertyValue(nameof(Company), ref company, value);
-        }
+        //[ExpandObjectMembers(ExpandObjectMembers.Never)]
+        //[DevExpress.Xpo.Aggregated]
+        [RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
+
+        public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
 
-        [RuleRegularExpression("RuleRegularExpression for Contact.PhoneNumber", DefaultContexts.Save, @"^(\+)?\d+(\s*\-\s*\d+)*$")]
+        [RuleRegularExpression(
+            "RuleRegularExpression for Contact.PhoneNumber",
+            DefaultContexts.Save,
+            @"^(\+)?\d+(\s*\-\s*\d+)*$")]
         [RuleRequiredField("RuleRequiredField for Contact.PhoneNumber", DefaultContexts.Save)]
         public string PhoneNumber
         {
             get { return phoneNumber; }
             set { SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value); }
         }
+
         [RuleRequiredField("RuleRequiredField for Contact.Address", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [DevExpress.Xpo.Aggregated]
-        
-        public Address Address
-        {
-            get => address;
-            set => SetPropertyValue(nameof(Address), ref address, value);
-        }
+        public Address Address { get => address; set => SetPropertyValue(nameof(Address), ref address, value); }
 
-        [RuleRegularExpression("RuleRegularExpression for Contact.EmailAddress", DefaultContexts.Save, @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]
+        [RuleRequiredField("RuleRequiredField for Contact.Account", DefaultContexts.Save)]
+        public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
+
+        [RuleRegularExpression(
+            "RuleRegularExpression for Contact.EmailAddress",
+            DefaultContexts.Save,
+            @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]
         [RuleRequiredField("RuleRequiredField for Contact.EmailAddress", DefaultContexts.Save)]
         public string EmailAddress
         {
@@ -110,38 +101,20 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [Size(4096)]
-        public string Notes
-        {
-            get => notes;
-            set => SetPropertyValue(nameof(Notes), ref notes, value);
-        }
- 
-        [DevExpress.Xpo.Association("Communication-Contacts")]
-        public Communication Inbox
-        {
-            get => inbox;
-            set => SetPropertyValue(nameof(Inbox), ref inbox, value);
-        }
+        public string Notes { get => notes; set => SetPropertyValue(nameof(Notes), ref notes, value); }
 
         [Browsable(false)]
         public int LeadSource
         {
             get => leadSource == null ? 0 : (int)Enum.Parse(typeof(LeadSource), leadSource);
-            set
-            {
-                SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value));
-            }
+            set { SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value)); }
         }
 
         [NotMapped]
-        public SourceType SourceType
-        {
-            get => (SourceType)LeadSource;
-            set => LeadSource = (int)value;
-        }
+        public SourceType SourceType { get => (SourceType)LeadSource; set => LeadSource = (int)value; }
 
         [Browsable(false)]
-        public IList <Quote> Quote { get; set; } = new ObservableCollection<Quote>();
+        public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
 
         [Browsable(false)]
@@ -158,17 +131,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Browsable(false)]
         [ReadOnly(true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public String DisplayName
-        {
-            get
-            {
-                return FullName;
-            }
-        }
+        public String DisplayName { get { return FullName; } }
 
-     
+
         private static String FullNameFormat = V;
-
-
     }
 }

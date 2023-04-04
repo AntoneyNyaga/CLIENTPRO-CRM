@@ -17,7 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
 
-    [NavigationItem("SLAMS CRM")]
+    [NavigationItem("Accounting")]
     [DefaultProperty("Description")]
     [Persistent("Quote")]
     [ImageName("BO_Quote")]

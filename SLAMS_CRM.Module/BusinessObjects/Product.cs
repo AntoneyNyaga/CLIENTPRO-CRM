@@ -17,7 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [DefaultProperty("Name")]
-    [NavigationItem("SLAMS CRM")]
+    [NavigationItem("Accounting")]
     [ImageName("BO_Product")]
     [Persistent("Product")]
     public class Product : BaseObject
@@ -26,6 +26,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
         }
 
+        Company company;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
@@ -51,6 +52,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             get => _productLine;
             set => SetPropertyValue(nameof(ProductLine), ref _productLine, value);
+        }
+
+        [Browsable(false)]
+        [Association("Company-Products")]
+        public Company Company
+        {
+            get => company;
+            set => SetPropertyValue(nameof(Company), ref company, value);
         }
     }
 

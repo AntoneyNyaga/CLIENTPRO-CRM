@@ -20,7 +20,7 @@ using SLAMS_CRM.Module.BusinessObjects;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("SLAMS CRM")]
+    [NavigationItem("Clients and Leads")]
     [Persistent("Lead")]
     [ImageName("BO_Lead")]
 
@@ -41,18 +41,17 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         Address address;
         string jobTitle;
-        Communication inbox;
-        //Opportunity opportunity;
         private const string V = "{FirstName} {LastName}";
         string notes;
         int score;
         string source;
         string phoneNumber;
         string emailAddress;
-        string company;
+        Company company;
         string lastName;
         string firstName;
         string status;
+        Account account;
 
         [Size(50)]
         [RuleRequiredField("RuleRequiredField for Lead.FirstName", DefaultContexts.Save)]
@@ -79,14 +78,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        [Size(50)]
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [DevExpress.Xpo.Aggregated]
         [RuleRequiredField("RuleRequiredField for Lead.Company", DefaultContexts.Save)]
-        public string Company
-        {
-            get => company;
-            set => SetPropertyValue(nameof(Company), ref company, value);
-        }
+        public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
+        [RuleRequiredField("RuleRequiredField for Lead.Account", DefaultContexts.Save)]
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [DevExpress.Xpo.Aggregated]
+        public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
         [Size(100)]
         [RuleRequiredField("RuleRequiredField for Lead.EmailAddress", DefaultContexts.Save)]
@@ -157,13 +157,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => notes;
             set => SetPropertyValue(nameof(Notes), ref notes, value);
         }
-        
-        [DevExpress.Xpo.Association("Communication-Leads")]
-        public Communication Inbox
-        {
-            get => inbox;
-            set => SetPropertyValue(nameof(Inbox), ref inbox, value);
-        }
+       
 
 
 
@@ -180,10 +174,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
         private void CalculateScore()
         {
             int score = 0;
-            if (!string.IsNullOrEmpty(FirstName)) score += 20;
+            if (!string.IsNullOrEmpty(FirstName)) score += 30;
             if (!string.IsNullOrEmpty(LastName)) score += 20;
-            if (!string.IsNullOrEmpty(Company)) score += 20;
-            if (!string.IsNullOrEmpty(EmailAddress)) score += 20;
+            //if (!string.IsNullOrEmpty(Company)) score += 20;
+            if (!string.IsNullOrEmpty(EmailAddress)) score += 30;
             if (!string.IsNullOrEmpty(PhoneNumber)) score += 20;
             //if (!string.IsNullOrEmpty(Source)) score += 10;
 

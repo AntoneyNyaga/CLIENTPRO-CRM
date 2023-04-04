@@ -12,7 +12,7 @@ using System.Linq;
 namespace SLAMS_CRM.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [NavigationItem("SLAMS CRM")]
+    [NavigationItem("Inbox")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
     public class Communication : BaseObject
@@ -72,29 +72,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => description;
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
-
-        [Association("Communication-Leads")]
-        public XPCollection<Lead> Leads
-        {
-            get
-            {
-                return GetCollection<Lead>(nameof(Leads));
-            }
-        }
-
-        //public IList<Contact> Contact { get; set; } = new ObservableCollection<Contact>();
-
-
-        [Association("Communication-Contacts")]
-        public XPCollection<Contact> Contacts
-        {
-            get
-            {
-                return GetCollection<Contact>(nameof(Contacts));
-            }
-        }
-
-
 
         [Browsable(false)]
         public int Outcome

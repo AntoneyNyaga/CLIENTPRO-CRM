@@ -15,7 +15,7 @@ using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
-    [DefaultClassOptions]
+    //[DefaultClassOptions]
     //[NavigationItem("SLAMS CRM")]
     public class MyActivityStream : BaseObject
     {
