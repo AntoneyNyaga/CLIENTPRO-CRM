@@ -83,13 +83,13 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
 
-        [Association("Company-Products")]
+        /*[Association("Company-Products")]
         public XPCollection<Product> Products
         {
             get
             {
                 return GetCollection<Product>(nameof(Products));
             }
-        }
+        }*/
     }
 }

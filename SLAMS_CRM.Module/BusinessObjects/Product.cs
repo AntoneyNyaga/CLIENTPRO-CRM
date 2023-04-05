@@ -54,13 +54,13 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(ProductLine), ref _productLine, value);
         }
 
-        [Browsable(false)]
+       /* [Browsable(false)]
         [Association("Company-Products")]
         public Company Company
         {
             get => company;
             set => SetPropertyValue(nameof(Company), ref company, value);
-        }
+        }*/
     }
 
     //[DefaultClassOptions]

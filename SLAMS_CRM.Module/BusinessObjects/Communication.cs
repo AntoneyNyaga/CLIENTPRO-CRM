@@ -1,4 +1,5 @@
 ﻿using DevExpress.DashboardCommon;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -11,104 +12,60 @@ using System.Linq;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
-    [DefaultClassOptions]
-    [NavigationItem("Inbox")]
+    //[DefaultClassOptions]
+    //[NavigationItem("Inbox")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
     public class Communication : BaseObject
     {
-        public Communication(Session session)
-            : base(session)
-        {
-        }
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
-        }
+        public Communication(Session session) : base(session) { }
 
-
-        string notes;
-        string outcome;
-        string description;
-        string subject;
-        DateTime dateTime;
-        string type;
-
-        [Browsable(false)]
-        public int Type
-        {
-            get => type == null ? 0 : (int)Enum.Parse(typeof(CommunicationType), type);
-            set => SetPropertyValue(nameof(Type), ref type, Enum.GetName(typeof(CommunicationType), value));
-        }
-
-        [RuleRequiredField("RuleRequiredField for Communication.Type", DefaultContexts.Save)]
-
-        [NotMapped]
-        public CommunicationType? CommunicationType { get; set;  }
-
-
-        [RuleRequiredField("RuleRequiredField for Communication.DateTime", DefaultContexts.Save)]
+        private DateTime _dateTime;
+        [ModelDefault("DisplayFormat", "{0:G}")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("AllowEdit", "false")]
         public DateTime DateTime
         {
-            get => dateTime;
-            set => SetPropertyValue(nameof(DateTime), ref dateTime, value);
+            get { return _dateTime; }
+            set { SetPropertyValue(nameof(DateTime), ref _dateTime, value); }
         }
 
+        private CommunicationType _type;
+        public CommunicationType Type
+        {
+            get { return _type; }
+            set { SetPropertyValue(nameof(Type), ref _type, value); }
+        }
 
-        [RuleRequiredField("RuleRequiredField for Communication.Subject", DefaultContexts.Save)]
-        [Size(100)]
+        private Contact _contact;
+        [Association("Contact-Communications")]
+        public Contact Contact
+        {
+            get { return _contact; }
+            set { SetPropertyValue(nameof(Contact), ref _contact, value); }
+        }
+
+        [Size(SizeAttribute.Unlimited)]
         public string Subject
         {
-            get => subject;
-            set => SetPropertyValue(nameof(Subject), ref subject, value);
+            get { return GetPropertyValue<string>(nameof(Subject)); }
+            set { SetPropertyValue(nameof(Subject), value); }
         }
-
-
-        [RuleRequiredField("RuleRequiredField for Communication.Description", DefaultContexts.Save)]
-        [Size(SizeAttribute.Unlimited)]
-        public string Description
-        {
-            get => description;
-            set => SetPropertyValue(nameof(Description), ref description, value);
-        }
-
-        [Browsable(false)]
-        public int Outcome
-        {
-            get => outcome == null ? 0 : (int)Enum.Parse(typeof(CommunicationOutcome), outcome);
-            set => SetPropertyValue(nameof(Outcome), ref outcome, Enum.GetName(typeof(CommunicationOutcome), value));
-        }
-
-        [RuleRequiredField("RuleRequiredField for Communication.Outcome", DefaultContexts.Save)]
-
-        [NotMapped]
-        public CommunicationOutcome? CommunicationOutcome { get; set;  }
-
-
 
         [Size(SizeAttribute.Unlimited)]
-        public string Notes
+        public string Body
         {
-            get => notes;
-            set => SetPropertyValue(nameof(Notes), ref notes, value);
+            get { return GetPropertyValue<string>(nameof(Body)); }
+            set { SetPropertyValue(nameof(Body), value); }
         }
     }
 
     public enum CommunicationType
     {
-        Unknown,
         Email,
-        PhoneCall,
-        Meeting
-    }
-
-    public enum CommunicationOutcome
-    {
-        Unknown,
-        Successful,
-        Unsuccessful,
-        FollowUpRequired
+        Phone,
+        Meeting,
+        FollowUpTask
     }
 
 }

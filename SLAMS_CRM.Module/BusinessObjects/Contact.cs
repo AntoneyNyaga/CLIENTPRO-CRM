@@ -26,9 +26,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [ImageName("BO_Person")]
 
 
-    [ObjectCaptionFormat("{0:FullName}")]
-    [DefaultProperty(nameof(FullName))]
-    public class Contact : BaseObject
+    public class Contact : Person
     {
         public Contact(Session session) : base(session)
         {
@@ -41,23 +39,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        Address address;
         string jobTitle;
-        string notes;
         Company company;
-        private const string V = "{FirstName} {LastName}";
-        string phoneNumber;
-        string emailAddress;
-        string lastName;
-        string firstName;
         string leadSource;
         Account account;
-
-        [RuleRequiredField("RuleRequiredField for Contact.FirstName", DefaultContexts.Save)]
-        public string FirstName { get => firstName; set => SetPropertyValue(nameof(FirstName), ref firstName, value); }
-
-        [RuleRequiredField("RuleRequiredField for Contact.LastName", DefaultContexts.Save)]
-        public string LastName { get => lastName; set => SetPropertyValue(nameof(LastName), ref lastName, value); }
 
         [Size(50)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
@@ -69,39 +54,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
-
-        [RuleRegularExpression(
-            "RuleRegularExpression for Contact.PhoneNumber",
-            DefaultContexts.Save,
-            @"^(\+)?\d+(\s*\-\s*\d+)*$")]
-        [RuleRequiredField("RuleRequiredField for Contact.PhoneNumber", DefaultContexts.Save)]
-        public string PhoneNumber
-        {
-            get { return phoneNumber; }
-            set { SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value); }
-        }
-
-        [RuleRequiredField("RuleRequiredField for Contact.Address", DefaultContexts.Save)]
-        [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
-        public Address Address { get => address; set => SetPropertyValue(nameof(Address), ref address, value); }
-
         [RuleRequiredField("RuleRequiredField for Contact.Account", DefaultContexts.Save)]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
-        [RuleRegularExpression(
-            "RuleRegularExpression for Contact.EmailAddress",
-            DefaultContexts.Save,
-            @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]
-        [RuleRequiredField("RuleRequiredField for Contact.EmailAddress", DefaultContexts.Save)]
-        public string EmailAddress
-        {
-            get => emailAddress;
-            set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
-        }
-
-        [Size(4096)]
-        public string Notes { get => notes; set => SetPropertyValue(nameof(Notes), ref notes, value); }
 
         [Browsable(false)]
         public int LeadSource
@@ -116,24 +71,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
-
-        [Browsable(false)]
-        [ReadOnly(true)]
-        [SearchMemberOptions(SearchMemberMode.Exclude)]
-        public String FullName
+        [DevExpress.Xpo.Association("Contact-Communications")]
+        public XPCollection<Communication> Communications
         {
-            get
-            {
-                return ObjectFormatter.Format(FullNameFormat, this, EmptyEntriesMode.RemoveDelimiterWhenEntryIsEmpty);
-            }
+            get { return GetCollection<Communication>(nameof(Communications)); }
         }
-
-        [Browsable(false)]
-        [ReadOnly(true)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public String DisplayName { get { return FullName; } }
-
-
-        private static String FullNameFormat = V;
     }
 }

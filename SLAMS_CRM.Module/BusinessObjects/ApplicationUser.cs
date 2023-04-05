@@ -29,9 +29,18 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
         return result;
     }
 
-    [Browsable(false)]
+    //[Browsable(false)]
     public IList<Quote> Quotes { get; set; } = new ObservableCollection<Quote>();
 
-    [Browsable(false)]
+    //[Browsable(false)]
     public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
+
+    [DevExpress.Xpo.Association("ApplicationUser-Assignment")]
+    public XPCollection<Assignment> Tasks
+    {
+        get
+        {
+            return GetCollection<Assignment>(nameof(Tasks));
+        }
+    }
 }

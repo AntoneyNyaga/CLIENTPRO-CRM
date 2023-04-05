@@ -24,14 +24,12 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [Persistent("Lead")]
     [ImageName("BO_Lead")]
 
-    [ObjectCaptionFormat("{0:FullName}")]
-    [DefaultProperty(nameof(FullName))]
-    public class Lead : BaseObject
+    public class Lead : Person
     {
-        public Lead(Session session)
-            : base(session)
+        public Lead(Session session) : base(session)
         {
         }
+
         public override void AfterConstruction()
         {
             base.AfterConstruction();
@@ -39,43 +37,16 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
-        Address address;
         string jobTitle;
-        private const string V = "{FirstName} {LastName}";
-        string notes;
         int score;
         string source;
-        string phoneNumber;
-        string emailAddress;
         Company company;
-        string lastName;
-        string firstName;
         string status;
         Account account;
 
-        [Size(50)]
-        [RuleRequiredField("RuleRequiredField for Lead.FirstName", DefaultContexts.Save)]
-        public string FirstName
-        {
-            get => firstName;
-            set => SetPropertyValue(nameof(FirstName), ref firstName, value);
-        }
 
         [Size(50)]
-        [RuleRequiredField("RuleRequiredField for Lead.LastName", DefaultContexts.Save)]
-        public string LastName
-        {
-            get => lastName;
-            set => SetPropertyValue(nameof(LastName), ref lastName, value);
-        }
-
-
-        [Size(50)]
-        public string JobTitle
-        {
-            get => jobTitle;
-            set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value);
-        }
+        public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
@@ -88,34 +59,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [DevExpress.Xpo.Aggregated]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
-        [Size(100)]
-        [RuleRequiredField("RuleRequiredField for Lead.EmailAddress", DefaultContexts.Save)]
-        [RuleRegularExpression(DefaultContexts.Save, @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", CustomMessageTemplate = "Invalid email address format")]
-        public string EmailAddress
-        {
-            get => emailAddress;
-            set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
-        }
-
-
-        [RuleRegularExpression("RuleRegularExpression for Lead.PhoneNumber", DefaultContexts.Save, @"^(\+)?\d+(\s*\-\s*\d+)*$")]
-        [RuleRequiredField("RuleRequiredField for Lead.PhoneNumber", DefaultContexts.Save)]
-        public string PhoneNumber
-        {
-            get => phoneNumber;
-            set => SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value);
-        }
-
-        [RuleRequiredField("RuleRequiredField for Lead.Address", DefaultContexts.Save)]
-        [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
-        
-        public Address Address
-        {
-            get => address;
-            set => SetPropertyValue(nameof(Address), ref address, value);
-        }
-
         [Browsable(false)]
         public int Source
         {
@@ -126,7 +69,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]
 
         [NotMapped]
-      
+
         public SourceType? SourceType { get; set; }
 
         [Browsable(false)]
@@ -142,71 +85,22 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public LeadStatus? LeadStatus { get; set; }
 
 
-
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public int Score
-        {
-            get => score;
-            set => SetPropertyValue(nameof(Score), ref score, value);
-        }
+        public int Score { get => score; set => SetPropertyValue(nameof(Score), ref score, value); }
 
-
-        [Size(4096)]
-        public string Notes
-        {
-            get => notes;
-            set => SetPropertyValue(nameof(Notes), ref notes, value);
-        }
-       
-
-
-
-        protected override void OnChanged(string propertyName, object oldValue, object newValue)
-        {
-            base.OnChanged(propertyName, oldValue, newValue);
-            if (propertyName == nameof(FirstName) || propertyName == nameof(LastName) || propertyName == nameof(Company) ||
-                propertyName == nameof(EmailAddress) || propertyName == nameof(PhoneNumber) || propertyName == nameof(Source))
-            {
-                CalculateScore();
-            }
-        }
-
-        private void CalculateScore()
-        {
-            int score = 0;
-            if (!string.IsNullOrEmpty(FirstName)) score += 30;
-            if (!string.IsNullOrEmpty(LastName)) score += 20;
-            //if (!string.IsNullOrEmpty(Company)) score += 20;
-            if (!string.IsNullOrEmpty(EmailAddress)) score += 30;
-            if (!string.IsNullOrEmpty(PhoneNumber)) score += 20;
-            //if (!string.IsNullOrEmpty(Source)) score += 10;
-
-            Score = score;
-        }
-
-        //[Browsable (false)]
-        [ReadOnly(true)]
-        [SearchMemberOptions(SearchMemberMode.Exclude)]
-        public String FullName
+       /* private XPCollection<AuditDataItemPersistent> changeHistory;
+        [CollectionOperationSet(AllowAdd = false, AllowRemove = false)]
+        public XPCollection<AuditDataItemPersistent> ChangeHistory
         {
             get
             {
-                return ObjectFormatter.Format(FullNameFormat, this, EmptyEntriesMode.RemoveDelimiterWhenEntryIsEmpty);
+                if (changeHistory == null)
+                {
+                    changeHistory = AuditedObjectWeakReference.GetAuditTrail(Session, this);
+                }
+                return changeHistory;
             }
-        }
-
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public String DisplayName
-        {
-            get
-            {
-                return FullName;
-            }
-        }
-
-        private static String FullNameFormat = V;
-
+        }*/
     }
 
     public enum LeadStatus
@@ -235,6 +129,4 @@ namespace SLAMS_CRM.Module.BusinessObjects
         Campaign,
         Other
     }
-
-
 }
