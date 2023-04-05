@@ -71,6 +71,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
+        [Browsable(false)]
         [DevExpress.Xpo.Association("Contact-Communications")]
         public XPCollection<Communication> Communications
         {

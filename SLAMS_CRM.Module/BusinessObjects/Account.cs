@@ -51,14 +51,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string name;
 
         [Size(50)]
+        [RuleRequiredField("RuleRequiredField for Account.Name", DefaultContexts.Save)]
         public string Name { get => name; set => SetPropertyValue(nameof(Name), ref name, value); }
 
 
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Website { get => website; set => SetPropertyValue(nameof(Website), ref website, value); }
 
-
-        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        [RuleRequiredField("RuleRequiredField for Account.EmailAddress", DefaultContexts.Save)]
+        [Size(50)]
         public string EmailAddress
         {
             get => emailAddress;
@@ -116,8 +117,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set { SetPropertyValue(nameof(IndustryType), ref industryType, Enum.GetName(typeof(IndustryType), value)); }
         }
 
+        [RuleRequiredField("RuleRequiredField for Account.Industry", DefaultContexts.Save)]
         [NotMapped]
-        public IndustryType Industry { get => (IndustryType)IndustryType; set => IndustryType = (int)value; }
+        public IndustryType? Industry { get => (IndustryType)IndustryType; set => IndustryType = (int)value; }
 
         [Editable(false)]
         [ReadOnly(false)]
