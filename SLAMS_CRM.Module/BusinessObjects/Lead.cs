@@ -34,6 +34,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
+            // Set ConvertedFrom based on the value of SourceType
+            if(SourceType.HasValue)
+            {
+                ConvertedFrom = SourceType.Value.ToString();
+            }
         }
 
 
@@ -66,11 +71,27 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Source), ref source, Enum.GetName(typeof(SourceType), value));
         }
 
+        public string ConvertedFrom { get; set; }
+
+
         [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]
 
         [NotMapped]
 
-        public SourceType? SourceType { get; set; }
+        public SourceType? SourceType
+        {
+            get => source == null ? null : (SourceType?)Enum.Parse(typeof(SourceType), source);
+            set
+            {
+                SetPropertyValue(nameof(SourceType), ref source, value?.ToString());
+
+                // Update ConvertedFrom whenever SourceType is set
+                if(value.HasValue)
+                {
+                    ConvertedFrom = value.Value.ToString();
+                }
+            }
+        }
 
         [Browsable(false)]
         public int Status
@@ -87,20 +108,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public int Score { get => score; set => SetPropertyValue(nameof(Score), ref score, value); }
-
-       /* private XPCollection<AuditDataItemPersistent> changeHistory;
-        [CollectionOperationSet(AllowAdd = false, AllowRemove = false)]
-        public XPCollection<AuditDataItemPersistent> ChangeHistory
-        {
-            get
-            {
-                if (changeHistory == null)
-                {
-                    changeHistory = AuditedObjectWeakReference.GetAuditTrail(Session, this);
-                }
-                return changeHistory;
-            }
-        }*/
     }
 
     public enum LeadStatus

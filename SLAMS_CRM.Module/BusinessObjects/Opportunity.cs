@@ -41,7 +41,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string opportunityName;
         string stage;
         string leadSource;
-        ApplicationUser assignedTo;
 
         [RuleRequiredField("RuleRequiredField for Opportunity.Opportunityname", DefaultContexts.Save)]
         [Size(50)]
@@ -60,10 +59,19 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(OpportunityDescription), ref opportunityDescription, value);
         }
 
-        public ApplicationUser AssignedTo
+        /*public ApplicationUser AssignedTo
         {
             get => assignedTo;
             set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
+        }*/
+
+        [Association("ApplicationUser-Opportunity")]
+        public XPCollection<ApplicationUser> AssignedUsers
+        {
+            get
+            {
+                return GetCollection<ApplicationUser>(nameof(AssignedUsers));
+            }
         }
 
         public Account AccountName { get; set; }

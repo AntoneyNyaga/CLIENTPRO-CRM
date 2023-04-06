@@ -30,12 +30,29 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
     }
 
     //[Browsable(false)]
-    public IList<Quote> Quotes { get; set; } = new ObservableCollection<Quote>();
+    //public IList<Quote> Quotes { get; } = new ObservableCollection<Quote>();
+
+    [Association("ApplicationUser-Quote")]
+    public XPCollection<Quote> AssignedProposals
+    {
+        get
+        {
+            return GetCollection<Quote>(nameof(AssignedProposals));
+        }
+    }
 
     //[Browsable(false)]
-    public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
+    //public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
+    [Association("ApplicationUser-Opportunity")]
+    public XPCollection<Opportunity> AssignedOpportunities
+    {
+        get
+        {
+            return GetCollection<Opportunity>(nameof(AssignedOpportunities));
+        }
+    }
 
-    [DevExpress.Xpo.Association("ApplicationUser-Assignment")]
+    [Association("ApplicationUser-Assignment")]
     public XPCollection<Assignment> Tasks
     {
         get

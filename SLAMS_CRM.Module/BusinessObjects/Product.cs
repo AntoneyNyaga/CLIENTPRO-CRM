@@ -26,7 +26,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
         }
 
-        Company company;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]

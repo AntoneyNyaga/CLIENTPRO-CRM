@@ -36,7 +36,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
+            _lastFollowUp = DateTime.Now;
         }
+
 
 
         [Size(50)]
@@ -80,7 +82,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string title;
         string approvalIssues;
         DateTime validUntil;
-        ApplicationUser assignedTo;
 
         [RuleRequiredField("RuleRequiredField for Quote.DateCreated", DefaultContexts.Save)]
         public DateTime ValidUntil
@@ -89,10 +90,19 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(ValidUntil), ref validUntil, value);
         }
 
-        public ApplicationUser AssignedTo
+        /*public ApplicationUser AssignedTo
         {
             get => assignedTo;
             set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
+        }*/
+
+        [Association("ApplicationUser-Quote")]
+        public XPCollection<ApplicationUser> AssignedUsers
+        {
+            get
+            {
+                return GetCollection<ApplicationUser>(nameof(AssignedUsers));
+            }
         }
 
 
@@ -156,7 +166,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             sb.AppendLine("-------------------------------------------------");
             sb.AppendLine($"Quote Status: {QuoteStage.ToString()}");
             sb.AppendLine($"Approval Status: {ApprovalStatus.ToString()}");
-            sb.AppendLine($"Assigned To: {(AssignedTo != null ? AssignedTo.UserName : "Not Assigned")}");
+            sb.AppendLine($"Assigned To: {(AssignedUsers != null ? string.Join(", ", AssignedUsers.Select(u => u.UserName)) : "Not Assigned")}");
             sb.AppendLine();
             sb.AppendLine("Billing Address:");
             sb.AppendLine(BillingAddress.ToString());
@@ -173,8 +183,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
             return sb.ToString();
         }
 
+
         private DateTime _lastFollowUp;
 
+        [ReadOnly( true )]
         public DateTime LastFollowUp
         {
             get => _lastFollowUp;

@@ -56,11 +56,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
         [ToolTip("View, assign or remove employees for the current task")]
         [Association("ApplicationUser-Assignment")]
-        public XPCollection<ApplicationUser> ApplicationUsers
+        public XPCollection<ApplicationUser> AssignedUsers
         {
             get
             {
-                return GetCollection<ApplicationUser>(nameof(ApplicationUsers));
+                return GetCollection<ApplicationUser>(nameof(AssignedUsers));
             }
         }
         public override string ToString()

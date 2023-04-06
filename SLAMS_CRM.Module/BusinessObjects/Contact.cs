@@ -41,7 +41,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         string jobTitle;
         Company company;
-        string leadSource;
+        //string leadSource;
         Account account;
 
         [Size(50)]
@@ -57,16 +57,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [RuleRequiredField("RuleRequiredField for Contact.Account", DefaultContexts.Save)]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
+        public Lead ConvertedFrom { get; set; }
 
-        [Browsable(false)]
-        public int LeadSource
-        {
-            get => leadSource == null ? 0 : (int)Enum.Parse(typeof(LeadSource), leadSource);
-            set { SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value)); }
-        }
-
-        [NotMapped]
-        public SourceType SourceType { get => (SourceType)LeadSource; set => LeadSource = (int)value; }
 
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
