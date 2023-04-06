@@ -234,7 +234,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 smtp.EnableSsl = true;
 
                 // set the credentials for the SMTP server via google app password
-                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "xlspwfcjtweekxvl");
+                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "#");
 
                 // send the email
                 smtp.Send(mail);*/
