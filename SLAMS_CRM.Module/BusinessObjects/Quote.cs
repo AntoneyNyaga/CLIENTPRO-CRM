@@ -242,7 +242,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
                     // set the credentials for the SMTP server via google app password
-                    smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "xlspwfcjtweekxvl");
+                    smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "#");
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
                 }
@@ -273,7 +273,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
             using(SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "xlspwfcjtweekxvl");
+                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "#");
                 smtp.EnableSsl = true;
                 smtp.Send(message);
             }
@@ -306,3 +306,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         Invoiced
     }
 }
+
+/*agsiachvqpoekxow for 509*/
+/*xlspwfcjtweekxvl for 209*/

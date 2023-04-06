@@ -66,7 +66,9 @@ public class ConvertLeadToContactController : ObjectViewController<ListView, Lea
                 }
 
                 // Delete the lead object
-                objectSpace.Delete(lead);
+                lead.LeadStatus = LeadStatus.Qualified;
+                lead.Save();
+               // objectSpace.Delete(lead);
             }
 
             objectSpace.CommitChanges();
