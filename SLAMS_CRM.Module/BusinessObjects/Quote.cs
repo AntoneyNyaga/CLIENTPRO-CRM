@@ -11,7 +11,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
+using System.ServiceModel.Channels;
 using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
@@ -135,17 +137,17 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(ApprovalIssues), ref approvalIssues, value);
         }
 
-        [Action(Caption = "Follow Up", ConfirmationMessage = "Are you sure you want to follow up on this quote?", ImageName = "FollowUp")]
-        public void FollowUpAction()
-        {
-            FollowUp();
-        }
+        [Action(
+            Caption = "Follow Up",
+            ConfirmationMessage = "Are you sure you want to follow up on this quote?",
+            ImageName = "FollowUp")]
+        public void FollowUpAction() { FollowUp(); }
 
-        [Action(Caption = "Send Quote", ConfirmationMessage = "Are you sure you want to send this quote to the customer?", ImageName = "Send")]
-        public void SendQuoteAction()
-        {
-            SendQuote();
-        }
+        [Action(
+            Caption = "Send Quote",
+            ConfirmationMessage = "Are you sure you want to send this quote to the customer?",
+            ImageName = "Send")]
+        public void SendQuoteAction() { SendQuote(); }
 
         public string GenerateProposal()
         {
@@ -188,7 +190,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 MailMessage mail = new MailMessage();
 
                 // set the email address of the recipient
-                mail.To.Add("recipient@example.com");
+                mail.To.Add(Contact.Email);
 
                 // set the subject of the email
                 mail.Subject = "Follow-up on Quote #" + Title;
@@ -209,9 +211,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
                     Environment.NewLine +
                     "Best regards," +
                     Environment.NewLine +
-                    "Your Company Name";
+                    "SLAMS CRM Team";
 
-                // create a SmtpClient object
+                /*// create a SmtpClient object
                 SmtpClient smtp = new SmtpClient();
 
                 // set the SMTP server details
@@ -219,12 +221,19 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
 
-                // set the credentials for the SMTP server
-                smtp.Credentials = new System.Net.NetworkCredential("flaughters@gmail.com", "MasterDroyd10035");
+                // set the credentials for the SMTP server via google app password
+                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "xlspwfcjtweekxvl");
 
                 // send the email
-                smtp.Send(mail);
+                smtp.Send(mail);*/
 
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    // set the credentials for the SMTP server via google app password
+                    smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "xlspwfcjtweekxvl");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                }
                 // update the last follow-up date
                 LastFollowUp = DateTime.Now;
             }
@@ -247,8 +256,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 $"Proposal - {Title}.txt");
             message.Attachments.Add(attachment);
 
-            SmtpClient client = new SmtpClient("smtp.gmail.com");
-            client.Send(message);
+            /*SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.Send(message);*/
+
+            using(SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+            {
+                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "xlspwfcjtweekxvl");
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+            }
 
             // Update the QuoteStage and InvoiceStatus properties
             QuoteStage = QuoteStage.Sent;
