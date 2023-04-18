@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,7 +39,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
             _lastFollowUp = DateTime.Now;
         }
-
 
 
         [Size(50)]
@@ -99,10 +99,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Association("ApplicationUser-Quote")]
         public XPCollection<ApplicationUser> AssignedUsers
         {
-            get
-            {
-                return GetCollection<ApplicationUser>(nameof(AssignedUsers));
-            }
+            get { return GetCollection<ApplicationUser>(nameof(AssignedUsers)); }
         }
 
 
@@ -156,7 +153,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Action(
             Caption = "Send Quote",
             ConfirmationMessage = "Are you sure you want to send this quote to the customer?",
-            ImageName = "Send")]
+            ImageName = "Actions_Send")]
         public void SendQuoteAction() { SendQuote(); }
 
         public string GenerateProposal()
@@ -166,7 +163,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             sb.AppendLine("-------------------------------------------------");
             sb.AppendLine($"Quote Status: {QuoteStage.ToString()}");
             sb.AppendLine($"Approval Status: {ApprovalStatus.ToString()}");
-            sb.AppendLine($"Assigned To: {(AssignedUsers != null ? string.Join(", ", AssignedUsers.Select(u => u.UserName)) : "Not Assigned")}");
+            sb.AppendLine(
+                $"Assigned To: {(AssignedUsers != null ? string.Join(", ", AssignedUsers.Select(u => u.UserName)) : "Not Assigned")}");
             sb.AppendLine();
             sb.AppendLine("Billing Address:");
             sb.AppendLine(BillingAddress.ToString());
@@ -186,7 +184,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         private DateTime _lastFollowUp;
 
-        [ReadOnly( true )]
+        [ReadOnly(true)]
         public DateTime LastFollowUp
         {
             get => _lastFollowUp;
@@ -225,24 +223,17 @@ namespace SLAMS_CRM.Module.BusinessObjects
                     Environment.NewLine +
                     "SLAMS CRM Team";
 
-                /*// create a SmtpClient object
-                SmtpClient smtp = new SmtpClient();
+                var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .Build();
 
-                // set the SMTP server details
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
+                var username = configuration.GetSection("Email")["UserName"];
+                var password = configuration.GetSection("Email")["Password"];
 
-                // set the credentials for the SMTP server via google app password
-                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "#");
-
-                // send the email
-                smtp.Send(mail);*/
-
-                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                using(SmtpClient smtp = new("smtp.gmail.com", 587))
                 {
                     // set the credentials for the SMTP server via google app password
-                    smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "#");
+                    smtp.Credentials = new NetworkCredential(username, password);
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
                 }
@@ -268,12 +259,17 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 $"Proposal - {Title}.txt");
             message.Attachments.Add(attachment);
 
-            /*SmtpClient client = new SmtpClient("smtp.gmail.com");
-            client.Send(message);*/
 
-            using(SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+
+            var username = configuration.GetSection("Email")["UserName"];
+            var password = configuration.GetSection("Email")["Password"];
+
+            using(SmtpClient smtp = new("smtp.gmail.com", 587))
             {
-                smtp.Credentials = new NetworkCredential("flaughters@gmail.com", "#");
+                smtp.Credentials = new NetworkCredential(username, password);
                 smtp.EnableSsl = true;
                 smtp.Send(message);
             }
