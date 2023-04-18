@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Environment Files
-.env
-*.appsettings.json
+appsettings.json
+/SLAMS_CRM.Blazor.Server/appsettings.json
