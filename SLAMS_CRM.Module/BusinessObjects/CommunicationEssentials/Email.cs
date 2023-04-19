@@ -27,7 +27,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         private string _to;
         [Size(4090)]
-        [Appearance("HideToField", Visibility = ViewItemVisibility.Hide)]
+        //[Appearance("HideToField", Visibility = ViewItemVisibility.Hide)]
         public string To
         {
             get { return _to; }
@@ -36,7 +36,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         private string _from;
         [Size(4090)]
-        [Appearance("HideToField", Visibility = ViewItemVisibility.Hide)]
+        //[Appearance("HideToField", Visibility = ViewItemVisibility.Hide)]
         public string From
         {
             get { return _from; }
@@ -45,7 +45,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         private string _cc;
         [Size(4090)]
-        [Appearance("HideCCField", Visibility = ViewItemVisibility.Hide)]
+        //[Appearance("HideCCField", Visibility = ViewItemVisibility.Hide)]
         public string CC
         {
             get { return _cc; }
@@ -54,7 +54,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         private string _bcc;
         [Size(4090)]
-        [Appearance("HideBCCField", Visibility = ViewItemVisibility.Hide)]
+        //[Appearance("HideBCCField", Visibility = ViewItemVisibility.Hide)]
         public string BCC
         {
             get { return _bcc; }

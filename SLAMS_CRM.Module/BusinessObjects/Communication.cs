@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using SLAMS_CRM.Module.Controllers;
 using System;
 using System.Collections.ObjectModel;
@@ -19,8 +20,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
     [NavigationItem("Inbox")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
-    //[Appearance("HideEmailFields", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
-    //[Appearance("HidePhoneFields", Criteria = "Type != 'Phone'", Visibility = ViewItemVisibility.Hide)]
     public class Communication : BaseObject
     {
         public Communication(Session session) : base(session)
@@ -34,6 +33,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
             DateTime = DateTime.Now;
         }
 
+        string status;
+        bool isContacted;
         private DateTime _dateTime;
         //[ModelDefault("DisplayFormat", "{0:G}")]
         //[ModelDefault("EditMask", "G")]
@@ -108,6 +109,42 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 SetPropertyValue(nameof(PhoneNumber), null);
             }
         }
+
+        [VisibleInDetailView(false)]
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        public string Status
+        {
+            get
+            {
+                if(IsContacted)
+                {
+                    return "Sent";
+                } else
+                {
+                    if(Type == CommunicationType.Phone)
+                    {
+                        return "Not Called";
+                    } else
+                    {
+                        return "Not Sent";
+                    }
+                }
+            }
+            set => SetPropertyValue(nameof(Status), ref status, value);
+        }
+
+
+        [Browsable(false)]
+        public bool IsContacted
+        {
+            get => isContacted;
+            set => SetPropertyValue(nameof(IsContacted), ref isContacted, value);
+        }
+
+
+        [Browsable(false)]
+        [Association("Communication-SentEmails")]
+        public XPCollection<SentEmail> SentEmails { get { return GetCollection<SentEmail>(nameof(SentEmails)); } }
     }
 
     public enum CommunicationType

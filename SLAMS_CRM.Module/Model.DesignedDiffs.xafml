@@ -36,7 +36,12 @@
   <Views>
     <ListView Id="Account_ListView" ShowAutoFilterRow="True" AutoExpandAllGroups="True" />
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
-    <ListView Id="Communication_ListView" ShowAutoFilterRow="True" />
+    <ListView Id="Communication_ListView" ShowAutoFilterRow="False" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="Subject" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Type" SortOrder="Ascending" GroupIndex="0" />
+      </Columns>
+    </ListView>
     <DetailView Id="Contact_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">

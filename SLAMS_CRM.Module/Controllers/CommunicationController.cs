@@ -23,12 +23,8 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
             ToolTip = "Send an email to the contact or lead associated with this communication",
             ImageName = "Actions_Send",
             SelectionDependencyType = SelectionDependencyType.RequireSingleObject,
-            //TargetObjectType = typeof(Communication)
             TargetObjectsCriteria = "[Type] == 'Email'"
         };
-
-        // Enable the action when a lead is selected with LeadStatus = Qualified
-        //convertAction.TargetObjectsCriteria = "[LeadStatus] == 'Qualified'";
 
         emailAction.Execute += EmailAction_Execute;
 
@@ -38,7 +34,6 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
             ToolTip = "Make a call to the contact or lead associated with this communication",
             ImageName = "BO_Phone",
             SelectionDependencyType = SelectionDependencyType.RequireSingleObject,
-            //TargetObjectType = typeof(Communication)
             TargetObjectsCriteria = "[Type] == 'Phone'"
         };
         callAction.Execute += CallAction_Execute;
@@ -52,8 +47,8 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
             //TargetObjectsCriteria = new BinaryOperator("Type", CommunicationType.Email),
             TargetObjectsCriteria = "[Type] == 'Email'"
         };
-        replyAction.CustomizePopupWindowParams += replyAction_CustomizePopupWindowParams;
-        replyAction.Execute += replyAction_Execute;
+        replyAction.CustomizePopupWindowParams += ReplyAction_CustomizePopupWindowParams;
+        replyAction.Execute += ReplyAction_Execute;
 
         var forwardAction = new PopupWindowShowAction(this, "Forward", PredefinedCategory.RecordEdit)
         {
@@ -64,24 +59,29 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
             //TargetObjectsCriteria = new BinaryOperator("Type", CommunicationType.Email),
             TargetObjectsCriteria = "[Type] == 'Email'"
         };
-        forwardAction.CustomizePopupWindowParams += forwardAction_CustomizePopupWindowParams;
-        forwardAction.Execute += forwardAction_Execute;
-
-        // Add action items to the controller
-        //Actions.AddRange(new[] { emailAction, callAction, replyAction, forwardAction });
+        forwardAction.CustomizePopupWindowParams += ForwardAction_CustomizePopupWindowParams;
+        forwardAction.Execute += ForwardAction_Execute;
     }
 
 
     private void EmailAction_Execute(object sender, SimpleActionExecuteEventArgs e)
     {
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
+
+        var username = configuration.GetSection("Email")["UserName"];
+        var password = configuration.GetSection("Email")["Password"];
+
         // Get the selected communication item
         Communication communication = View.CurrentObject as Communication;
 
         // Create a new email message
-        MailMessage mail = new MailMessage();
-
-        // Set the email sender address
-        mail.From = new MailAddress("flaughters@gmail.com");
+        MailMessage mail = new()
+        {
+            // Set the email sender address
+            From = new MailAddress(username)
+        };
 
         // Set the email recipient address
         mail.To.Add(new MailAddress(communication.Email));
@@ -92,31 +92,50 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
         // Set the email body
         mail.Body = communication.Body;
 
-        var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .Build();
-
-        var username = configuration.GetSection("Email")["UserName"];
-        var password = configuration.GetSection("Email")["Password"];
-
         // Send the email using the SmtpClient class
-        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-        smtpClient.UseDefaultCredentials = false;
-        smtpClient.EnableSsl = true;
-        smtpClient.Credentials = new System.Net.NetworkCredential(username, password);
+        SmtpClient smtpClient = new("smtp.gmail.com", 587)
+        {
+            UseDefaultCredentials = false,
+            EnableSsl = true,
+            Credentials = new System.Net.NetworkCredential(username, password)
+        };
         smtpClient.Send(mail);
+
+        var sentEmail = new SentEmail(((XPObjectSpace)View.ObjectSpace).Session)
+        {
+            DateTimeSent = DateTime.Now,
+            Recipient = communication.Email,
+            Sender = username,
+            Subject = communication.Subject,
+            Body = communication.Body
+        };
+
+        communication.SentEmails.Add(sentEmail);
+
+        // Set the Status property to true
+        communication.IsContacted = true;
 
         // Save the communication object to the database
         View.ObjectSpace.CommitChanges();
     }
 
+
     private void CallAction_Execute(object sender, SimpleActionExecuteEventArgs e)
     {
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
+
+        var accountSid = configuration.GetSection("Twilio")["AccountSid"];
+        var authToken = configuration.GetSection("Twilio")["AuthToken"];
+        var fromnumber = configuration.GetSection("Twilio")["FromNumber"];
+
+
         // Get the selected communication item
         Communication communication = View.CurrentObject as Communication;
 
         // Get the related person object
-        Person person = communication.Contact;
+        _ = communication.Contact;
 
         // Get the phone numbers of the related person
         var phoneNumbers = communication.Contact.PhoneNumbers;
@@ -124,19 +143,11 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
         // Find the phone number of the desired type (e.g., work, home, mobile)
         var phoneNumber = phoneNumbers.FirstOrDefault();
 
-        var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .Build();
-
-        var accountSid = configuration.GetSection("Twilio")["AccountSid"];
-        var authToken = configuration.GetSection("Twilio")["AuthToken"];
-
-        // Make a call using the phone number
-        // For example, using the Twilio API
+        // Make a call using the phone number using the Twilio API
         TwilioClient.Init(accountSid, authToken);
-        var call = CallResource.Create(
+        _ = CallResource.Create(
             to: new Twilio.Types.PhoneNumber(phoneNumber.Number),
-            from: new Twilio.Types.PhoneNumber("+254796456117"),
+            from: new Twilio.Types.PhoneNumber(fromnumber),
             url: new Uri("http://demo.twilio.com/docs/voice.xml"));
 
         var objectSpace = View.ObjectSpace;
@@ -151,70 +162,77 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
         phoneCall.Participant = communication.Contact;
         //phoneCall.Direction = communication.Direction;
 
+        // Set the Status property to true
+        communication.IsContacted = true;
+
         // Save the phone call activity to the database
         View.ObjectSpace.CommitChanges();
     }
 
-    private void replyAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
-    {
-        Communication currentCommunication = (Communication)this.View.CurrentObject;
 
-        if(currentCommunication == null)
+
+    private void ReplyAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
+    {
+        if(View.CurrentObject is not Email currentEmail)
             return;
 
         var objectSpace = View.ObjectSpace;
         var session = ((XPObjectSpace)objectSpace).Session;
 
-        if(currentCommunication.Type == CommunicationType.Email)
+        var replyEmail = new Email(session)
         {
-            //Email replyEmail = new Email(this.ObjectSpace.Session);
-            var replyEmail = new Email(session);
-            replyEmail.From = currentCommunication.Contact.Email;
-            replyEmail.Subject = "Re: " + currentCommunication.Subject;
-            replyEmail.Body = Environment.NewLine +
-                Environment.NewLine +
-                "-----------------------" +
-                Environment.NewLine +
-                currentCommunication.Body;
-            e.View = this.Application.CreateDetailView(this.ObjectSpace, replyEmail);
-        }
+            From = currentEmail.Contact.Email,
+            Subject = "Re: " + currentEmail.Subject,
+            Body =
+                $"{Environment.NewLine}{Environment.NewLine}-----------------------{Environment.NewLine}{currentEmail.Body}"
+        };
+
+        // Get the replyEmail object from the target object space
+        replyEmail = ((XPObjectSpace)objectSpace).GetObject(replyEmail);
+
+        //e.View = Application.CreateDetailView(((XPObjectSpace)objectSpace).CreateNestedObjectSpace(), replyEmail);
+        e.View = Application.CreateDetailView(replyEmail, true);
     }
 
-    private void replyAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
+    private void ReplyAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
     {
-        Email email = (Email)e.PopupWindow.View.CurrentObject;
+        Email email = e.PopupWindow.View.CurrentObject as Email;
+        if(email == null)
+            return;
+
         var toList = new List<string>();
-        toList.Add(((Communication)this.View.CurrentObject).Contact.Email);
-        this.ObjectSpace.CommitChanges();
+        toList.Add(email.Contact.Email);
+        ObjectSpace.CommitChanges();
     }
 
-    private void forwardAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
+    private void ForwardAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
     {
-        Communication currentCommunication = (Communication)this.View.CurrentObject;
-
-        if(currentCommunication == null)
+        if(View.CurrentObject is not Email currentEmail)
             return;
 
         var objectSpace = View.ObjectSpace;
         var session = ((XPObjectSpace)objectSpace).Session;
 
-        if(currentCommunication.Type == CommunicationType.Email)
+        var forwardEmail = new Email(session)
         {
-            //Email forwardEmail = new Email(this.ObjectSpace.Session);
-            var forwardEmail = new Email(session);
-            forwardEmail.Subject = "Fwd: " + currentCommunication.Subject;
-            forwardEmail.Body = Environment.NewLine +
-                Environment.NewLine +
-                "-----------------------" +
-                Environment.NewLine +
-                currentCommunication.Body;
-            e.View = this.Application.CreateDetailView(this.ObjectSpace, forwardEmail);
-        }
+            Subject = "Fwd: " + currentEmail.Subject,
+            Body =
+                $"{Environment.NewLine}{Environment.NewLine}-----------------------{Environment.NewLine}{currentEmail.Body}"
+        };
+
+        // Get the forwardEmail object from the target object space
+        forwardEmail = ((XPObjectSpace)objectSpace).GetObject(forwardEmail);
+
+        //e.View = Application.CreateDetailView(((XPObjectSpace)objectSpace).CreateNestedObjectSpace(), forwardEmail);
+        e.View = Application.CreateDetailView(forwardEmail, true);
     }
 
-    private void forwardAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
+    private void ForwardAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
     {
-        Email email = (Email)e.PopupWindow.View.CurrentObject;
-        this.ObjectSpace.CommitChanges();
+        Email email = e.PopupWindow.View.CurrentObject as Email;
+        if(email == null)
+            return;
+
+        ObjectSpace.CommitChanges();
     }
 }

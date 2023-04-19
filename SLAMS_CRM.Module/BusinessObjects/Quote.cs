@@ -144,18 +144,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(ApprovalIssues), ref approvalIssues, value);
         }
 
-        [Action(
-            Caption = "Follow Up",
-            ConfirmationMessage = "Are you sure you want to follow up on this quote?",
-            ImageName = "FollowUp")]
-        public void FollowUpAction() { FollowUp(); }
-
-        [Action(
-            Caption = "Send Quote",
-            ConfirmationMessage = "Are you sure you want to send this quote to the customer?",
-            ImageName = "Actions_Send")]
-        public void SendQuoteAction() { SendQuote(); }
-
         public string GenerateProposal()
         {
             StringBuilder sb = new StringBuilder();
@@ -197,7 +185,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             if(QuoteStage == QuoteStage.Sent && LastFollowUp.AddDays(7) < DateTime.Now)
             {
                 // create a MailMessage object
-                MailMessage mail = new MailMessage();
+                MailMessage mail = new();
 
                 // set the email address of the recipient
                 mail.To.Add(Contact.Email);
@@ -248,8 +236,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
             string proposal = GenerateProposal();
             string emailBody = $"Dear {Contact.DisplayName},\n\nPlease find attached the proposal for {Title}.\n\n{proposal}\n\nKind regards,\n\nSLAMS CRM Team";
 
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress("flaughters@gmail.com");
+            MailMessage message = new()
+            {
+                From = new MailAddress("flaughters@gmail.com")
+            };
             message.To.Add(Account.EmailAddress);
             message.Subject = $"Proposal for {Title}";
             message.Body = emailBody;
