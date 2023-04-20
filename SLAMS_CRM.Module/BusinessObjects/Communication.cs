@@ -112,6 +112,20 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [VisibleInDetailView(false)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        [Appearance(
+            "ContactedTrueStatus",
+            AppearanceItemType = "ViewItem",
+            TargetItems = "Status",
+            Criteria = "Status == 'Sent'",
+            BackColor = "Green",
+            FontColor = "White")]
+        [Appearance(
+            "ContactedFalseStatus",
+            AppearanceItemType = "ViewItem",
+            TargetItems = "Status",
+            Criteria = "Status == 'Not Called' OR Status == 'Not Sent'",
+            BackColor = "Orange",
+            FontColor = "White")]
         public string Status
         {
             get
@@ -124,12 +138,16 @@ namespace SLAMS_CRM.Module.BusinessObjects
                     if(Type == CommunicationType.Phone)
                     {
                         return "Not Called";
-                    } else
+                    } else if(Type == CommunicationType.Email)
                     {
                         return "Not Sent";
+                    } else
+                    {
+                        return "N/A";
                     }
                 }
             }
+
             set => SetPropertyValue(nameof(Status), ref status, value);
         }
 

@@ -76,7 +76,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public Account AccountName { get; set; }
 
-
         [Browsable(false)]
         public int Stage
         {

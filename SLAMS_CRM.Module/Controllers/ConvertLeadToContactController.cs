@@ -65,11 +65,17 @@ public class ConvertLeadToContactController : ObjectViewController<ListView, Lea
                     contact.PhoneNumbers.Add(phone);
                 }
 
-                // Delete the lead object
-                lead.LeadStatus = LeadStatus.Qualified;
+                //lead.LeadStatus = LeadStatus.Qualified;
                 lead.Save();
-               // objectSpace.Delete(lead);
+
+                // Set the IsConvertedToContact property to true
+                lead.IsConvertedToContact = true;
+
+                // Delete the lead object
+                //objectSpace.Delete(lead);
+
             }
+
 
             objectSpace.CommitChanges();
         }

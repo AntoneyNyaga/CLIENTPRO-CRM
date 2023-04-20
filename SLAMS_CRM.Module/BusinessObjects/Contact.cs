@@ -43,6 +43,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         Company company;
         //string leadSource;
         Account account;
+        //string convertedFrom;
+        bool isCustomer;
 
         [Size(50)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
@@ -51,14 +53,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
         //[ExpandObjectMembers(ExpandObjectMembers.Never)]
         //[DevExpress.Xpo.Aggregated]
         [RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
-
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
         [RuleRequiredField("RuleRequiredField for Contact.Account", DefaultContexts.Save)]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
-        public Lead ConvertedFrom { get; set; }
-
+        /*[VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public Lead ConvertedFrom { get; set; }*/
 
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
@@ -68,6 +71,23 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public XPCollection<Communication> Communications
         {
             get { return GetCollection<Communication>(nameof(Communications)); }
+        }
+
+        [Browsable(false)]
+        public bool IsCustomer
+        {
+            get => isCustomer;
+            set => SetPropertyValue(nameof(IsCustomer), ref isCustomer, value);
+        }
+
+        //[Browsable(false)]
+        public string ConvertedFrom
+        {
+            get
+            {
+                var lead = Session.FindObject<Lead>(CriteriaOperator.Parse("Contact.Oid == ?", Oid));
+                return lead?.Converted;
+            }
         }
     }
 }

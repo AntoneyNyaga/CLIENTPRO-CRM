@@ -119,7 +119,6 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
         View.ObjectSpace.CommitChanges();
     }
 
-
     private void CallAction_Execute(object sender, SimpleActionExecuteEventArgs e)
     {
         var configuration = new ConfigurationBuilder()
@@ -168,8 +167,6 @@ public partial class CommunicationController : ObjectViewController<ListView, Co
         // Save the phone call activity to the database
         View.ObjectSpace.CommitChanges();
     }
-
-
 
     private void ReplyAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
     {

@@ -164,7 +164,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 AccountName = Name,
                 Action = action,
                 Date = DateTime.Now,
-                CreatedBy = applicationUser != null ? applicationUser.UserName : null
+                CreatedBy = applicationUser?.UserName
             };
             activityStreamEntry.Save();
         }
