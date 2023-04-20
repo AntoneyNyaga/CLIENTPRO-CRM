@@ -136,42 +136,20 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public void CalculateProbabilityOfClosing()
         {
-            switch(StageType)
+            ProbabilityOfClosing = StageType switch
             {
-                case StageType.Prospecting:
-                    ProbabilityOfClosing = 0.1;
-                    break;
-                case StageType.Qualification:
-                    ProbabilityOfClosing = 0.2;
-                    break;
-                case StageType.NeedsAnalysis:
-                    ProbabilityOfClosing = 0.3;
-                    break;
-                case StageType.ValueProposition:
-                    ProbabilityOfClosing = 0.3;
-                    break;
-                case StageType.IdDecisionMakers:
-                    ProbabilityOfClosing = 0.4;
-                    break;
-                case StageType.PerceptionAnalysis:
-                    ProbabilityOfClosing = 0.5;
-                    break;
-                case StageType.ProposalPriceQuote:
-                    ProbabilityOfClosing = 0.6;
-                    break;
-                case StageType.NegotiationReview:
-                    ProbabilityOfClosing = 0.7;
-                    break;
-                case StageType.ClosedWon:
-                    ProbabilityOfClosing = 0.8;
-                    break;
-                case StageType.ClosedLost:
-                    ProbabilityOfClosing = 0.9;
-                    break;
-                default:
-                    ProbabilityOfClosing = 1;
-                    break;
-            }
+                StageType.Prospecting => 0.1,
+                StageType.Qualification => 0.2,
+                StageType.NeedsAnalysis => 0.3,
+                StageType.ValueProposition => 0.3,
+                StageType.IdDecisionMakers => 0.4,
+                StageType.PerceptionAnalysis => 0.5,
+                StageType.ProposalPriceQuote => 0.6,
+                StageType.NegotiationReview => 0.7,
+                StageType.ClosedWon => 0.8,
+                StageType.ClosedLost => 0.9,
+                _ => 1,
+            };
         }
     }
 

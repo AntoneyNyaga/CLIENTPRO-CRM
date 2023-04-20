@@ -146,7 +146,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public string GenerateProposal()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine($"Proposal for {Title} - {ValidUntil.ToShortDateString()}");
             sb.AppendLine("-------------------------------------------------");
             sb.AppendLine($"Quote Status: {QuoteStage.ToString()}");
@@ -244,7 +244,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             message.Subject = $"Proposal for {Title}";
             message.Body = emailBody;
 
-            Attachment attachment = new Attachment(
+            Attachment attachment = new(
                 new MemoryStream(Encoding.UTF8.GetBytes(proposal)),
                 $"Proposal - {Title}.txt");
             message.Attachments.Add(attachment);

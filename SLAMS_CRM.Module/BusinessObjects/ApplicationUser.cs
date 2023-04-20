@@ -22,10 +22,12 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo 
     IEnumerable<ISecurityUserLoginInfo> IOAuthSecurityUser.UserLogins => LoginInfo.OfType<ISecurityUserLoginInfo>();
 
     ISecurityUserLoginInfo ISecurityUserWithLoginInfo.CreateUserLoginInfo(string loginProviderName, string providerUserKey) {
-        ApplicationUserLoginInfo result = new ApplicationUserLoginInfo(Session);
-        result.LoginProviderName = loginProviderName;
-        result.ProviderUserKey = providerUserKey;
-        result.User = this;
+        ApplicationUserLoginInfo result = new(Session)
+        {
+            LoginProviderName = loginProviderName,
+            ProviderUserKey = providerUserKey,
+            User = this
+        };
         return result;
     }
 

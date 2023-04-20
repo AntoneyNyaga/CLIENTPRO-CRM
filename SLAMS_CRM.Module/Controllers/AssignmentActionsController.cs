@@ -24,9 +24,9 @@ namespace SLAMS_CRM.Module.Controllers
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class AssignmentActionsController : ObjectViewController<ObjectView, Assignment>
     {
-        private ChoiceActionItem setPriorityItem;
-        private ChoiceActionItem setStatusItem;
-        private SingleChoiceAction SetTaskAction;
+        private readonly ChoiceActionItem setPriorityItem;
+        private readonly ChoiceActionItem setStatusItem;
+        private readonly SingleChoiceAction SetTaskAction;
 
         public AssignmentActionsController()
         {
@@ -79,13 +79,15 @@ namespace SLAMS_CRM.Module.Controllers
             SetTaskAction.Enabled.SetItemValue("SecurityAllowance", isGranted);
         }
 
-        private void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)
+        private static void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)
         {
-            EnumDescriptor ed = new EnumDescriptor(enumType);
+            EnumDescriptor ed = new(enumType);
             foreach(object current in Enum.GetValues(enumType))
             {
-                ChoiceActionItem item = new ChoiceActionItem(ed.GetCaption(current), current);
-                item.ImageName = ImageLoader.Instance.GetEnumValueImageName(current);
+                ChoiceActionItem item = new(ed.GetCaption(current), current)
+                {
+                    ImageName = ImageLoader.Instance.GetEnumValueImageName(current)
+                };
                 parentItem.Items.Add(item);
             }
         }
@@ -99,7 +101,7 @@ namespace SLAMS_CRM.Module.Controllers
 
         private void View_SelectionChanged(object sender, EventArgs e) { UpdateSetTaskActionState(); }
 
-        private Assignment GetObject(
+        private static Assignment GetObject(
             Assignment obj,
             IObjectSpace objectSpace,
             IObjectSpace newObjectSpace,
@@ -119,7 +121,7 @@ namespace SLAMS_CRM.Module.Controllers
                 ? Application.CreateObjectSpace(typeof(Assignment))
                 : View.ObjectSpace;
             int newObjectsCount = 0;
-            ArrayList objectsToProcess = new ArrayList(args.SelectedObjects);
+            ArrayList objectsToProcess = new(args.SelectedObjects);
             if(args.SelectedChoiceActionItem.ParentItem == setPriorityItem)
             {
                 foreach(object obj in objectsToProcess)
@@ -143,7 +145,7 @@ namespace SLAMS_CRM.Module.Controllers
                     objInNewObjectSpace.Status = (TaskStatus)args.SelectedChoiceActionItem.Data;
                 }
             }
-            if(View is DetailView && ((DetailView)View).ViewEditMode == ViewEditMode.View)
+            if(View is DetailView view && view.ViewEditMode == ViewEditMode.View)
             {
                 objectSpace.CommitChanges();
             }

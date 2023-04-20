@@ -46,8 +46,7 @@ namespace SLAMS_CRM.Module.Controllers
 
         private void FollowUpAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var quote = View.CurrentObject as Quote;
-            if (quote == null)
+            if (View.CurrentObject is not Quote quote)
             {
                 return;
             }
@@ -58,8 +57,7 @@ namespace SLAMS_CRM.Module.Controllers
 
         private void SendQuoteAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var quote = View.CurrentObject as Quote;
-            if (quote == null)
+            if (View.CurrentObject is not Quote quote)
             {
                 return;
             }
