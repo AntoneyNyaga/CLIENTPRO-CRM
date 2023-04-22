@@ -90,22 +90,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(ValidUntil), ref validUntil, value);
         }
 
-        /*public ApplicationUser AssignedTo
-        {
-            get => assignedTo;
-            set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
-        }*/
-
         [Association("ApplicationUser-Quote")]
         public XPCollection<ApplicationUser> AssignedUsers
         {
             get { return GetCollection<ApplicationUser>(nameof(AssignedUsers)); }
         }
-
-
-        // the one part of the Association
-        //[Association("Quote-Products")]
-        //public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
         private decimal _price;
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
@@ -182,7 +171,16 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public void FollowUp()
         {
-            if(QuoteStage == QuoteStage.Sent && LastFollowUp.AddDays(7) < DateTime.Now)
+
+            var configuration = new ConfigurationBuilder()
+                   .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                   .Build();
+
+            var username = configuration.GetSection("Email")["UserName"];
+            var password = configuration.GetSection("Email")["Password"];
+
+
+            if (QuoteStage == QuoteStage.Sent && LastFollowUp.AddDays(7) < DateTime.Now)
             {
                 // create a MailMessage object
                 MailMessage mail = new();
@@ -211,13 +209,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
                     Environment.NewLine +
                     "SLAMS CRM Team";
 
-                var configuration = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .Build();
-
-                var username = configuration.GetSection("Email")["UserName"];
-                var password = configuration.GetSection("Email")["Password"];
-
                 using(SmtpClient smtp = new("smtp.gmail.com", 587))
                 {
                     // set the credentials for the SMTP server via google app password
@@ -232,13 +223,21 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         public void SendQuote()
         {
+
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+
+            var username = configuration.GetSection("Email")["UserName"];
+            var password = configuration.GetSection("Email")["Password"];
+
             // Generate the proposal and send it to the customer via email
             string proposal = GenerateProposal();
             string emailBody = $"Dear {Contact.DisplayName},\n\nPlease find attached the proposal for {Title}.\n\n{proposal}\n\nKind regards,\n\nSLAMS CRM Team";
 
             MailMessage message = new()
             {
-                From = new MailAddress("flaughters@gmail.com")
+                From = new MailAddress(username)
             };
             message.To.Add(Account.EmailAddress);
             message.Subject = $"Proposal for {Title}";
@@ -248,14 +247,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 new MemoryStream(Encoding.UTF8.GetBytes(proposal)),
                 $"Proposal - {Title}.txt");
             message.Attachments.Add(attachment);
-
-
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .Build();
-
-            var username = configuration.GetSection("Email")["UserName"];
-            var password = configuration.GetSection("Email")["Password"];
 
             using(SmtpClient smtp = new("smtp.gmail.com", 587))
             {
