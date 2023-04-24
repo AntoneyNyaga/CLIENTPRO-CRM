@@ -38,6 +38,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        //Invoice invoice;
         Address shippingAddress;
         DateTime modifiedOn;
         DateTime createdOn;
@@ -76,7 +77,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [DevExpress.Xpo.Aggregated]
-        
+
         public Address ShippingAddress
         {
             get => shippingAddress;
@@ -172,6 +173,16 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
+
+        [Browsable(false)]
+        [DevExpress.Xpo.Association("Account-Invoices")]
+        public XPCollection<Invoice> Invoices
+        {
+            get
+            {
+                return GetCollection<Invoice>(nameof(Invoices));
+            }
+        }
 
     }
 

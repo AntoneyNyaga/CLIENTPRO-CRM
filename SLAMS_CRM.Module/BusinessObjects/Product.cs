@@ -26,6 +26,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
         }
 
+        Invoice invoices;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
@@ -53,13 +54,13 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(ProductLine), ref _productLine, value);
         }
 
-       /* [Browsable(false)]
-        [Association("Company-Products")]
-        public Company Company
+        [Browsable(false)]
+        [Association("Invoice-Products")]
+        public Invoice Invoices
         {
-            get => company;
-            set => SetPropertyValue(nameof(Company), ref company, value);
-        }*/
+            get => invoices;
+            set => SetPropertyValue(nameof(Invoices), ref invoices, value);
+        }
     }
 
     //[DefaultClassOptions]

@@ -23,7 +23,8 @@
           <Item Id="Account_ListView" ImageName="AccountingNumberFormat" />
         </Items>
       </Item>
-      <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="5" />
+      <Item Id="Orders" ImageName="ProductOrderDetail-21" Index="5" />
+      <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="6" />
     </Items>
   </NavigationItems>
   <Options>
