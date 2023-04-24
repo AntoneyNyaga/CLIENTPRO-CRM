@@ -17,7 +17,7 @@ using System.Text;
 
 namespace SLAMS_CRM.Module.Controllers
 {
-    public partial class InvoiceController : ObjectViewController<ListView, Invoice>
+    public partial class InvoiceController : ObjectViewController<ListView, Quote>
     {
         public InvoiceController()
         {
@@ -35,7 +35,8 @@ namespace SLAMS_CRM.Module.Controllers
         {
             var invoice = View.ObjectSpace.CreateObject<Invoice>();
             // Add any necessary properties to the new invoice
-            View.ObjectSpace.CommitChanges();   
+            View.ObjectSpace.CommitChanges();
+            View.ObjectSpace.Refresh();
             View.SelectedObjects.Clear();
             View.SelectedObjects.Add(invoice);
         }
