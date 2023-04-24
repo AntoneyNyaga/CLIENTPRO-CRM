@@ -1,20 +1,11 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.ServiceModel.Channels;
 using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
@@ -209,7 +200,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                     Environment.NewLine +
                     "SLAMS CRM Team";
 
-                using(SmtpClient smtp = new("smtp.gmail.com", 587))
+                using (SmtpClient smtp = new("smtp.gmail.com", 587))
                 {
                     // set the credentials for the SMTP server via google app password
                     smtp.Credentials = new NetworkCredential(username, password);
@@ -248,7 +239,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 $"Proposal - {Title}.txt");
             message.Attachments.Add(attachment);
 
-            using(SmtpClient smtp = new("smtp.gmail.com", 587))
+            using (SmtpClient smtp = new("smtp.gmail.com", 587))
             {
                 smtp.Credentials = new NetworkCredential(username, password);
                 smtp.EnableSsl = true;

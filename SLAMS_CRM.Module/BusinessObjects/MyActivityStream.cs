@@ -1,17 +1,8 @@
 ﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
@@ -80,7 +71,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             string accountName,
             ApplicationUser currentUser)
         {
-            if(!HasActivityStreamEntry(session, action, accountName))
+            if (!HasActivityStreamEntry(session, action, accountName))
             {
                 var activityStreamEntry = new MyActivityStream(session)
                 {

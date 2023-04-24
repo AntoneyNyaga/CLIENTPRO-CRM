@@ -1,22 +1,10 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Filtering;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Utils;
+﻿using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using SLAMS_CRM.Module.BusinessObjects;
-using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
@@ -36,7 +24,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
             // Set ConvertedFrom based on the value of SourceType
-            if(SourceType.HasValue)
+            if (SourceType.HasValue)
             {
                 ConvertedFrom = SourceType.Value.ToString();
             }
@@ -95,7 +83,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 SetPropertyValue(nameof(SourceType), ref source, value?.ToString());
 
                 // Update ConvertedFrom whenever SourceType is set
-                if(value.HasValue)
+                if (value.HasValue)
                 {
                     ConvertedFrom = value.Value.ToString();
                 }
@@ -152,10 +140,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             get
             {
-                if(IsConvertedToContact)
+                if (IsConvertedToContact)
                 {
                     return "Converted To Contact";
-                } else
+                }
+                else
                 {
                     return "Not Yet Converted";
                     //return ConvertedFrom;
@@ -169,7 +158,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             int score = 0;
 
             // Increase score based on the lead status
-            switch(LeadStatus)
+            switch (LeadStatus)
             {
                 case BusinessObjects.LeadStatus.New:
                     score += 10;
@@ -185,7 +174,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
 
             // Increase score based on the lead source
-            switch(SourceType)
+            switch (SourceType)
             {
                 case BusinessObjects.SourceType.ColdCall:
                     score += 10;
@@ -202,16 +191,18 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
 
             // Increase score based on the lead's job title
-            if(!string.IsNullOrEmpty(JobTitle))
+            if (!string.IsNullOrEmpty(JobTitle))
             {
                 // Add score based on job title keyword matches
-                if(JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
+                if (JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
                 {
                     score += 50;
-                } else if(JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
+                }
+                else if (JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
                 {
                     score += 30;
-                } else if(JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
+                }
+                else if (JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
                 {
                     score += 20;
                 }

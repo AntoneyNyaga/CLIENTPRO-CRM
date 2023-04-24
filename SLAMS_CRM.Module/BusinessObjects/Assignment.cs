@@ -1,19 +1,8 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.DC;
+﻿using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using DevExpress.XtraPrinting.Native;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using Task = DevExpress.Persistent.BaseImpl.Task;
 
 
@@ -36,7 +25,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             : base(session)
         {
         }
- 
+
         [Appearance("PriorityBackColorPink", AppearanceItemType = "ViewItem", Criteria = "Priority=2", BackColor = "0xfff0f0")]
         public Priority Priority
         {

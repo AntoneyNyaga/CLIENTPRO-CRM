@@ -1,12 +1,8 @@
 ﻿using DevExpress.ExpressApp;
-using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Security.Strategy;
-using DevExpress.Xpo;
-using DevExpress.ExpressApp.Xpo;
+using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using SLAMS_CRM.Module.BusinessObjects;
@@ -14,11 +10,14 @@ using SLAMS_CRM.Module.BusinessObjects;
 namespace SLAMS_CRM.Module.DatabaseUpdate;
 
 // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.Updating.ModuleUpdater
-public class Updater : ModuleUpdater {
+public class Updater : ModuleUpdater
+{
     public Updater(IObjectSpace objectSpace, Version currentDBVersion) :
-        base(objectSpace, currentDBVersion) {
+        base(objectSpace, currentDBVersion)
+    {
     }
-    public override void UpdateDatabaseAfterUpdateSchema() {
+    public override void UpdateDatabaseAfterUpdateSchema()
+    {
         base.UpdateDatabaseAfterUpdateSchema();
         //string name = "MyName";
         //DomainObject1 theObject = ObjectSpace.FirstOrDefault<DomainObject1>(u => u.Name == name);
@@ -65,26 +64,29 @@ public class Updater : ModuleUpdater {
         ObjectSpace.CommitChanges(); //This line persists created object(s).
 #endif
     }
-    public override void UpdateDatabaseBeforeUpdateSchema() {
+    public override void UpdateDatabaseBeforeUpdateSchema()
+    {
         base.UpdateDatabaseBeforeUpdateSchema();
         //if(CurrentDBVersion < new Version("1.1.0.0") && CurrentDBVersion > new Version("0.0.0.0")) {
         //    RenameColumn("DomainObject1Table", "OldColumnName", "NewColumnName");
         //}
     }
-    private PermissionPolicyRole CreateDefaultRole() {
+    private PermissionPolicyRole CreateDefaultRole()
+    {
         PermissionPolicyRole defaultRole = ObjectSpace.FirstOrDefault<PermissionPolicyRole>(role => role.Name == "Default");
-        if(defaultRole == null) {
+        if (defaultRole == null)
+        {
             defaultRole = ObjectSpace.CreateObject<PermissionPolicyRole>();
             defaultRole.Name = "Default";
 
-			defaultRole.AddObjectPermissionFromLambda<ApplicationUser>(SecurityOperations.Read, cm => cm.Oid == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
+            defaultRole.AddObjectPermissionFromLambda<ApplicationUser>(SecurityOperations.Read, cm => cm.Oid == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
             defaultRole.AddNavigationPermission(@"Application/NavigationItems/Items/Default/Items/MyDetails", SecurityPermissionState.Allow);
-			defaultRole.AddMemberPermissionFromLambda<ApplicationUser>(SecurityOperations.Write, "ChangePasswordOnFirstLogon", cm => cm.Oid == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
-			defaultRole.AddMemberPermissionFromLambda<ApplicationUser>(SecurityOperations.Write, "StoredPassword", cm => cm.Oid == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
+            defaultRole.AddMemberPermissionFromLambda<ApplicationUser>(SecurityOperations.Write, "ChangePasswordOnFirstLogon", cm => cm.Oid == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
+            defaultRole.AddMemberPermissionFromLambda<ApplicationUser>(SecurityOperations.Write, "StoredPassword", cm => cm.Oid == (Guid)CurrentUserIdOperator.CurrentUserId(), SecurityPermissionState.Allow);
             defaultRole.AddTypePermissionsRecursively<PermissionPolicyRole>(SecurityOperations.Read, SecurityPermissionState.Deny);
             defaultRole.AddTypePermissionsRecursively<ModelDifference>(SecurityOperations.ReadWriteAccess, SecurityPermissionState.Allow);
             defaultRole.AddTypePermissionsRecursively<ModelDifferenceAspect>(SecurityOperations.ReadWriteAccess, SecurityPermissionState.Allow);
-			defaultRole.AddTypePermissionsRecursively<ModelDifference>(SecurityOperations.Create, SecurityPermissionState.Allow);
+            defaultRole.AddTypePermissionsRecursively<ModelDifference>(SecurityOperations.Create, SecurityPermissionState.Allow);
             defaultRole.AddTypePermissionsRecursively<ModelDifferenceAspect>(SecurityOperations.Create, SecurityPermissionState.Allow);
         }
         return defaultRole;

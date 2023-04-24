@@ -1,18 +1,11 @@
-﻿using DevExpress.DashboardCommon;
-using DevExpress.ExpressApp.ConditionalAppearance;
+﻿using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
-using SLAMS_CRM.Module.Controllers;
-using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
@@ -99,11 +92,12 @@ namespace SLAMS_CRM.Module.BusinessObjects
             bool isEmail = Type == CommunicationType.Email;
             bool isPhone = Type == CommunicationType.Phone;
 
-            if(Contact != null && Contact.This != null)
+            if (Contact != null && Contact.This != null)
             {
                 SetPropertyValue(nameof(Email), isEmail ? Contact.Email : null);
                 SetPropertyValue(nameof(PhoneNumber), isPhone ? Contact.PhoneNumbers : null);
-            } else
+            }
+            else
             {
                 SetPropertyValue(nameof(Email), null);
                 SetPropertyValue(nameof(PhoneNumber), null);
@@ -130,18 +124,21 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             get
             {
-                if(IsContacted)
+                if (IsContacted)
                 {
                     return "Sent";
-                } else
+                }
+                else
                 {
-                    if(Type == CommunicationType.Phone)
+                    if (Type == CommunicationType.Phone)
                     {
                         return "Not Called";
-                    } else if(Type == CommunicationType.Email)
+                    }
+                    else if (Type == CommunicationType.Email)
                     {
                         return "Not Sent";
-                    } else
+                    }
+                    else
                     {
                         return "N/A";
                     }

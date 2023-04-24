@@ -1,17 +1,7 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects
 {
@@ -72,7 +62,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             const string InvoiceNumberFormat = "INV{0}{1}{2:0000}";
             var lastInvoice = Session.Query<Invoice>()?.OrderByDescending(i => i.InvoiceDate).FirstOrDefault();
-            if(lastInvoice != null)
+            if (lastInvoice != null)
             {
                 var year = lastInvoice.InvoiceDate.Year;
                 var month = lastInvoice.InvoiceDate.Month;
@@ -80,7 +70,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 sequence++;
                 var newInvoiceNumber = string.Format(InvoiceNumberFormat, year, month, sequence);
                 InvoiceNumber = newInvoiceNumber;
-            } else
+            }
+            else
             {
                 InvoiceNumber = string.Format(InvoiceNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }

@@ -1,19 +1,18 @@
-﻿using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.ApplicationBuilder;
+﻿using DevExpress.ExpressApp.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
-using DevExpress.Persistent.Base;
+using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server.Circuits;
-using DevExpress.ExpressApp.Xpo;
 using SLAMS_CRM.Blazor.Server.Services;
-using DevExpress.Persistent.BaseImpl.PermissionPolicy;
-using DevExpress.ExpressApp.Core;
 
 namespace SLAMS_CRM.Blazor.Server;
 
-public class Startup {
-    public Startup(IConfiguration configuration) {
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
         Configuration = configuration;
     }
 
@@ -21,24 +20,28 @@ public class Startup {
 
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-    public void ConfigureServices(IServiceCollection services) {
+    public void ConfigureServices(IServiceCollection services)
+    {
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
 
         services.AddRazorPages();
         services.AddServerSideBlazor();
         services.AddHttpContextAccessor();
         services.AddScoped<CircuitHandler, CircuitHandlerProxy>();
-        services.AddXaf(Configuration, builder => {
+        services.AddXaf(Configuration, builder =>
+        {
             builder.UseApplication<SLAMS_CRMBlazorApplication>();
             builder.Modules
                 .AddAuditTrailXpo()
                 .AddCloningXpo()
                 .AddConditionalAppearance()
-                .AddDashboards(options => {
+                .AddDashboards(options =>
+                {
                     options.DashboardDataType = typeof(DevExpress.Persistent.BaseImpl.DashboardData);
                 })
                 .AddOffice()
-                .AddReports(options => {
+                .AddReports(options =>
+                {
                     options.EnableInplaceReports = true;
                     options.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.ReportDataV2);
                     options.ReportStoreMode = DevExpress.ExpressApp.ReportsV2.ReportStoreModes.XML;
@@ -46,11 +49,13 @@ public class Startup {
                 })
                 .AddValidation()
                 .Add<SLAMS_CRM.Module.SLAMS_CRMModule>()
-            	.Add<SLAMS_CRMBlazorModule>();
+                .Add<SLAMS_CRMBlazorModule>();
             builder.ObjectSpaceProviders
-                .AddSecuredXpo((serviceProvider, options) => {
+                .AddSecuredXpo((serviceProvider, options) =>
+                {
                     string connectionString = null;
-                    if(Configuration.GetConnectionString("ConnectionString") != null) {
+                    if (Configuration.GetConnectionString("ConnectionString") != null)
+                    {
                         connectionString = Configuration.GetConnectionString("ConnectionString");
                     }
 #if EASYTEST
@@ -65,7 +70,8 @@ public class Startup {
                 })
                 .AddNonPersistent();
             builder.Security
-                .UseIntegratedMode(options => {
+                .UseIntegratedMode(options =>
+                {
                     options.RoleType = typeof(PermissionPolicyRole);
                     // ApplicationUser descends from PermissionPolicyUser and supports the OAuth authentication. For more information, refer to the following topic: https://docs.devexpress.com/eXpressAppFramework/402197
                     // If your application uses PermissionPolicyUser or a custom user type, set the UserType property as follows:
@@ -75,21 +81,26 @@ public class Startup {
                     options.UserLoginInfoType = typeof(SLAMS_CRM.Module.BusinessObjects.ApplicationUserLoginInfo);
                     options.UseXpoPermissionsCaching();
                 })
-                .AddPasswordAuthentication(options => {
+                .AddPasswordAuthentication(options =>
+                {
                     options.IsSupportChangePassword = true;
                 });
         });
-        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+        {
             options.LoginPath = "/LoginPage";
         });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-        if(env.IsDevelopment()) {
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
             app.UseDeveloperExceptionPage();
         }
-        else {
+        else
+        {
             app.UseExceptionHandler("/Error");
             // The default HSTS value is 30 days. To change this for production scenarios, see: https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
@@ -101,7 +112,8 @@ public class Startup {
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseXaf();
-        app.UseEndpoints(endpoints => {
+        app.UseEndpoints(endpoints =>
+        {
             endpoints.MapXafEndpoints();
             endpoints.MapBlazorHub();
             endpoints.MapFallbackToPage("/_Host");

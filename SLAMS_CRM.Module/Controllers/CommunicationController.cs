@@ -2,15 +2,12 @@
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+using Microsoft.Extensions.Configuration;
 using SLAMS_CRM.Module.BusinessObjects;
+using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.Net.Mail;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using Twilio.TwiML.Voice;
 
 namespace SLAMS_CRM.Module.Controllers
 {

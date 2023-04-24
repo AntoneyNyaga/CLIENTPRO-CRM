@@ -1,21 +1,10 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
 using SLAMS_CRM.Module.BusinessObjects;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
 
 
@@ -55,7 +44,7 @@ namespace SLAMS_CRM.Module.Controllers
             bool isGranted = true;
 
             SecurityStrategy security = Application.GetSecurityStrategy();
-            foreach(object selectedObject in View.SelectedObjects)
+            foreach (object selectedObject in View.SelectedObjects)
             {
                 bool isPriorityGranted = security.IsGranted(
                     new PermissionRequest(
@@ -71,7 +60,7 @@ namespace SLAMS_CRM.Module.Controllers
                         SecurityOperations.Write,
                         selectedObject,
                         nameof(Assignment.Status)));
-                if(!isPriorityGranted || !isStatusGranted)
+                if (!isPriorityGranted || !isStatusGranted)
                 {
                     isGranted = false;
                 }
@@ -82,7 +71,7 @@ namespace SLAMS_CRM.Module.Controllers
         private static void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)
         {
             EnumDescriptor ed = new(enumType);
-            foreach(object current in Enum.GetValues(enumType))
+            foreach (object current in Enum.GetValues(enumType))
             {
                 ChoiceActionItem item = new(ed.GetCaption(current), current)
                 {
@@ -107,7 +96,7 @@ namespace SLAMS_CRM.Module.Controllers
             IObjectSpace newObjectSpace,
             ref int newObjectsCount)
         {
-            if(objectSpace.IsNewObject(obj))
+            if (objectSpace.IsNewObject(obj))
             {
                 newObjectsCount++;
                 return obj;
@@ -122,9 +111,9 @@ namespace SLAMS_CRM.Module.Controllers
                 : View.ObjectSpace;
             int newObjectsCount = 0;
             ArrayList objectsToProcess = new(args.SelectedObjects);
-            if(args.SelectedChoiceActionItem.ParentItem == setPriorityItem)
+            if (args.SelectedChoiceActionItem.ParentItem == setPriorityItem)
             {
-                foreach(object obj in objectsToProcess)
+                foreach (object obj in objectsToProcess)
                 {
                     Assignment objInNewObjectSpace = GetObject(
                         (Assignment)obj,
@@ -133,9 +122,10 @@ namespace SLAMS_CRM.Module.Controllers
                         ref newObjectsCount);
                     objInNewObjectSpace.Priority = (Priority)args.SelectedChoiceActionItem.Data;
                 }
-            } else if(args.SelectedChoiceActionItem.ParentItem == setStatusItem)
+            }
+            else if (args.SelectedChoiceActionItem.ParentItem == setStatusItem)
             {
-                foreach(object obj in objectsToProcess)
+                foreach (object obj in objectsToProcess)
                 {
                     Assignment objInNewObjectSpace = GetObject(
                         (Assignment)obj,
@@ -145,11 +135,11 @@ namespace SLAMS_CRM.Module.Controllers
                     objInNewObjectSpace.Status = (TaskStatus)args.SelectedChoiceActionItem.Data;
                 }
             }
-            if(View is DetailView view && view.ViewEditMode == ViewEditMode.View)
+            if (View is DetailView view && view.ViewEditMode == ViewEditMode.View)
             {
                 objectSpace.CommitChanges();
             }
-            if((View is ListView) && (newObjectsCount != objectsToProcess.Count))
+            if ((View is ListView) && (newObjectsCount != objectsToProcess.Count))
             {
                 objectSpace.CommitChanges();
                 View.ObjectSpace.Refresh();

@@ -5,7 +5,8 @@ using Microsoft.Extensions.Options;
 
 namespace SLAMS_CRM.Blazor.Server.Services;
 
-internal class ProxyHubConnectionHandler<THub> : HubConnectionHandler<THub> where THub : Hub {
+internal class ProxyHubConnectionHandler<THub> : HubConnectionHandler<THub> where THub : Hub
+{
     private readonly IValueManagerStorageContainerInitializer storageContainerInitializer;
     public ProxyHubConnectionHandler(
         HubLifetimeManager<THub> lifetimeManager,
@@ -16,11 +17,13 @@ internal class ProxyHubConnectionHandler<THub> : HubConnectionHandler<THub> wher
         IUserIdProvider userIdProvider,
         IServiceScopeFactory serviceScopeFactory,
         IValueManagerStorageContainerInitializer storageContainerAccessor)
-        : base(lifetimeManager, protocolResolver, globalHubOptions, hubOptions, loggerFactory, userIdProvider, serviceScopeFactory) {
+        : base(lifetimeManager, protocolResolver, globalHubOptions, hubOptions, loggerFactory, userIdProvider, serviceScopeFactory)
+    {
         this.storageContainerInitializer = storageContainerAccessor;
     }
 
-    public override Task OnConnectedAsync(ConnectionContext connection) {
+    public override Task OnConnectedAsync(ConnectionContext connection)
+    {
         storageContainerInitializer.Initialize();
         return base.OnConnectedAsync(connection);
     }
