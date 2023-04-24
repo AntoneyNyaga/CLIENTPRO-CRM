@@ -33,10 +33,8 @@ public class Program : IDesignTimeApplicationFactory
             IHost host = CreateHostBuilder(args).Build();
             if (ContainsArgument(args, "updateDatabase"))
             {
-                using (var serviceScope = host.Services.CreateScope())
-                {
-                    return serviceScope.ServiceProvider.GetRequiredService<DevExpress.ExpressApp.Utils.IDBUpdater>().Update(ContainsArgument(args, "forceUpdate"), ContainsArgument(args, "silent"));
-                }
+                using var serviceScope = host.Services.CreateScope();
+                return serviceScope.ServiceProvider.GetRequiredService<DevExpress.ExpressApp.Utils.IDBUpdater>().Update(ContainsArgument(args, "forceUpdate"), ContainsArgument(args, "silent"));
             }
             else
             {

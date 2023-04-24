@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.ApplicationBuilder;
+﻿using DevExpress.AspNetCore.Reporting;
+using DevExpress.ExpressApp.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
 using DevExpress.ExpressApp.Security;
@@ -24,6 +25,11 @@ public class Startup
     {
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
 
+        //hiding an exception
+        services.ConfigureReportingServices(configurator => 
+        {
+            configurator.DisableCheckForCustomControllers();
+        });
         services.AddRazorPages();
         services.AddServerSideBlazor();
         services.AddHttpContextAccessor();
