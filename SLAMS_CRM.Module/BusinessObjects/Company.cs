@@ -74,14 +74,5 @@ namespace SLAMS_CRM.Module.BusinessObjects
             get => emailAddress;
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
-
-        /*[Association("Company-Products")]
-        public XPCollection<Product> Products
-        {
-            get
-            {
-                return GetCollection<Product>(nameof(Products));
-            }
-        }*/
     }
 }

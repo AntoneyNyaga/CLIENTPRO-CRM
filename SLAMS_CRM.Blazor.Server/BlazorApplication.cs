@@ -15,7 +15,8 @@ public class SLAMS_CRMBlazorApplication : BlazorApplication
     {
         base.OnSetupStarted();
 #if DEBUG
-        if(System.Diagnostics.Debugger.IsAttached && CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema) {
+        if (System.Diagnostics.Debugger.IsAttached && CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema)
+        {
             DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
         }
 #endif

@@ -26,7 +26,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
-
         string jobTitle;
         Company company;
         //string leadSource;
@@ -45,11 +44,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [RuleRequiredField("RuleRequiredField for Contact.Account", DefaultContexts.Save)]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
-
-        /*[VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public Lead ConvertedFrom { get; set; }*/
 
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();

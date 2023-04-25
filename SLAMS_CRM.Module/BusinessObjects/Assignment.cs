@@ -63,7 +63,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             {
                 DueDate = DateTime.Now;
             }
-            DueDate = DueDate + TimeSpan.FromDays(1);
+            DueDate += TimeSpan.FromDays(1);
         }
         [RuleValueComparison("Task_EstimatedWorkHours", DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
         public int EstimatedWorkHours

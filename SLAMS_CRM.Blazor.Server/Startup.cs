@@ -26,7 +26,7 @@ public class Startup
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
 
         //hiding an exception
-        services.ConfigureReportingServices(configurator => 
+        services.ConfigureReportingServices(configurator =>
         {
             configurator.DisableCheckForCustomControllers();
         });

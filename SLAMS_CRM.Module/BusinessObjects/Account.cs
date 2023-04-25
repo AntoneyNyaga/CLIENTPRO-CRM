@@ -66,7 +66,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
+        [Aggregated]
         [RuleRequiredField("RuleRequiredField for Account.ShippingAddress", DefaultContexts.Save)]
         public Address ShippingAddress
         {

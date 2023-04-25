@@ -27,7 +27,8 @@ public class Updater : ModuleUpdater
         //}
 #if !RELEASE
         ApplicationUser sampleUser = ObjectSpace.FirstOrDefault<ApplicationUser>(u => u.UserName == "User");
-        if(sampleUser == null) {
+        if (sampleUser == null)
+        {
             sampleUser = ObjectSpace.CreateObject<ApplicationUser>();
             sampleUser.UserName = "User";
             // Set a password if the standard authentication type is used
@@ -42,7 +43,8 @@ public class Updater : ModuleUpdater
         sampleUser.Roles.Add(defaultRole);
 
         ApplicationUser userAdmin = ObjectSpace.FirstOrDefault<ApplicationUser>(u => u.UserName == "Admin");
-        if(userAdmin == null) {
+        if (userAdmin == null)
+        {
             userAdmin = ObjectSpace.CreateObject<ApplicationUser>();
             userAdmin.UserName = "Admin";
             // Set a password if the standard authentication type is used
@@ -53,14 +55,15 @@ public class Updater : ModuleUpdater
             ObjectSpace.CommitChanges(); //This line persists created object(s).
             ((ISecurityUserWithLoginInfo)userAdmin).CreateUserLoginInfo(SecurityDefaults.PasswordAuthentication, ObjectSpace.GetKeyValueAsString(userAdmin));
         }
-		// If a role with the Administrators name doesn't exist in the database, create this role
+        // If a role with the Administrators name doesn't exist in the database, create this role
         PermissionPolicyRole adminRole = ObjectSpace.FirstOrDefault<PermissionPolicyRole>(r => r.Name == "Administrators");
-        if(adminRole == null) {
+        if (adminRole == null)
+        {
             adminRole = ObjectSpace.CreateObject<PermissionPolicyRole>();
             adminRole.Name = "Administrators";
         }
         adminRole.IsAdministrative = true;
-		userAdmin.Roles.Add(adminRole);
+        userAdmin.Roles.Add(adminRole);
         ObjectSpace.CommitChanges(); //This line persists created object(s).
 #endif
     }
