@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.ConditionalAppearance;
+﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -22,16 +23,14 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
             // Set ConvertedFrom based on the value of SourceType
-            if (SourceType.HasValue)
+            if(SourceType.HasValue)
             {
                 ConvertedFrom = SourceType.Value.ToString();
             }
 
-            UpdateScore();
+            //UpdateScore();
         }
-
 
         bool isConvertedToContact;
         string jobTitle;
@@ -49,14 +48,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
+        [Aggregated]
         [RuleRequiredField("RuleRequiredField for Lead.Company", DefaultContexts.Save)]
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
-        [RuleRequiredField("RuleRequiredField for Lead.Account", DefaultContexts.Save)]
-        [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
-        public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
         [Browsable(false)]
         public int Source
@@ -71,8 +66,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public string ConvertedFrom { get; set; }
 
 
-        [RuleRequiredField("RuleRequiredField for Lead.Source", DefaultContexts.Save)]
-
+        [RuleRequiredField("RuleRequiredField for Lead.SourceType", DefaultContexts.Save)]
         [NotMapped]
         [ImmediatePostData(true)]
         public SourceType? SourceType
@@ -97,8 +91,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Status), ref status, Enum.GetName(typeof(LeadStatus), value));
         }
 
-        [RuleRequiredField("RuleRequiredField for Lead.Status", DefaultContexts.Save)]
-
+        [RuleRequiredField("RuleRequiredField for Lead.LeadStatus", DefaultContexts.Save)]
         [NotMapped]
         public LeadStatus? LeadStatus { get; set; }
 
@@ -153,12 +146,62 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(Converted), ref converted, value);
         }
 
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+            // Update the score whenever a property changes
+
+            if (propertyName == nameof(LeadStatus) ||
+                propertyName == nameof(SourceType) ||
+                propertyName == nameof(JobTitle))
+            {
+                UpdateScore();
+            }
+        }
+
+        [RuleRequiredField("RuleRequiredField for Lead.Account", DefaultContexts.Save)]
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [Aggregated]
+        public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
+
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+
+            if (Account != null)
+            {
+                Account.Name = FullName;
+                Account.EmailAddress = Email;
+                Account.ShippingAddress = Address1;
+                if (PhoneNumbers != null)
+                {
+                    // save phone numbers to the office phone of the account
+                    foreach (var phoneNumber in PhoneNumbers)
+                    {
+                        if (phoneNumber.PhoneType == "Office" || phoneNumber.PhoneType == "Work")
+                        {
+                            Account.OfficePhone = new PhoneNumber(Session)
+                            {
+                                Number = phoneNumber.Number,
+                                PhoneType = phoneNumber.PhoneType,
+                            };
+                        }
+                    }
+                }
+                Account.Save();
+                Account.IsAccountCreated = true;
+            }
+        }
+
+       
+
+
         private void UpdateScore()
         {
             int score = 0;
 
             // Increase score based on the lead status
-            switch (LeadStatus)
+            switch(LeadStatus)
             {
                 case BusinessObjects.LeadStatus.New:
                     score += 10;
@@ -174,7 +217,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
 
             // Increase score based on the lead source
-            switch (SourceType)
+            switch(SourceType)
             {
                 case BusinessObjects.SourceType.ColdCall:
                     score += 10;
@@ -191,18 +234,16 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
 
             // Increase score based on the lead's job title
-            if (!string.IsNullOrEmpty(JobTitle))
+            if(!string.IsNullOrEmpty(JobTitle))
             {
                 // Add score based on job title keyword matches
-                if (JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
+                if(JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
                 {
                     score += 50;
-                }
-                else if (JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
+                } else if(JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
                 {
                     score += 30;
-                }
-                else if (JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
+                } else if(JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
                 {
                     score += 20;
                 }

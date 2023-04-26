@@ -28,7 +28,9 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
 
 
+        bool isAccountCreated;
         //Invoice invoice;
+        string associatedWith;
         Address shippingAddress;
         DateTime modifiedOn;
         DateTime createdOn;
@@ -36,7 +38,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string industryType;
         string accountType;
         string description;
-        string officePhone;
+        //PhoneNumber officePhone;
         string emailAddress;
         string website;
         string name;
@@ -57,12 +59,16 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
 
+        /*public XPCollection<PhoneNumber> GetPhoneNumbers()
+        { return GetCollection<PhoneNumber>("PhoneNumbers"); }*/
 
-        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        public string OfficePhone
+        [RuleRequiredField("RuleRequiredField for Account.OfficePhone", DefaultContexts.Save)]
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [Aggregated]
+        public PhoneNumber OfficePhone
         {
-            get => officePhone;
-            set => SetPropertyValue(nameof(OfficePhone), ref officePhone, value);
+            get { return GetPropertyValue<PhoneNumber>(nameof(OfficePhone)); }
+            set { SetPropertyValue(nameof(OfficePhone), value); }
         }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
@@ -90,8 +96,10 @@ namespace SLAMS_CRM.Module.BusinessObjects
             set { SetPropertyValue(nameof(AccountType), ref accountType, Enum.GetName(typeof(AccountType), value)); }
         }
 
+        [RuleRequiredField("RuleRequiredField for Account.AccountType", DefaultContexts.Save)]
         [NotMapped]
-        public AccountType Type { get => (AccountType)AccountType; set => AccountType = (int)value; }
+        //public AccountType? Type { get => (AccountType)AccountType; set => AccountType = (int)value; }
+        public AccountType? Type { get; set; }
 
 
         public double AnnualRevenue
@@ -110,7 +118,37 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [RuleRequiredField("RuleRequiredField for Account.Industry", DefaultContexts.Save)]
         [NotMapped]
-        public IndustryType? Industry { get => (IndustryType)IndustryType; set => IndustryType = (int)value; }
+        //public IndustryType? Industry { get => (IndustryType)IndustryType; set => IndustryType = (int)value; }
+        public IndustryType? Industry { get; set; }
+
+
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        [ReadOnly(true)]
+        [Editable(false)]
+        public string AssociatedWith
+        {
+            get
+            {
+                if(IsAccountCreated)
+                {
+                    return "Lead";
+                }
+                else
+                {
+                    return "Others";
+                }
+            }
+
+            set => SetPropertyValue(nameof(AssociatedWith), ref associatedWith, value);
+        }
+
+        [Browsable(false)]
+        public bool IsAccountCreated
+        {
+            get => isAccountCreated;
+            set => SetPropertyValue(nameof(IsAccountCreated), ref isAccountCreated, value);
+        }
+
 
         [Editable(false)]
         [ReadOnly(false)]
@@ -135,12 +173,11 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         protected override void OnSaving()
         {
-            if (Session.IsNewObject(this))
+            if(Session.IsNewObject(this))
             {
                 CreatedOn = DateTime.Now;
                 AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
-            }
-            else
+            } else
             {
                 AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
             }
@@ -166,14 +203,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [Browsable(false)]
         [DevExpress.Xpo.Association("Account-Invoices")]
-        public XPCollection<Invoice> Invoices
-        {
-            get
-            {
-                return GetCollection<Invoice>(nameof(Invoices));
-            }
-        }
-
+        public XPCollection<Invoice> Invoices { get { return GetCollection<Invoice>(nameof(Invoices)); } }
     }
 
     public enum AccountType

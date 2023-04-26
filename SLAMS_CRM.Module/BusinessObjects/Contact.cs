@@ -28,9 +28,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         string jobTitle;
         Company company;
-        //string leadSource;
         Account account;
-        //string convertedFrom;
         bool isCustomer;
 
         [Size(50)]
