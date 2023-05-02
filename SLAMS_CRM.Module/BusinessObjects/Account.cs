@@ -135,7 +135,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
                 }
                 else
                 {
-                    return "Others";
+                    return "Contact";
                 }
             }
 

@@ -47,8 +47,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
 
-        [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [Aggregated]
+        /*[ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [Aggregated]*/
         [RuleRequiredField("RuleRequiredField for Lead.Company", DefaultContexts.Save)]
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 

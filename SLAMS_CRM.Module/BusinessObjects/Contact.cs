@@ -41,7 +41,37 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
         [RuleRequiredField("RuleRequiredField for Contact.Account", DefaultContexts.Save)]
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [Aggregated]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+
+            if (Account != null)
+            {
+                Account.Name = FullName;
+                Account.EmailAddress = Email;
+                Account.ShippingAddress = Address1;
+                if (PhoneNumbers != null)
+                {
+                    // save phone numbers to the office phone of the account
+                    foreach (var phoneNumber in PhoneNumbers)
+                    {
+                        if (phoneNumber.PhoneType == "Office" || phoneNumber.PhoneType == "Work")
+                        {
+                            Account.OfficePhone = new PhoneNumber(Session)
+                            {
+                                Number = phoneNumber.Number,
+                                PhoneType = phoneNumber.PhoneType,
+                            };
+                        }
+                    }
+                }
+                Account.Save();
+                Account.IsAccountCreated = false;
+            }
+        }
 
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();

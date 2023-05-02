@@ -35,7 +35,12 @@
     <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="Account_ListView" ShowAutoFilterRow="True" AutoExpandAllGroups="True" />
+    <ListView Id="Account_ListView" ShowAutoFilterRow="False" AutoExpandAllGroups="True" IsGroupPanelVisible="True">
+      <Columns>
+        <ColumnInfo Id="Name" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="AssociatedWith" SortIndex="-1" SortOrder="Ascending" GroupIndex="0" />
+      </Columns>
+    </ListView>
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
     <ListView Id="Communication_ListView" ShowAutoFilterRow="False" AutoExpandAllGroups="True" IsGroupPanelVisible="True">
       <Columns>
