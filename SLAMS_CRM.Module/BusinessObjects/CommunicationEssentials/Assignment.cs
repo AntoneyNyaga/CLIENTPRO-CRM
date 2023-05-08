@@ -6,7 +6,7 @@ using DevExpress.Xpo;
 using Task = DevExpress.Persistent.BaseImpl.Task;
 
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
 
     [DefaultClassOptions]
@@ -54,7 +54,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         }
         public override string ToString()
         {
-            return this.Subject;
+            return Subject;
         }
         [Action(ToolTip = "Postpone the task to the next day", ImageName = "State_Task_Deferred")]
         public void Postpone()

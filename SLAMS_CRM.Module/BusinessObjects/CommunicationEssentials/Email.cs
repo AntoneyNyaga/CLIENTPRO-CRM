@@ -2,8 +2,7 @@
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
-    //[DefaultClassOptions]
-    //[NavigationItem("Inbox")]
+
     public class Email : Communication
     {
         public Email(Session session) : base(session)

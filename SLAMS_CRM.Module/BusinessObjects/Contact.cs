@@ -3,6 +3,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -77,11 +78,8 @@ namespace SLAMS_CRM.Module.BusinessObjects
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
         [Browsable(false)]
-        [DevExpress.Xpo.Association("Contact-Communications")]
-        public XPCollection<Communication> Communications
-        {
-            get { return GetCollection<Communication>(nameof(Communications)); }
-        }
+        [Association("Contact-Communications")]
+        public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));
 
         [Browsable(false)]
         public bool IsCustomer

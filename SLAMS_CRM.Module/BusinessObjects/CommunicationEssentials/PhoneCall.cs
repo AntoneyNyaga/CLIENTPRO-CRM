@@ -1,10 +1,10 @@
-﻿using DevExpress.Xpo;
+﻿using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
-    //[DefaultClassOptions]
-    //[NavigationItem("Inbox")]
 
+    [ImageName("BO_Phone")]
     public class PhoneCall : Communication
     {
         public PhoneCall(Session session)

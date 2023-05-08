@@ -3,7 +3,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Microsoft.Extensions.Configuration;
-using SLAMS_CRM.Module.BusinessObjects;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.Net.Mail;
 using Twilio;

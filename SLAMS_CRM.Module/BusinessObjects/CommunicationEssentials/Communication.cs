@@ -4,10 +4,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
     //[DefaultClassOptions]
     [NavigationItem("Inbox")]
@@ -29,8 +28,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         string status;
         bool isContacted;
         private DateTime _dateTime;
-        //[ModelDefault("DisplayFormat", "{0:G}")]
-        //[ModelDefault("EditMask", "G")]
+       
         [ModelDefault("AllowEdit", "false")]
         public DateTime DateTime
         {

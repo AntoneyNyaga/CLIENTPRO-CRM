@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.ComponentModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects;

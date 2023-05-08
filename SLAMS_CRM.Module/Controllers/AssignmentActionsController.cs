@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
-using SLAMS_CRM.Module.BusinessObjects;
+using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.Collections;
 using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
 
