@@ -1,11 +1,10 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using SLAMS_CRM.Module.BusinessObjects;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 
 namespace SLAMS_CRM.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class QuoteController : ObjectViewController<ListView, Quote>
     {
         // Use CodeRush to create Controllers and Actions with a few keystrokes.

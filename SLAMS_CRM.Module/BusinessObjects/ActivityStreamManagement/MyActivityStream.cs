@@ -4,7 +4,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement
 {
     //[DefaultClassOptions]
     //[NavigationItem("SLAMS CRM")]

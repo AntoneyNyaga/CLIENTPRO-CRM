@@ -3,12 +3,15 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
+using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 {
     [DefaultClassOptions]
     [NavigationItem("Accounting")]
@@ -129,7 +132,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             get
             {
-                if(IsAccountCreated)
+                if (IsAccountCreated)
                 {
                     return "Lead";
                 }
@@ -173,11 +176,12 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         protected override void OnSaving()
         {
-            if(Session.IsNewObject(this))
+            if (Session.IsNewObject(this))
             {
                 CreatedOn = DateTime.Now;
                 AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
-            } else
+            }
+            else
             {
                 AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
             }

@@ -2,6 +2,8 @@
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
+using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects;

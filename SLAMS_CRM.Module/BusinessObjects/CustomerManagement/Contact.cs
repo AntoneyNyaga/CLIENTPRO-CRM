@@ -3,11 +3,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]
@@ -35,9 +37,6 @@ namespace SLAMS_CRM.Module.BusinessObjects
         [Size(50)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
-
-        //[ExpandObjectMembers(ExpandObjectMembers.Never)]
-        //[DevExpress.Xpo.Aggregated]
         [RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 

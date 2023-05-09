@@ -4,10 +4,11 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]
@@ -24,7 +25,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
         {
             base.AfterConstruction();
             // Set ConvertedFrom based on the value of SourceType
-            if(SourceType.HasValue)
+            if (SourceType.HasValue)
             {
                 ConvertedFrom = SourceType.Value.ToString();
             }
@@ -129,7 +130,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             Criteria = "Converted == 'Not Yet Converted'",
             BackColor = "Orange",
             FontColor = "White")]
-        public String Converted
+        public string Converted
         {
             get
             {
@@ -193,7 +194,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
         }
 
-       
+
 
 
         private void UpdateScore()
@@ -201,15 +202,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
             int score = 0;
 
             // Increase score based on the lead status
-            switch(LeadStatus)
+            switch (LeadStatus)
             {
-                case BusinessObjects.LeadStatus.New:
+                case CustomerManagement.LeadStatus.New:
                     score += 10;
                     break;
-                case BusinessObjects.LeadStatus.Contacted:
+                case CustomerManagement.LeadStatus.Contacted:
                     score += 20;
                     break;
-                case BusinessObjects.LeadStatus.Qualified:
+                case CustomerManagement.LeadStatus.Qualified:
                     score += 30;
                     break;
                 default:
@@ -217,15 +218,15 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
 
             // Increase score based on the lead source
-            switch(SourceType)
+            switch (SourceType)
             {
-                case BusinessObjects.SourceType.ColdCall:
+                case CustomerManagement.SourceType.ColdCall:
                     score += 10;
                     break;
-                case BusinessObjects.SourceType.ExistingCustomer:
+                case CustomerManagement.SourceType.ExistingCustomer:
                     score += 20;
                     break;
-                case BusinessObjects.SourceType.SelfGenerated:
+                case CustomerManagement.SourceType.SelfGenerated:
                     score += 30;
                     break;
                 // Add more cases for other source types as needed
@@ -234,16 +235,18 @@ namespace SLAMS_CRM.Module.BusinessObjects
             }
 
             // Increase score based on the lead's job title
-            if(!string.IsNullOrEmpty(JobTitle))
+            if (!string.IsNullOrEmpty(JobTitle))
             {
                 // Add score based on job title keyword matches
-                if(JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
+                if (JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
                 {
                     score += 50;
-                } else if(JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
+                }
+                else if (JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
                 {
                     score += 30;
-                } else if(JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
+                }
+                else if (JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
                 {
                     score += 20;
                 }

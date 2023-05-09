@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 {
     [DefaultClassOptions]
 
@@ -48,7 +48,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [RuleRequiredField("RuleRequiredField for Company.Address", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
+        [Aggregated]
 
         public Address Address { get => address; set => SetPropertyValue(nameof(Address), ref address, value); }
 

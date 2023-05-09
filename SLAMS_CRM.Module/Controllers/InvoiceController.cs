@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using SLAMS_CRM.Module.BusinessObjects;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 
 namespace SLAMS_CRM.Module.Controllers
 {

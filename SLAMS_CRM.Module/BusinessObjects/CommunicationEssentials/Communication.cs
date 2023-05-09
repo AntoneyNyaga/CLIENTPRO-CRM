@@ -3,8 +3,12 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
@@ -21,21 +25,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
             DateTime = DateTime.Now;
         }
 
         string status;
-        bool isContacted;
-        private DateTime _dateTime;
        
         [ModelDefault("AllowEdit", "false")]
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set { SetPropertyValue(nameof(DateTime), ref _dateTime, value); }
-        }
-
+        public DateTime DateTime { get; set; }
+            
         private CommunicationType _type;
 
         public CommunicationType Type
@@ -49,6 +46,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
         private Contact _contact;
+
+        [RuleRequiredField("RuleRequiredField for Communication.Contact", DefaultContexts.Save)]
         [Association("Contact-Communications")]
         public Contact Contact
         {
@@ -58,31 +57,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         [Size(4090)]
         [Appearance("HideSubject", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
-        public string Subject
-        {
-            get { return GetPropertyValue<string>(nameof(Subject)); }
-            set { SetPropertyValue(nameof(Subject), value); }
-        }
+        public string Subject { get; set; }
 
-        [Size(SizeAttribute.Unlimited)]
-        [VisibleInDetailView(true)]
-        [VisibleInListView(true)]
-        [VisibleInLookupListView(true)]
+       
         [Appearance("HideBody", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
-        public string Body
-        {
-            get { return GetPropertyValue<string>(nameof(Body)); }
-            set { SetPropertyValue(nameof(Body), value); }
-        }
+        public string Body { get; set; }
 
-        [VisibleInDetailView(true)]
-        [VisibleInListView(true)]
-        [VisibleInLookupListView(true)]
-        public string PhoneNumber { get { return Contact?.PhoneNumbers?.FirstOrDefault()?.Number; } }
-
-        [VisibleInDetailView(true)]
-        [VisibleInListView(true)]
-        [VisibleInLookupListView(true)]
+        public string PhoneNumber { get { return Contact?.PhoneNumbers.FirstOrDefault().Number; } }  
         public string Email { get { return Contact?.Email; } }
 
         private void UpdateVisibility()
@@ -148,11 +129,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
 
         [Browsable(false)]
-        public bool IsContacted
-        {
-            get => isContacted;
-            set => SetPropertyValue(nameof(IsContacted), ref isContacted, value);
-        }
+        public bool IsContacted { get; set; }
 
 
         [Browsable(false)]
@@ -163,8 +140,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
     public enum CommunicationType
     {
         Email,
-        Phone,
-        Meeting,
-        FollowUpTask
+        Phone
     }
 }

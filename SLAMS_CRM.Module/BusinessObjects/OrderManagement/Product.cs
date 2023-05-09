@@ -4,7 +4,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
     [DefaultProperty("Name")]

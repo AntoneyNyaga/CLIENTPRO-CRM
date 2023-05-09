@@ -1,9 +1,10 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
     [DefaultProperty("InvoiceNumber")]

@@ -2,11 +2,13 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Opportunities")]

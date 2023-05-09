@@ -1,8 +1,10 @@
-﻿using DevExpress.Xpo;
+﻿using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
 
+    [ImageName("Glyph_Message")]
     public class Email : Communication
     {
         public Email(Session session) : base(session)
@@ -11,7 +13,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
         private string _to;
-        [Size(4090)]
+        [Size(100)]
         //[Appearance("HideToField", Visibility = ViewItemVisibility.Hide)]
         public string To
         {
@@ -20,8 +22,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
         private string _from;
-        [Size(4090)]
-        //[Appearance("HideToField", Visibility = ViewItemVisibility.Hide)]
+        [Size(100)]
         public string From
         {
             get { return _from; }
@@ -29,21 +30,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
         private string _cc;
-        [Size(4090)]
-        //[Appearance("HideCCField", Visibility = ViewItemVisibility.Hide)]
+        [Size(100)]
         public string CC
         {
             get { return _cc; }
             set { SetPropertyValue(nameof(CC), ref _cc, value); }
-        }
-
-        private string _bcc;
-        [Size(4090)]
-        //[Appearance("HideBCCField", Visibility = ViewItemVisibility.Hide)]
-        public string BCC
-        {
-            get { return _bcc; }
-            set { SetPropertyValue(nameof(BCC), ref _bcc, value); }
         }
     }
 }

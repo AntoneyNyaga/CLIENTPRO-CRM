@@ -1,5 +1,8 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
@@ -16,7 +19,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
         private string subject;
@@ -31,12 +33,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             subject = value;
         }
 
+        [Size(300)]
         public string Description { get; set; }
 
         public DateTime StartOn { get; set; }
 
+        [ReadOnly(true)]
+        [Editable(false)]
         public DateTime EndOn { get; set; }
 
+        [Browsable(false)]
         public Contact Participant { get; set; }
     }
 }

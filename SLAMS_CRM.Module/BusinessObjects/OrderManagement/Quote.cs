@@ -3,12 +3,15 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Microsoft.Extensions.Configuration;
+using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
+using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
+using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 
-namespace SLAMS_CRM.Module.BusinessObjects
+namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
 
@@ -46,7 +49,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [RuleRequiredField("RuleRequiredField for Quote.ShippingAddress", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
+        [Aggregated]
         public Address ShippingAddress
         {
             get => shippingAddress;
@@ -55,7 +58,7 @@ namespace SLAMS_CRM.Module.BusinessObjects
 
         [RuleRequiredField("RuleRequiredField for Quote.BillingAddress", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
+        [Aggregated]
 
         public Address BillingAddress
         {

@@ -4,7 +4,8 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects;
+using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
+using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 
 namespace SLAMS_CRM.Module.Controllers
 {
