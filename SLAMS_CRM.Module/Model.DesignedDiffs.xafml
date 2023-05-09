@@ -25,6 +25,7 @@
       </Item>
       <Item Id="Orders" ImageName="ProductOrderDetail-21" Index="5" />
       <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="6" />
+      <Item Id="Customer Service" ImageName="Actions_Settings" />
     </Items>
   </NavigationItems>
   <Options>
@@ -42,6 +43,92 @@
       </Columns>
     </ListView>
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
+    <ListView Id="Bills_ListView" IsGroupPanelVisible="True" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="AssignedTo" Index="-1" />
+        <ColumnInfo Id="RelatedPurchaseOrder" Index="-1" />
+        <ColumnInfo Id="ShippingProvider" Index="-1" />
+        <ColumnInfo Id="TaxInformation" Index="-1" />
+        <ColumnInfo Id="SupplierBillDate" Index="3" />
+        <ColumnInfo Id="Terms" Index="4" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="SupplierDueDate" Index="5" />
+        <ColumnInfo Id="AmountDue" Index="6" />
+        <ColumnInfo Id="CurrencyType" Index="7" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Campaign_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="37.092731829573935">
+            <LayoutGroup Id="Campaign" RelativeSize="51.013513513513516" Direction="Horizontal">
+              <LayoutGroup Id="Campaign_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True" Removed="True">
+                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="30.088495575221238" IsNewNode="True" />
+                <LayoutItem Id="Description" ViewItem="Description" Index="1" RelativeSize="23.008849557522122" IsNewNode="True" />
+                <LayoutItem Id="AssignedTo" ViewItem="AssignedTo" Index="2" RelativeSize="23.008849557522122" IsNewNode="True" />
+                <LayoutItem Id="StartDate" ViewItem="StartDate" Index="3" RelativeSize="23.893805309734514" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto3e922d3c-c1df-4dd8-8e95-cf7efd954aea" ShowCaption="False" Caption="" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="Status" ViewItem="Status" Index="0" RelativeSize="23.008849557522122" IsNewNode="True" />
+                <LayoutItem Id="Type" ViewItem="Type" Index="1" RelativeSize="23.008849557522122" IsNewNode="True" />
+                <LayoutItem Id="Budget" ViewItem="Budget" Index="2" RelativeSize="30.088495575221238" IsNewNode="True" />
+                <LayoutItem Id="EndDate" ViewItem="EndDate" Index="3" RelativeSize="23.008849557522122" IsNewNode="True" />
+                <LayoutGroup Id="Campaign_col2" ShowCaption="False" Index="4" RelativeSize="0.8849557522123894" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Campaign_col2" ShowCaption="False" Index="1" RelativeSize="50" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="48.986486486486484" Caption="Details" Direction="Horizontal" IsNewNode="True">
+              <LayoutGroup Id="Autob077da1c-5184-4375-9c55-09630dd70758" ShowCaption="False" Caption="" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="Impressions" ViewItem="Impressions" Index="0" RelativeSize="46.42857142857143" IsNewNode="True" />
+                <LayoutItem Id="ExpectedCost" ViewItem="ExpectedCost" Index="1" RelativeSize="23.214285714285715" IsNewNode="True" />
+                <LayoutItem Id="CostPerimpression" ViewItem="CostPerimpression" Index="2" RelativeSize="30.357142857142858" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto2fad38fe-f86f-4cc5-8069-359ff4910f61" ShowCaption="False" Caption="" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="ActualCost" ViewItem="ActualCost" Index="0" RelativeSize="23.214285714285715" IsNewNode="True" />
+                <LayoutItem Id="ExpectedRevenue" ViewItem="ExpectedRevenue" Index="1" RelativeSize="23.214285714285715" IsNewNode="True" />
+                <LayoutItem Id="OpportunitiesWon" ViewItem="OpportunitiesWon" Index="2" RelativeSize="23.214285714285715" IsNewNode="True" />
+                <LayoutItem Id="CostPerClickThrough" ViewItem="CostPerClickThrough" Index="3" RelativeSize="30.357142857142858" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="62.907268170426065">
+            <LayoutItem Id="Objective" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Campaign_ListView" IsGroupPanelVisible="True" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="AssignedTo" Index="-1" />
+        <ColumnInfo Id="CostPerClickThrough" Index="-1" />
+        <ColumnInfo Id="CostPerimpression" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="ExpectedRevenue" Index="-1" />
+        <ColumnInfo Id="OpportunitiesWon" Index="-1" />
+        <ColumnInfo Id="Status" Index="1" />
+        <ColumnInfo Id="StartDate" Index="2" />
+        <ColumnInfo Id="Type" Index="3" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="EndDate" Index="4" />
+        <ColumnInfo Id="Budget" Index="5" />
+        <ColumnInfo Id="Impressions" Index="6" />
+        <ColumnInfo Id="ExpectedCost" Index="7" />
+        <ColumnInfo Id="ActualCost" Index="8" />
+      </Columns>
+    </ListView>
+    <ListView Id="Cases_ListView" IsGroupPanelVisible="True" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="Asset" Index="-1" />
+        <ColumnInfo Id="AssignedTo" Index="-1" />
+        <ColumnInfo Id="DateBilled" Index="-1" />
+        <ColumnInfo Id="DateClosed" Index="-1" />
+        <ColumnInfo Id="Subject" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Status" Index="2" />
+        <ColumnInfo Id="Priority" Index="3" />
+        <ColumnInfo Id="Type" SortIndex="-1" SortOrder="Descending" GroupIndex="0" Index="4" />
+        <ColumnInfo Id="Category" Index="5" />
+        <ColumnInfo Id="DefaultBookingCategory" Index="6" />
+        <ColumnInfo Id="PrimaryAccount" Index="7" />
+      </Columns>
+    </ListView>
     <ListView Id="Communication_ListView" ShowAutoFilterRow="False" AutoExpandAllGroups="True" IsGroupPanelVisible="True">
       <Columns>
         <ColumnInfo Id="Subject" SortIndex="-1" SortOrder="None" />
@@ -196,6 +283,12 @@
         <ColumnInfo Id="LeadStatus" Index="7" SortOrder="Ascending" GroupIndex="0" />
       </Columns>
     </ListView>
+    <ListView Id="MarketingEvent_ListView" IsGroupPanelVisible="True" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="AssignedTo" Index="5" />
+        <ColumnInfo Id="Format" SortOrder="Ascending" GroupIndex="0" Index="6" />
+      </Columns>
+    </ListView>
     <DetailView Id="Opportunity_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -234,7 +327,24 @@
         <ColumnInfo Id="OpportunityAmount" Index="6" />
       </Columns>
     </ListView>
+    <ListView Id="Payment_ListView" AutoExpandAllGroups="True" IsGroupPanelVisible="True">
+      <Columns>
+        <ColumnInfo Id="PaymentDate" Index="2" />
+        <ColumnInfo Id="PaymentType" SortOrder="Ascending" GroupIndex="0" Index="3" />
+      </Columns>
+    </ListView>
     <ListView Id="Product_ListView" ShowAutoFilterRow="True" />
+    <ListView Id="PurchaseOrder_ListView" IsGroupPanelVisible="True" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="AssignedTo" Index="-1" />
+        <ColumnInfo Id="BillingAddress" Index="-1" />
+        <ColumnInfo Id="ShippingAddress" Index="-1" />
+        <ColumnInfo Id="Status" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="Terms" Index="4" />
+        <ColumnInfo Id="RelatedSalesOrder" Index="5" />
+        <ColumnInfo Id="RelatedInvoice" Index="6" />
+      </Columns>
+    </ListView>
     <DetailView Id="Quote_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -284,6 +394,18 @@
         <ColumnInfo Id="InvoiceStatus" Index="7" />
         <ColumnInfo Id="LastFollowUp" Index="8" />
         <ColumnInfo Id="QuoteStage" SortOrder="Ascending" GroupIndex="0" Index="9" />
+      </Columns>
+    </ListView>
+    <ListView Id="SalesOrder_ListView" AutoExpandAllGroups="True" IsGroupPanelVisible="True">
+      <Columns>
+        <ColumnInfo Id="AssignedTo" Index="-1" />
+        <ColumnInfo Id="BillingAddress" Index="-1" />
+        <ColumnInfo Id="RelatedQuote" Index="-1" />
+        <ColumnInfo Id="ShippingAddress" Index="-1" />
+        <ColumnInfo Id="DueDate" Index="3" />
+        <ColumnInfo Id="DeliveryDate" Index="4" />
+        <ColumnInfo Id="Terms" Index="5" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="Opportunity" Index="6" />
       </Columns>
     </ListView>
   </Views>

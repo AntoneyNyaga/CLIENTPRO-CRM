@@ -7,6 +7,7 @@ using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -125,6 +126,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             get => approvalIssues;
             set => SetPropertyValue(nameof(ApprovalIssues), ref approvalIssues, value);
+        }
+
+        [Browsable(false)]
+        [Association("Quote-SalesOrders")]
+        public XPCollection<SalesOrder> SalesOrders
+        {
+            get
+            {
+                return GetCollection<SalesOrder>(nameof(SalesOrders));
+            }
         }
 
         public string GenerateProposal()

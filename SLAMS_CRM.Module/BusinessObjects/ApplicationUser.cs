@@ -2,6 +2,7 @@
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
+using SLAMS_CRM.Module.BusinessObjects.CustomerService;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
@@ -63,6 +64,76 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
         get
         {
             return GetCollection<Assignment>(nameof(Tasks));
+        }
+    }
+
+    [Association("ApplicationUser-Campaigns")]
+    public XPCollection<Campaign> Campaigns
+    {
+        get
+        {
+            return GetCollection<Campaign>(nameof(Campaigns));
+        }
+    }
+
+    [Association("ApplicationUser-MarketingEvents")]
+    public XPCollection<MarketingEvent> MarketingEvents
+    {
+        get
+        {
+            return GetCollection<MarketingEvent>(nameof(MarketingEvents));
+        }
+    }
+
+    [Association("ApplicationUser-SalesOrders")]
+    public XPCollection<SalesOrder> SalesOrders
+    {
+        get
+        {
+            return GetCollection<SalesOrder>(nameof(SalesOrders));
+        }
+    }
+
+    [Association("ApplicationUser-PurchaseOrders")]
+    public XPCollection<PurchaseOrder> PurchaseOrders
+    {
+        get
+        {
+            return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
+        }
+    }
+
+    [Association("ApplicationUser-Payments")]
+    public XPCollection<Payment> Payments
+    {
+        get
+        {
+            return GetCollection<Payment>(nameof(Payments));
+        }
+    }
+
+    [Association("ApplicationUser-Bills")]
+    public XPCollection<Bills> Bills
+    {
+        get
+        {
+            return GetCollection<Bills>(nameof(Bills));
+        }
+    }
+    [Association("ApplicationUser-Cases")]
+    public XPCollection<Cases> Cases
+    {
+        get
+        {
+            return GetCollection<Cases>(nameof(Cases));
+        }
+    }
+    [Association("ApplicationUser-Topics")]
+    public XPCollection<Topic> Topics
+    {
+        get
+        {
+            return GetCollection<Topic>(nameof(Topics));
         }
     }
 }

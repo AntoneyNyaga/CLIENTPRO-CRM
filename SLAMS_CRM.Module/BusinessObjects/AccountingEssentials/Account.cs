@@ -4,12 +4,14 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement;
+using SLAMS_CRM.Module.BusinessObjects.CustomerService;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
 namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 {
@@ -101,7 +103,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 
         [RuleRequiredField("RuleRequiredField for Account.AccountType", DefaultContexts.Save)]
         [NotMapped]
-        //public AccountType? Type { get => (AccountType)AccountType; set => AccountType = (int)value; }
         public AccountType? Type { get; set; }
 
 
@@ -121,7 +122,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 
         [RuleRequiredField("RuleRequiredField for Account.Industry", DefaultContexts.Save)]
         [NotMapped]
-        //public IndustryType? Industry { get => (IndustryType)IndustryType; set => IndustryType = (int)value; }
         public IndustryType? Industry { get; set; }
 
 
@@ -204,6 +204,45 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         [Browsable(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
+        [Browsable(false)]
+        [DevExpress.Xpo.Association("Account-PurchaseOrders")]
+        public XPCollection<PurchaseOrder> PurchaseOrders
+        {
+            get
+            {
+                return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
+            }
+        }
+
+        [Browsable(false)]
+        [Association("Account-Payments")]
+        public XPCollection<Payment> Payments
+        {
+            get
+            {
+                return GetCollection<Payment>(nameof(Payments));
+            }
+        }
+
+        [Browsable(false)]
+        [Association("Account-Bills")]
+        public XPCollection<Bills> Bills
+        {
+            get
+            {
+                return GetCollection<Bills>(nameof(Bills));
+            }
+        }
+
+        [Browsable(false)]
+        [Association("Account-Cases")]
+        public XPCollection<Cases> Cases
+        {
+            get
+            {
+                return GetCollection<Cases>(nameof(Cases));
+            }
+        }
 
         [Browsable(false)]
         [DevExpress.Xpo.Association("Account-Invoices")]

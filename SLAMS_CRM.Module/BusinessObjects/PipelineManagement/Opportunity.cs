@@ -108,6 +108,15 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
         [NotMapped]
         public LeadSource LeadSourceType { get => (LeadSource)LeadSource; set => LeadSource = (int)value; }
 
+        [Browsable(false)]
+        [Association("Opportunity-SalesOrders")]
+        public XPCollection<SalesOrder> SalesOrders
+        {
+            get
+            {
+                return GetCollection<SalesOrder>(nameof(SalesOrders));
+            }
+        }
 
         public decimal OpportunityAmount
         {

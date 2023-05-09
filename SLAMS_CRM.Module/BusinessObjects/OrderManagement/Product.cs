@@ -2,7 +2,9 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.CustomerService;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
@@ -17,6 +19,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
         }
 
+        Bills bills;
+        PurchaseOrder purchaseOrder;
+        SalesOrder salesOrder;
         Invoice invoices;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
@@ -51,6 +56,40 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             get => invoices;
             set => SetPropertyValue(nameof(Invoices), ref invoices, value);
+        }
+
+        [Browsable(false)]
+        [Association("SalesOrder-Products")]
+        public SalesOrder SalesOrder
+        {
+            get => salesOrder;
+            set => SetPropertyValue(nameof(SalesOrder), ref salesOrder, value);
+        }
+
+        [Browsable(false)]
+        [Association("PurchaseOrder-Products")]
+        public PurchaseOrder PurchaseOrder
+        {
+            get => purchaseOrder;
+            set => SetPropertyValue(nameof(PurchaseOrder), ref purchaseOrder, value);
+        }
+
+        [Browsable (false)]
+        [Association("Product-Cases")]
+        public XPCollection<Cases> Cases
+        {
+            get
+            {
+                return GetCollection<Cases>(nameof(Cases));
+            }
+        }
+
+        [Browsable(false)]
+        [Association("Bills-Products")]
+        public Bills Bills
+        {
+            get => bills;
+            set => SetPropertyValue(nameof(Bills), ref bills, value);
         }
     }
 
