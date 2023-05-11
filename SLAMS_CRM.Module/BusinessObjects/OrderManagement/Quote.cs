@@ -151,27 +151,29 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public string GenerateProposal()
         {
             StringBuilder sb = new();
-            sb.AppendLine($"Proposal for {Title} - {ValidUntil.ToShortDateString()}");
             sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine($"Quote Status: {QuoteStage.ToString()}");
-            sb.AppendLine($"Approval Status: {ApprovalStatus.ToString()}");
-            sb.AppendLine(
-                $"Assigned To: {(AssignedTo != null ? string.Join(", ", AssignedTo.UserName) : "Not Assigned")}");
-            sb.AppendLine();
-            sb.AppendLine("Billing Address:");
-            sb.AppendLine(BillingAddress.ToString());
-            sb.AppendLine();
-            sb.AppendLine("Shipping Address:");
-            sb.AppendLine(ShippingAddress.ToString());
-            sb.AppendLine();
-            sb.AppendLine("Products:");
-            sb.AppendLine($"{Product.Name} - {Product.Description} - {Price:C}");
-            sb.AppendLine();
-            sb.AppendLine($"Total Price: {Price:C}");
+            sb.AppendLine($"|{"Proposal for",-43}| {Title,-30}|");
+            sb.AppendLine($"|{"",-43}| {"Valid Until:",-20} {ValidUntil.ToShortDateString(),-10}|");
+            sb.AppendLine("-------------------------------------------------");
+            sb.AppendLine($"|{"Quote Status:",-43}| {QuoteStage.ToString(),-30}|");
+            sb.AppendLine($"|{"Approval Status:",-43}| {ApprovalStatus.ToString(),-30}|");
+            sb.AppendLine($"|{"Assigned To:",-43}| {(AssignedTo != null ? string.Join(", ", AssignedTo.UserName) : "Not Assigned"),-30}|");
+            sb.AppendLine("-------------------------------------------------");
+            sb.AppendLine($"|{"Billing Address:",-43}| {"",-30}|");
+            sb.AppendLine(BillingAddress.ToString().Replace(Environment.NewLine, Environment.NewLine + " ".PadRight(45)));
+            sb.AppendLine("-------------------------------------------------");
+            sb.AppendLine($"|{"Shipping Address:",-43}| {"",-30}|");
+            sb.AppendLine(ShippingAddress.ToString().Replace(Environment.NewLine, Environment.NewLine + " ".PadRight(45)));
+            sb.AppendLine("-------------------------------------------------");
+            sb.AppendLine($"|{"Products:",-43}| {"",-30}|");
+            sb.AppendLine($"{Product.Name,-30} {Product.Description,-30} {Price:C,-15}");
+            sb.AppendLine("-------------------------------------------------");
+            sb.AppendLine($"|{"Total Price:",-43}| {"",-30}| {Price:C,-15}|");
             sb.AppendLine("-------------------------------------------------");
             sb.AppendLine("Thank you for your business!");
             return sb.ToString();
         }
+
 
 
         private DateTime _lastFollowUp;
