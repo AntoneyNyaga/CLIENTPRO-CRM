@@ -44,21 +44,20 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
-        protected override void OnSaving()
-        {
-            base.OnSaving();
 
-            if (Account != null)
+        public void UpdateAccount()
+        {
+            if(Account != null)
             {
                 Account.Name = FullName;
                 Account.EmailAddress = Email;
                 Account.ShippingAddress = Address1;
-                if (PhoneNumbers != null)
+                if(PhoneNumbers != null)
                 {
                     // save phone numbers to the office phone of the account
-                    foreach (var phoneNumber in PhoneNumbers)
+                    foreach(var phoneNumber in PhoneNumbers)
                     {
-                        if (phoneNumber.PhoneType == "Office" || phoneNumber.PhoneType == "Work")
+                        if(phoneNumber.PhoneType == "Office" || phoneNumber.PhoneType == "Work")
                         {
                             Account.OfficePhone = new PhoneNumber(Session)
                             {
@@ -68,6 +67,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
                         }
                     }
                 }
+
                 Account.Save();
                 Account.IsAccountCreated = false;
             }
@@ -94,6 +94,19 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             {
                 var lead = Session.FindObject<Lead>(CriteriaOperator.Parse("Contact.Oid == ?", Oid));
                 return lead?.Converted;
+            }
+        }
+
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+
+            if(propertyName == nameof(FullName) ||
+                propertyName == nameof(Email) ||
+                propertyName == nameof(Address1) ||
+                propertyName == nameof(PhoneNumbers))
+            {
+                UpdateAccount();
             }
         }
     }

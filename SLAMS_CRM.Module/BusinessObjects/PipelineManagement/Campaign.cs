@@ -51,14 +51,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public double Budget { get; set; }
+        public decimal Budget { get; set; }
         public int Impressions { get; set; }
-        public double ExpectedCost { get; set; }
-        public double ActualCost { get; set; }
+        public decimal ExpectedCost { get; set; }
+        public decimal ActualCost { get; set; }
         public string OpportunitiesWon { get; set; }
-        public double ExpectedRevenue { get; set; }
-        public double CostPerimpression { get; set; }
-        public double CostPerClickThrough { get; set; }
+        public decimal ExpectedRevenue { get; set; }
+        public int CostPerimpression { get; set; }
+        public decimal CostPerClickThrough { get; set; }
 
         [Size(4096)]
         public string Objective { get; set; }

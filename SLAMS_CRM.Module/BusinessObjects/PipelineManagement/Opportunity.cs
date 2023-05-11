@@ -28,6 +28,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
         }
 
 
+        ApplicationUser assignedTo;
         decimal opportunityAmount;
         DateTime estimatedCloseDate;
         double probabilityOfClosing;
@@ -53,13 +54,12 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             set => SetPropertyValue(nameof(OpportunityDescription), ref opportunityDescription, value);
         }
 
-        [Association("ApplicationUser-Opportunity")]
-        public XPCollection<ApplicationUser> AssignedUsers
+        
+        [Association("ApplicationUser-Opportunities")]
+        public ApplicationUser AssignedTo
         {
-            get
-            {
-                return GetCollection<ApplicationUser>(nameof(AssignedUsers));
-            }
+            get => assignedTo;
+            set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
 
         public Account AccountName { get; set; }

@@ -37,9 +37,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(Description), ref _description, value);
         }
 
-        private double _price;
+        private decimal _price;
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
-        public double Price { get => _price; set => SetPropertyValue(nameof(Price), ref _price, value); }
+        public decimal Price { get => _price; set => SetPropertyValue(nameof(Price), ref _price, value); }
 
         private ProductLine _productLine;
         [Association("ProductLine-Products")]

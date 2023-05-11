@@ -29,10 +29,10 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
         string status;
-       
+
         [ModelDefault("AllowEdit", "false")]
         public DateTime DateTime { get; set; }
-            
+
         private CommunicationType _type;
 
         public CommunicationType Type
@@ -55,15 +55,15 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             set { SetPropertyValue(nameof(Contact), ref _contact, value); }
         }
 
-        [Size(4090)]
         [Appearance("HideSubject", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
         public string Subject { get; set; }
 
-       
+        [Size(4096)]
         [Appearance("HideBody", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
         public string Body { get; set; }
 
-        public string PhoneNumber { get { return Contact?.PhoneNumbers.FirstOrDefault().Number; } }  
+        public string PhoneNumber { get { return Contact?.PhoneNumbers.FirstOrDefault().Number; } }
+
         public string Email { get { return Contact?.Email; } }
 
         private void UpdateVisibility()
@@ -71,12 +71,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             bool isEmail = Type == CommunicationType.Email;
             bool isPhone = Type == CommunicationType.Phone;
 
-            if (Contact != null && Contact.This != null)
+            if(Contact != null && Contact.This != null)
             {
                 SetPropertyValue(nameof(Email), isEmail ? Contact.Email : null);
                 SetPropertyValue(nameof(PhoneNumber), isPhone ? Contact.PhoneNumbers : null);
-            }
-            else
+            } else
             {
                 SetPropertyValue(nameof(Email), null);
                 SetPropertyValue(nameof(PhoneNumber), null);
@@ -103,21 +102,18 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         {
             get
             {
-                if (IsContacted)
+                if(IsContacted)
                 {
                     return "Sent";
-                }
-                else
+                } else
                 {
-                    if (Type == CommunicationType.Phone)
+                    if(Type == CommunicationType.Phone)
                     {
                         return "Not Called";
-                    }
-                    else if (Type == CommunicationType.Email)
+                    } else if(Type == CommunicationType.Email)
                     {
                         return "Not Sent";
-                    }
-                    else
+                    } else
                     {
                         return "N/A";
                     }

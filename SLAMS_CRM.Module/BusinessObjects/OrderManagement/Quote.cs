@@ -35,6 +35,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             _lastFollowUp = DateTime.Now;
         }
 
+        [VisibleInDetailView(false)]
+        public string QuoteNumber
+        {
+            get
+            {
+                return string.Format("{0}-{1}", QuoteStage, Oid);
+            }
+        }
 
         [Size(50)]
         [RuleRequiredField("RuleRequiredField for Quote.Title", DefaultContexts.Save)]
@@ -72,6 +80,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public Product Product { get; set; }
 
 
+        ApplicationUser assignedTo;
         Address billingAddress;
         Address shippingAddress;
         string title;
@@ -83,12 +92,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             get => validUntil;
             set => SetPropertyValue(nameof(ValidUntil), ref validUntil, value);
-        }
-
-        [Association("ApplicationUser-Quote")]
-        public XPCollection<ApplicationUser> AssignedUsers
-        {
-            get { return GetCollection<ApplicationUser>(nameof(AssignedUsers)); }
         }
 
         private decimal _price;
@@ -138,6 +141,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             }
         }
 
+        [Association("ApplicationUser-Quotes")]
+        public ApplicationUser AssignedTo
+        {
+            get => assignedTo;
+            set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
+        }
+
         public string GenerateProposal()
         {
             StringBuilder sb = new();
@@ -146,7 +156,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             sb.AppendLine($"Quote Status: {QuoteStage.ToString()}");
             sb.AppendLine($"Approval Status: {ApprovalStatus.ToString()}");
             sb.AppendLine(
-                $"Assigned To: {(AssignedUsers != null ? string.Join(", ", AssignedUsers.Select(u => u.UserName)) : "Not Assigned")}");
+                $"Assigned To: {(AssignedTo != null ? string.Join(", ", AssignedTo.UserName) : "Not Assigned")}");
             sb.AppendLine();
             sb.AppendLine("Billing Address:");
             sb.AppendLine(BillingAddress.ToString());

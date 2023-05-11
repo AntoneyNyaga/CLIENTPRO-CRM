@@ -1,5 +1,6 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using System.ComponentModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
@@ -14,15 +15,17 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         private string _to;
         [Size(100)]
-        //[Appearance("HideToField", Visibility = ViewItemVisibility.Hide)]
+        [Browsable(false)]
         public string To
         {
             get { return _to; }
             set { SetPropertyValue(nameof(To), ref _to, value); }
         }
 
+        
         private string _from;
         [Size(100)]
+        [Browsable(false)]
         public string From
         {
             get { return _from; }

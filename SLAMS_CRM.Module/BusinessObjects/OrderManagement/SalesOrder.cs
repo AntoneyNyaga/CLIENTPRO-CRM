@@ -34,6 +34,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [VisibleInDetailView(false)]
         public string SalesOrderNumber { get; set; }
         public string SalesOrderSubject { get; set; }
+        public DateTime SalesOrderDate { get; set; }
         public SalesOrderStatus Status { get; set; }
 
         [Size(4096)]
@@ -78,6 +79,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public Address ShippingAddress { get; set; }
 
         [Association("SalesOrder-Products")]
+        //[Browsable(false)]
         public XPCollection<Product> Products
         {
             get
@@ -92,6 +94,40 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             get
             {
                 return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
+            }
+        }
+
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+
+            if (Session.IsNewObject(this))
+            {
+                GenerateSalesOrderNumber();
+            }
+        }
+
+        private void GenerateSalesOrderNumber()
+        {
+            const string SalesOrderNumberFormat = "SO{0}{1:0000}";
+            var lastSalesOrder = Session.Query<SalesOrder>()?.OrderByDescending(po => po.SalesOrderDate)
+                .FirstOrDefault();
+            if (lastSalesOrder != null)
+            {
+                var year = lastSalesOrder.SalesOrderDate.Year;
+                var month = lastSalesOrder.SalesOrderDate.Month;
+                var sequence = int.Parse(lastSalesOrder.SalesOrderNumber[7..]);
+                sequence++;
+                var newPurchaseOrderNumber = string.Format(SalesOrderNumberFormat, year, month, sequence);
+                SalesOrderNumber = newPurchaseOrderNumber;
+            }
+            else
+            {
+                SalesOrderNumber = string.Format(
+                    SalesOrderNumberFormat,
+                    DateTime.Today.Year,
+                    DateTime.Today.Month,
+                    1);
             }
         }
     }

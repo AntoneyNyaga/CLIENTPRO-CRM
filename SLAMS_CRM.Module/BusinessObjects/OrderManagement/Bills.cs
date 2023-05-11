@@ -22,15 +22,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
     public class Bills : BaseObject
     {
-        public Bills(Session session)
-            : base(session)
+        public Bills(Session session) : base(session)
         {
         }
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-        }
+        public override void AfterConstruction() { base.AfterConstruction(); }
+
+        [VisibleInDetailView(false)]
         public string BillNumber { get; set; }
+
         public string BillSubject { get; set; }
 
         PurchaseOrder relatedPurchaseOrder;
@@ -38,11 +37,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         Account supplier;
 
         [Association("Account-Bills")]
-        public Account Supplier
-        {
-            get => supplier;
-            set => SetPropertyValue(nameof(Supplier), ref supplier, value);
-        }
+        public Account Supplier { get => supplier; set => SetPropertyValue(nameof(Supplier), ref supplier, value); }
+
         [Size(300)]
         public string Notes { get; set; }
 
@@ -53,47 +49,67 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             get => assignedTo;
             set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
+
         public TermsType Terms { get; set; }
+
         public DateTime SupplierBillDate { get; set; }
+
         public DateTime SupplierDueDate { get; set; }
-        public double AmountDue { get; set; }
-        
+
+        public decimal AmountDue { get; set; }
+
         [Association("PurchaseOrder-Bills")]
         public PurchaseOrder RelatedPurchaseOrder
         {
             get => relatedPurchaseOrder;
             set => SetPropertyValue(nameof(RelatedPurchaseOrder), ref relatedPurchaseOrder, value);
         }
+
         public PaymentCurrencyType CurrencyType { get; set; }
+
         public string TaxInformation { get; set; }
+
         public ShippingProviderType ShippingProvider { get; set; }
 
         [Association("Bills-Products")]
-        public XPCollection<Product> Products
+        [Browsable(false)]
+        public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
+
+        protected override void OnSaving()
         {
-            get
+            base.OnSaving();
+
+            if(Session.IsNewObject(this))
             {
-                return GetCollection<Product>(nameof(Products));
+                GenerateBillNumber();
+            }
+        }
+
+        private void GenerateBillNumber()
+        {
+            const string BillNumberFormat = "BILL{0}{1}{2:0000}";
+            var lastBill = Session.Query<Bills>()?.OrderByDescending(b => b.SupplierBillDate).FirstOrDefault();
+            if(lastBill != null)
+            {
+                var year = lastBill.SupplierBillDate.Year;
+                var month = lastBill.SupplierBillDate.Month;
+                var sequence = int.Parse(lastBill.BillNumber[7..]);
+                sequence++;
+                var newBillNumber = string.Format(BillNumberFormat, year, month, sequence);
+                BillNumber = newBillNumber;
+            } else
+            {
+                BillNumber = string.Format(BillNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }
         }
     }
 
     public enum ShippingProviderType
     {
-        [ImageName("Business_Money")]
-        [XafDisplayName("FedEx")]
         FedEx,
-        [ImageName("Business_Money")]
-        [XafDisplayName("UPS")]
         UPS,
-        [ImageName("Business_Money")]
-        [XafDisplayName("USPS")]
         USPS,
-        [ImageName("Business_Money")]
-        [XafDisplayName("DHL")]
         DHL,
-        [ImageName("Business_Money")]
-        [XafDisplayName("Other")]
         Other
-    }   
+    }
 }

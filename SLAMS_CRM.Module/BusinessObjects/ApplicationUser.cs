@@ -13,7 +13,9 @@ namespace SLAMS_CRM.Module.BusinessObjects;
 [DefaultProperty(nameof(UserName))]
 public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
 {
-    public ApplicationUser(Session session) : base(session) { }
+    public ApplicationUser(Session session) : base(session)
+    {
+    }
 
     [Browsable(false)]
     [Aggregated, Association("User-LoginInfo")]
@@ -24,7 +26,9 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
 
     IEnumerable<ISecurityUserLoginInfo> IOAuthSecurityUser.UserLogins => LoginInfo.OfType<ISecurityUserLoginInfo>();
 
-    ISecurityUserLoginInfo ISecurityUserWithLoginInfo.CreateUserLoginInfo(string loginProviderName, string providerUserKey)
+    ISecurityUserLoginInfo ISecurityUserWithLoginInfo.CreateUserLoginInfo(
+        string loginProviderName,
+        string providerUserKey)
     {
         ApplicationUserLoginInfo result = new(Session)
         {
@@ -38,102 +42,53 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
     //[Browsable(false)]
     //public IList<Quote> Quotes { get; } = new ObservableCollection<Quote>();
 
-    [Association("ApplicationUser-Quote")]
-    public XPCollection<Quote> AssignedProposals
-    {
-        get
-        {
-            return GetCollection<Quote>(nameof(AssignedProposals));
-        }
-    }
+    [Association("ApplicationUser-Quotes")]
+    public XPCollection<Quote> AssignedProposals { get { return GetCollection<Quote>(nameof(AssignedProposals)); } }
 
     //[Browsable(false)]
     //public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
-    [Association("ApplicationUser-Opportunity")]
+    [Association("ApplicationUser-Opportunities")]
     public XPCollection<Opportunity> AssignedOpportunities
     {
-        get
-        {
-            return GetCollection<Opportunity>(nameof(AssignedOpportunities));
-        }
+        get { return GetCollection<Opportunity>(nameof(AssignedOpportunities)); }
     }
 
     [Association("ApplicationUser-Assignment")]
-    public XPCollection<Assignment> Tasks
-    {
-        get
-        {
-            return GetCollection<Assignment>(nameof(Tasks));
-        }
-    }
+    public XPCollection<Assignment> AssignedTasks { get { return GetCollection<Assignment>(nameof(AssignedTasks)); } }
 
     [Association("ApplicationUser-Campaigns")]
-    public XPCollection<Campaign> Campaigns
+    public XPCollection<Campaign> AssignedCampaigns
     {
-        get
-        {
-            return GetCollection<Campaign>(nameof(Campaigns));
-        }
+        get { return GetCollection<Campaign>(nameof(AssignedCampaigns)); }
     }
 
     [Association("ApplicationUser-MarketingEvents")]
-    public XPCollection<MarketingEvent> MarketingEvents
+    public XPCollection<MarketingEvent> AssignedMarketingEvents
     {
-        get
-        {
-            return GetCollection<MarketingEvent>(nameof(MarketingEvents));
-        }
+        get { return GetCollection<MarketingEvent>(nameof(AssignedMarketingEvents)); }
     }
 
     [Association("ApplicationUser-SalesOrders")]
-    public XPCollection<SalesOrder> SalesOrders
+    public XPCollection<SalesOrder> AssignedSalesOrders
     {
-        get
-        {
-            return GetCollection<SalesOrder>(nameof(SalesOrders));
-        }
+        get { return GetCollection<SalesOrder>(nameof(AssignedSalesOrders)); }
     }
 
     [Association("ApplicationUser-PurchaseOrders")]
-    public XPCollection<PurchaseOrder> PurchaseOrders
+    public XPCollection<PurchaseOrder> AssignedPurchaseOrders
     {
-        get
-        {
-            return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
-        }
+        get { return GetCollection<PurchaseOrder>(nameof(AssignedPurchaseOrders)); }
     }
 
     [Association("ApplicationUser-Payments")]
-    public XPCollection<Payment> Payments
-    {
-        get
-        {
-            return GetCollection<Payment>(nameof(Payments));
-        }
-    }
+    public XPCollection<Payment> AssignedPayments { get { return GetCollection<Payment>(nameof(AssignedPayments)); } }
 
     [Association("ApplicationUser-Bills")]
-    public XPCollection<Bills> Bills
-    {
-        get
-        {
-            return GetCollection<Bills>(nameof(Bills));
-        }
-    }
+    public XPCollection<Bills> AssignedBills { get { return GetCollection<Bills>(nameof(AssignedBills)); } }
+
     [Association("ApplicationUser-Cases")]
-    public XPCollection<Cases> Cases
-    {
-        get
-        {
-            return GetCollection<Cases>(nameof(Cases));
-        }
-    }
+    public XPCollection<Cases> AssignedCases { get { return GetCollection<Cases>(nameof(AssignedCases)); } }
+
     [Association("ApplicationUser-Topics")]
-    public XPCollection<Topic> Topics
-    {
-        get
-        {
-            return GetCollection<Topic>(nameof(Topics));
-        }
-    }
+    public XPCollection<Topic> AssignedTopics { get { return GetCollection<Topic>(nameof(AssignedTopics)); } }
 }

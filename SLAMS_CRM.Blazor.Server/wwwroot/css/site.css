@@ -37,3 +37,6 @@ app {
 .dxbl-fl .dxbl-fl-item.dxbl-fl-item-horizontal > .dxbl-fl-cpt {
     font-weight:bold;
 }
+.dxbl-fl .dxbl-fl-group > .dxbl-group {
+    box-shadow: 10px 10px darkgray;
+}

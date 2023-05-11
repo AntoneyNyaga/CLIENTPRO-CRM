@@ -29,6 +29,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             base.AfterConstruction();
         }
+
+        [VisibleInDetailView(false)]
         public string PaymentNumber { get; set; }
 
         ApplicationUser assignedTo;
@@ -57,8 +59,24 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         public PaymentMethodType PaymentMethod { get; set; }
         public PaymentCurrencyType PaymentCurrency { get; set; }
-        public string PaymentCurrencyCode { get; set; } = string.Empty;
-        public double ReceivedOrSentAmount { get; set; }
+        public decimal ReceivedOrSentAmount { get; set; }
+
+        private void GeneratePaymentNumber()
+        {
+            const string PaymentNumberFormat = "PAY{0:yyyyMMdd}{1:0000}";
+            var lastPayment = Session.Query<Payment>()?.OrderByDescending(p => p.PaymentDate).FirstOrDefault();
+            var sequence = lastPayment != null ? int.Parse(lastPayment.PaymentNumber[11..]) + 1 : 1;
+            var newPaymentNumber = string.Format(PaymentNumberFormat, DateTime.Today, sequence);
+            PaymentNumber = newPaymentNumber;
+        }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if (Session.IsNewObject(this))
+            {
+                GeneratePaymentNumber();
+            }
+        }
 
     }
 

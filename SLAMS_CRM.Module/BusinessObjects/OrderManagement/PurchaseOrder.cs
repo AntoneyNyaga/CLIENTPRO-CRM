@@ -22,25 +22,23 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
     public class PurchaseOrder : BaseObject
     {
-        public PurchaseOrder(Session session)
-            : base(session)
+        public PurchaseOrder(Session session) : base(session)
         {
         }
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-        }
+        public override void AfterConstruction() { base.AfterConstruction(); }
+
+        [VisibleInDetailView(false)]
         public string PurchaseOrderNumber { get; set; }
+
         public string PurchaseOrderSubject { get; set; }
+
+        public DateTime PurchaseOrderDate { get; set; }
+
         public PurchaseOrderStatus Status { get; set; }
 
-        
+
         [Association("Account-PurchaseOrders")]
-        public Account Supplier
-        {
-            get => supplier;
-            set => SetPropertyValue(nameof(Supplier), ref supplier, value);
-        }
+        public Account Supplier { get => supplier; set => SetPropertyValue(nameof(Supplier), ref supplier, value); }
 
         [Size(4096)]
         public string Notes { get; set; }
@@ -57,6 +55,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             get => assignedTo;
             set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
+
         public TermsType Terms { get; set; }
 
         [Association("SalesOrder-PurchaseOrders")]
@@ -65,13 +64,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             get => relatedSalesOrder;
             set => SetPropertyValue(nameof(RelatedSalesOrder), ref relatedSalesOrder, value);
         }
-        
+
         [Association("Invoice-PurchaseOrders")]
         public Invoice RelatedInvoice
         {
             get => relatedInvoice;
             set => SetPropertyValue(nameof(RelatedInvoice), ref relatedInvoice, value);
         }
+
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [DevExpress.Xpo.Aggregated]
         public Address BillingAddress { get; set; }
@@ -81,21 +81,43 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public Address ShippingAddress { get; set; }
 
         [Association("PurchaseOrder-Products")]
-        public XPCollection<Product> Products
-        {
-            get
-            {
-                return GetCollection<Product>(nameof(Products));
-            }
-        }
+        [Browsable(false)]
+        public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
         [Browsable(false)]
         [Association("PurchaseOrder-Bills")]
-        public XPCollection<Bills> Bills
+        public XPCollection<Bills> Bills { get { return GetCollection<Bills>(nameof(Bills)); } }
+
+        protected override void OnSaving()
         {
-            get
+            base.OnSaving();
+
+            if(Session.IsNewObject(this))
             {
-                return GetCollection<Bills>(nameof(Bills));
+                GeneratePurchaseOrderNumber();
+            }
+        }
+
+        private void GeneratePurchaseOrderNumber()
+        {
+            const string PurchaseOrderNumberFormat = "PO{0}{1:0000}";
+            var lastPurchaseOrder = Session.Query<PurchaseOrder>()?.OrderByDescending(po => po.PurchaseOrderDate)
+                .FirstOrDefault();
+            if(lastPurchaseOrder != null)
+            {
+                var year = lastPurchaseOrder.PurchaseOrderDate.Year;
+                var month = lastPurchaseOrder.PurchaseOrderDate.Month;
+                var sequence = int.Parse(lastPurchaseOrder.PurchaseOrderNumber[7..]);
+                sequence++;
+                var newPurchaseOrderNumber = string.Format(PurchaseOrderNumberFormat, year, month, sequence);
+                PurchaseOrderNumber = newPurchaseOrderNumber;
+            } else
+            {
+                PurchaseOrderNumber = string.Format(
+                    PurchaseOrderNumberFormat,
+                    DateTime.Today.Year,
+                    DateTime.Today.Month,
+                    1);
             }
         }
     }

@@ -39,7 +39,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         Address shippingAddress;
         DateTime modifiedOn;
         DateTime createdOn;
-        double annualRevenue;
+        decimal annualRevenue;
         string industryType;
         string accountType;
         string description;
@@ -63,9 +63,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => emailAddress;
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
-
-        /*public XPCollection<PhoneNumber> GetPhoneNumbers()
-        { return GetCollection<PhoneNumber>("PhoneNumbers"); }*/
 
         [RuleRequiredField("RuleRequiredField for Account.OfficePhone", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
@@ -106,7 +103,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         public AccountType? Type { get; set; }
 
 
-        public double AnnualRevenue
+        public decimal AnnualRevenue
         {
             get => annualRevenue;
             set => SetPropertyValue(nameof(AnnualRevenue), ref annualRevenue, value);
