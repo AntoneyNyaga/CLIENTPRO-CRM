@@ -401,6 +401,3 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         Invoiced
     }
 }
-
-/*agsiachvqpoekxow for 509*/
-/*xlspwfcjtweekxvl for 209*/
