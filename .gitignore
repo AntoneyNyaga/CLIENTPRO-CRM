@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Environment Files
 /SLAMS_CRM.Blazor.Server/appsettings.json
+/SLAMS_CRM.Blazor.Server/SentProposals
