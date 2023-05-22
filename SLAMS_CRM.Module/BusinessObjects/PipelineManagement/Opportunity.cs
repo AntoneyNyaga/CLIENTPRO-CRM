@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 {
     [DefaultClassOptions]
-    [NavigationItem("Opportunities")]
+    [NavigationItem("Sales & Marketing")]
     [Persistent("Opportunity")]
     [ImageName("ProductQuickShippments")]
 
@@ -122,6 +122,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
         {
             get => opportunityAmount;
             set => SetPropertyValue(nameof(OpportunityAmount), ref opportunityAmount, value);
+        }
+
+        [Browsable(false)]
+        [Association("Opportunity-Invoices")]
+        public XPCollection<Invoice> Invoices
+        {
+            get
+            {
+                return GetCollection<Invoice>(nameof(Invoices));
+            }
         }
 
         protected override void OnSaving()

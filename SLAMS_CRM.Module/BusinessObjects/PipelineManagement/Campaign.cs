@@ -15,7 +15,7 @@ using System.Text;
 namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 {
     [DefaultClassOptions]
-    [NavigationItem("Opportunities")]
+    [NavigationItem("Sales & Marketing")]
     [ImageName("ChartPoints")]
     public class Campaign : BaseObject
     { 

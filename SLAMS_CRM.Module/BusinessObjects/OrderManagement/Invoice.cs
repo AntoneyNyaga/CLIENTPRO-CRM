@@ -1,7 +1,9 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.XtraRichEdit.Fields;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
+using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
@@ -28,9 +30,12 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [Association("Account-Invoices")]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
+        Quote fromQuoteNo;
         Account account;
         DateTime invoiceDate;
         string invoiceNumber;
+        private bool taxExempt;
+        private Opportunity opportunity;
 
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         [VisibleInDetailView(false)]
@@ -59,6 +64,34 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
             }
         }
+
+        
+        [Association("Quote-Invoices")]
+        public Quote FromQuoteNo
+        {
+            get => fromQuoteNo;
+            set => SetPropertyValue(nameof(FromQuoteNo), ref fromQuoteNo, value);
+        }
+
+
+        [Association("Opportunity-Invoices")]
+        public Opportunity Opportunity
+        {
+            get => opportunity;
+            set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
+        }
+
+        public Address BillingAddress { get; set; }
+        public Address ShippingAddress { get; set; }
+  
+        public bool TaxExempt
+        {
+            get => taxExempt;
+            set => SetPropertyValue(nameof(TaxExempt), ref taxExempt, value);
+        }
+
+        public PaymentCurrencyType CurrencyType { get; set; }
+        public ShippingProviderType ShippingProvider { get; set; }
 
         protected override void OnSaving()
         {

@@ -19,22 +19,21 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
     [DefaultClassOptions]
     [ImageName("CustomerQuickSales")]
     [NavigationItem("Orders")]
-    
+
     public class SalesOrder : BaseObject
-    { 
-        public SalesOrder(Session session)
-            : base(session)
+    {
+        public SalesOrder(Session session) : base(session)
         {
         }
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-        }
+        public override void AfterConstruction() { base.AfterConstruction(); }
 
         [VisibleInDetailView(false)]
         public string SalesOrderNumber { get; set; }
+
         public string SalesOrderSubject { get; set; }
+
         public DateTime SalesOrderDate { get; set; }
+
         public SalesOrderStatus Status { get; set; }
 
         [Size(4096)]
@@ -52,7 +51,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         }
 
         public DateTime DueDate { get; set; }
+
         public TermsType Terms { get; set; }
+
         public DateTime DeliveryDate { get; set; }
 
         [Association("Opportunity-SalesOrders")]
@@ -62,7 +63,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
         }
 
-        
+
         [Association("Quote-SalesOrders")]
         public Quote RelatedQuote
         {
@@ -80,28 +81,20 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         [Association("SalesOrder-Products")]
         //[Browsable(false)]
-        public XPCollection<Product> Products
-        {
-            get
-            {
-                return GetCollection<Product>(nameof(Products));
-            }
-        }
+        public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
+
         [Browsable(false)]
         [Association("SalesOrder-PurchaseOrders")]
         public XPCollection<PurchaseOrder> PurchaseOrders
         {
-            get
-            {
-                return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
-            }
+            get { return GetCollection<PurchaseOrder>(nameof(PurchaseOrders)); }
         }
 
         protected override void OnSaving()
         {
             base.OnSaving();
 
-            if (Session.IsNewObject(this))
+            if(Session.IsNewObject(this))
             {
                 GenerateSalesOrderNumber();
             }
@@ -112,7 +105,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             const string SalesOrderNumberFormat = "SO{0}{1:0000}";
             var lastSalesOrder = Session.Query<SalesOrder>()?.OrderByDescending(po => po.SalesOrderDate)
                 .FirstOrDefault();
-            if (lastSalesOrder != null)
+            if(lastSalesOrder != null)
             {
                 var year = lastSalesOrder.SalesOrderDate.Year;
                 var month = lastSalesOrder.SalesOrderDate.Month;
@@ -120,14 +113,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 sequence++;
                 var newPurchaseOrderNumber = string.Format(SalesOrderNumberFormat, year, month, sequence);
                 SalesOrderNumber = newPurchaseOrderNumber;
-            }
-            else
+            } else
             {
-                SalesOrderNumber = string.Format(
-                    SalesOrderNumberFormat,
-                    DateTime.Today.Year,
-                    DateTime.Today.Month,
-                    1);
+                SalesOrderNumber = string.Format(SalesOrderNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }
         }
     }
@@ -144,18 +132,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
     public enum TermsType
     {
-        COD,
-        Net30,
-        Net60,
-        Net90,
-        Net120,
-        Net150,
-        Net180,
-        Net210,
-        Net240,
-        Net270,
-        Net300,
-        Net330,
-        Net360
+        COD,                    // Cash on Delivery
+        Net30,                  // Payment due within 30 days from the invoice date
+        Net60,                  // Payment due within 60 days from the invoice date
+        Net90,                  // Payment due within 90 days from the invoice date
+        Net10Net30,             // 1/10 Net 30 - 1% discount if paid within 10 days, otherwise full payment due within 30 days
+        DueOnReceipt,           // Payment due immediately upon receipt of the invoice or goods
+        EOM,                    // End of Month - Payment due at the end of the calendar month
+        CWO,                    // Cash with Order - Payment required upfront before processing the order or delivering goods
+        LetterOfCredit          // Letter of Credit - Payment guaranteed by the buyer's bank upon presentation of specified documents
     }
 }

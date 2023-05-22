@@ -44,3 +44,7 @@ app {
 .dxbl-grid {
     box-shadow: 5px 5px 20px cadetblue;
 }
+.dxbl-grid .dxbl-grid-table .dxbl-grid-expand-button-cell + td {
+    font-weight: bold;
+    color: blueviolet;
+}

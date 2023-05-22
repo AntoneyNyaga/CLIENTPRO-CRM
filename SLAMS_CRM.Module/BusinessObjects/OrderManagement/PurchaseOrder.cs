@@ -126,7 +126,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
     {
         Draft,
         Ordered,
-        Partialshippment,
+        PartialShippment,
         Received
     }
 }

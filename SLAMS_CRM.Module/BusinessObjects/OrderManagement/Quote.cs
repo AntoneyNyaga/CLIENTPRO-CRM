@@ -1,16 +1,20 @@
-﻿using DevExpress.Persistent.Base;
+﻿using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.XtraReports.UI;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using Microsoft.Extensions.Configuration;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
@@ -33,16 +37,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
             _lastFollowUp = DateTime.Now;
+            DateCreated = DateTime.Now;
         }
 
         [VisibleInDetailView(false)]
-        public string QuoteNumber
-        {
-            get
-            {
-                return string.Format("{0}-{1}", QuoteStage, Oid);
-            }
-        }
+        public string QuoteNumber { get; set; }
 
         [Size(50)]
         [RuleRequiredField("RuleRequiredField for Quote.Title", DefaultContexts.Save)]
@@ -50,6 +49,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         // one to one relationship between Quote and Account
         public Account Account { get; set; }
+
+        public DateTime DateCreated { get; set; }
 
         public Opportunity Opportunity { get; set; }
 
@@ -133,13 +134,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         [Browsable(false)]
         [Association("Quote-SalesOrders")]
-        public XPCollection<SalesOrder> SalesOrders
-        {
-            get
-            {
-                return GetCollection<SalesOrder>(nameof(SalesOrders));
-            }
-        }
+        public XPCollection<SalesOrder> SalesOrders { get { return GetCollection<SalesOrder>(nameof(SalesOrders)); } }
 
         [Association("ApplicationUser-Quotes")]
         public ApplicationUser AssignedTo
@@ -147,34 +142,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             get => assignedTo;
             set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
-
-        public string GenerateProposal()
-        {
-            StringBuilder sb = new();
-            sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine($"|{"Proposal for",-43}| {Title,-30}|");
-            sb.AppendLine($"|{"",-43}| {"Valid Until:",-20} {ValidUntil.ToShortDateString(),-10}|");
-            sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine($"|{"Quote Status:",-43}| {QuoteStage.ToString(),-30}|");
-            sb.AppendLine($"|{"Approval Status:",-43}| {ApprovalStatus.ToString(),-30}|");
-            sb.AppendLine($"|{"Assigned To:",-43}| {(AssignedTo != null ? string.Join(", ", AssignedTo.UserName) : "Not Assigned"),-30}|");
-            sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine($"|{"Billing Address:",-43}| {"",-30}|");
-            sb.AppendLine(BillingAddress.ToString().Replace(Environment.NewLine, Environment.NewLine + " ".PadRight(45)));
-            sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine($"|{"Shipping Address:",-43}| {"",-30}|");
-            sb.AppendLine(ShippingAddress.ToString().Replace(Environment.NewLine, Environment.NewLine + " ".PadRight(45)));
-            sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine($"|{"Products:",-43}| {"",-30}|");
-            sb.AppendLine($"{Product.Name,-30} {Product.Description,-30} {Price:C,-15}");
-            sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine($"|{"Total Price:",-43}| {"",-30}| {Price:C,-15}|");
-            sb.AppendLine("-------------------------------------------------");
-            sb.AppendLine("Thank you for your business!");
-            return sb.ToString();
-        }
-
-
 
         private DateTime _lastFollowUp;
 
@@ -185,30 +152,31 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(LastFollowUp), ref _lastFollowUp, value);
         }
 
+        [Browsable(false)]
+        [Association("Quote-Invoices")]
+        public XPCollection<Invoice> Invoices { get { return GetCollection<Invoice>(nameof(Invoices)); } }
 
         public void FollowUp()
         {
-
             var configuration = new ConfigurationBuilder()
-                   .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                   .Build();
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
 
             var username = configuration.GetSection("Email")["UserName"];
             var password = configuration.GetSection("Email")["Password"];
 
-
-            if (QuoteStage == QuoteStage.Sent && LastFollowUp.AddDays(7) < DateTime.Now)
+            if(QuoteStage == QuoteStage.Sent && LastFollowUp.AddDays(7) < DateTime.Now)
             {
-                // create a MailMessage object
-                MailMessage mail = new();
-
-                // set the email address of the recipient
+                // Create a new MailMessage object
+                using MailMessage mail = new();
+                // Set the email address of the recipient
                 mail.To.Add(Contact.Email);
+                mail.To.Add(Account.EmailAddress);
 
-                // set the subject of the email
+                // Set the subject of the email
                 mail.Subject = "Follow-up on Quote #" + Title;
 
-                // set the body of the email
+                // Set the body of the email
                 mail.Body = "Dear Customer," +
                     Environment.NewLine +
                     Environment.NewLine +
@@ -226,21 +194,112 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                     Environment.NewLine +
                     "SLAMS CRM Team";
 
-                using (SmtpClient smtp = new("smtp.gmail.com", 587))
+                // Create a new SmtpClient and send the email
+                using(SmtpClient smtpClient = new("smtp.gmail.com", 587))
                 {
-                    // set the credentials for the SMTP server via google app password
-                    smtp.Credentials = new NetworkCredential(username, password);
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential(username, password);
+
+                    smtpClient.Send(mail);
                 }
-                // update the last follow-up date
+
+                // Update the last follow-up date
                 LastFollowUp = DateTime.Now;
             }
         }
 
+
+        public void GenerateProposalPDF(string filePath)
+        {
+            // Create the document
+            Document document = new();
+
+            // Create a PDF writer
+            _ = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            // Open the document
+            document.Open();
+
+            // Set up fonts and styles
+            Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+            Font sectionFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+            Font contentFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+
+            // Add content to the document
+            Paragraph title = new("Proposal for " + Title, titleFont) { Alignment = Element.ALIGN_CENTER };
+            document.Add(title);
+
+            document.Add(Chunk.NEWLINE);
+
+            document.Add(new Paragraph("Valid Until: " + ValidUntil.ToShortDateString(), contentFont));
+
+            document.Add(Chunk.NEWLINE);
+
+            document.Add(new Paragraph("Quote Number: " + QuoteNumber.ToString(), contentFont));
+            document.Add(new Paragraph("Quote Status: " + QuoteStage.ToString(), contentFont));
+            document.Add(new Paragraph("Approval Status: " + ApprovalStatus.ToString(), contentFont));
+            document.Add(
+                new Paragraph(
+                    "Assigned To: " + (AssignedTo != null ? string.Join(", ", AssignedTo.UserName) : "Not Assigned"),
+                    contentFont));
+
+            document.Add(Chunk.NEWLINE);
+
+            document.Add(new Paragraph("Billing Address:", sectionFont));
+            document.Add(
+                new Paragraph(
+                    BillingAddress.ToString().Replace(Environment.NewLine, Environment.NewLine + " ".PadRight(45)),
+                    contentFont));
+
+            document.Add(Chunk.NEWLINE);
+
+            document.Add(new Paragraph("Shipping Address:", sectionFont));
+            document.Add(
+                new Paragraph(
+                    ShippingAddress.ToString().Replace(Environment.NewLine, Environment.NewLine + " ".PadRight(45)),
+                    contentFont));
+
+            document.Add(Chunk.NEWLINE);
+
+            document.Add(new Paragraph("Products:", sectionFont));
+            document.Add(
+                new Paragraph(Product.Name + " " + Product.Description + " " + Price.ToString("C"), contentFont));
+
+            document.Add(Chunk.NEWLINE);
+
+            document.Add(new Paragraph("Total Price: " + Price.ToString("C"), sectionFont));
+
+            document.Add(Chunk.NEWLINE);
+
+            document.Add(new Paragraph("Thank you for your business!", contentFont));
+
+            // Close the document
+            document.Close();
+        }
+
+        public void GenerateProposal()
+        {
+            // Generate the proposal in PDF format
+            string proposalFolder = "SentProposals";
+            string proposalFileName = $"{QuoteNumber}-Proposal.pdf";
+            string proposalFilePath = Path.Combine(proposalFolder, proposalFileName);
+
+            // Create the "SentProposals" folder if it doesn't exist
+            Directory.CreateDirectory(proposalFolder);
+
+            GenerateProposalPDF(proposalFilePath);
+
+            // Read the PDF file as bytes
+            byte[] proposalBytes = File.ReadAllBytes(proposalFilePath);
+
+            // Convert the bytes to a base64 string
+            _ = Convert.ToBase64String(proposalBytes);
+        }
+
+
         public void SendQuote()
         {
-
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
@@ -248,34 +307,76 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             var username = configuration.GetSection("Email")["UserName"];
             var password = configuration.GetSection("Email")["Password"];
 
-            // Generate the proposal and send it to the customer via email
-            string proposal = GenerateProposal();
-            string emailBody = $"Dear {Contact.DisplayName},\n\nPlease find attached the proposal for {Title}.\n\n{proposal}\n\nKind regards,\n\nSLAMS CRM Team";
+            // Generate the proposal in PDF format
+            GenerateProposal();
 
-            MailMessage message = new()
+            // Load the proposal PDF file as bytes
+            byte[] proposalBytes = File.ReadAllBytes(Path.Combine("SentProposals", $"{QuoteNumber}-Proposal.pdf"));
+            using(MemoryStream attachmentStream = new(proposalBytes))
             {
-                From = new MailAddress(username)
-            };
-            message.To.Add(Account.EmailAddress);
-            message.Subject = $"Proposal for {Title}";
-            message.Body = emailBody;
+                attachmentStream.Position = 0;
+                Attachment attachment = new(attachmentStream, $"{QuoteNumber}-Proposal.pdf", "application/pdf");
+                // Create the email message
+                using MailMessage message = new();
+                message.From = new MailAddress(username);
+                message.To.Add(Contact.Email);
+                message.To.Add(Account.EmailAddress);
+                message.Subject = $"Proposal for {Title}";
+                message.Body = $"Dear {Contact.DisplayName},\n\nPlease find attached the proposal for {Title}.\n\nKind regards,\n\nSLAMS CRM Team";
 
-            Attachment attachment = new(
-                new MemoryStream(Encoding.UTF8.GetBytes(proposal)),
-                $"Proposal - {Title}.txt");
-            message.Attachments.Add(attachment);
+                // Attach the PDF file to the email
+                message.Attachments.Add(attachment);
 
-            using (SmtpClient smtp = new("smtp.gmail.com", 587))
-            {
-                smtp.Credentials = new NetworkCredential(username, password);
-                smtp.EnableSsl = true;
-                smtp.Send(message);
+                // Send the email using the SmtpClient class
+                using(SmtpClient smtpClient = new("smtp.gmail.com", 587))
+                {
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential(username, password);
+
+                    smtpClient.Send(message);
+
+                    // Check if the email was sent successfully
+                    MessageOptions options = new()
+                    {
+                        Duration = 2000,
+                        Message = "Email sent successfully!",
+                        Type = InformationType.Success
+                    };
+                }
             }
 
             // Update the QuoteStage and InvoiceStatus properties
             QuoteStage = QuoteStage.Sent;
             InvoiceStatus = InvoiceStatus.NotInvoiced;
             Save();
+        }
+
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if(Session.IsNewObject(this))
+            {
+                GenerateQuoteNumber();
+            }
+        }
+
+        private void GenerateQuoteNumber()
+        {
+            const string QuoteNumberFormat = "{0}-{1:0000}";
+            var lastQuote = Session.Query<Quote>()?.OrderByDescending(q => q.DateCreated).FirstOrDefault();
+            if(lastQuote != null)
+            {
+                var year = lastQuote.DateCreated.Year;
+                var sequence = int.Parse(lastQuote.QuoteNumber.Split('-')[1]);
+                sequence++;
+                var newQuoteNumber = string.Format(QuoteNumberFormat, year, sequence);
+                QuoteNumber = newQuoteNumber;
+            } else
+            {
+                var currentYear = DateTime.Today.Year;
+                QuoteNumber = string.Format(QuoteNumberFormat, currentYear, 1);
+            }
         }
     }
 

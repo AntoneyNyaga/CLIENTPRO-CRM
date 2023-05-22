@@ -19,6 +19,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
         }
 
+        Invoice invoice;
         Bills bills;
         PurchaseOrder purchaseOrder;
         SalesOrder salesOrder;
@@ -74,7 +75,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(PurchaseOrder), ref purchaseOrder, value);
         }
 
-        [Browsable (false)]
+        [Browsable(false)]
         [Association("Product-Cases")]
         public XPCollection<Cases> Cases
         {

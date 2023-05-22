@@ -17,7 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 {
     [DefaultClassOptions]
     [ImageName("CreateLine3DChart")]
-    [NavigationItem("Opportunities")]
+    [NavigationItem("Sales & Marketing")]
     public class MarketingEvent : BaseObject
     { 
         public MarketingEvent(Session session)
@@ -48,7 +48,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 
     public enum EventFormatType
     {
-        Teleseminar,
+        TeleSeminar,
         Seminar,
         Program,
         LiveEvent,

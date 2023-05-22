@@ -13,17 +13,13 @@
           <Item Id="Contact_ListView" ImageName="BO_Person" />
         </Items>
       </Item>
-      <Item Id="Opportunities" ImageName="BO_Opportunity" Index="3">
-        <Items>
-          <Item Id="Opportunity_ListView" ImageName="ProductQuickShippments" />
-        </Items>
-      </Item>
-      <Item Id="Accounting" ImageName="Accounting" Index="4">
+      <Item Id="Accounting" ImageName="Accounting" Index="3">
         <Items>
           <Item Id="Account_ListView" ImageName="AccountingNumberFormat" />
         </Items>
       </Item>
-      <Item Id="Orders" ImageName="ProductOrderDetail-21" Index="5" />
+      <Item Id="Orders" ImageName="ProductOrderDetail-21" Index="4" />
+      <Item Id="Sales &amp; Marketing" ImageName="BO_Opportunity" Index="5" />
       <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="6" />
       <Item Id="Customer Service" ImageName="Actions_Settings" />
     </Items>
