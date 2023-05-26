@@ -88,6 +88,15 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [Association("PurchaseOrder-Bills")]
         public XPCollection<Bills> Bills { get { return GetCollection<Bills>(nameof(Bills)); } }
 
+        [Browsable(false)]
+        [Association("PurchaseOrder-Invoices")]
+        public XPCollection<Invoice> Invoices
+        {
+            get
+            {
+                return GetCollection<Invoice>(nameof(Invoices));
+            }
+        }
         protected override void OnSaving()
         {
             base.OnSaving();

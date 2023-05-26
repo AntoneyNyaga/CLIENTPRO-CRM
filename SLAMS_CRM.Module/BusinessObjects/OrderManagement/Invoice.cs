@@ -30,6 +30,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [Association("Account-Invoices")]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
+        PurchaseOrder fromPurchaseOrder;
+        DateTime invoiceDueDate;
         Quote fromQuoteNo;
         Account account;
         DateTime invoiceDate;
@@ -52,6 +54,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set { SetPropertyValue(nameof(InvoiceDate), ref invoiceDate, value); }
         }
 
+
+        public DateTime InvoiceDueDate
+        {
+            get => invoiceDueDate;
+            set => SetPropertyValue(nameof(InvoiceDueDate), ref invoiceDueDate, value);
+        }
+
         [Association("Invoice-Products")]
         public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
@@ -64,8 +73,15 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
             }
         }
-
         
+        [Association("PurchaseOrder-Invoices")]
+        public PurchaseOrder FromPurchaseOrder
+        {
+            get => fromPurchaseOrder;
+            set => SetPropertyValue(nameof(FromPurchaseOrder), ref fromPurchaseOrder, value);
+        }
+
+
         [Association("Quote-Invoices")]
         public Quote FromQuoteNo
         {
