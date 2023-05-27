@@ -1,4 +1,7 @@
-﻿using DevExpress.ExpressApp;
+﻿using DevExpress.CodeParser;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -30,10 +33,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
             createdOn = DateTime.Now;
+            isAccountCreated = 3;
         }
 
 
-        bool isAccountCreated;
+        int isAccountCreated;
         //Invoice invoice;
         string associatedWith;
         Address shippingAddress;
@@ -49,6 +53,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         string name;
 
         [Size(50)]
+        [Appearance("HideName", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
         [RuleRequiredField("RuleRequiredField for Account.Name", DefaultContexts.Save)]
         public string Name { get => name; set => SetPropertyValue(nameof(Name), ref name, value); }
 
@@ -58,6 +63,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 
         [RuleRequiredField("RuleRequiredField for Account.EmailAddress", DefaultContexts.Save)]
         [Size(50)]
+        [Appearance("HideEmailAddress", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
+
         public string EmailAddress
         {
             get => emailAddress;
@@ -67,6 +74,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         [RuleRequiredField("RuleRequiredField for Account.OfficePhone", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
+        [Appearance("HideOfficePhone", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
+
         public PhoneNumber OfficePhone
         {
             get { return GetPropertyValue<PhoneNumber>(nameof(OfficePhone)); }
@@ -76,6 +85,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
         [RuleRequiredField("RuleRequiredField for Account.ShippingAddress", DefaultContexts.Save)]
+        //[Appearance("HideAddress", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
+
         public Address ShippingAddress
         {
             get => shippingAddress;
@@ -125,17 +136,22 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         [ReadOnly(true)]
         [Editable(false)]
+        [Appearance("HideAssociatedWith", Criteria = "AssociatedWith == '3'", Visibility = ViewItemVisibility.Hide)]
         public string AssociatedWith
         {
             get
             {
-                if (IsAccountCreated)
+                if (IsAccountCreated == 1)
                 {
                     return "Lead";
                 }
-                else
+                else if (IsAccountCreated == 2)
                 {
                     return "Contact";
+                }
+                else
+                {
+                    return "Not Related To any Contact or Lead";
                 }
             }
 
@@ -143,7 +159,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         }
 
         [Browsable(false)]
-        public bool IsAccountCreated
+        public int IsAccountCreated
         {
             get => isAccountCreated;
             set => SetPropertyValue(nameof(IsAccountCreated), ref isAccountCreated, value);

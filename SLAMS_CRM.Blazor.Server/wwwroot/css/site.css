@@ -7,18 +7,31 @@ app {
     height: 100%;
 }
 
-.header-logo {
+/*.header-logo {
     flex-shrink: 0;
     background-color: currentColor;
-    -webkit-mask: url('../images/Logo.svg');
-    mask: url('../images/Logo.svg');
-    -webkit-mask-position: center;
-    mask-position: center;
+    -webkit-mask: url('../images/SLAMS-1.png');
+    mask: url('../images/SLAMS-1.png');*/
+    /*-webkit-mask-position: center;*/
+    /*mask-position: center;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     width: 180px;
     height: 24px;
+}*/
+
+.header-logo {
+    flex-shrink: 0;
+    /*background-color: currentColor;*/
+    background-image: url('../images/LogoSlamsCRM.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 85%;
+    width: 200px;
+    height: 40px;
 }
+
+
 
 #blazor-error-ui {
     background: inherit;

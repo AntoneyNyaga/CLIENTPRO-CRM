@@ -5,7 +5,7 @@ using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 
 namespace SLAMS_CRM.Module.Controllers
 {
-    public partial class InvoiceController : ObjectViewController<ListView, Quote>
+    public partial class InvoiceController : ObjectViewController<ListView, Invoice>
     {
         public InvoiceController()
         {

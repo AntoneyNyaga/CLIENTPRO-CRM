@@ -1,9 +1,12 @@
-﻿using DevExpress.ExpressApp;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using MySqlX.XDevAPI;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,7 +20,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
     public class Lead : Person
     {
-        public Lead(Session session) : base(session)
+        public Lead(DevExpress.Xpo.Session session) : base(session)
         {
         }
 
@@ -25,13 +28,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         {
             base.AfterConstruction();
             // Set ConvertedFrom based on the value of SourceType
-            if (SourceType.HasValue)
+
+            if(SourceType.HasValue)
             {
                 ConvertedFrom = SourceType.Value.ToString();
             }
+            UpdateAccount();
 
-            //UpdateScore();
+            UpdateScore();
         }
+
 
         bool isConvertedToContact;
         string jobTitle;
@@ -42,6 +48,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         string converted;
         Account account;
 
+        //[Appearance("HideOfficePhone",TargetItems ="Account.OfficePhone", Visibility = ViewItemVisibility.Hide)]
 
         [Size(50)]
         [ImmediatePostData(true)]
@@ -78,7 +85,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
                 SetPropertyValue(nameof(SourceType), ref source, value?.ToString());
 
                 // Update ConvertedFrom whenever SourceType is set
-                if (value.HasValue)
+                if(value.HasValue)
                 {
                     ConvertedFrom = value.Value.ToString();
                 }
@@ -134,11 +141,10 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         {
             get
             {
-                if (IsConvertedToContact)
+                if(IsConvertedToContact)
                 {
                     return "Converted To Contact";
-                }
-                else
+                } else
                 {
                     return "Not Yet Converted";
                     //return ConvertedFrom;
@@ -152,11 +158,17 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             base.OnChanged(propertyName, oldValue, newValue);
             // Update the score whenever a property changes
 
-            if (propertyName == nameof(LeadStatus) ||
+            if(propertyName == nameof(LeadStatus) ||
                 propertyName == nameof(SourceType) ||
                 propertyName == nameof(JobTitle))
             {
                 UpdateScore();
+            }
+            if(propertyName == nameof(FullName) ||
+                propertyName == nameof(Email) ||
+                propertyName == nameof(Address1))
+            {
+                UpdateAccount();
             }
         }
 
@@ -165,44 +177,32 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [Aggregated]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
+        public void UpdateAccount()
+        {
+            if (Account == null)
+            {
+                Account = new Account(Session); // Create a new Account object if it is null
+            }
+
+            Account.Name = FullName;
+            Account.EmailAddress = Email;
+            Account.ShippingAddress = Address1;
+
+            Account.IsAccountCreated = 1;
+        }
+
         protected override void OnSaving()
         {
             base.OnSaving();
-
-            if (Account != null)
-            {
-                Account.Name = FullName;
-                Account.EmailAddress = Email;
-                Account.ShippingAddress = Address1;
-                if (PhoneNumbers != null)
-                {
-                    // save phone numbers to the office phone of the account
-                    foreach (var phoneNumber in PhoneNumbers)
-                    {
-                        if (phoneNumber.PhoneType == "Office" || phoneNumber.PhoneType == "Work")
-                        {
-                            Account.OfficePhone = new PhoneNumber(Session)
-                            {
-                                Number = phoneNumber.Number,
-                                PhoneType = phoneNumber.PhoneType,
-                            };
-                        }
-                    }
-                }
-                Account.Save();
-                Account.IsAccountCreated = true;
-            }
+            Account.Save();
         }
-
-
-
 
         private void UpdateScore()
         {
             int score = 0;
 
             // Increase score based on the lead status
-            switch (LeadStatus)
+            switch(LeadStatus)
             {
                 case CustomerManagement.LeadStatus.New:
                     score += 10;
@@ -218,7 +218,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             }
 
             // Increase score based on the lead source
-            switch (SourceType)
+            switch(SourceType)
             {
                 case CustomerManagement.SourceType.ColdCall:
                     score += 10;
@@ -235,18 +235,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             }
 
             // Increase score based on the lead's job title
-            if (!string.IsNullOrEmpty(JobTitle))
+            if(!string.IsNullOrEmpty(JobTitle))
             {
                 // Add score based on job title keyword matches
-                if (JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
+                if(JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
                 {
                     score += 50;
-                }
-                else if (JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
+                } else if(JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
                 {
                     score += 30;
-                }
-                else if (JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
+                } else if(JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
                 {
                     score += 20;
                 }

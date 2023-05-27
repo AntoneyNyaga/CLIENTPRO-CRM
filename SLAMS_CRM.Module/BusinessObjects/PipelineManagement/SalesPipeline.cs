@@ -14,8 +14,6 @@ using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 {
-    //[NavigationItem("Sales & Marketing")]
-    //[ImageName("Sales")]
     public class SalesPipeline : BaseObject
     { 
         public SalesPipeline(Session session)

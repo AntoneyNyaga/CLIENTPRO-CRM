@@ -38,7 +38,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.Settings
 
         public StandardPdfPaperSize StandardPdfPaperSize { get; set; }
 
-        public string ForecastPeriod { get; set; }
+        public ForecastPeriod ForecastPeriod { get; set; }
 
         public StandardPdfFont StandardPdfFont { get; set; }
 
@@ -100,5 +100,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.Settings
     {
         Arial,
         TimesNewRoman,
+    }
+    public enum ForecastPeriod
+    {
+        Monthly,
+        Quarterly,
+
     }
 }
