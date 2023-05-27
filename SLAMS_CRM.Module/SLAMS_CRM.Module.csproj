@@ -65,9 +65,6 @@
     <PackageReference Include="Twilio" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-    </None>
     <None Update="UnusableNodes1.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
     </None>
@@ -125,16 +122,7 @@
     <None Update="UnusableNodes26.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
     </None>
-    <None Update="UnusableNodes3.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-    </None>
     <None Update="UnusableNodes4.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes5.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes6.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
     </None>
     <None Update="UnusableNodes7.xml">
@@ -146,8 +134,5 @@
     <None Update="UnusableNodes9.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reports\" />
   </ItemGroup>
 </Project>

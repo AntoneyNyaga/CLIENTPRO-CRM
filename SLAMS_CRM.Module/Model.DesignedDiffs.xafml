@@ -20,8 +20,16 @@
       </Item>
       <Item Id="Orders" ImageName="ProductOrderDetail-21" Index="4" />
       <Item Id="Sales &amp; Marketing" ImageName="BO_Opportunity" Index="5" />
-      <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="6" />
-      <Item Id="Customer Service" ImageName="Actions_Settings" />
+      <Item Id="Customer Service &amp; Settings" Index="6" ImageName="ModelEditor_Settings">
+        <Items>
+          <Item Id="Administration" ImageName="ShowAllValue" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="CompanyInformation" ViewId="CompanyInformation_DetailView" IsNewNode="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="7" />
     </Items>
   </NavigationItems>
   <Options>
@@ -211,6 +219,41 @@
         <ColumnInfo Id="Type" SortOrder="Ascending" GroupIndex="0" Index="3" />
       </Columns>
     </ListView>
+    <DetailView Id="CompanyInformation_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="54.25101214574899" IsNewNode="True" Removed="True">
+            <LayoutGroup Id="CompanyInformation" ShowCaption="True" Caption="General Information" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="CompanyInformation_col1" ShowCaption="False" Index="0" RelativeSize="49.84059511158342" IsNewNode="True">
+                <LayoutItem Id="BusinessModel" ViewItem="BusinessModel" Index="0" RelativeSize="15.178571428571429" IsNewNode="True" />
+                <LayoutItem Id="FiscalYearStart" ViewItem="FiscalYearStart" Index="1" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="HoursInWorkDay" ViewItem="HoursInWorkDay" Index="2" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="TimesheetPeriod" ViewItem="TimesheetPeriod" Index="3" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="StandardPdfPaperSize" ViewItem="StandardPdfPaperSize" Index="4" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="ForecastPeriod" ViewItem="ForecastPeriod" Index="5" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="StandardPdfFont" ViewItem="StandardPdfFont" Index="6" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="RetainForecastPeriods" ViewItem="RetainForecastPeriods" Index="7" RelativeSize="15.178571428571429" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CompanyInformation_col2" ShowCaption="False" Index="1" RelativeSize="50.15940488841658" IsNewNode="True">
+                <LayoutItem Id="FooterTextForPdfFilesAndHtmlReports" ViewItem="FooterTextForPdfFilesAndHtmlReports" Index="0" RelativeSize="15.178571428571429" IsNewNode="True" />
+                <LayoutItem Id="RetainHistoryPeriods" ViewItem="RetainHistoryPeriods" Index="1" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="FooterLinkUrlForPdfFilesAndHtmlReports" ViewItem="FooterLinkUrlForPdfFilesAndHtmlReports" Index="2" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="WorkDayBegins" ViewItem="WorkDayBegins" Index="3" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="DefaultFirstDayOfWeek" ViewItem="DefaultFirstDayOfWeek" Index="4" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="WorkDayEnds" ViewItem="WorkDayEnds" Index="5" RelativeSize="11.607142857142858" IsNewNode="True" />
+                <LayoutItem Id="ShowVacationsInCalendar" ViewItem="ShowVacationsInCalendar" Index="6" RelativeSize="26.785714285714285" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="14.574898785425102" Caption="Company Address" IsNewNode="True">
+            <LayoutItem Id="CompanyAddress" ViewItem="CompanyAddress" Index="0" RelativeSize="100" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="31.17408906882591" Caption="Company Logo" IsNewNode="True">
+            <LayoutItem Id="CompanyLogo" ViewItem="CompanyLogo" Index="0" RelativeSize="100" IsNewNode="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="Contact_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">

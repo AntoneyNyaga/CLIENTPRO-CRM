@@ -18,7 +18,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerService
 {
     [DefaultClassOptions]
     [ImageName("Warning")]
-    [NavigationItem("Customer Service")]
+    [NavigationItem("Customer Service & Settings")]
 
     
     public class Cases : BaseObject

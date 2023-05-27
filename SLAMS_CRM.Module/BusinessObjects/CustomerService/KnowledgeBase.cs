@@ -16,7 +16,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerService
 {
     [DefaultClassOptions]
     [ImageName("FunctionsInformation")]
-    [NavigationItem("Customer Service")]
+    [NavigationItem("Customer Service & Settings")]
 
     public class KnowledgeBase : BaseObject
     { 
