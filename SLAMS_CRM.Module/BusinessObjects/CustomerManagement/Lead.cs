@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -103,8 +104,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [ImmediatePostData]
         public Contact Contact { get; set; }
 
-
-        [Editable(false)]
+        [ModelDefault("AllowEdit", "false")]
+        //[Editable(false)]
         public int Score { get => score; set => SetPropertyValue(nameof(Score), ref score, value); }
 
 
@@ -159,9 +160,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             {
                 UpdateScore();
             }
-            if(propertyName == nameof(FullName) ||
-                propertyName == nameof(Email) ||
-                propertyName == nameof(Address1))
+            if(propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address1))
             {
                 UpdateAccount();
             }
@@ -174,7 +173,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
         public void UpdateAccount()
         {
-            if (Account == null)
+            if(Account == null)
             {
                 Account = new Account(Session); // Create a new Account object if it is null
             }
@@ -196,52 +195,56 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         {
             int score = 0;
 
-            // Increase score based on the lead status
-            switch(LeadStatus)
+            // Map lead statuses to scores
+            Dictionary<LeadStatus, int> statusScoreMap = new Dictionary<LeadStatus, int>()
             {
-                case CustomerManagement.LeadStatus.New:
-                    score += 10;
-                    break;
-                case CustomerManagement.LeadStatus.Contacted:
-                    score += 20;
-                    break;
-                case CustomerManagement.LeadStatus.Qualified:
-                    score += 30;
-                    break;
-                default:
-                    break;
+                { CustomerManagement.LeadStatus.New, 10 },
+                { CustomerManagement.LeadStatus.Contacted, 20 },
+                { CustomerManagement.LeadStatus.Qualified, 30 }
+            };
+
+            // Map lead sources to scores
+            Dictionary<SourceType, int> sourceScoreMap = new Dictionary<SourceType, int>()
+            {
+                { CustomerManagement.SourceType.ColdCall, 10 },
+                { CustomerManagement.SourceType.ExistingCustomer, 20 },
+                { CustomerManagement.SourceType.SelfGenerated, 30 },
+
+            };
+
+            // Map job titles to scores
+            Dictionary<string, int> jobTitleScoreMap = new Dictionary<string, int>()
+            {
+                { "CEO", 50 },
+                { "Chief Executive Officer", 50 },
+                { "Manager", 30 },
+                { "Software Developer", 30 },
+                { "Sales", 20 },
+                { "Marketing", 20 }
+            };
+
+            // Increase score based on the lead status
+            if(LeadStatus.HasValue && statusScoreMap.ContainsKey(LeadStatus.Value))
+            {
+                score += statusScoreMap[LeadStatus.Value];
             }
 
             // Increase score based on the lead source
-            switch(SourceType)
+            if(SourceType.HasValue && sourceScoreMap.ContainsKey(SourceType.Value))
             {
-                case CustomerManagement.SourceType.ColdCall:
-                    score += 10;
-                    break;
-                case CustomerManagement.SourceType.ExistingCustomer:
-                    score += 20;
-                    break;
-                case CustomerManagement.SourceType.SelfGenerated:
-                    score += 30;
-                    break;
-                // Add more cases for other source types as needed
-                default:
-                    break;
+                score += sourceScoreMap[SourceType.Value];
             }
 
             // Increase score based on the lead's job title
             if(!string.IsNullOrEmpty(JobTitle))
             {
-                // Add score based on job title keyword matches
-                if(JobTitle.Contains("CEO") || JobTitle.Contains("Chief Executive Officer"))
+                foreach(var jobTitle in jobTitleScoreMap.Keys)
                 {
-                    score += 50;
-                } else if(JobTitle.Contains("Manager") || JobTitle.Contains("Software Developer"))
-                {
-                    score += 30;
-                } else if(JobTitle.Contains("Sales") || JobTitle.Contains("Marketing"))
-                {
-                    score += 20;
+                    if(JobTitle.Contains(jobTitle))
+                    {
+                        score += jobTitleScoreMap[jobTitle];
+                        break;
+                    }
                 }
             }
 
