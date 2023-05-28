@@ -4,6 +4,8 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.XtraCharts;
+using Microsoft.IdentityModel.Tokens;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 
@@ -31,17 +33,17 @@ namespace SLAMS_CRM.Module.Controllers
         {
             var selectedLeads = View.SelectedObjects;
 
-            if (selectedLeads == null || selectedLeads.Count == 0)
+            if(selectedLeads == null || selectedLeads.Count == 0)
                 return;
 
             var objectSpace = View.ObjectSpace;
             var session = ((XPObjectSpace)objectSpace).Session;
 
             // Start a transaction to ensure data consistency
-            using (var uow = new UnitOfWork(session.DataLayer))
+            using(var uow = new UnitOfWork(session.DataLayer))
             {
                 // Loop through the selected leads
-                foreach (Lead lead in selectedLeads)
+                foreach(Lead lead in selectedLeads)
                 {
                     // Create a new contact object and copy over relevant properties
                     var contact = new Contact(session)
@@ -50,35 +52,41 @@ namespace SLAMS_CRM.Module.Controllers
                         MiddleName = lead.MiddleName,
                         LastName = lead.LastName,
                         Email = lead.Email,
-                        Company = session.GetObjectByKey<Company>(lead.Company.Oid),
-                        Account = session.GetObjectByKey<Account>(lead.Account.Oid),
+                        Address1 = lead.Address1,
+                        Birthday = lead.Birthday,
+                        Company = lead.Company,
                         JobTitle = lead.JobTitle,
-                        Photo = lead.Photo
+                        Photo = lead.Photo,
+                        SourceType = SourceType.ExistingCustomer,
+                        ConvertedFrom = "lead",
                     };
+
+                    var leadAccount = lead.Account;
+
+                    if (leadAccount != null)
+                    {
+                        // Set the required fields
+                        leadAccount.Industry = leadAccount.Industry;
+                        leadAccount.OfficePhone = leadAccount.OfficePhone;
+
+                        // Assign the modified Account object to the Contact object
+                        contact.Account = leadAccount;
+                    }
 
                     // Add the phone numbers of the lead to the contact
                     foreach (var phoneNumber in lead.PhoneNumbers)
                     {
                         var phone = new PhoneNumber(session)
                         {
-                            Number = phoneNumber.Number,
+                            Number = !string.IsNullOrEmpty(phoneNumber.Number) ? phoneNumber.Number : string.Empty,
                             PhoneType = phoneNumber.PhoneType,
-                            //Party = phoneNumber.Party
                         };
                         contact.PhoneNumbers.Add(phone);
                     }
 
-                    //lead.LeadStatus = LeadStatus.Qualified;
                     lead.Save();
-
-                    // Set the IsConvertedToContact property to true
                     lead.IsConvertedToContact = true;
-
-                    // Delete the lead object
-                    //objectSpace.Delete(lead);
-
                 }
-
 
                 objectSpace.CommitChanges();
             }

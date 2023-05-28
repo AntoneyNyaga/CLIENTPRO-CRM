@@ -8,6 +8,7 @@ using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 {
@@ -32,19 +33,27 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
         string jobTitle;
         Company company;
-        Account account;
         bool isCustomer;
+        string type;
 
         [Size(50)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
-        [RuleRequiredField("RuleRequiredField for Contact.Company", DefaultContexts.Save)]
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
-        //[RuleRequiredField("RuleRequiredField for Contact.Account", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
+        public Account Account { get ; set; }
+
+        [Browsable(false)]
+        public int Type
+        {
+            get => type == null ? 0 : (int)Enum.Parse(typeof(SourceType), type);
+            set => SetPropertyValue(nameof(Type), ref type, Enum.GetName(typeof(SourceType), value));
+        }
+        //[RuleRequiredField("RuleRequiredField for Contact.SourceType", DefaultContexts.Save)]
+        [NotMapped]
+        public SourceType? SourceType { get; set; }
 
         public void UpdateAccount()
         {

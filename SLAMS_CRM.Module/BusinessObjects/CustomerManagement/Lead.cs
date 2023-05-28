@@ -9,6 +9,7 @@ using DevExpress.Xpo;
 using MySqlX.XDevAPI;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
@@ -48,16 +49,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         string converted;
         Account account;
 
-        //[Appearance("HideOfficePhone",TargetItems ="Account.OfficePhone", Visibility = ViewItemVisibility.Hide)]
-
         [Size(50)]
         [ImmediatePostData(true)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
 
-        /*[ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [Aggregated]*/
-        [RuleRequiredField("RuleRequiredField for Lead.Company", DefaultContexts.Save)]
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
 
@@ -108,8 +104,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         public Contact Contact { get; set; }
 
 
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        [ReadOnly(false)]
+        [Editable(false)]
         public int Score { get => score; set => SetPropertyValue(nameof(Score), ref score, value); }
 
 
@@ -172,7 +167,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             }
         }
 
-        [RuleRequiredField("RuleRequiredField for Lead.Account", DefaultContexts.Save)]
+        //[RuleRequiredField("RuleRequiredField for Lead.Account", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }

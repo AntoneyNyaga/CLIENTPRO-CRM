@@ -7,6 +7,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement;
+using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using SLAMS_CRM.Module.BusinessObjects.CustomerService;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
@@ -44,13 +45,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         DateTime modifiedOn;
         DateTime createdOn;
         decimal annualRevenue;
-        string industryType;
-        string accountType;
         string description;
         //PhoneNumber officePhone;
         string emailAddress;
         string website;
         string name;
+        string acType;
+        string indType;
 
         [Size(50)]
         [Appearance("HideName", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
@@ -71,11 +72,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
 
-        [RuleRequiredField("RuleRequiredField for Account.OfficePhone", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        [Appearance("HideOfficePhone", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
-
         public PhoneNumber OfficePhone
         {
             get { return GetPropertyValue<PhoneNumber>(nameof(OfficePhone)); }
@@ -85,7 +83,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
         [RuleRequiredField("RuleRequiredField for Account.ShippingAddress", DefaultContexts.Save)]
-        //[Appearance("HideAddress", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
 
         public Address ShippingAddress
         {
@@ -101,17 +98,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-
+        //public AccountType Type { get; set; }
         [Browsable(false)]
-        public int AccountType
+        public int AcType
         {
-            get => accountType == null ? 0 : (int)Enum.Parse(typeof(AccountType), accountType);
-            set { SetPropertyValue(nameof(AccountType), ref accountType, Enum.GetName(typeof(AccountType), value)); }
+            get => acType == null ? 0 : (int)Enum.Parse(typeof(AccountType), acType);
+            set => SetPropertyValue(nameof(AcType), ref acType, Enum.GetName(typeof(AccountType), value));
         }
-
-        [RuleRequiredField("RuleRequiredField for Account.AccountType", DefaultContexts.Save)]
+        //[RuleRequiredField("RuleRequiredField for Account.TypeOfAccount", DefaultContexts.Save)]
         [NotMapped]
-        public AccountType? Type { get; set; }
+        public AccountType? TypeOfAccount { get; set; }
 
 
         public decimal AnnualRevenue
@@ -120,15 +116,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(AnnualRevenue), ref annualRevenue, value);
         }
 
-
+        //public IndustryType Industry { get; set; }
         [Browsable(false)]
-        public int IndustryType
+        public int IndType
         {
-            get => industryType == null ? 0 : (int)Enum.Parse(typeof(IndustryType), industryType);
-            set { SetPropertyValue(nameof(IndustryType), ref industryType, Enum.GetName(typeof(IndustryType), value)); }
+            get => indType == null ? 0 : (int)Enum.Parse(typeof(IndustryType), indType);
+            set => SetPropertyValue(nameof(IndType), ref indType, Enum.GetName(typeof(IndustryType), value));
         }
-
-        [RuleRequiredField("RuleRequiredField for Account.Industry", DefaultContexts.Save)]
+        //[RuleRequiredField("RuleRequiredField for Account.Industry", DefaultContexts.Save)]
         [NotMapped]
         public IndustryType? Industry { get; set; }
 
