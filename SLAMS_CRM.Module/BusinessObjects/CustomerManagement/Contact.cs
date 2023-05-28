@@ -89,14 +89,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         }
 
         //[Browsable(false)]
-        public string ConvertedFrom
-        {
-            get
-            {
-                var lead = Session.FindObject<Lead>(CriteriaOperator.Parse("Contact.Oid == ?", Oid));
-                return lead?.Converted;
-            }
-        }
+        public string ConvertedFrom { get; set; }
 
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {
