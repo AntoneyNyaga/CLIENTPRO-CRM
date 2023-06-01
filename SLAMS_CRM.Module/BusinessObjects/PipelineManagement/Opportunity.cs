@@ -1,4 +1,5 @@
-﻿using DevExpress.Persistent.Base;
+﻿using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -78,7 +79,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
         [NotMapped]
         public StageType StageType { get => (StageType)Stage; set => Stage = (int)value; }
 
-
+        [ModelDefault("AllowEdit", "false")]
         [ReadOnly(false)]
         public double ProbabilityOfClosing
         {

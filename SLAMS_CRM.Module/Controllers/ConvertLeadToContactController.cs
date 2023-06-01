@@ -86,6 +86,7 @@ namespace SLAMS_CRM.Module.Controllers
 
                     lead.Save();
                     lead.IsConvertedToContact = true;
+                    lead.Account.Delete();
                 }
 
                 objectSpace.CommitChanges();

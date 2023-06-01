@@ -54,8 +54,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         public Opportunity Opportunity { get; set; }
 
-        [RuleRequiredField("RuleRequiredField for Quote.Contact", DefaultContexts.Save)]
-        public Contact Contact { get; set; }
+        /*[RuleRequiredField("RuleRequiredField for Quote.Contact", DefaultContexts.Save)]
+        public Contact Contact { get; set; }*/
 
         [RuleRequiredField("RuleRequiredField for Quote.ShippingAddress", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
@@ -66,10 +66,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(ShippingAddress), ref shippingAddress, value);
         }
 
-        [RuleRequiredField("RuleRequiredField for Quote.BillingAddress", DefaultContexts.Save)]
+        //[RuleRequiredField("RuleRequiredField for Quote.BillingAddress", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-
         public Address BillingAddress
         {
             get => billingAddress;
@@ -170,7 +169,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 // Create a new MailMessage object
                 using MailMessage mail = new();
                 // Set the email address of the recipient
-                mail.To.Add(Contact.Email);
+                //mail.To.Add(Account.Email);
                 mail.To.Add(Account.EmailAddress);
 
                 // Set the subject of the email
@@ -319,10 +318,10 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 // Create the email message
                 using MailMessage message = new();
                 message.From = new MailAddress(username);
-                message.To.Add(Contact.Email);
+                //message.To.Add(Contact.Email);
                 message.To.Add(Account.EmailAddress);
                 message.Subject = $"Proposal for {Title}";
-                message.Body = $"Dear {Contact.DisplayName},\n\nPlease find attached the proposal for {Title}.\n\nKind regards,\n\nSLAMS CRM Team";
+                message.Body = $"Dear {Account.Name},\n\nPlease find attached the proposal for {Title}.\n\nKind regards,\n\nSLAMS CRM Team";
 
                 // Attach the PDF file to the email
                 message.Attachments.Add(attachment);
