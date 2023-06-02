@@ -33,7 +33,6 @@
     <ProjectReference Include="..\SLAMS_CRM.Module\SLAMS_CRM.Module.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Reports\" />
     <Folder Include="SentProposals\" />
   </ItemGroup>
 </Project>
