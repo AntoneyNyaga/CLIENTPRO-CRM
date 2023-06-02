@@ -28,6 +28,10 @@ namespace SLAMS_CRM.Module.BusinessObjects.Settings
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
+        public string CompanyName { get; set; }
+        public string CompanyEmail { get; set; }
+        public string CompanyPhonenumber { get; set; }
+        public string CompanyWebsite { get; set; }
         public BusinessModel BusinessModel { get; set; }
 
         public DateTime FiscalYearStart { get; set; }

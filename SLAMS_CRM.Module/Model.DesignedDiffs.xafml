@@ -231,34 +231,40 @@
     <DetailView Id="CompanyInformation_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="54.25101214574899" IsNewNode="True" Removed="True">
-            <LayoutGroup Id="CompanyInformation" ShowCaption="True" Caption="General Information" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-              <LayoutGroup Id="CompanyInformation_col1" ShowCaption="False" Index="0" RelativeSize="49.84059511158342" IsNewNode="True">
-                <LayoutItem Id="BusinessModel" ViewItem="BusinessModel" Index="0" RelativeSize="15.178571428571429" IsNewNode="True" />
-                <LayoutItem Id="FiscalYearStart" ViewItem="FiscalYearStart" Index="1" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="HoursInWorkDay" ViewItem="HoursInWorkDay" Index="2" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="TimesheetPeriod" ViewItem="TimesheetPeriod" Index="3" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="StandardPdfPaperSize" ViewItem="StandardPdfPaperSize" Index="4" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="ForecastPeriod" ViewItem="ForecastPeriod" Index="5" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="StandardPdfFont" ViewItem="StandardPdfFont" Index="6" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="RetainForecastPeriods" ViewItem="RetainForecastPeriods" Index="7" RelativeSize="15.178571428571429" IsNewNode="True" />
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" Removed="True">
+            <LayoutGroup Id="Item4" ShowCaption="True" Caption="Company Information" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="20.3125" IsNewNode="True">
+              <LayoutGroup Id="Auto5e9aab89-418f-4705-81da-ad788ac92af4" ShowCaption="False" Caption="" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="CompanyName" ViewItem="CompanyName" Index="0" RelativeSize="28.8135593220339" IsNewNode="True" />
+                <LayoutItem Id="CompanyEmail" ViewItem="CompanyEmail" Index="1" RelativeSize="28.8135593220339" IsNewNode="True" />
+                <LayoutItem Id="CompanyPhonenumber" ViewItem="CompanyPhonenumber" Index="2" RelativeSize="42.3728813559322" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="CompanyInformation_col2" ShowCaption="False" Index="1" RelativeSize="50.15940488841658" IsNewNode="True">
-                <LayoutItem Id="FooterTextForPdfFilesAndHtmlReports" ViewItem="FooterTextForPdfFilesAndHtmlReports" Index="0" RelativeSize="15.178571428571429" IsNewNode="True" />
-                <LayoutItem Id="RetainHistoryPeriods" ViewItem="RetainHistoryPeriods" Index="1" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="FooterLinkUrlForPdfFilesAndHtmlReports" ViewItem="FooterLinkUrlForPdfFilesAndHtmlReports" Index="2" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="WorkDayBegins" ViewItem="WorkDayBegins" Index="3" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="DefaultFirstDayOfWeek" ViewItem="DefaultFirstDayOfWeek" Index="4" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="WorkDayEnds" ViewItem="WorkDayEnds" Index="5" RelativeSize="11.607142857142858" IsNewNode="True" />
-                <LayoutItem Id="ShowVacationsInCalendar" ViewItem="ShowVacationsInCalendar" Index="6" RelativeSize="26.785714285714285" IsNewNode="True" />
+              <LayoutGroup Id="Autoab119a4a-ca79-498b-8a8c-b9355552d416" ShowCaption="False" Caption="" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="CompanyWebsite" ViewItem="CompanyWebsite" Index="0" RelativeSize="28.8135593220339" IsNewNode="True" />
+                <LayoutItem Id="CompanyAddress" ViewItem="CompanyAddress" Index="1" RelativeSize="35.59322033898305" IsNewNode="True" />
+                <LayoutItem Id="CompanyLogo" ViewItem="CompanyLogo" Index="2" RelativeSize="35.59322033898305" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
-          </LayoutGroup>
-          <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="14.574898785425102" Caption="Company Address" IsNewNode="True">
-            <LayoutItem Id="CompanyAddress" ViewItem="CompanyAddress" Index="0" RelativeSize="100" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="31.17408906882591" Caption="Company Logo" IsNewNode="True">
-            <LayoutItem Id="CompanyLogo" ViewItem="CompanyLogo" Index="0" RelativeSize="100" IsNewNode="True" />
+            <LayoutGroup Id="CompanyInformation" ShowCaption="True" Caption="General Information" Direction="Horizontal" Index="1" RelativeSize="79.6875" IsNewNode="True">
+              <LayoutGroup Id="CompanyInformation_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="BusinessModel" ViewItem="BusinessModel" Index="0" RelativeSize="5.985915492957746" IsNewNode="True" />
+                <LayoutItem Id="FiscalYearStart" ViewItem="FiscalYearStart" Index="1" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="HoursInWorkDay" ViewItem="HoursInWorkDay" Index="2" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="TimesheetPeriod" ViewItem="TimesheetPeriod" Index="3" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="StandardPdfPaperSize" ViewItem="StandardPdfPaperSize" Index="4" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="ForecastPeriod" ViewItem="ForecastPeriod" Index="5" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="StandardPdfFont" ViewItem="StandardPdfFont" Index="6" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="RetainForecastPeriods" ViewItem="RetainForecastPeriods" Index="7" RelativeSize="66.54929577464789" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CompanyInformation_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="FooterTextForPdfFilesAndHtmlReports" ViewItem="FooterTextForPdfFilesAndHtmlReports" Index="0" RelativeSize="5.985915492957746" IsNewNode="True" />
+                <LayoutItem Id="RetainHistoryPeriods" ViewItem="RetainHistoryPeriods" Index="1" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="FooterLinkUrlForPdfFilesAndHtmlReports" ViewItem="FooterLinkUrlForPdfFilesAndHtmlReports" Index="2" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="WorkDayBegins" ViewItem="WorkDayBegins" Index="3" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="DefaultFirstDayOfWeek" ViewItem="DefaultFirstDayOfWeek" Index="4" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="WorkDayEnds" ViewItem="WorkDayEnds" Index="5" RelativeSize="4.577464788732394" IsNewNode="True" />
+                <LayoutItem Id="ShowVacationsInCalendar" ViewItem="ShowVacationsInCalendar" Index="6" RelativeSize="71.12676056338029" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
       </Layout>

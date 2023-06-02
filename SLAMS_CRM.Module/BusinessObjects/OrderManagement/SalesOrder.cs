@@ -39,6 +39,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [Size(4096)]
         public string Notes { get; set; }
 
+        PurchaseOrder relatedPurchaseOrder;
         Quote relatedQuote;
         Opportunity opportunity;
         ApplicationUser assignedTo;
@@ -94,10 +95,17 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             base.OnSaving();
 
-            if(Session.IsNewObject(this))
+            if (Session.IsNewObject(this))
             {
                 GenerateSalesOrderNumber();
             }
+        }
+        
+        [Association("PurchaseOrder-SalesOrders")]
+        public PurchaseOrder RelatedPurchaseOrder
+        {
+            get => relatedPurchaseOrder;
+            set => SetPropertyValue(nameof(RelatedPurchaseOrder), ref relatedPurchaseOrder, value);
         }
 
         private void GenerateSalesOrderNumber()
