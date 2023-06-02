@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.Settings
         {
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
+        }
+
+        [Browsable(false)]
+        [Association("CompanyInformation-Invoices")]
+        public XPCollection<Invoice> Invoices
+        {
+            get
+            {
+                return GetCollection<Invoice>(nameof(Invoices));
+            }
         }
 
         public string CompanyName { get; set; }

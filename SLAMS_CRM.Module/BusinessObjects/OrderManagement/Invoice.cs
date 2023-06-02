@@ -4,6 +4,7 @@ using DevExpress.Xpo;
 using DevExpress.XtraRichEdit.Fields;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
+using SLAMS_CRM.Module.BusinessObjects.Settings;
 using System.ComponentModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
@@ -24,12 +25,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
             InvoiceDate = DateTime.Now;
+
+            // Retrieve the existing CompanyInformation instance
+            CompanyInformation = Session.Query<CompanyInformation>().FirstOrDefault();
         }
 
 
         [Association("Account-Invoices")]
         public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
 
+        CompanyInformation companyInformation;
         PurchaseOrder fromPurchaseOrder;
         DateTime invoiceDueDate;
         Quote fromQuoteNo;
@@ -68,12 +73,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [Association("Invoice-PurchaseOrders")]
         public XPCollection<PurchaseOrder> PurchaseOrders
         {
-            get
-            {
-                return GetCollection<PurchaseOrder>(nameof(PurchaseOrders));
-            }
+            get { return GetCollection<PurchaseOrder>(nameof(PurchaseOrders)); }
         }
-        
+
         [Association("PurchaseOrder-Invoices")]
         public PurchaseOrder FromPurchaseOrder
         {
@@ -98,21 +100,27 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         }
 
         public Address BillingAddress { get; set; }
+
         public Address ShippingAddress { get; set; }
-  
-        public bool TaxExempt
+
+        public bool TaxExempt { get => taxExempt; set => SetPropertyValue(nameof(TaxExempt), ref taxExempt, value); }
+
+        [VisibleInDetailView(false)]
+        [Association("CompanyInformation-Invoices")]
+        public CompanyInformation CompanyInformation
         {
-            get => taxExempt;
-            set => SetPropertyValue(nameof(TaxExempt), ref taxExempt, value);
+            get => companyInformation;
+            set => SetPropertyValue(nameof(CompanyInformation), ref companyInformation, value);
         }
 
         public PaymentCurrencyType CurrencyType { get; set; }
+
         public ShippingProviderType ShippingProvider { get; set; }
 
         protected override void OnSaving()
         {
             base.OnSaving();
-            if (Session.IsNewObject(this))
+            if(Session.IsNewObject(this))
             {
                 GenerateInvoiceNumber();
             }
@@ -122,7 +130,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             const string InvoiceNumberFormat = "INV{0}{1}{2:0000}";
             var lastInvoice = Session.Query<Invoice>()?.OrderByDescending(i => i.InvoiceDate).FirstOrDefault();
-            if (lastInvoice != null)
+            if(lastInvoice != null)
             {
                 var year = lastInvoice.InvoiceDate.Year;
                 var month = lastInvoice.InvoiceDate.Month;
@@ -130,8 +138,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 sequence++;
                 var newInvoiceNumber = string.Format(InvoiceNumberFormat, year, month, sequence);
                 InvoiceNumber = newInvoiceNumber;
-            }
-            else
+            } else
             {
                 InvoiceNumber = string.Format(InvoiceNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }
