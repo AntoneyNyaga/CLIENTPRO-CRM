@@ -17,7 +17,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DevExpress.AspNetCore.Dashboard" Version="22.2.4" />
     <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="22.2.4" />
+    <PackageReference Include="DevExpress.Blazor.Dashboard" Version="22.2.4" />
     <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="22.2.4" />
     <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="22.2.4" />
     <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="22.2.4" />
