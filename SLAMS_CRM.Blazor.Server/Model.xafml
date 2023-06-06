@@ -2,8 +2,8 @@
 <Application>
   <NavigationItems NavigationStyle="Accordion" />
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="22.2.4.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="22.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.2.6.0" IsNewNode="True" />
   </SchemaModules>
   <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
     <DetailView Id="Contact_DetailView">

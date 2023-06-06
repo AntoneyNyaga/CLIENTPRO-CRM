@@ -17,17 +17,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.AspNetCore.Dashboard" Version="22.2.4" />
-    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="22.2.4" />
-    <PackageReference Include="DevExpress.Blazor.Dashboard" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="22.2.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="22.2.4" />
+    <PackageReference Include="DevExpress.AspNetCore.Dashboard" Version="22.2.6" />
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="22.2.6" />
+    <PackageReference Include="DevExpress.Blazor.Dashboard" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="22.2.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="22.2.6" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="MySqlConnector" Version="2.2.6" />
   </ItemGroup>
