@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -127,7 +128,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         [NotMapped]
         public IndustryType? Industry { get; set; }
 
-
+        [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         [ReadOnly(true)]
         [Editable(false)]
