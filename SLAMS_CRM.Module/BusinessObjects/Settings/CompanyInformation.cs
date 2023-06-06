@@ -29,7 +29,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.Settings
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("CompanyInformation-Invoices")]
         public XPCollection<Invoice> Invoices
         {

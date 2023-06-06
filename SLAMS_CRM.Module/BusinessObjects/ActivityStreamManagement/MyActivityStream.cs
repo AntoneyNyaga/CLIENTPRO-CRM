@@ -25,7 +25,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement
         private string action;
         private string accountName;
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string AccountName
         {
@@ -33,14 +35,20 @@ namespace SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement
             set => SetPropertyValue(nameof(AccountName), ref accountName, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Action { get => action; set => SetPropertyValue(nameof(Action), ref action, value); }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public DateTime Date { get => date; set => SetPropertyValue(nameof(Date), ref date, value); }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string CreatedBy { get => createdBy; set => SetPropertyValue(nameof(CreatedBy), ref createdBy, value); }
 

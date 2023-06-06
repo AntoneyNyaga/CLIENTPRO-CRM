@@ -59,14 +59,12 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(PhoneNumber), ref phoneNumber, value);
         }
 
-
         [Size(100)]
         public string Website
         {
             get => website;
             set => SetPropertyValue(nameof(Website), ref website, value);
         }
-
 
         [Size(50)]
         public string EmailAddress

@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
@@ -17,7 +18,9 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
     {
     }
 
-    [Browsable(false)]
+    [VisibleInDetailView(false)]
+    [VisibleInListView(false)]
+    [VisibleInLookupListView(false)]
     [Aggregated, Association("User-LoginInfo")]
     public XPCollection<ApplicationUserLoginInfo> LoginInfo
     {
@@ -39,14 +42,11 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
         return result;
     }
 
-    //[Browsable(false)]
-    //public IList<Quote> Quotes { get; } = new ObservableCollection<Quote>();
+   
 
     [Association("ApplicationUser-Quotes")]
     public XPCollection<Quote> AssignedProposals { get { return GetCollection<Quote>(nameof(AssignedProposals)); } }
 
-    //[Browsable(false)]
-    //public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
     [Association("ApplicationUser-Opportunities")]
     public XPCollection<Opportunity> AssignedOpportunities
     {

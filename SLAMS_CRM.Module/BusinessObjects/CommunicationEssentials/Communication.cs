@@ -124,11 +124,15 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public bool IsContacted { get; set; }
 
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Communication-SentEmails")]
         public XPCollection<SentEmail> SentEmails { get { return GetCollection<SentEmail>(nameof(SentEmails)); } }
     }

@@ -20,18 +20,31 @@ namespace SLAMS_CRM.Module.Controllers
     public class InvoiceData
     {
         public string InvoiceNumber { get; set; }
+
         public DateTime InvoiceDate { get; set; }
+
         public DateTime InvoiceDueDate { get; set; }
+
         public string CompanyName { get; set; }
+
         public string City { get; set; }
+
         public string CountryName { get; set; }
+
         public string CompanyWebsite { get; set; }
+
         public string CompanyEmail { get; set; }
+
         public string CompanyPhoneNumber { get; set; }
+
         public string AccountName { get; set; }
+
         public string ProductName { get; set; }
+
         public int Quantity { get; set; }
+
         public decimal PricePerQuantity { get; set; }
+
         public decimal UnitPrice { get; set; }
     }
 
@@ -52,7 +65,6 @@ namespace SLAMS_CRM.Module.Controllers
 
         private void SimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-
             // Retrieve the selected invoice object
             Invoice invoice = e.CurrentObject as Invoice;
 
@@ -83,29 +95,31 @@ namespace SLAMS_CRM.Module.Controllers
 
             InvoiceData invoiceData = new InvoiceData();
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using(MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT `invoice`.`InvoiceNumber`, `invoice`.`InvoiceDate`, `invoice`.`InvoiceDueDate`, " +
-                    "`companyinformation`.`CompanyName`, `address`.`City`, `country`.`Name`, `companyinformation`.`CompanyWebsite`, " +
-                    "`companyinformation`.`CompanyEmail`, `companyinformation`.`CompanyPhonenumber`, `account`.`Name` AS `account_Name`, " +
-                    "`product`.`Name` AS `product_Name`, `product`.`Quantity`, `product`.`PricePerQuantity`, " +
-                    "(`product`.`Quantity` * `product`.`PricePerQuantity`) AS `UnitPrice` " +
-                    "FROM (((((`account` `account` " +
-                    "INNER JOIN `invoice` `invoice` ON (`invoice`.`Account` = `account`.`Oid`)) " +
-                    "INNER JOIN `product` `product` ON (`product`.`Invoices` = `invoice`.`Oid`)) " +
-                    "INNER JOIN `companyinformation` `companyinformation` ON (`companyinformation`.`Oid` = `invoice`.`CompanyInformation`)) " +
-                    "INNER JOIN `address` `address` ON (`address`.`Oid` = `companyinformation`.`CompanyAddress`)) " +
-                    "INNER JOIN `country` `country` ON (`country`.`Oid` = `address`.`Country`))", connection))
+                using(MySqlCommand command = new MySqlCommand(
+                    "SELECT `invoice`.`InvoiceNumber`, `invoice`.`InvoiceDate`, `invoice`.`InvoiceDueDate`, " +
+                        "`companyinformation`.`CompanyName`, `address`.`City`, `country`.`Name`, `companyinformation`.`CompanyWebsite`, " +
+                        "`companyinformation`.`CompanyEmail`, `companyinformation`.`CompanyPhonenumber`, `account`.`Name` AS `account_Name`, " +
+                        "`product`.`Name` AS `product_Name`, `product`.`Quantity`, `product`.`PricePerQuantity`, " +
+                        "(`product`.`Quantity` * `product`.`PricePerQuantity`) AS `UnitPrice` " +
+                        "FROM (((((`account` `account` " +
+                        "INNER JOIN `invoice` `invoice` ON (`invoice`.`Account` = `account`.`Oid`)) " +
+                        "INNER JOIN `product` `product` ON (`product`.`Invoices` = `invoice`.`Oid`)) " +
+                        "INNER JOIN `companyinformation` `companyinformation` ON (`companyinformation`.`Oid` = `invoice`.`CompanyInformation`)) " +
+                        "INNER JOIN `address` `address` ON (`address`.`Oid` = `companyinformation`.`CompanyAddress`)) " +
+                        "INNER JOIN `country` `country` ON (`country`.`Oid` = `address`.`Country`))",
+                    connection))
                 {
                     DataTable dataTable = new DataTable();
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using(MySqlDataReader reader = command.ExecuteReader())
                     {
                         dataTable.Load(reader);
                     }
 
-                    foreach (DataRow row in dataTable.Rows)
+                    foreach(DataRow row in dataTable.Rows)
                     {
                         invoiceData.InvoiceNumber = row["InvoiceNumber"].ToString();
                         invoiceData.InvoiceDate = Convert.ToDateTime(row["InvoiceDate"]);
@@ -135,51 +149,41 @@ namespace SLAMS_CRM.Module.Controllers
         {
             // Create a new PDF document
             Document document = new Document();
-
-            // Create a memory stream to hold the PDF data
             MemoryStream stream = new MemoryStream();
-
-            // Create a new PDF writer
             PdfWriter writer = PdfWriter.GetInstance(document, stream);
-
-            // Open the document
-            document.Open();
 
             // Set up fonts and styles
             Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
             Font sectionFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
             Font contentFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
 
-            // Add the invoice number
-            document.Add(new Paragraph("Invoice Number: " + invoiceData.InvoiceNumber, titleFont));
+            // Open the document
+            document.Open();
+
+            // Add the invoice details
+            document.Add(new Paragraph("Invoice For Account Name: " + invoiceData.AccountName, titleFont));
             document.Add(Chunk.NEWLINE);
-
-            // Add the invoice date
+            document.Add(new Paragraph("Invoice Number: " + invoiceData.InvoiceNumber, contentFont));
             document.Add(new Paragraph("Invoice Date: " + invoiceData.InvoiceDate.ToShortDateString(), contentFont));
-
-            // Add the invoice due date
-            document.Add(new Paragraph("Invoice Due Date: " + invoiceData.InvoiceDueDate.ToShortDateString(), contentFont));
+            document.Add(
+                new Paragraph("Invoice Due Date: " + invoiceData.InvoiceDueDate.ToShortDateString(), contentFont));
             document.Add(Chunk.NEWLINE);
 
             // Add the company information
-            document.Add(new Paragraph("Company Name: " + invoiceData.CompanyName,contentFont));
+            document.Add(new Paragraph("Company Name: " + invoiceData.CompanyName, contentFont));
             document.Add(new Paragraph("City: " + invoiceData.City, contentFont));
             document.Add(new Paragraph("Country: " + invoiceData.CountryName, contentFont));
             document.Add(new Paragraph("Website: " + invoiceData.CompanyWebsite, contentFont));
             document.Add(new Paragraph("Email: " + invoiceData.CompanyEmail, contentFont));
             document.Add(new Paragraph("Phone Number: " + invoiceData.CompanyPhoneNumber, contentFont));
             document.Add(Chunk.NEWLINE);
-            document.Add(Chunk.NEWLINE);
-            // Add the account information
-            document.Add(new Paragraph("Account Name: " + invoiceData.AccountName, contentFont));
 
-            document.Add(Chunk.NEWLINE);
             // Add the product information
             document.Add(new Paragraph("Product Name: " + invoiceData.ProductName, contentFont));
             document.Add(new Paragraph("Quantity: " + invoiceData.Quantity, contentFont));
             document.Add(new Paragraph("Price per Quantity: " + invoiceData.PricePerQuantity, contentFont));
             document.Add(new Paragraph("Unit Price: " + invoiceData.UnitPrice, contentFont));
-            document.Add(Chunk.NEWLINE);
+
             // Close the document
             document.Close();
 
@@ -190,7 +194,11 @@ namespace SLAMS_CRM.Module.Controllers
         }
 
 
-        private void SendEmailWithAttachment(string recipientEmail, string subject, string body, string attachmentFilePath)
+        private void SendEmailWithAttachment(
+            string recipientEmail,
+            string subject,
+            string body,
+            string attachmentFilePath)
         {
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -199,7 +207,7 @@ namespace SLAMS_CRM.Module.Controllers
             var username = configuration.GetSection("Email")["UserName"];
             var password = configuration.GetSection("Email")["Password"];
 
-            using (MailMessage mailMessage = new MailMessage())
+            using(MailMessage mailMessage = new MailMessage())
             {
                 mailMessage.From = new MailAddress(username);
                 mailMessage.To.Add(recipientEmail);
@@ -210,7 +218,7 @@ namespace SLAMS_CRM.Module.Controllers
                 Attachment attachment = new Attachment(attachmentFilePath);
                 mailMessage.Attachments.Add(attachment);
 
-                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
+                using(SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
                 {
                     // Configure your SMTP server settings
                     smtpClient.Port = 587;

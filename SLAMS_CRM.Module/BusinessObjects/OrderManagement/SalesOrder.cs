@@ -81,10 +81,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public Address ShippingAddress { get; set; }
 
         [Association("SalesOrder-Products")]
-        //[Browsable(false)]
         public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("SalesOrder-PurchaseOrders")]
         public XPCollection<PurchaseOrder> PurchaseOrders
         {

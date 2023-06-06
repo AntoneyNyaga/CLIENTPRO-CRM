@@ -65,7 +65,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 
         public Account AccountName { get; set; }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int Stage
         {
             get => stage == null ? 0 : (int)Enum.Parse(typeof(StageType), stage);
@@ -95,11 +97,15 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             set => SetPropertyValue(nameof(EstimatedCloseDate), ref estimatedCloseDate, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int LeadSource
         {
             get => leadSource == null ? 0 : (int)Enum.Parse(typeof(LeadSource), leadSource);
@@ -109,7 +115,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
         [NotMapped]
         public LeadSource LeadSourceType { get => (LeadSource)LeadSource; set => LeadSource = (int)value; }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Opportunity-SalesOrders")]
         public XPCollection<SalesOrder> SalesOrders
         {
@@ -125,7 +133,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             set => SetPropertyValue(nameof(OpportunityAmount), ref opportunityAmount, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Opportunity-Invoices")]
         public XPCollection<Invoice> Invoices
         {

@@ -45,7 +45,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [Aggregated]
         public Account Account { get ; set; }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int Type
         {
             get => type == null ? 0 : (int)Enum.Parse(typeof(SourceType), type);
@@ -74,21 +76,26 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             Account.Save();
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Contact-Communications")]
         public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public bool IsCustomer
         {
             get => isCustomer;
             set => SetPropertyValue(nameof(IsCustomer), ref isCustomer, value);
         }
 
-        //[Browsable(false)]
         public string ConvertedFrom { get; set; }
 
         protected override void OnChanged(string propertyName, object oldValue, object newValue)

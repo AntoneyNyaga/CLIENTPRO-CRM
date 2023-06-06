@@ -100,7 +100,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         }
 
         //public AccountType Type { get; set; }
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int AcType
         {
             get => acType == null ? 0 : (int)Enum.Parse(typeof(AccountType), acType);
@@ -118,7 +120,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         }
 
         //public IndustryType Industry { get; set; }
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int IndType
         {
             get => indType == null ? 0 : (int)Enum.Parse(typeof(IndustryType), indType);
@@ -154,7 +158,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(AssociatedWith), ref associatedWith, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int IsAccountCreated
         {
             get => isAccountCreated;
@@ -162,25 +168,29 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         }
 
 
-        [Editable(false)]
-        [ReadOnly(false)]
-        [Browsable(false)]
+        
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public DateTime CreatedOn
         {
             get => createdOn;
             set => SetPropertyValue(nameof(CreatedOn), ref createdOn, value);
         }
 
-        [Editable(false)]
-        [ReadOnly(true)]
-        [Browsable(false)]
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public DateTime ModifiedOn
         {
             get => modifiedOn;
             set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
 
         protected override void OnSaving()
@@ -210,10 +220,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             activityStreamEntry.Save();
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [DevExpress.Xpo.Association("Account-PurchaseOrders")]
         public XPCollection<PurchaseOrder> PurchaseOrders
         {
@@ -223,7 +237,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Account-Payments")]
         public XPCollection<Payment> Payments
         {
@@ -233,7 +249,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Account-Bills")]
         public XPCollection<Bills> Bills
         {
@@ -243,7 +261,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Account-Cases")]
         public XPCollection<Cases> Cases
         {
@@ -253,7 +273,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [DevExpress.Xpo.Association("Account-Invoices")]
         public XPCollection<Invoice> Invoices { get { return GetCollection<Invoice>(nameof(Invoices)); } }
     }

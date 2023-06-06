@@ -69,7 +69,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [Association("Invoice-Products")]
         public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Invoice-PurchaseOrders")]
         public XPCollection<PurchaseOrder> PurchaseOrders
         {

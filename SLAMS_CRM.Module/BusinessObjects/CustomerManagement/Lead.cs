@@ -58,7 +58,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int Source
         {
             get => source == null ? 0 : (int)Enum.Parse(typeof(SourceType), source);
@@ -89,7 +91,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             }
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int Status
         {
             get => status == null ? 0 : (int)Enum.Parse(typeof(LeadStatus), status);
@@ -100,7 +104,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [NotMapped]
         public LeadStatus? LeadStatus { get; set; }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [ImmediatePostData]
         public Contact Contact { get; set; }
 
@@ -109,7 +115,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         public int Score { get => score; set => SetPropertyValue(nameof(Score), ref score, value); }
 
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public bool IsConvertedToContact
         {
             get => isConvertedToContact;

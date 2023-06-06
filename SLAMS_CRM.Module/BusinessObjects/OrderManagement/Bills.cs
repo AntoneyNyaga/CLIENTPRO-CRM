@@ -72,7 +72,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public ShippingProviderType ShippingProvider { get; set; }
 
         [Association("Bills-Products")]
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
         protected override void OnSaving()

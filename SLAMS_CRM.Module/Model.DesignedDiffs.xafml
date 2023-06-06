@@ -340,27 +340,31 @@
         <DashboardViewItem Id="Contacts" ViewId="Contact_ListView" IsNewNode="True" />
         <DashboardViewItem Id="Leads" ViewId="Lead_ListView" IsNewNode="True" />
         <DashboardViewItem Id="MyAccounts" ViewId="Account_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="SalesPipeline" ViewId="DashboardData_DetailView" Criteria="[Oid] = {ff445e15-8405-4419-91ba-6412079ea767}" Caption="SalesPipeline55" ActionsToolbarVisibility="Show" IsNewNode="True" />
         <DashboardViewItem Id="TopOpenOpportunities" ViewId="Opportunity_ListView" Criteria="" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" Direction="Horizontal" IsNewNode="True">
-          <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="49.949341438703144" IsNewNode="True">
-            <LayoutGroup Id="Item3" ShowCaption="True" Caption="Top Open Opportunities" CaptionLocation="Top" Index="0" RelativeSize="33.28998699609883" IsNewNode="True">
+          <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="49.9482936918304" IsNewNode="True">
+            <LayoutGroup Id="Item3" ShowCaption="True" Caption="Top Open Opportunities" CaptionLocation="Top" Index="0" RelativeSize="33.26996197718631" IsNewNode="True">
               <LayoutItem Id="TopOpenOpportunities" ViewItem="TopOpenOpportunities" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="33.28998699609883" Caption="Contacts" IsNewNode="True">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="33.07984790874525" Caption="Contacts" IsNewNode="True">
               <LayoutItem Id="Contacts" ViewItem="Contacts" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="33.42002600780234" Caption="Leads" IsNewNode="True">
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="33.650190114068444" Caption="Leads" IsNewNode="True">
               <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50.050658561296856" IsNewNode="True">
-            <LayoutGroup Id="Item5" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="49.93498049414824" Caption="My Activity Stream" IsNewNode="True">
+          <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50.0517063081696" IsNewNode="True">
+            <LayoutGroup Id="Item5" ShowCaption="True" Caption="My Activity Stream" CaptionLocation="Top" Index="0" RelativeSize="33.26996197718631" IsNewNode="True">
               <LayoutItem Id="ActivityStream" ViewItem="ActivityStream" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="50.06501950585176" Caption="My Accounts" IsNewNode="True">
+            <LayoutGroup Id="Item4" ShowCaption="True" Caption="My Accounts" CaptionLocation="Top" Index="1" RelativeSize="33.07984790874525" IsNewNode="True">
               <LayoutItem Id="MyAccounts" ViewItem="MyAccounts" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item7" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="33.650190114068444" Caption="Sales Pipeline" IsNewNode="True">
+              <LayoutItem Id="SalesPipeline" ViewItem="SalesPipeline" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>

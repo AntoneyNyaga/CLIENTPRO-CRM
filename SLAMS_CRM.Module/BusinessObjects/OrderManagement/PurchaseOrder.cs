@@ -81,14 +81,20 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public Address ShippingAddress { get; set; }
 
         [Association("PurchaseOrder-Products")]
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("PurchaseOrder-Bills")]
         public XPCollection<Bills> Bills { get { return GetCollection<Bills>(nameof(Bills)); } }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("PurchaseOrder-Invoices")]
         public XPCollection<Invoice> Invoices
         {
@@ -97,7 +103,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 return GetCollection<Invoice>(nameof(Invoices));
             }
         }
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("PurchaseOrder-SalesOrders")]
         public XPCollection<SalesOrder> SalesOrders
         {

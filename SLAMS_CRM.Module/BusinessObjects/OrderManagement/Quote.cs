@@ -131,7 +131,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(ApprovalIssues), ref approvalIssues, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Quote-SalesOrders")]
         public XPCollection<SalesOrder> SalesOrders { get { return GetCollection<SalesOrder>(nameof(SalesOrders)); } }
 
@@ -151,7 +153,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(LastFollowUp), ref _lastFollowUp, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Quote-Invoices")]
         public XPCollection<Invoice> Invoices { get { return GetCollection<Invoice>(nameof(Invoices)); } }
 

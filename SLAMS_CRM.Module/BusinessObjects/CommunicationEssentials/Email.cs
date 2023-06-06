@@ -15,7 +15,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         private string _to;
         [Size(100)]
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public string To
         {
             get { return _to; }
@@ -25,7 +27,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         
         private string _from;
         [Size(100)]
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public string From
         {
             get { return _from; }

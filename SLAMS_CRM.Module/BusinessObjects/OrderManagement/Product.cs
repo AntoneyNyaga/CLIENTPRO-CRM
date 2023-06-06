@@ -57,7 +57,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(ProductLine), ref _productLine, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Invoice-Products")]
         public Invoice Invoices
         {
@@ -65,7 +67,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(Invoices), ref invoices, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("SalesOrder-Products")]
         public SalesOrder SalesOrder
         {
@@ -73,7 +77,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(SalesOrder), ref salesOrder, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("PurchaseOrder-Products")]
         public PurchaseOrder PurchaseOrder
         {
@@ -81,7 +87,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(PurchaseOrder), ref purchaseOrder, value);
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Product-Cases")]
         public XPCollection<Cases> Cases
         {
@@ -91,7 +99,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             }
         }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Bills-Products")]
         public Bills Bills
         {
@@ -116,7 +126,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Name { get => _name; set => SetPropertyValue(nameof(Name), ref _name, value); }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("ProductLine-Products")]
         public XPCollection<Product> Products => GetCollection<Product>(nameof(Products));
     }

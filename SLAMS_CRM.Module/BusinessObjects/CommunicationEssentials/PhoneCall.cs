@@ -42,7 +42,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         [Editable(false)]
         public DateTime EndOn { get; set; }
 
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public Contact Participant { get; set; }
     }
 }
