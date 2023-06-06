@@ -58,7 +58,7 @@ namespace SLAMS_CRM.Module.Controllers
                         JobTitle = lead.JobTitle,
                         Photo = lead.Photo,
                         SourceType = SourceType.ExistingCustomer,
-                        ConvertedFrom = "lead",
+                        ConvertedFrom = "Lead",
                     };
 
                     var leadAccount = lead.Account;
