@@ -49,6 +49,56 @@
     <SchemaModule Name="SystemModule" Version="22.2.6.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="Account_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="22.919179734620023">
+            <LayoutGroup Id="Account" RelativeSize="100">
+              <LayoutGroup Id="Account_col1" RelativeSize="49.9404052443385">
+                <LayoutItem Id="Name" RelativeSize="23.28767123287671" />
+                <LayoutItem Id="Website" RelativeSize="17.80821917808219" />
+                <LayoutItem Id="EmailAddress" RelativeSize="17.80821917808219" />
+                <LayoutItem Id="OfficePhone" RelativeSize="17.80821917808219" />
+                <LayoutItem Id="ShippingAddress" RelativeSize="23.28767123287671" />
+              </LayoutGroup>
+              <LayoutGroup Id="Account_col2" RelativeSize="50.0595947556615">
+                <LayoutItem Id="Description" RelativeSize="23.28767123287671" />
+                <LayoutItem Id="TypeOfAccount" RelativeSize="17.80821917808219" />
+                <LayoutItem Id="AnnualRevenue" RelativeSize="17.80821917808219" />
+                <LayoutItem Id="Industry" RelativeSize="17.80821917808219" />
+                <LayoutItem Id="AssociatedWith" RelativeSize="23.28767123287671" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="77.08082026537997" Caption="Additional Information" IsNewNode="True">
+            <TabbedGroup Id="Tabs" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="Opportunities" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Opportunities" ViewItem="Opportunities" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Quotes" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Quotes" ViewItem="Quotes" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="PurchaseOrders" ShowCaption="True" Caption="Purchase Orders" Index="2" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="PurchaseOrders" ViewItem="PurchaseOrders" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Payments" ShowCaption="True" Index="3" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Payments" ViewItem="Payments" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Bills" ShowCaption="True" Index="4" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Bills" ViewItem="Bills" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Cases" ShowCaption="True" Index="5" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Cases" ViewItem="Cases" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Invoices" ShowCaption="True" Index="6" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Invoices" ViewItem="Invoices" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="Account_ListView" ShowAutoFilterRow="False" AutoExpandAllGroups="True" IsGroupPanelVisible="True">
       <Columns>
         <ColumnInfo Id="Name" SortIndex="0" SortOrder="Descending" />

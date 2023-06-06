@@ -2,13 +2,13 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 {
     [DefaultClassOptions]
-
     [NavigationItem("Clients and Leads")]
     [ImageName("BO_Department")]
     public class Company : BaseObject
@@ -36,6 +36,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => companyName;
             set => SetPropertyValue(nameof(CompanyName), ref companyName, value);
         }
+
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
@@ -51,7 +52,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         [RuleRequiredField("RuleRequiredField for Company.Address", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-
         public Address Address { get => address; set => SetPropertyValue(nameof(Address), ref address, value); }
 
         [Size(50)]
@@ -62,11 +62,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         }
 
         [Size(100)]
-        public string Website
-        {
-            get => website;
-            set => SetPropertyValue(nameof(Website), ref website, value);
-        }
+        public string Website { get => website; set => SetPropertyValue(nameof(Website), ref website, value); }
 
         [Size(50)]
         public string EmailAddress
@@ -74,5 +70,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => emailAddress;
             set => SetPropertyValue(nameof(EmailAddress), ref emailAddress, value);
         }
+
+        [Association("Company-Leads")]
+        public XPCollection<Lead> Leads { get { return GetCollection<Lead>(nameof(Leads)); } }
+
+        [Association("Company-Contacts")]
+        public XPCollection<Contact> Contacts { get { return GetCollection<Contact>(nameof(Contacts)); } }
     }
 }

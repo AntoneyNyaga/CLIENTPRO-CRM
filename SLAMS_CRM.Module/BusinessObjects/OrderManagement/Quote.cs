@@ -48,7 +48,14 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public string Title { get => title; set => SetPropertyValue(nameof(Title), ref title, value); }
 
         // one to one relationship between Quote and Account
-        public Account Account { get; set; }
+        //public Account Account { get; set; }
+        
+        [Association("Account-Quotes")]
+        public Account Account
+        {
+            get => account;
+            set => SetPropertyValue(nameof(Account), ref account, value);
+        }
 
         public DateTime DateCreated { get; set; }
 
@@ -80,6 +87,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         public Product Product { get; set; }
 
 
+        Account account;
         ApplicationUser assignedTo;
         Address billingAddress;
         Address shippingAddress;

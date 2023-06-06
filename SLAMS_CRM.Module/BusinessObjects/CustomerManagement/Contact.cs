@@ -31,15 +31,24 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             UpdateAccount();
         }
 
-        string jobTitle;
         Company company;
+        string jobTitle;
+        //Company company;
         bool isCustomer;
         string type;
 
         [Size(50)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
-        public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
+        
+        [Association("Company-Contacts")]
+        public Company Company
+        {
+            get => company;
+            set => SetPropertyValue(nameof(Company), ref company, value);
+        }
+
+        //public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]

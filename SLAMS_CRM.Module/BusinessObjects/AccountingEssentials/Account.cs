@@ -54,19 +54,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         string acType;
         string indType;
 
-        [Size(50)]
-        [Appearance("HideName", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
         [RuleRequiredField("RuleRequiredField for Account.Name", DefaultContexts.Save)]
         public string Name { get => name; set => SetPropertyValue(nameof(Name), ref name, value); }
 
 
-        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Website { get => website; set => SetPropertyValue(nameof(Website), ref website, value); }
 
         [RuleRequiredField("RuleRequiredField for Account.EmailAddress", DefaultContexts.Save)]
-        [Size(50)]
-        [Appearance("HideEmailAddress", Criteria = "AssociatedWith == '1' || AssociatedWith == '2'", Visibility = ViewItemVisibility.Hide)]
-
         public string EmailAddress
         {
             get => emailAddress;
@@ -99,7 +93,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(Description), ref description, value);
         }
 
-        //public AccountType Type { get; set; }
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
@@ -108,7 +101,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => acType == null ? 0 : (int)Enum.Parse(typeof(AccountType), acType);
             set => SetPropertyValue(nameof(AcType), ref acType, Enum.GetName(typeof(AccountType), value));
         }
-        //[RuleRequiredField("RuleRequiredField for Account.TypeOfAccount", DefaultContexts.Save)]
         [NotMapped]
         public AccountType? TypeOfAccount { get; set; }
 
@@ -119,7 +111,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(AnnualRevenue), ref annualRevenue, value);
         }
 
-        //public IndustryType Industry { get; set; }
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
@@ -128,15 +119,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => indType == null ? 0 : (int)Enum.Parse(typeof(IndustryType), indType);
             set => SetPropertyValue(nameof(IndType), ref indType, Enum.GetName(typeof(IndustryType), value));
         }
-        //[RuleRequiredField("RuleRequiredField for Account.Industry", DefaultContexts.Save)]
+
         [NotMapped]
         public IndustryType? Industry { get; set; }
 
         [ModelDefault("AllowEdit", "false")]
-        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        [ReadOnly(true)]
-        [Editable(false)]
-        [Appearance("HideAssociatedWith", Criteria = "AssociatedWith == '3'", Visibility = ViewItemVisibility.Hide)]
         public string AssociatedWith
         {
             get
@@ -188,9 +175,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
 
         protected override void OnSaving()
@@ -220,14 +204,17 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             activityStreamEntry.Save();
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
+        //public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
+        [Association("Account-Quotes")]
+        public XPCollection<Quote> Quotes
+        {
+            get
+            {
+                return GetCollection<Quote>(nameof(Quotes));
+            }
+        }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
+
         [DevExpress.Xpo.Association("Account-PurchaseOrders")]
         public XPCollection<PurchaseOrder> PurchaseOrders
         {
@@ -237,9 +224,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [Association("Account-Payments")]
         public XPCollection<Payment> Payments
         {
@@ -249,9 +233,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [Association("Account-Bills")]
         public XPCollection<Bills> Bills
         {
@@ -261,9 +242,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [Association("Account-Cases")]
         public XPCollection<Cases> Cases
         {
@@ -273,9 +251,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [DevExpress.Xpo.Association("Account-Invoices")]
         public XPCollection<Invoice> Invoices { get { return GetCollection<Invoice>(nameof(Invoices)); } }
     }

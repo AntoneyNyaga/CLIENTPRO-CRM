@@ -41,11 +41,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         }
 
 
+        Company company;
         bool isConvertedToContact;
         string jobTitle;
         int score;
         string source;
-        Company company;
         string status;
         string converted;
         Account account;
@@ -54,8 +54,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [ImmediatePostData(true)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
-
-        public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
+        [DevExpress.Xpo.Association("Company-Leads")]
+        public Company Company
+        {
+            get => company;
+            set => SetPropertyValue(nameof(Company), ref company, value);
+        }
+        //public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
 
         [VisibleInDetailView(false)]
@@ -84,7 +89,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
                 SetPropertyValue(nameof(SourceType), ref source, value?.ToString());
 
                 // Update ConvertedFrom whenever SourceType is set
-                if(value.HasValue)
+                if (value.HasValue)
                 {
                     ConvertedFrom = value.Value.ToString();
                 }
@@ -145,10 +150,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         {
             get
             {
-                if(IsConvertedToContact)
+                if (IsConvertedToContact)
                 {
                     return "Converted To Contact";
-                } else
+                }
+                else
                 {
                     return "Not Yet Converted";
                     //return ConvertedFrom;
@@ -162,13 +168,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             base.OnChanged(propertyName, oldValue, newValue);
             // Update the score whenever a property changes
 
-            if(propertyName == nameof(LeadStatus) ||
+            if (propertyName == nameof(LeadStatus) ||
                 propertyName == nameof(SourceType) ||
                 propertyName == nameof(JobTitle))
             {
                 UpdateScore();
             }
-            if(propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address1))
+            if (propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address1))
             {
                 UpdateAccount();
             }
@@ -181,7 +187,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
         public void UpdateAccount()
         {
-            if(Account == null)
+            if (Account == null)
             {
                 Account = new Account(Session); // Create a new Account object if it is null
             }
@@ -232,23 +238,23 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             };
 
             // Increase score based on the lead status
-            if(LeadStatus.HasValue && statusScoreMap.ContainsKey(LeadStatus.Value))
+            if (LeadStatus.HasValue && statusScoreMap.ContainsKey(LeadStatus.Value))
             {
                 score += statusScoreMap[LeadStatus.Value];
             }
 
             // Increase score based on the lead source
-            if(SourceType.HasValue && sourceScoreMap.ContainsKey(SourceType.Value))
+            if (SourceType.HasValue && sourceScoreMap.ContainsKey(SourceType.Value))
             {
                 score += sourceScoreMap[SourceType.Value];
             }
 
             // Increase score based on the lead's job title
-            if(!string.IsNullOrEmpty(JobTitle))
+            if (!string.IsNullOrEmpty(JobTitle))
             {
-                foreach(var jobTitle in jobTitleScoreMap.Keys)
+                foreach (var jobTitle in jobTitleScoreMap.Keys)
                 {
-                    if(JobTitle.Contains(jobTitle))
+                    if (JobTitle.Contains(jobTitle))
                     {
                         score += jobTitleScoreMap[jobTitle];
                         break;
@@ -259,6 +265,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             // Update the lead's score property
             Score = score;
         }
+       
     }
 
 
