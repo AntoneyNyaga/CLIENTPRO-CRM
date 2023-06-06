@@ -278,6 +278,37 @@
         <ColumnInfo Id="Type" SortOrder="Ascending" GroupIndex="0" Index="3" />
       </Columns>
     </ListView>
+    <DetailView Id="Company_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.626506024096386">
+            <LayoutGroup Id="Company" RelativeSize="100">
+              <LayoutGroup Id="Company_col1" RelativeSize="50">
+                <LayoutItem Id="CompanyName" RelativeSize="36.170212765957444" />
+                <LayoutItem Id="Industry" RelativeSize="27.659574468085108" />
+                <LayoutItem Id="Address" RelativeSize="36.170212765957444" />
+              </LayoutGroup>
+              <LayoutGroup Id="Company_col2" RelativeSize="50">
+                <LayoutItem Id="PhoneNumber" RelativeSize="36.170212765957444" />
+                <LayoutItem Id="Website" RelativeSize="27.659574468085108" />
+                <LayoutItem Id="EmailAddress" RelativeSize="36.170212765957444" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="83.37349397590361" Caption="Company Members" IsNewNode="True">
+            <TabbedGroup Id="Tabs" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="Leads" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Contacts" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Contacts" ViewItem="Contacts" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="CompanyInformation_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
