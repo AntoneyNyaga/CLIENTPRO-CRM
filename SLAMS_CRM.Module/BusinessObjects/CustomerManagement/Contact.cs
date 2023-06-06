@@ -90,9 +90,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [VisibleInLookupListView(false)]
         public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [Association("Contact-Communications")]
         public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));
 
