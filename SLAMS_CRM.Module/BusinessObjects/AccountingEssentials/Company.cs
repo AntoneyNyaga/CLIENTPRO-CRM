@@ -36,7 +36,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => companyName;
             set => SetPropertyValue(nameof(CompanyName), ref companyName, value);
         }
-        [Browsable(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public int IndustryType
         {
             get => industryType == null ? 0 : (int)Enum.Parse(typeof(IndustryType), industryType);
