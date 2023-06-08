@@ -135,6 +135,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         [VisibleInLookupListView(false)]
         [Association("Communication-SentEmails")]
         public XPCollection<SentEmail> SentEmails { get { return GetCollection<SentEmail>(nameof(SentEmails)); } }
+
+        [Association("Communication-EmailTemplates")]
+        [Appearance("HideEmailTemplates", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
+        public XPCollection<EmailTemplate> EmailTemplates
+        {
+            get
+            {
+                return GetCollection<EmailTemplate>(nameof(EmailTemplates));
+            }
+        }
     }
 
     public enum CommunicationType

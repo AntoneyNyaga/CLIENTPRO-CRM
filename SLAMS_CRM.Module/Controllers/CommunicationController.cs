@@ -36,7 +36,7 @@ namespace SLAMS_CRM.Module.Controllers
             };
             callAction.Execute += CallAction_Execute;
 
-            var replyAction = new PopupWindowShowAction(this, "Reply", PredefinedCategory.RecordEdit)
+            /*var replyAction = new PopupWindowShowAction(this, "Reply", PredefinedCategory.RecordEdit)
             {
                 Caption = "Reply",
                 ImageName = "PreviousComment",
@@ -46,7 +46,7 @@ namespace SLAMS_CRM.Module.Controllers
                 TargetObjectsCriteria = "[Type] == 'Email'"
             };
             replyAction.CustomizePopupWindowParams += ReplyAction_CustomizePopupWindowParams;
-            replyAction.Execute += ReplyAction_Execute;
+            replyAction.Execute += ReplyAction_Execute;*/
 
             var forwardAction = new PopupWindowShowAction(this, "Forward", PredefinedCategory.RecordEdit)
             {
@@ -166,7 +166,7 @@ namespace SLAMS_CRM.Module.Controllers
             View.ObjectSpace.CommitChanges();
         }
 
-        private void ReplyAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
+        /*private void ReplyAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
         {
             if (View.CurrentObject is not Email currentEmail)
                 return;
@@ -187,7 +187,7 @@ namespace SLAMS_CRM.Module.Controllers
 
             //e.View = Application.CreateDetailView(((XPObjectSpace)objectSpace).CreateNestedObjectSpace(), replyEmail);
             e.View = Application.CreateDetailView(replyEmail, true);
-        }
+        }*/
 
         private void ReplyAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
         {

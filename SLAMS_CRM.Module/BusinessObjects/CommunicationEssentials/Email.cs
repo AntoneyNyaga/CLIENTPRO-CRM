@@ -13,7 +13,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             Type = CommunicationType.Email;
         }
 
-        private string _to;
+        /*private string _to;
         [Size(100)]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -42,6 +42,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         {
             get { return _cc; }
             set { SetPropertyValue(nameof(CC), ref _cc, value); }
-        }
+        }*/
     }
 }

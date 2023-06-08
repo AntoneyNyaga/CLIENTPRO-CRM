@@ -8,9 +8,11 @@
       <Item Id="Dashboard" ViewId="Dashboard" Index="0" IsNewNode="True" />
       <Item Id="Inbox" ImageName="Actions_EnvelopeClose" Index="1">
         <Items>
-          <Item Id="Communication_ListView" Index="0">
+          <Item Id="Communication_ListView" Index="0" ImageName="BO_Localization" ViewId="" Caption="Communication Essentials">
             <Items>
-              <Item Id="SentEmail_ListView" ViewId="SentEmail_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="Communication" ViewId="Communication_ListView" Caption="New Email/Call" IsNewNode="True" />
+              <Item Id="EmailTemplate" ViewId="EmailTemplate_ListView" ToolTip="Email templates to send to your contacts.&#xD;&#xA;" Caption="Email Templates" IsNewNode="True" />
+              <Item Id="SentEmail_ListView" ViewId="SentEmail_ListView" ObjectKey="" ToolTip="Emails that have been sent to your contacts." Caption="Sent Emails" IsNewNode="True" />
             </Items>
           </Item>
           <Item Id="SentEmail_ListView" Removed="True" />
@@ -492,6 +494,22 @@
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" RelativeSize="11.152882205513784" Caption="Subject" Removed="True">
             <LayoutItem Id="Subject" RelativeSize="100" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="EmailTemplate_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="EmailTemplate" ShowCaption="True" Index="0" RelativeSize="100" Caption="Email Template" IsNewNode="True" Removed="True">
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.2288557213930345" IsNewNode="True" />
+              <LayoutItem Id="Subject" ViewItem="Subject" Index="1" RelativeSize="3.2338308457711444" IsNewNode="True" />
+              <LayoutItem Id="Body" ViewItem="Body" Index="2" RelativeSize="92.53731343283582" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" Caption="Body" RelativeSize="86.50602409638554" Removed="True">
+            <LayoutItem Id="Body" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
