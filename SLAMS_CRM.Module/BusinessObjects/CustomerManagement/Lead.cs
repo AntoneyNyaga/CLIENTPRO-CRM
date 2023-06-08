@@ -9,6 +9,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using MySqlX.XDevAPI;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
+using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -265,7 +266,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             // Update the lead's score property
             Score = score;
         }
-       
+
+        [DevExpress.Xpo.Association("Lead-Communications")]
+        public XPCollection<Communication> Communications
+        {
+            get
+            {
+                return GetCollection<Communication>(nameof(Communications));
+            }
+        }
+
     }
 
 

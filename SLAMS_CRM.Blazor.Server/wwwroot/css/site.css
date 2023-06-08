@@ -54,6 +54,12 @@ app {
     box-shadow: 5px 5px 20px cadetblue;
     border-radius: 0px 15px;
 }
+
+/*.dxbl-fl .dxbl-fl-gd, .dxbl-fl .dxbl-fl-gt {
+    box-shadow: 5px 5px 20px cadetblue;
+    border-radius: 0px 15px;
+}*/
+
 .dxbl-fl .dxbl-fl-group > .dxbl-group:hover {
     flex: 3;
     cursor: pointer;

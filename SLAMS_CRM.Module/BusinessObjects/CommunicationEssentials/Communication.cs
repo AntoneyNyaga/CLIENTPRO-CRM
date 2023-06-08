@@ -28,6 +28,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             DateTime = DateTime.Now;
         }
 
+        Lead lead;
+        string targetContactOrLead;
+        bool? isTargetContact;
         string status;
 
         [ModelDefault("AllowEdit", "false")]
@@ -49,10 +52,27 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         [RuleRequiredField("RuleRequiredField for Communication.Contact", DefaultContexts.Save)]
         [Association("Contact-Communications")]
+        [Appearance("HideContact", Criteria = "IsTargetContact == 'true'", Visibility = ViewItemVisibility.Hide)]
         public Contact Contact
         {
             get { return _contact; }
-            set { SetPropertyValue(nameof(Contact), ref _contact, value); }
+            set
+            {
+                SetPropertyValue(nameof(Contact), ref _contact, value);
+                UpdateVisibility();
+            }
+        }
+
+        [Appearance("HideLead", Criteria = "IsTargetContact == 'false'", Visibility = ViewItemVisibility.Hide)]
+        [Association("Lead-Communications")]
+        public Lead Lead
+        {
+            get => lead;
+            set
+            {
+                SetPropertyValue(nameof(Lead), ref lead, value);
+                UpdateVisibility();
+            }
         }
 
         [Appearance("HideSubject", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
@@ -70,12 +90,17 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         {
             bool isEmail = Type == CommunicationType.Email;
             bool isPhone = Type == CommunicationType.Phone;
+            bool hideContact = IsTargetContact ?? false; // Use the null-coalescing operator to handle null values
 
-            if(Contact != null && Contact.This != null)
+            SetPropertyValue(nameof(Contact), hideContact ? null : _contact);
+            SetPropertyValue(nameof(Lead), hideContact ? null : lead); // Update the condition to hide/show the Lead property
+
+            if (Contact != null && Contact.This != null)
             {
                 SetPropertyValue(nameof(Email), isEmail ? Contact.Email : null);
                 SetPropertyValue(nameof(PhoneNumber), isPhone ? Contact.PhoneNumbers : null);
-            } else
+            }
+            else
             {
                 SetPropertyValue(nameof(Email), null);
                 SetPropertyValue(nameof(PhoneNumber), null);
@@ -102,18 +127,21 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         {
             get
             {
-                if(IsContacted)
+                if (IsContacted)
                 {
                     return "Sent";
-                } else
+                }
+                else
                 {
-                    if(Type == CommunicationType.Phone)
+                    if (Type == CommunicationType.Phone)
                     {
                         return "Not Called";
-                    } else if(Type == CommunicationType.Email)
+                    }
+                    else if (Type == CommunicationType.Email)
                     {
                         return "Not Sent";
-                    } else
+                    }
+                    else
                     {
                         return "N/A";
                     }
@@ -145,6 +173,19 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
                 return GetCollection<EmailTemplate>(nameof(EmailTemplates));
             }
         }
+
+        [RuleRequiredField("RuleRequiredField for Communication.IsTargetContact", DefaultContexts.Save, CustomMessageTemplate = "IsTargetContact is required.")]
+        [DevExpress.Xpo.DisplayName("Is Target Contact")]
+        public bool? IsTargetContact
+        {
+            get => isTargetContact;
+            set
+            {
+                SetPropertyValue(nameof(IsTargetContact), ref isTargetContact, value);
+                UpdateVisibility();
+            }
+        }
+       
     }
 
     public enum CommunicationType
