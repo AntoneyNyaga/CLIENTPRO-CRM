@@ -8,9 +8,14 @@
       <Item Id="Dashboard" ViewId="Dashboard" Index="0" IsNewNode="True" />
       <Item Id="Inbox" ImageName="Actions_EnvelopeClose" Index="1">
         <Items>
-          <Item Id="Communication_ListView" Index="0" ImageName="BO_Localization" ViewId="" Caption="Communication Essentials">
+          <Item Id="Communication_ListView" Index="0" ImageName="BO_Localization" Caption="Communication Essentials" ViewId="">
             <Items>
-              <Item Id="Communication" ViewId="Communication_ListView" Caption="New Email/Call" IsNewNode="True" />
+              <Item Id="Communication" ViewId="Communication_ListView" Caption="New Email/Call" IsNewNode="True">
+                <Items IsNewNode="True">
+                  <Item Id="Email" ViewId="Email_DetailView" IsNewNode="True" />
+                  <Item Id="PhoneCall" ViewId="PhoneCall_DetailView" IsNewNode="True" />
+                </Items>
+              </Item>
               <Item Id="EmailTemplate" ViewId="EmailTemplate_ListView" ToolTip="Email templates to send to your contacts.&#xD;&#xA;" Caption="Email Templates" IsNewNode="True" />
               <Item Id="SentEmail_ListView" ViewId="SentEmail_ListView" ObjectKey="" ToolTip="Emails that have been sent to your contacts." Caption="Sent Emails" IsNewNode="True" />
             </Items>
@@ -480,11 +485,6 @@
                 <LayoutItem Id="PhoneNumber" ViewItem="PhoneNumber" Index="0" RelativeSize="36.734693877551024" IsNewNode="True" />
                 <LayoutItem Id="Email" ViewItem="Email" Index="1" RelativeSize="63.265306122448976" IsNewNode="True" />
               </LayoutGroup>
-            </LayoutGroup>
-            <LayoutGroup Id="Email_Group" ShowCaption="False" Index="0" RelativeSize="42.009132420091326" Removed="True">
-              <LayoutItem Id="To" ViewItem="To" Index="0" RelativeSize="36.95652173913044" IsNewNode="True" />
-              <LayoutItem Id="From" ViewItem="From" Index="1" RelativeSize="28.26086956521739" IsNewNode="True" />
-              <LayoutItem Id="CC" ViewItem="CC" Index="2" RelativeSize="34.78260869565217" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="86.17234468937876" Direction="Vertical" Caption="Email" IsNewNode="True">
               <LayoutItem Id="CC" ViewItem="CC" Index="0" RelativeSize="4.390243902439025" IsNewNode="True" />
