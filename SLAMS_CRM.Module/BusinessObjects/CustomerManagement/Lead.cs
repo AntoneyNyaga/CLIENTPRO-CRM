@@ -117,7 +117,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         public Contact Contact { get; set; }
 
         [ModelDefault("AllowEdit", "false")]
-        //[Editable(false)]
         public int Score { get => score; set => SetPropertyValue(nameof(Score), ref score, value); }
 
 

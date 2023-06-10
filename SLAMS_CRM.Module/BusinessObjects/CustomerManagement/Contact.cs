@@ -48,7 +48,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             set => SetPropertyValue(nameof(Company), ref company, value);
         }
 
-        //public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
@@ -62,7 +61,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             get => type == null ? 0 : (int)Enum.Parse(typeof(SourceType), type);
             set => SetPropertyValue(nameof(Type), ref type, Enum.GetName(typeof(SourceType), value));
         }
-        //[RuleRequiredField("RuleRequiredField for Contact.SourceType", DefaultContexts.Save)]
         [NotMapped]
         public SourceType? SourceType { get; set; }
 

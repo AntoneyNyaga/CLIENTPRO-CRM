@@ -133,32 +133,12 @@ namespace SLAMS_CRM.Module.Controllers
             phoneCall.StartOn = communication.DateTime;
             phoneCall.EndOn = communication.DateTime.AddMinutes(30);
             phoneCall.Participant = communication.Contact;
-            //phoneCall.Direction = communication.Direction;
 
             // Set the Status property to true
             communication.IsContacted = true;
 
             // Save the phone call activity to the database
             View.ObjectSpace.CommitChanges();
-        }
-
-        private void ReplyAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
-        {
-            if (e.PopupWindow.View.CurrentObject is not Email email)
-                return;
-            _ = new List<string>
-            {
-                email.Contact.Email
-            };
-            ObjectSpace.CommitChanges();
-        }
-
-        private void ForwardAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
-        {
-            if (e.PopupWindow.View.CurrentObject is not Email)
-                return;
-
-            ObjectSpace.CommitChanges();
         }
     }
 }

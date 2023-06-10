@@ -12,7 +12,6 @@ using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
-    //[DefaultClassOptions]
     [NavigationItem("Inbox")]
     [Persistent("Communication")]
     [ImageName("Actions_EnvelopeOpen")]
@@ -88,7 +87,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
 
-        //[ModelDefault("AllowEdit", "false")]
         [VisibleInDetailView(true)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
@@ -273,7 +271,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        //public bool IsContacted { get; set; }
         
         public bool IsContacted
         {
@@ -295,7 +292,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             get { return GetCollection<EmailTemplate>(nameof(EmailTemplates)); }
         }
 
-        //[RuleRequiredField("RuleRequiredField for Communication.IsTargetContact", DefaultContexts.Save, CustomMessageTemplate = "IsTargetContact is required.")]
         [DevExpress.Xpo.DisplayName("Is Target Contact ?")]
         public bool IsTargetContact
         {
