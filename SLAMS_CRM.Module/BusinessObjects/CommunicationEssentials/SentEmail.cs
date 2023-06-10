@@ -27,6 +27,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
         private string _subject;
+        [Size(200)]
         public string Subject
         {
             get { return _subject; }
@@ -34,6 +35,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         }
 
         private string _body;
+        [Size(SizeAttribute.Unlimited)]
         public string Body
         {
             get { return _body; }

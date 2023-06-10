@@ -29,6 +29,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
+        Lead lead;
         Communication email;
         Contact contact;
         private string _name;
@@ -67,11 +68,55 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
+        [Association("Lead-EmailTemplates")]
+        public Lead Lead
+        {
+            get => lead;
+            set => SetPropertyValue(nameof(Lead), ref lead, value);
+        }
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Communication-EmailTemplates")]
         public Communication Email
         {
             get => email;
             set => SetPropertyValue(nameof(Email), ref email, value);
+        }
+
+        public static void CreateHardcodedTemplates(Session session)
+        {
+            // Create hardcoded email templates here
+
+            // Template 1
+            var template1 = new EmailTemplate(session)
+            {
+                Name = "Template 1",
+                Subject = "Subject 1",
+                Body = "Body 1"
+            };
+            template1.Save();
+
+            // Template 2
+            var template2 = new EmailTemplate(session)
+            {
+                Name = "Template 2",
+                Subject = "Subject 2",
+                Body = "Body 2"
+            };
+            template2.Save();
+
+            // Template 3
+            var template3 = new EmailTemplate(session)
+            {
+                Name = "Template 3",
+                Subject = "Subject 3",
+                Body = "Body 3"
+            };
+            template3.Save();
+
+            // Add more templates as needed
         }
     }
 }

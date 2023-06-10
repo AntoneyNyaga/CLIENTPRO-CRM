@@ -278,29 +278,42 @@
       </Columns>
     </ListView>
     <DetailView Id="Communication_DetailView">
+      <Items>
+        <PropertyEditor Id="Email" Caption="Email Address" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="17.293233082706767">
-            <LayoutGroup Id="Communication" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="24.739583333333332">
+            <LayoutGroup Id="Communication" RelativeSize="83.15789473684211">
               <LayoutGroup Id="Communication_col1" RelativeSize="50">
-                <LayoutItem Id="DateTime" RelativeSize="36.170212765957444" />
-                <LayoutItem Id="Type" RelativeSize="27.659574468085108" />
-                <LayoutItem Id="Contact" RelativeSize="36.170212765957444" />
+                <LayoutItem Id="DateTime" RelativeSize="28.333333333333332" />
+                <LayoutItem Id="Type" RelativeSize="21.666666666666668" />
+                <LayoutGroup Id="Autof29e3593-e47d-423d-84ce-98103f0fe6e0" ShowCaption="False" Caption="" Direction="Horizontal" Index="2" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="IsTargetContact" ViewItem="IsTargetContact" Index="0" RelativeSize="42.92343387470998" IsNewNode="True" />
+                  <LayoutGroup Id="Autod53db3a9-844b-4a03-84b6-384efaadffdb" ShowCaption="False" Caption="" Index="1" RelativeSize="57.07656612529002" IsNewNode="True">
+                    <LayoutItem Id="Lead" ViewItem="Lead" Index="0" RelativeSize="43.333333333333336" IsNewNode="True" />
+                    <LayoutItem Id="Contact" ViewItem="Contact" Index="1" RelativeSize="56.666666666666664" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Contact" RelativeSize="21.666666666666668" Removed="True" />
+                <LayoutItem Id="Lead" RelativeSize="17.80821917808219" Removed="True" />
+                <LayoutItem Id="UseTemplate" RelativeSize="23.28767123287671" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="Communication_col2" RelativeSize="50">
-                <LayoutItem Id="PhoneNumber" Index="0" RelativeSize="36.170212765957444" />
-                <LayoutItem Id="Email" Index="1" RelativeSize="63.829787234042556" />
-                <LayoutItem Id="Subject" Removed="True" />
+                <LayoutItem Id="PhoneNumber" Index="0" RelativeSize="28.333333333333332" />
+                <LayoutItem Id="Email" Index="1" RelativeSize="71.66666666666667" />
+                <LayoutItem Id="IsTargetContact" Index="2" RelativeSize="58.9041095890411" Removed="True" />
+                <LayoutItem Id="CustomSubject" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
+            <LayoutItem Id="UseTemplate" ViewItem="UseTemplate" Index="1" RelativeSize="16.842105263157894" IsNewNode="True" />
           </LayoutGroup>
-          <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="82.70676691729324" Direction="Vertical" Caption="Details" IsNewNode="True">
-            <LayoutItem Id="Subject" ViewItem="Subject" Index="0" RelativeSize="5.466237942122186" IsNewNode="True" />
-            <LayoutItem Id="Body" ViewItem="Body" Index="1" RelativeSize="94.53376205787781" IsNewNode="True" />
+          <LayoutGroup Id="EmailTemplates_Group" Direction="Vertical" RelativeSize="37.630208333333336" Index="1">
+            <LayoutItem Id="EmailTemplates" RelativeSize="100" />
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Caption="Body" Index="1" RelativeSize="83.0827067669173" Removed="True">
-            <LayoutItem Id="Subject" ViewItem="Subject" Index="0" RelativeSize="4.374057315233785" IsNewNode="True" />
-            <LayoutItem Id="Body" ViewItem="Body" Index="1" RelativeSize="95.62594268476622" IsNewNode="True" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="37.630208333333336" Caption="Custom Email" ShowCaption="True" Index="2">
+            <LayoutItem Id="CustomSubject" ViewItem="CustomSubject" Index="0" RelativeSize="13.54581673306773" IsNewNode="True" />
+            <LayoutItem Id="CustomBody" Index="1" RelativeSize="86.45418326693228" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -485,28 +498,44 @@
       </Layout>
     </DashboardView>
     <DetailView Id="Email_DetailView">
+      <Items>
+        <PropertyEditor Id="Email" Caption="Email Address" />
+      </Items>
       <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100" Direction="Vertical">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="Communication" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="13.827655310621243" IsNewNode="True" Removed="True">
-              <LayoutGroup Id="Communication_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="DateTime" ViewItem="DateTime" Index="0" RelativeSize="36.734693877551024" IsNewNode="True" />
-                <LayoutItem Id="Type" ViewItem="Type" Index="1" RelativeSize="26.53061224489796" IsNewNode="True" />
-                <LayoutItem Id="Contact" ViewItem="Contact" Index="2" RelativeSize="36.734693877551024" IsNewNode="True" />
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="39.47876447876448">
+            <LayoutGroup Id="Communication" Index="0" RelativeSize="42.053789731051346">
+              <LayoutGroup Id="Communication_col1" RelativeSize="49.76392823418319">
+                <LayoutItem Id="DateTime" RelativeSize="27.272727272727273" />
+                <LayoutItem Id="Type" RelativeSize="19.696969696969695" />
+                <LayoutGroup Id="Autoa6b55346-eb56-4213-b5c7-c539130757e9" ShowCaption="False" Caption="Autoa6b55346-eb56-4213-b5c7-c539130757e9(7)" Direction="Horizontal" Index="2" RelativeSize="53.03030303030303" IsNewNode="True">
+                  <LayoutItem Id="IsTargetContact" ViewItem="IsTargetContact" Index="0" RelativeSize="44.022770398481974" IsNewNode="True" />
+                  <LayoutGroup Id="Autodebfab72-e7b4-44c9-8651-f182dc4f9083" ShowCaption="False" Caption="Autodebfab72-e7b4-44c9-8651-f182dc4f9083(9)" Index="1" RelativeSize="55.977229601518026" IsNewNode="True">
+                    <LayoutItem Id="Contact" ViewItem="Contact" Index="0" RelativeSize="48.57142857142857" IsNewNode="True" />
+                    <LayoutItem Id="Lead" ViewItem="Lead" Index="1" RelativeSize="51.42857142857143" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Contact" RelativeSize="20.967741935483872" Removed="True" />
+                <LayoutItem Id="Lead" RelativeSize="29.032258064516128" Removed="True" />
+                <LayoutItem Id="UseTemplate" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Communication_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
-                <LayoutItem Id="PhoneNumber" ViewItem="PhoneNumber" Index="0" RelativeSize="36.734693877551024" IsNewNode="True" />
-                <LayoutItem Id="Email" ViewItem="Email" Index="1" RelativeSize="63.265306122448976" IsNewNode="True" />
+              <LayoutGroup Id="Communication_col2" RelativeSize="50.23607176581681">
+                <LayoutItem Id="CustomSubject" RelativeSize="27.272727272727273" />
+                <LayoutItem Id="PhoneNumber" Index="1" RelativeSize="19.696969696969695" />
+                <LayoutItem Id="Email" Index="2" RelativeSize="53.03030303030303" />
+                <LayoutItem Id="IsTargetContact" Index="2" RelativeSize="50" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="86.17234468937876" Direction="Vertical" Caption="Email" IsNewNode="True">
-              <LayoutItem Id="CC" ViewItem="CC" Index="0" RelativeSize="4.390243902439025" IsNewNode="True" />
-              <LayoutItem Id="Subject" ViewItem="Subject" Index="1" RelativeSize="3.1707317073170733" IsNewNode="True" />
-              <LayoutItem Id="Body" ViewItem="Body" Index="2" RelativeSize="92.4390243902439" IsNewNode="True" />
+            <LayoutItem Id="UseTemplate" ViewItem="UseTemplate" Index="1" RelativeSize="6.356968215158925" IsNewNode="True" />
+            <LayoutGroup Id="EmailTemplates_Group" ShowCaption="True" Caption="Email Templates" Index="2" RelativeSize="51.58924205378973" IsNewNode="True">
+              <LayoutItem Id="EmailTemplates" ViewItem="EmailTemplates" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="11.152882205513784" Caption="Subject" Removed="True">
-            <LayoutItem Id="Subject" RelativeSize="100" Removed="True" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="60.52123552123552" Caption="Custom Email" ShowCaption="True">
+            <LayoutItem Id="CustomBody" Index="0" RelativeSize="100" ViewItem="CustomBody" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="EmailTemplates_Group" Direction="Vertical" RelativeSize="56.332931242460795" Removed="True">
+            <LayoutItem Id="EmailTemplates" RelativeSize="100" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -530,39 +559,44 @@
     <DetailView Id="Lead_DetailView">
       <Layout>
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" Removed="True">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="36.090225563909776" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="34.69879518072289" IsNewNode="True">
             <LayoutGroup Id="Lead" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="45.833333333333336" Caption="Lead Information" IsNewNode="True">
-              <LayoutGroup Id="Lead_col1" ShowCaption="False" Index="0" RelativeSize="49.45652173913044" IsNewNode="True">
+              <LayoutGroup Id="Lead_col1" ShowCaption="False" Index="0" RelativeSize="49.468713105076745" IsNewNode="True">
                 <LayoutItem Id="FirstName" ViewItem="FirstName" Index="0" RelativeSize="36.170212765957444" IsNewNode="True" />
                 <LayoutItem Id="MiddleName" ViewItem="MiddleName" Index="1" RelativeSize="27.659574468085108" IsNewNode="True" />
                 <LayoutItem Id="LastName" ViewItem="LastName" Index="2" RelativeSize="36.170212765957444" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Lead_col2" ShowCaption="False" Index="1" RelativeSize="50.54347826086956" Caption="Lead_col2" Direction="Horizontal" IsNewNode="True">
-                <LayoutGroup Id="Auto88f4984a-2676-4ca4-96fd-810ea666d594" ShowCaption="False" Caption="Auto88f4984a-2676-4ca4-96fd-810ea666d594(9)" Index="0" RelativeSize="65.94982078853046" IsNewNode="True">
+              <LayoutGroup Id="Lead_col2" ShowCaption="False" Index="1" RelativeSize="50.531286894923255" Caption="Lead_col2" Direction="Horizontal" IsNewNode="True">
+                <LayoutGroup Id="Auto88f4984a-2676-4ca4-96fd-810ea666d594" ShowCaption="False" Caption="Auto88f4984a-2676-4ca4-96fd-810ea666d594(9)" Index="0" RelativeSize="62.38317757009346" IsNewNode="True">
                   <LayoutItem Id="Birthday" ViewItem="Birthday" Index="0" RelativeSize="36.170212765957444" IsNewNode="True" />
                   <LayoutItem Id="Email" ViewItem="Email" Index="1" RelativeSize="27.659574468085108" IsNewNode="True" />
                   <LayoutItem Id="FullName" ViewItem="FullName" Index="2" RelativeSize="36.170212765957444" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutItem Id="Photo" ViewItem="Photo" Index="1" RelativeSize="34.05017921146953" IsNewNode="True" />
+                <LayoutItem Id="Photo" ViewItem="Photo" Index="1" RelativeSize="37.61682242990654" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="Item2" ShowCaption="True" Caption="Additional Information" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="54.166666666666664" IsNewNode="True">
-              <LayoutGroup Id="Auto9e65d28b-c192-4776-a733-c94a67e26e03" ShowCaption="False" Caption="Auto9e65d28b-c192-4776-a733-c94a67e26e03(15)" Index="0" RelativeSize="49.45652173913044" IsNewNode="True">
+              <LayoutGroup Id="Auto9e65d28b-c192-4776-a733-c94a67e26e03" ShowCaption="False" Caption="Auto9e65d28b-c192-4776-a733-c94a67e26e03(15)" Index="0" RelativeSize="49.468713105076745" IsNewNode="True">
                 <LayoutItem Id="SourceType" ViewItem="SourceType" Index="0" RelativeSize="28.333333333333332" IsNewNode="True" />
                 <LayoutItem Id="Company" ViewItem="Company" Index="1" RelativeSize="21.666666666666668" IsNewNode="True" />
                 <LayoutItem Id="JobTitle" ViewItem="JobTitle" Index="2" RelativeSize="21.666666666666668" IsNewNode="True" />
                 <LayoutItem Id="Account" ViewItem="Account" Index="3" RelativeSize="28.333333333333332" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Auto808b1219-5dd1-4364-907b-a4c7e4da6c47" ShowCaption="False" Caption="Auto808b1219-5dd1-4364-907b-a4c7e4da6c47(19)" Index="1" RelativeSize="50.54347826086956" IsNewNode="True">
+              <LayoutGroup Id="Auto808b1219-5dd1-4364-907b-a4c7e4da6c47" ShowCaption="False" Caption="Auto808b1219-5dd1-4364-907b-a4c7e4da6c47(19)" Index="1" RelativeSize="50.531286894923255" IsNewNode="True">
                 <LayoutItem Id="Address1" ViewItem="Address1" Index="0" RelativeSize="28.333333333333332" IsNewNode="True" />
                 <LayoutItem Id="LeadStatus" ViewItem="LeadStatus" Index="1" RelativeSize="21.666666666666668" IsNewNode="True" />
                 <LayoutItem Id="Score" ViewItem="Score" Index="2" RelativeSize="50" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="63.909774436090224" Caption="Phone Numbers" IsNewNode="True">
-            <LayoutItem Id="PhoneNumbers" ViewItem="PhoneNumbers" Index="0" RelativeSize="100" IsNewNode="True" />
-          </LayoutGroup>
+          <TabbedGroup Id="Item4" CaptionLocation="Top" Index="1" RelativeSize="65.3012048192771" IsNewNode="True">
+            <LayoutGroup Id="Item1" ShowCaption="True" Caption="Phone Numbers" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="PhoneNumbers" ViewItem="PhoneNumbers" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item3" ShowCaption="True" Caption="Communications" CaptionLocation="Top" Index="1" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Communications" ViewItem="Communications" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -630,37 +664,47 @@
       </Columns>
     </ListView>
     <DetailView Id="PhoneCall_DetailView">
+      <Items>
+        <PropertyEditor Id="Email" Caption="Email Address" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="17.293233082706767">
-            <LayoutGroup Id="Communication" RelativeSize="100" Index="0">
-              <LayoutGroup Id="Communication_col1" RelativeSize="50">
-                <LayoutItem Id="DateTime" RelativeSize="36.170212765957444" />
-                <LayoutItem Id="Type" RelativeSize="27.659574468085108" />
-                <LayoutItem Id="Contact" RelativeSize="36.170212765957444" />
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Communication" RelativeSize="19.782870928829915" Index="0">
+              <LayoutGroup Id="Communication_col1" RelativeSize="49.881796690307326">
+                <LayoutItem Id="DateTime" RelativeSize="26.984126984126984" />
+                <LayoutItem Id="Type" RelativeSize="20.634920634920636" />
+                <LayoutGroup Id="Auto40042e8c-77d7-473c-8bb4-70afc02839ab" ShowCaption="False" Caption="Auto40042e8c-77d7-473c-8bb4-70afc02839ab(7)" Direction="Horizontal" Index="2" RelativeSize="52.38095238095238" IsNewNode="True">
+                  <LayoutItem Id="IsTargetContact" ViewItem="IsTargetContact" Index="0" RelativeSize="43.838862559241704" IsNewNode="True" />
+                  <LayoutGroup Id="Autofde60e26-beec-42df-9493-6ae1379db8be" ShowCaption="False" Caption="Autofde60e26-beec-42df-9493-6ae1379db8be(9)" Index="1" RelativeSize="56.161137440758296" IsNewNode="True">
+                    <LayoutItem Id="Contact" ViewItem="Contact" Index="0" RelativeSize="48.484848484848484" IsNewNode="True" />
+                    <LayoutItem Id="Lead" ViewItem="Lead" Index="1" RelativeSize="51.515151515151516" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Contact" RelativeSize="21.666666666666668" Removed="True" />
+                <LayoutItem Id="Lead" RelativeSize="28.333333333333332" Removed="True" />
+                <LayoutItem Id="UseTemplate" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Communication_col2" RelativeSize="50">
-                <LayoutItem Id="Subject" RelativeSize="36.170212765957444" />
-                <LayoutItem Id="PhoneNumber" RelativeSize="27.659574468085108" />
-                <LayoutItem Id="Email" RelativeSize="36.170212765957444" />
+              <LayoutGroup Id="Communication_col2" RelativeSize="50.118203309692674">
+                <LayoutItem Id="CustomSubject" RelativeSize="26.984126984126984" />
+                <LayoutItem Id="PhoneNumber" Index="1" RelativeSize="20.634920634920636" />
+                <LayoutItem Id="Email" Index="2" RelativeSize="52.38095238095238" />
+                <LayoutItem Id="IsTargetContact" Index="2" RelativeSize="50" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="PhoneCall" Caption="PhoneCall" RelativeSize="23.952095808383234" Removed="True">
-              <LayoutItem Id="EndOn" Index="0" RelativeSize="100" Removed="True" />
-              <LayoutItem Id="StartOn" Removed="True" />
+            <LayoutGroup Id="PhoneCall" RelativeSize="80.21712907117008" Caption="Call Details" ShowCaption="True" Index="1">
+              <LayoutItem Id="StartOn" RelativeSize="5.422647527910685" />
+              <LayoutItem Id="EndOn" ViewItem="EndOn" Index="1" RelativeSize="4.146730462519936" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="Description" ViewItem="Description" Index="2" RelativeSize="42.58373205741627" IsNewNode="True" />
+              <LayoutItem Id="CustomSubject" ViewItem="CustomSubject" Index="3" RelativeSize="47.84688995215311" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="82.70676691729324" Direction="Vertical" Caption="Phone" IsNewNode="True">
-            <LayoutItem Id="StartOn" ViewItem="StartOn" Index="0" RelativeSize="5.466237942122186" IsNewNode="True" />
-            <LayoutItem Id="EndOn" ViewItem="EndOn" Index="1" RelativeSize="4.180064308681672" IsNewNode="True" />
-            <LayoutItem Id="Description" ViewItem="Description" Index="2" RelativeSize="11.57556270096463" IsNewNode="True" />
-            <LayoutItem Id="Body" ViewItem="Body" Index="3" RelativeSize="78.7781350482315" IsNewNode="True" />
+          <LayoutGroup Id="EmailTemplates_Group" Direction="Vertical" RelativeSize="51.025331724969845" Index="1" Removed="True">
+            <LayoutItem Id="EmailTemplates" RelativeSize="100" />
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="83.0827067669173" Removed="True">
-            <LayoutItem Id="StartOn" ViewItem="StartOn" Index="0" RelativeSize="4.374057315233785" IsNewNode="True" />
-            <LayoutItem Id="EndOn" ViewItem="EndOn" Index="1" RelativeSize="3.9215686274509802" IsNewNode="True" />
-            <LayoutItem Id="Description" Index="2" RelativeSize="45.70135746606335" />
-            <LayoutItem Id="Body" Index="3" RelativeSize="46.003016591251885" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="23.522316043425814" Caption="SizeableEditors" Removed="True">
+            <LayoutItem Id="CustomSubject" RelativeSize="100" Index="0" Removed="True" />
+            <LayoutItem Id="Description" RelativeSize="49.83606557377049" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>

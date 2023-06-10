@@ -35,30 +35,6 @@ namespace SLAMS_CRM.Module.Controllers
                 TargetObjectsCriteria = "[Type] == 'Phone'"
             };
             callAction.Execute += CallAction_Execute;
-
-            /*var replyAction = new PopupWindowShowAction(this, "Reply", PredefinedCategory.RecordEdit)
-            {
-                Caption = "Reply",
-                ImageName = "PreviousComment",
-                SelectionDependencyType = SelectionDependencyType.RequireSingleObject,
-                //TargetObjectType = typeof(Communication)
-                //TargetObjectsCriteria = new BinaryOperator("Type", CommunicationType.Email),
-                TargetObjectsCriteria = "[Type] == 'Email'"
-            };
-            replyAction.CustomizePopupWindowParams += ReplyAction_CustomizePopupWindowParams;
-            replyAction.Execute += ReplyAction_Execute;*/
-
-            var forwardAction = new PopupWindowShowAction(this, "Forward", PredefinedCategory.RecordEdit)
-            {
-                Caption = "Forward",
-                ImageName = "Redo",
-                SelectionDependencyType = SelectionDependencyType.RequireSingleObject,
-                //TargetObjectType = typeof(Communication)
-                //TargetObjectsCriteria = new BinaryOperator("Type", CommunicationType.Email),
-                TargetObjectsCriteria = "[Type] == 'Email'"
-            };
-            forwardAction.CustomizePopupWindowParams += ForwardAction_CustomizePopupWindowParams;
-            forwardAction.Execute += ForwardAction_Execute;
         }
 
 
@@ -166,29 +142,6 @@ namespace SLAMS_CRM.Module.Controllers
             View.ObjectSpace.CommitChanges();
         }
 
-        /*private void ReplyAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
-        {
-            if (View.CurrentObject is not Email currentEmail)
-                return;
-
-            var objectSpace = View.ObjectSpace;
-            var session = ((XPObjectSpace)objectSpace).Session;
-
-            var replyEmail = new Email(session)
-            {
-                From = currentEmail.Contact.Email,
-                Subject = "Re: " + currentEmail.Subject,
-                Body =
-                    $"{Environment.NewLine}{Environment.NewLine}-----------------------{Environment.NewLine}{currentEmail.Body}"
-            };
-
-            // Get the replyEmail object from the target object space
-            replyEmail = ((XPObjectSpace)objectSpace).GetObject(replyEmail);
-
-            //e.View = Application.CreateDetailView(((XPObjectSpace)objectSpace).CreateNestedObjectSpace(), replyEmail);
-            e.View = Application.CreateDetailView(replyEmail, true);
-        }*/
-
         private void ReplyAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
         {
             if (e.PopupWindow.View.CurrentObject is not Email email)
@@ -198,28 +151,6 @@ namespace SLAMS_CRM.Module.Controllers
                 email.Contact.Email
             };
             ObjectSpace.CommitChanges();
-        }
-
-        private void ForwardAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
-        {
-            if (View.CurrentObject is not Email currentEmail)
-                return;
-
-            var objectSpace = View.ObjectSpace;
-            var session = ((XPObjectSpace)objectSpace).Session;
-
-            var forwardEmail = new Email(session)
-            {
-                Subject = "Fwd: " + currentEmail.Subject,
-                Body =
-                    $"{Environment.NewLine}{Environment.NewLine}-----------------------{Environment.NewLine}{currentEmail.Body}"
-            };
-
-            // Get the forwardEmail object from the target object space
-            forwardEmail = ((XPObjectSpace)objectSpace).GetObject(forwardEmail);
-
-            //e.View = Application.CreateDetailView(((XPObjectSpace)objectSpace).CreateNestedObjectSpace(), forwardEmail);
-            e.View = Application.CreateDetailView(forwardEmail, true);
         }
 
         private void ForwardAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)

@@ -93,6 +93,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [Association("Contact-Communications")]
         public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));
 
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("Contact-EmailTemplates")]
         public XPCollection<EmailTemplate> EmailTemplates
         {

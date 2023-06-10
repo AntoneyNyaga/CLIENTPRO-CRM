@@ -276,6 +276,18 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             }
         }
 
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        [DevExpress.Xpo.Association("Lead-EmailTemplates")]
+        public XPCollection<EmailTemplate> EmailTemplates
+        {
+            get
+            {
+                return GetCollection<EmailTemplate>(nameof(EmailTemplates));
+            }
+        }
+
     }
 
 

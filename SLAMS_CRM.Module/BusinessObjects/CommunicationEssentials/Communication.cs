@@ -20,6 +20,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
     {
         public Communication(Session session) : base(session)
         {
+            isTargetContact = true; // Set the default value to true
+            UseTemplate = true;
         }
 
         public override void AfterConstruction()
@@ -28,10 +30,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             DateTime = DateTime.Now;
         }
 
+        bool isContacted;
         Lead lead;
-        string targetContactOrLead;
-        bool? isTargetContact;
+        bool isTargetContact;
         string status;
+        private string customSubject;
+        private string customBody;
+        private bool useTemplate;
 
         [ModelDefault("AllowEdit", "false")]
         public DateTime DateTime { get; set; }
@@ -50,9 +55,12 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 
         private Contact _contact;
 
-        [RuleRequiredField("RuleRequiredField for Communication.Contact", DefaultContexts.Save)]
+        [RuleRequiredField(
+            "RuleRequiredField for Communication.Contact",
+            DefaultContexts.Save,
+            TargetCriteria = "IsTargetContact")]
         [Association("Contact-Communications")]
-        [Appearance("HideContact", Criteria = "IsTargetContact == 'true'", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("HideContact", Criteria = "!IsTargetContact", Visibility = ViewItemVisibility.Hide)]
         public Contact Contact
         {
             get { return _contact; }
@@ -63,7 +71,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             }
         }
 
-        [Appearance("HideLead", Criteria = "IsTargetContact == 'false'", Visibility = ViewItemVisibility.Hide)]
+        [RuleRequiredField(
+            "RuleRequiredField for Communication.Lead",
+            DefaultContexts.Save,
+            TargetCriteria = "!IsTargetContact")]
+        [Appearance("HideLead", Criteria = "IsTargetContact", Visibility = ViewItemVisibility.Hide)]
         [Association("Lead-Communications")]
         public Lead Lead
         {
@@ -75,22 +87,128 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             }
         }
 
-        [Appearance("HideSubject", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
-        public string Subject { get; set; }
 
-        [Size(4096)]
+        //[ModelDefault("AllowEdit", "false")]
+        [VisibleInDetailView(true)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public bool UseTemplate
+        {
+            get { return useTemplate; }
+            set
+            {
+                SetPropertyValue(nameof(UseTemplate), ref useTemplate, value);
+                UpdateVisibility();
+            }
+        }
+
+        [Size(SizeAttribute.Unlimited)]
+        [VisibleInDetailView(true)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        [Appearance("HideCustomBody", Criteria = "UseTemplate", Visibility = ViewItemVisibility.Hide)]
+        public string CustomBody
+        {
+            get => customBody;
+            set => SetPropertyValue(nameof(CustomBody), ref customBody, value);
+        }
+
+        [Size(200)]
+        [VisibleInDetailView(true)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        [Appearance("HideCustomSubject", Criteria = "UseTemplate", Visibility = ViewItemVisibility.Hide)]
+        public string CustomSubject
+        {
+            get => customSubject;
+            set => SetPropertyValue(nameof(CustomSubject), ref customSubject, value);
+        }
+
+        [Size(SizeAttribute.Unlimited)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(true)]
         [Appearance("HideBody", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
-        public string Body { get; set; }
+        public string Body
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(CustomBody))
+                {
+                    return CustomBody;
+                }
+                else if (EmailTemplates != null)
+                {
+                    EmailTemplate selectedTemplate = EmailTemplates.FirstOrDefault();
+                    if (selectedTemplate != null)
+                    {
+                        return selectedTemplate.Body;
+                    }
+                }
+                return null;
+            }
+        }
 
-        public string PhoneNumber { get { return Contact?.PhoneNumbers.FirstOrDefault().Number; } }
+        [Size(200)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(true)]
+        [Appearance("HideSubject", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
+        public string Subject
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(CustomSubject))
+                {
+                    return CustomSubject;
+                }
+                else if (EmailTemplates != null)
+                {
+                    EmailTemplate selectedTemplate = EmailTemplates.FirstOrDefault();
+                    if (selectedTemplate != null)
+                    {
+                        return selectedTemplate.Subject;
+                    }
+                }
+                return null;
+            }
+        }
 
-        public string Email { get { return Contact?.Email; } }
+        public string PhoneNumber
+        {
+            get
+            {
+                if (IsTargetContact)
+                    return Contact?.PhoneNumbers.FirstOrDefault()?.Number;
+                else if (Lead != null)
+                    return Lead.PhoneNumbers.FirstOrDefault()?.Number;
+                else
+                    return null; // Return null or a default value when neither Contact nor Lead is available
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                if (IsTargetContact)
+                    return Contact?.Email;
+                else if (Lead != null)
+                    return Lead.Email;
+                else
+                    return null; // Return null or a default value when neither Contact nor Lead is available
+            }
+        }
+
 
         private void UpdateVisibility()
         {
             bool isEmail = Type == CommunicationType.Email;
             bool isPhone = Type == CommunicationType.Phone;
-            bool hideContact = IsTargetContact ?? false; // Use the null-coalescing operator to handle null values
+            bool hideContact = IsTargetContact; // Use the null-coalescing operator to handle null values
+            bool hideTemplate = UseTemplate;
+
+            SetPropertyValue(nameof(CustomBody), hideTemplate ? null : customBody);
+            SetPropertyValue(nameof(CustomSubject), hideTemplate ? null : customSubject);
+            SetPropertyValue(nameof(EmailTemplates), hideTemplate ? null : GetCollection<EmailTemplate>(nameof(EmailTemplates)));
 
             SetPropertyValue(nameof(Contact), hideContact ? null : _contact);
             SetPropertyValue(nameof(Lead), hideContact ? null : lead); // Update the condition to hide/show the Lead property
@@ -155,7 +273,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        public bool IsContacted { get; set; }
+        //public bool IsContacted { get; set; }
+        
+        public bool IsContacted
+        {
+            get => isContacted;
+            set => SetPropertyValue(nameof(IsContacted), ref isContacted, value);
+        }
 
 
         [VisibleInDetailView(false)]
@@ -165,27 +289,23 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         public XPCollection<SentEmail> SentEmails { get { return GetCollection<SentEmail>(nameof(SentEmails)); } }
 
         [Association("Communication-EmailTemplates")]
-        [Appearance("HideEmailTemplates", Criteria = "Type != 'Email'", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("HideEmailTemplates", Criteria = "!UseTemplate", Visibility = ViewItemVisibility.Hide)]
         public XPCollection<EmailTemplate> EmailTemplates
         {
-            get
-            {
-                return GetCollection<EmailTemplate>(nameof(EmailTemplates));
-            }
+            get { return GetCollection<EmailTemplate>(nameof(EmailTemplates)); }
         }
 
-        [RuleRequiredField("RuleRequiredField for Communication.IsTargetContact", DefaultContexts.Save, CustomMessageTemplate = "IsTargetContact is required.")]
-        [DevExpress.Xpo.DisplayName("Is Target Contact")]
-        public bool? IsTargetContact
+        //[RuleRequiredField("RuleRequiredField for Communication.IsTargetContact", DefaultContexts.Save, CustomMessageTemplate = "IsTargetContact is required.")]
+        [DevExpress.Xpo.DisplayName("Is Target Contact ?")]
+        public bool IsTargetContact
         {
-            get => isTargetContact;
+            get => (bool)isTargetContact;
             set
             {
                 SetPropertyValue(nameof(IsTargetContact), ref isTargetContact, value);
                 UpdateVisibility();
             }
         }
-       
     }
 
     public enum CommunicationType
