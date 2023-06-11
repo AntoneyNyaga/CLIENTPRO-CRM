@@ -41,7 +41,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         Account account;
         DateTime invoiceDate;
         string invoiceNumber;
-        private bool taxExempt;
         private Opportunity opportunity;
 
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
@@ -103,9 +102,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         public Address BillingAddress { get; set; }
 
-        public Address ShippingAddress { get; set; }
+        public decimal Total { get; set; }
 
-        public bool TaxExempt { get => taxExempt; set => SetPropertyValue(nameof(TaxExempt), ref taxExempt, value); }
+
 
         [VisibleInDetailView(false)]
         [Association("CompanyInformation-Invoices")]
@@ -122,7 +121,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         protected override void OnSaving()
         {
             base.OnSaving();
-            if(Session.IsNewObject(this))
+            if (Session.IsNewObject(this))
             {
                 GenerateInvoiceNumber();
             }
@@ -132,7 +131,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             const string InvoiceNumberFormat = "INV{0}{1}{2:0000}";
             var lastInvoice = Session.Query<Invoice>()?.OrderByDescending(i => i.InvoiceDate).FirstOrDefault();
-            if(lastInvoice != null)
+            if (lastInvoice != null)
             {
                 var year = lastInvoice.InvoiceDate.Year;
                 var month = lastInvoice.InvoiceDate.Month;
@@ -140,7 +139,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 sequence++;
                 var newInvoiceNumber = string.Format(InvoiceNumberFormat, year, month, sequence);
                 InvoiceNumber = newInvoiceNumber;
-            } else
+            }
+            else
             {
                 InvoiceNumber = string.Format(InvoiceNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }
