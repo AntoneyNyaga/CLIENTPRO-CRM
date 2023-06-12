@@ -30,7 +30,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Set ConvertedFrom based on the value of SourceType
 
             if(SourceType.HasValue)
             {
@@ -61,7 +60,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             get => company;
             set => SetPropertyValue(nameof(Company), ref company, value);
         }
-        //public Company Company { get => company; set => SetPropertyValue(nameof(Company), ref company, value); }
 
 
         [VisibleInDetailView(false)]
