@@ -1,0 +1,45 @@
+﻿@inject TemplateService templateService
+@page "/email"
+@using MimeKit
+@using MailKit.Net.Smtp
+
+<div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" @bind="name" />
+
+    <label for="message">Message:</label>
+    <textarea id="message" @bind="message"></textarea>
+
+    <button @onclick="SendEmail">Send Email</button>
+</div>
+
+@code {
+    private string name;
+    private string message;
+
+    private async Task SendEmail()
+    {
+        string templateFilePath = "EmailTemplates/template1.html"; // Relative path to your template file
+        Dictionary<string, string> placeholders = new Dictionary<string, string>()
+        {
+            { "%NAME%", name },
+            { "%MESSAGE%", message }
+        };
+
+        string emailBody = templateService.LoadTemplate(templateFilePath, placeholders);
+
+        var emailMessage = new MimeMessage();
+        emailMessage.From.Add(new MailboxAddress("Sender Name", "sender@example.com"));
+        emailMessage.To.Add(new MailboxAddress("Recipient Name", "recipient@example.com"));
+        emailMessage.Subject = "Sample Email";
+        emailMessage.Body = new TextPart("html") { Text = emailBody };
+
+        using (var client = new SmtpClient())
+        {
+            await client.ConnectAsync("smtp.example.com", 587, false);
+            await client.AuthenticateAsync("username", "password");
+            await client.SendAsync(emailMessage);
+            await client.DisconnectAsync(true);
+        }
+    }
+}

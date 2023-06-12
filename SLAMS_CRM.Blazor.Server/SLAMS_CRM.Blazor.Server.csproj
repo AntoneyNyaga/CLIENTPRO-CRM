@@ -9,9 +9,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="EmailTemplates\template1.html" />
     <None Remove="Model.xafml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EmailTemplates\template1.html" />
     <Content Include="Model.xafml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -29,6 +31,7 @@
     <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="22.2.6" />
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="22.2.6" />
     <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="22.2.6" />
+    <PackageReference Include="MailKit" Version="4.0.0" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="MySqlConnector" Version="2.2.6" />
   </ItemGroup>

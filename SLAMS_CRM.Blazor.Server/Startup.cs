@@ -30,6 +30,9 @@ public class Startup
         {
             configurator.DisableCheckForCustomControllers();
         });
+        // added template services
+        services.AddScoped<TemplateService>();
+
         services.AddRazorPages();
         services.AddServerSideBlazor();
         services.AddHttpContextAccessor();

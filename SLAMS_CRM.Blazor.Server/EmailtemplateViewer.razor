@@ -1,0 +1,38 @@
+﻿@using MimeKit
+
+<div>
+    <h3>Email Template Viewer</h3>
+    <div>
+        @if (string.IsNullOrEmpty(emailTemplateContent))
+        {
+            <p>No email template content available.</p>
+        }
+        else
+        {
+            <pre>@emailTemplateContent</pre>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string TemplateFilePath { get; set; }
+
+    [Parameter]
+    public Dictionary<string, string> Placeholders { get; set; }
+
+    [Inject]
+    public TemplateService templateService { get; set; }
+
+    private string emailTemplateContent;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (!string.IsNullOrEmpty(TemplateFilePath) && Placeholders != null)
+        {
+            emailTemplateContent = templateService.LoadTemplate(TemplateFilePath, Placeholders);
+        }
+    }
+}

@@ -23,7 +23,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         Bills bills;
         PurchaseOrder purchaseOrder;
         SalesOrder salesOrder;
-        Invoice invoices;
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
