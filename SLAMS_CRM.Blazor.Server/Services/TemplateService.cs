@@ -9,6 +9,7 @@ using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -18,7 +19,7 @@ namespace SLAMS_CRM.Blazor.Server.Services
     {
         public string LoadTemplate(string templateFilePath, Dictionary<string, string> placeholders)
         {
-            string templateContent = File.ReadAllText(templateFilePath);
+            string templateContent = ReadTemplateFromFile(templateFilePath);
 
             foreach (var placeholder in placeholders)
             {
@@ -26,6 +27,12 @@ namespace SLAMS_CRM.Blazor.Server.Services
             }
 
             return templateContent;
+        }
+
+        private string ReadTemplateFromFile(string templateFilePath)
+        {
+            // You can customize this method to read the template file from a different location or with specific options
+            return File.ReadAllText(templateFilePath);
         }
     }
 }
