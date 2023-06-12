@@ -37,11 +37,10 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             get => _description;
             set => SetPropertyValue(nameof(Description), ref _description, value);
         }
-
         public int Quantity
         {
             get => quantity;
-            set => SetPropertyValue(nameof(Quantity), ref quantity, value);
+            private set => SetPropertyValue(nameof(Quantity), ref quantity, value);
         }
 
         private decimal pricePerQuantity;
@@ -60,11 +59,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        [Association("Invoice-Products")]
-        public Invoice Invoices
+        [Association("Products-Invoices")]
+        public XPCollection<Invoice> Invoices
         {
-            get => invoices;
-            set => SetPropertyValue(nameof(Invoices), ref invoices, value);
+            get
+            {
+                return GetCollection<Invoice>(nameof(Invoices));
+            }
         }
 
         [VisibleInDetailView(false)]

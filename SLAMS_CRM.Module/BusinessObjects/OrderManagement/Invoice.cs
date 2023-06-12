@@ -66,7 +66,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(InvoiceDueDate), ref invoiceDueDate, value);
         }
 
-        [Association("Invoice-Products")]
+        [Association("Products-Invoices")]
         public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }
 
         [VisibleInDetailView(false)]
