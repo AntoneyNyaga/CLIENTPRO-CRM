@@ -87,7 +87,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             {
                 SetPropertyValue(nameof(SourceType), ref source, value?.ToString());
 
-                // Update ConvertedFrom whenever SourceType is set
+                
                 if (value.HasValue)
                 {
                     ConvertedFrom = value.Value.ToString();
