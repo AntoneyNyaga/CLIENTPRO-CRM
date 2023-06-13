@@ -1,21 +1,11 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using DevExpress.ExpressApp.Editors;
-using System.ComponentModel.DataAnnotations;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
-using SLAMS_CRM.Shared.BusinessObjects.CommunicationEssentials;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
@@ -23,7 +13,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
     [DefaultProperty(nameof(Name))]
 
     public class EmailTemplate : BaseObject
-    { 
+    {
         public EmailTemplate(Session session)
             : base(session)
         {
@@ -89,11 +79,5 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             get => email;
             set => SetPropertyValue(nameof(Email), ref email, value);
         }
-
-       /* [VisibleInListView(false)]
-        [VisibleInDetailView(true)]
-        [Display(Name = "Attachments")]
-        [EditorAlias(EditorAliases.FileDataPropertyEditor)]
-        public IList<DataFile> Attachments { get; set; } = new List<DataFile>();*/
     }
 }
