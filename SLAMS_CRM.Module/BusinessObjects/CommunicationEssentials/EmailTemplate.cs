@@ -12,10 +12,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using DevExpress.ExpressApp.Editors;
+using System.ComponentModel.DataAnnotations;
+using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
+using SLAMS_CRM.Shared.BusinessObjects.CommunicationEssentials;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
 {
     [ImageName("BO_Resume")]
+    [DefaultProperty(nameof(Name))]
 
     public class EmailTemplate : BaseObject
     { 
@@ -84,5 +89,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             get => email;
             set => SetPropertyValue(nameof(Email), ref email, value);
         }
+
+       /* [VisibleInListView(false)]
+        [VisibleInDetailView(true)]
+        [Display(Name = "Attachments")]
+        [EditorAlias(EditorAliases.FileDataPropertyEditor)]
+        public IList<DataFile> Attachments { get; set; } = new List<DataFile>();*/
     }
 }
