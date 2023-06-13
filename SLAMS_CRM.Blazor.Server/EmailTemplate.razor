@@ -14,7 +14,9 @@
         margin: 0 auto;
         padding: 20px;
         background-color: #f9f9f9;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 5px 5px 20px cadetblue;
+        margin-top: 10%;
+        border-radius: 15px 15px;
     }
 
     .form-group {
@@ -65,10 +67,24 @@
     .error-message {
         color: red;
     }
+
+    /* Additional styling for the non-editable name field */
+    .non-editable-field {
+        display: inline-block;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    .hidden-field {
+        display: none;
+    }
 </style>
 
 <div class="email-container">
-
     <div class="form-group">
         <label class="form-label" for="contact">Select Contact:</label>
         <select class="form-control" id="contact" @bind="selectedContactId">
@@ -80,7 +96,7 @@
         </select>
     </div>
 
-    <div class="form-group">
+    <div class="form-group hidden-field">
         <label class="form-label" for="name">Name:</label>
         <input class="form-control" type="text" id="name" @bind="name" />
     </div>
@@ -91,6 +107,7 @@
     </div>
 
     <button class="btn-send" @onclick="SendEmail">Send Email</button>
+
     @if (!string.IsNullOrEmpty(statusMessage))
     {
         <div class="message @(isSuccess ? "success-message" : "error-message")">
@@ -98,6 +115,7 @@
         </div>
     }
 </div>
+
 
 @code {
     private string name;
@@ -120,35 +138,35 @@
 
     private async Task SendEmail()
     {
-        string templateFilePath = "EmailTemplates/template1.html"; // Relative path to your template file
-        Dictionary<string, string> placeholders = new Dictionary<string, string>()
-        {
-            { "%NAME%", name },
-            { "%MESSAGE%", message }
-        };
-
         var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .Build();
 
         var username = configuration.GetSection("Email")["UserName"];
         var password = configuration.GetSection("Email")["Password"];
+
+        var selectedContact = contacts.FirstOrDefault(c => c.Account.Name == selectedContactId);
+        if (selectedContact != null)
+        {
+            name = selectedContact.Account.Name; // Update the name with the selected contact's account name
+        }
+
+        string templateFilePath = "EmailTemplates/template1.html"; // Relative path to your template file
+        Dictionary<string, string> placeholders = new Dictionary<string, string>()
+    {
+        { "%NAME%", name },
+        { "%MESSAGE%", message }
+    };
         string emailBody = templateService.LoadTemplate(templateFilePath, placeholders);
 
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(new MailboxAddress("Sender Name", username));
         emailMessage.Subject = "Sample Email";
+        emailMessage.To.Add(new MailboxAddress(name, selectedContact.Account.EmailAddress)); // Use the updated name in the email recipient
 
         var bodyBuilder = new BodyBuilder();
         bodyBuilder.HtmlBody = emailBody;
         emailMessage.Body = bodyBuilder.ToMessageBody();
-
-        var selectedContact = contacts.FirstOrDefault(c => c.Account.Name == selectedContactId);
-        if (selectedContact != null)
-        {
-            name = selectedContact.Account.Name;
-            emailMessage.To.Add(new MailboxAddress(selectedContact.Account.Name, selectedContact.Account.EmailAddress));
-        }
 
         try
         {
@@ -169,4 +187,5 @@
             statusMessage = $"Failed to send email: {ex.Message}";
         }
     }
+
 }
