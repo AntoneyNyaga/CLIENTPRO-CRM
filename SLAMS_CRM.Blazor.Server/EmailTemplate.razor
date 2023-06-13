@@ -146,6 +146,7 @@
         var selectedContact = contacts.FirstOrDefault(c => c.Account.Name == selectedContactId);
         if (selectedContact != null)
         {
+            name = selectedContact.Account.Name;
             emailMessage.To.Add(new MailboxAddress(selectedContact.Account.Name, selectedContact.Account.EmailAddress));
         }
 

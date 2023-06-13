@@ -41,6 +41,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         }
 
 
+        LeadStatus? leadStatus;
         Company company;
         bool isConvertedToContact;
         string jobTitle;
@@ -78,7 +79,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
 
         [RuleRequiredField("RuleRequiredField for Lead.SourceType", DefaultContexts.Save)]
-        [NotMapped]
         [ImmediatePostData(true)]
         public SourceType? SourceType
         {
@@ -105,13 +105,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         }
 
         [RuleRequiredField("RuleRequiredField for Lead.LeadStatus", DefaultContexts.Save)]
-        [NotMapped]
-        public LeadStatus? LeadStatus { get; set; }
-
+        [ImmediatePostData(true)]        
+        public LeadStatus? LeadStatus
+        {
+            get => leadStatus;
+            set => SetPropertyValue(nameof(LeadStatus), ref leadStatus, value);
+        }
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        [ImmediatePostData]
+        [ImmediatePostData(true)]
         public Contact Contact { get; set; }
 
         [ModelDefault("AllowEdit", "false")]

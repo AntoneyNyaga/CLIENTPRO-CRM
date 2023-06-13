@@ -31,6 +31,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             UpdateAccount();
         }
 
+        SourceType? sourceType;
         Company company;
         string jobTitle;
         //Company company;
@@ -40,7 +41,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [Size(50)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
-        
+
         [Association("Company-Contacts")]
         public Company Company
         {
@@ -51,7 +52,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Account Account { get ; set; }
+        public Account Account { get; set; }
 
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -61,8 +62,13 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             get => type == null ? 0 : (int)Enum.Parse(typeof(SourceType), type);
             set => SetPropertyValue(nameof(Type), ref type, Enum.GetName(typeof(SourceType), value));
         }
-        [NotMapped]
-        public SourceType? SourceType { get; set; }
+
+        [ImmediatePostData(true)]
+        public SourceType? SourceType
+        {
+            get => sourceType;
+            set => SetPropertyValue(nameof(SourceType), ref sourceType, value);
+        }
 
         public void UpdateAccount()
         {
