@@ -78,7 +78,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             }
         }
 
-        [NotMapped]
+        
         public StageType StageType { get => (StageType)Stage; set => Stage = (int)value; }
 
         [ModelDefault("AllowEdit", "false")]
@@ -112,7 +112,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             set { SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value)); }
         }
 
-        [NotMapped]
+        
         public LeadSource LeadSourceType { get => (LeadSource)LeadSource; set => LeadSource = (int)value; }
 
         [VisibleInDetailView(false)]

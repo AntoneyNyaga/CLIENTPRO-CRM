@@ -74,11 +74,9 @@ namespace SLAMS_CRM.Module.Controllers
             // Generate the PDF invoice
             byte[] pdfBytes = GeneratePdfInvoice(invoiceData);
 
-            // Save the PDF to a file
             string filePath = Path.Combine(Path.GetTempPath(), "invoice.pdf");
             File.WriteAllBytes(filePath, pdfBytes);
 
-            // Send the PDF as an email attachment
             string recipientEmail = "fredrick_ochieng@outlook.com";
             string subject = "Invoice";
             string body = "Please find the attached invoice.";

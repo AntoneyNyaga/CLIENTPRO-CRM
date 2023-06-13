@@ -46,7 +46,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set { SetPropertyValue(nameof(IndustryType), ref industryType, Enum.GetName(typeof(IndustryType), value)); }
         }
 
-        [NotMapped]
+        
         public IndustryType Industry { get => (IndustryType)IndustryType; set => IndustryType = (int)value; }
 
         [RuleRequiredField("RuleRequiredField for Company.Address", DefaultContexts.Save)]

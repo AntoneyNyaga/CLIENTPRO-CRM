@@ -1,0 +1,191 @@
+﻿@inject TemplateService templateService
+@inject ContactService contactService // Inject the service or repository class
+
+@page "/email"
+@using MimeKit
+@using MailKit.Net.Smtp
+@using Microsoft.Extensions.Configuration
+@using SLAMS_CRM.Module.BusinessObjects.CustomerManagement
+
+
+<style>
+    .email-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        box-shadow: 5px 5px 20px cadetblue;
+        margin-top: 10%;
+        border-radius: 15px 15px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn-send {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-send:hover {
+            background-color: #0056b3;
+        }
+
+    .message {
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .success-message {
+        color: green;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    /* Additional styling for the non-editable name field */
+    .non-editable-field {
+        display: inline-block;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    .hidden-field {
+        display: none;
+    }
+</style>
+
+<div class="email-container">
+    <div class="form-group">
+        <label class="form-label" for="contact">Select Contact:</label>
+        <select class="form-control" id="contact" @bind="selectedContactId">
+            <option value="">-- Select Contact --</option>
+            @foreach (var contact in contacts)
+            {
+                <option value="@contact.Account.Name">@contact.Account.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group hidden-field">
+        <label class="form-label" for="name">Name:</label>
+        <input class="form-control" type="text" id="name" @bind="name" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="message">Message:</label>
+        <textarea class="form-control" id="message" @bind="message"></textarea>
+    </div>
+
+    <button class="btn-send" @onclick="SendEmail">Send Email</button>
+
+    @if (!string.IsNullOrEmpty(statusMessage))
+    {
+        <div class="message @(isSuccess ? "success-message" : "error-message")">
+            @statusMessage
+        </div>
+    }
+</div>
+
+
+@code {
+    private string name;
+    private string message;
+    private string selectedContactId;
+    private string statusMessage;
+    private bool isSuccess;
+    private List<Contact> contacts = new List<Contact>(); // Initialize the contacts list
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadContacts(); // Load contacts asynchronously
+    }
+
+    private async Task LoadContacts()
+    {
+        contacts = await contactService.GetContacts();
+    }
+
+    private async Task SendEmail()
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
+
+        var username = configuration.GetSection("Email")["UserName"];
+        var password = configuration.GetSection("Email")["Password"];
+
+        var selectedContact = contacts.FirstOrDefault(c => c.Account.Name == selectedContactId);
+        if (selectedContact != null)
+        {
+            name = selectedContact.Account.Name; // Update the name with the selected contact's account name
+        }
+
+        string templateFilePath = "EmailTemplates/template1.html"; // Relative path to your template file
+        Dictionary<string, string> placeholders = new Dictionary<string, string>()
+    {
+        { "%NAME%", name },
+        { "%MESSAGE%", message }
+    };
+        string emailBody = templateService.LoadTemplate(templateFilePath, placeholders);
+
+        var emailMessage = new MimeMessage();
+        emailMessage.From.Add(new MailboxAddress("Sender Name", username));
+        emailMessage.Subject = "Sample Email";
+        emailMessage.To.Add(new MailboxAddress(name, selectedContact.Account.EmailAddress)); // Use the updated name in the email recipient
+
+        var bodyBuilder = new BodyBuilder();
+        bodyBuilder.HtmlBody = emailBody;
+        emailMessage.Body = bodyBuilder.ToMessageBody();
+
+        try
+        {
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 587, false);
+                await client.AuthenticateAsync(username, password);
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true);
+
+                isSuccess = true;
+                statusMessage = "Email sent successfully!";
+            }
+        }
+        catch (Exception ex)
+        {
+            isSuccess = false;
+            statusMessage = $"Failed to send email: {ex.Message}";
+        }
+    }
+
+}

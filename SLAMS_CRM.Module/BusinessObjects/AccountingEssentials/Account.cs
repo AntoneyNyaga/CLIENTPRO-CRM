@@ -101,7 +101,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => acType == null ? 0 : (int)Enum.Parse(typeof(AccountType), acType);
             set => SetPropertyValue(nameof(AcType), ref acType, Enum.GetName(typeof(AccountType), value));
         }
-        [NotMapped]
+        
         public AccountType? TypeOfAccount { get; set; }
 
 
@@ -120,7 +120,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(IndType), ref indType, Enum.GetName(typeof(IndustryType), value));
         }
 
-        [NotMapped]
+        
         public IndustryType? Industry { get; set; }
 
         [ModelDefault("AllowEdit", "false")]
