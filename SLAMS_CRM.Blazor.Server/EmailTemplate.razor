@@ -1,8 +1,12 @@
 ﻿@inject TemplateService templateService
+@inject ContactService contactService // Inject the service or repository class
+
 @page "/email"
 @using MimeKit
 @using MailKit.Net.Smtp
 @using Microsoft.Extensions.Configuration
+@using SLAMS_CRM.Module.BusinessObjects.CustomerManagement
+
 
 <style>
     .email-container {
@@ -64,6 +68,18 @@
 </style>
 
 <div class="email-container">
+
+    <div class="form-group">
+        <label class="form-label" for="contact">Select Contact:</label>
+        <select class="form-control" id="contact" @bind="selectedContactId">
+            <option value="">-- Select Contact --</option>
+            @foreach (var contact in contacts)
+            {
+                <option value="@contact.Account.Name">@contact.Account.Name</option>
+            }
+        </select>
+    </div>
+
     <div class="form-group">
         <label class="form-label" for="name">Name:</label>
         <input class="form-control" type="text" id="name" @bind="name" />
@@ -86,8 +102,21 @@
 @code {
     private string name;
     private string message;
+    private string selectedContactId;
     private string statusMessage;
     private bool isSuccess;
+    private List<Contact> contacts = new List<Contact>(); // Initialize the contacts list
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadContacts(); // Load contacts asynchronously
+    }
+
+    private async Task LoadContacts()
+    {
+        contacts = await contactService.GetContacts();
+    }
 
     private async Task SendEmail()
     {
@@ -108,12 +137,17 @@
 
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(new MailboxAddress("Sender Name", username));
-        emailMessage.To.Add(new MailboxAddress("Recipient Name", "fredrick_ochieng@outlook.com")); // Replace with the actual recipient email address
         emailMessage.Subject = "Sample Email";
 
         var bodyBuilder = new BodyBuilder();
         bodyBuilder.HtmlBody = emailBody;
         emailMessage.Body = bodyBuilder.ToMessageBody();
+
+        var selectedContact = contacts.FirstOrDefault(c => c.Account.Name == selectedContactId);
+        if (selectedContact != null)
+        {
+            emailMessage.To.Add(new MailboxAddress(selectedContact.Account.Name, selectedContact.Account.EmailAddress));
+        }
 
         try
         {
