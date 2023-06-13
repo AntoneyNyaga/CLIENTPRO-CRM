@@ -42,7 +42,7 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
         return result;
     }
 
-   
+
 
     [Association("ApplicationUser-Quotes")]
     public XPCollection<Quote> AssignedProposals { get { return GetCollection<Quote>(nameof(AssignedProposals)); } }

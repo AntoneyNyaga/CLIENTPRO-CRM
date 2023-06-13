@@ -1,21 +1,14 @@
-﻿using DevExpress.CodeParser;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.Editors;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using SLAMS_CRM.Module.BusinessObjects.CustomerService;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
 namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
@@ -101,7 +94,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             get => acType == null ? 0 : (int)Enum.Parse(typeof(AccountType), acType);
             set => SetPropertyValue(nameof(AcType), ref acType, Enum.GetName(typeof(AccountType), value));
         }
-        
+
         public AccountType? TypeOfAccount { get; set; }
 
 
@@ -120,7 +113,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(IndType), ref indType, Enum.GetName(typeof(IndustryType), value));
         }
 
-        
+
         public IndustryType? Industry { get; set; }
 
         [ModelDefault("AllowEdit", "false")]
@@ -155,7 +148,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         }
 
 
-        
+
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]

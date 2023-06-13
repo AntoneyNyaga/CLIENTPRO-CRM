@@ -1,17 +1,17 @@
 ﻿using DevExpress.AspNetCore.Reporting;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
-using DevExpress.Xpo.DB;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Metadata;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server.Circuits;
 using SLAMS_CRM.Blazor.Server.Services;
-using DevExpress.ExpressApp.Xpo;
-using DevExpress.ExpressApp;
-using DevExpress.Xpo.Metadata;
 
 namespace SLAMS_CRM.Blazor.Server;
 
@@ -106,7 +106,7 @@ public class Startup
                         (serviceProvider, options) =>
                         {
                             string connectionString = null;
-                            if(Configuration.GetConnectionString("ConnectionString") != null)
+                            if (Configuration.GetConnectionString("ConnectionString") != null)
                             {
                                 connectionString = Configuration.GetConnectionString("ConnectionString");
                             }
@@ -152,10 +152,11 @@ public class Startup
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        if(env.IsDevelopment())
+        if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-        } else
+        }
+        else
         {
             app.UseExceptionHandler("/Error");
             // The default HSTS value is 30 days. To change this for production scenarios, see: https://aka.ms/aspnetcore-hsts.

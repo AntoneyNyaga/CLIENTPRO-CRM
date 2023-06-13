@@ -1,18 +1,7 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
@@ -101,7 +90,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 GenerateSalesOrderNumber();
             }
         }
-        
+
         [Association("PurchaseOrder-SalesOrders")]
         public PurchaseOrder RelatedPurchaseOrder
         {
@@ -114,7 +103,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             const string SalesOrderNumberFormat = "SO{0}{1:0000}";
             var lastSalesOrder = Session.Query<SalesOrder>()?.OrderByDescending(po => po.SalesOrderDate)
                 .FirstOrDefault();
-            if(lastSalesOrder != null)
+            if (lastSalesOrder != null)
             {
                 var year = lastSalesOrder.SalesOrderDate.Year;
                 var month = lastSalesOrder.SalesOrderDate.Month;
@@ -122,7 +111,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 sequence++;
                 var newPurchaseOrderNumber = string.Format(SalesOrderNumberFormat, year, month, sequence);
                 SalesOrderNumber = newPurchaseOrderNumber;
-            } else
+            }
+            else
             {
                 SalesOrderNumber = string.Format(SalesOrderNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }

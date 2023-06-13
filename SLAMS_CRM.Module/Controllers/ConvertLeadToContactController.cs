@@ -4,9 +4,6 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using DevExpress.XtraCharts;
-using Microsoft.IdentityModel.Tokens;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 
 namespace SLAMS_CRM.Module.Controllers
@@ -33,17 +30,17 @@ namespace SLAMS_CRM.Module.Controllers
         {
             var selectedLeads = View.SelectedObjects;
 
-            if(selectedLeads == null || selectedLeads.Count == 0)
+            if (selectedLeads == null || selectedLeads.Count == 0)
                 return;
 
             var objectSpace = View.ObjectSpace;
             var session = ((XPObjectSpace)objectSpace).Session;
 
             // Start a transaction to ensure data consistency
-            using(var uow = new UnitOfWork(session.DataLayer))
+            using (var uow = new UnitOfWork(session.DataLayer))
             {
                 // Loop through the selected leads
-                foreach(Lead lead in selectedLeads)
+                foreach (Lead lead in selectedLeads)
                 {
                     // Create a new contact object and copy over relevant properties
                     var contact = new Contact(session)

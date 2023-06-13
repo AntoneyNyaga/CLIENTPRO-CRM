@@ -1,9 +1,4 @@
-﻿using DevExpress.XtraReports.UI;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
+﻿using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 
 namespace SLAMS_CRM.Module.Reports
 {

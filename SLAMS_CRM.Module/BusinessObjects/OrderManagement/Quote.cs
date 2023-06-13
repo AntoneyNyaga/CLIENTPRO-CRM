@@ -3,17 +3,14 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using DevExpress.XtraReports.UI;
-using iTextSharp.text.pdf;
 using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.Extensions.Configuration;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
@@ -49,7 +46,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         // one to one relationship between Quote and Account
         //public Account Account { get; set; }
-        
+
         [Association("Account-Quotes")]
         public Account Account
         {
@@ -176,7 +173,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             var username = configuration.GetSection("Email")["UserName"];
             var password = configuration.GetSection("Email")["Password"];
 
-            if(QuoteStage == QuoteStage.Sent && LastFollowUp.AddDays(7) < DateTime.Now)
+            if (QuoteStage == QuoteStage.Sent && LastFollowUp.AddDays(7) < DateTime.Now)
             {
                 // Create a new MailMessage object
                 using MailMessage mail = new();
@@ -206,7 +203,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                     "SLAMS CRM Team";
 
                 // Create a new SmtpClient and send the email
-                using(SmtpClient smtpClient = new("smtp.gmail.com", 587))
+                using (SmtpClient smtpClient = new("smtp.gmail.com", 587))
                 {
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
@@ -323,7 +320,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
             // Load the proposal PDF file as bytes
             byte[] proposalBytes = File.ReadAllBytes(Path.Combine("SentProposals", $"{QuoteNumber}-Proposal.pdf"));
-            using(MemoryStream attachmentStream = new(proposalBytes))
+            using (MemoryStream attachmentStream = new(proposalBytes))
             {
                 attachmentStream.Position = 0;
                 Attachment attachment = new(attachmentStream, $"{QuoteNumber}-Proposal.pdf", "application/pdf");
@@ -339,7 +336,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 message.Attachments.Add(attachment);
 
                 // Send the email using the SmtpClient class
-                using(SmtpClient smtpClient = new("smtp.gmail.com", 587))
+                using (SmtpClient smtpClient = new("smtp.gmail.com", 587))
                 {
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
@@ -366,7 +363,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         protected override void OnSaving()
         {
             base.OnSaving();
-            if(Session.IsNewObject(this))
+            if (Session.IsNewObject(this))
             {
                 GenerateQuoteNumber();
             }
@@ -376,14 +373,15 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             const string QuoteNumberFormat = "{0}-{1:0000}";
             var lastQuote = Session.Query<Quote>()?.OrderByDescending(q => q.DateCreated).FirstOrDefault();
-            if(lastQuote != null)
+            if (lastQuote != null)
             {
                 var year = lastQuote.DateCreated.Year;
                 var sequence = int.Parse(lastQuote.QuoteNumber.Split('-')[1]);
                 sequence++;
                 var newQuoteNumber = string.Format(QuoteNumberFormat, year, sequence);
                 QuoteNumber = newQuoteNumber;
-            } else
+            }
+            else
             {
                 var currentYear = DateTime.Today.Year;
                 QuoteNumber = string.Format(QuoteNumberFormat, currentYear, 1);

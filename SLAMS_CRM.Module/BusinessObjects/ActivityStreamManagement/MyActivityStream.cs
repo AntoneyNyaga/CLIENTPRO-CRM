@@ -2,7 +2,6 @@
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using System.ComponentModel;
 
 namespace SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement
 {

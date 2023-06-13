@@ -2,9 +2,6 @@
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SLAMS_CRM.Blazor.Server.Services
 {

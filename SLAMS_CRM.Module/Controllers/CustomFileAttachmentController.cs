@@ -1,28 +1,11 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
-using DevExpress.XtraRichEdit;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
-using System;
-using System.Buffers;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace SLAMS_CRM.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
-    public partial class CustomFileAttachmentController : ViewController
+    public partial class CustomFileAttachmentController : ViewController<DetailView>
     {
         private SimpleAction saveToAction;
         private SimpleAction openAction;
@@ -48,17 +31,17 @@ namespace SLAMS_CRM.Module.Controllers
 
         private void SaveToAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-           
+
         }
 
         private void OpenAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-          
+
         }
 
         private void ClearContentAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-  
+
         }
     }
 }

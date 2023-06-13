@@ -1,14 +1,10 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 {
@@ -72,7 +68,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
         public void UpdateAccount()
         {
-            if(Account == null)
+            if (Account == null)
             {
                 Account = new Account(Session); // Create a new Account object if it is null
             }
@@ -121,7 +117,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         {
             base.OnChanged(propertyName, oldValue, newValue);
 
-            if(propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address1))
+            if (propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address1))
             {
                 UpdateAccount();
             }

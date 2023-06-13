@@ -1,18 +1,8 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CustomerService
 {
@@ -20,9 +10,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerService
     [ImageName("Warning")]
     [NavigationItem("Customer Service & Settings")]
 
-    
+
     public class Cases : BaseObject
-    { 
+    {
         public Cases(Session session)
             : base(session)
         {
@@ -58,7 +48,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerService
             get => primaryAccount;
             set => SetPropertyValue(nameof(PrimaryAccount), ref primaryAccount, value);
         }
-        
+
         [Association("Product-Cases")]
         public Product Asset
         {

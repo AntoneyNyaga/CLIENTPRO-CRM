@@ -6,8 +6,6 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
@@ -271,7 +269,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        
+
         public bool IsContacted
         {
             get => isContacted;

@@ -1,17 +1,7 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
@@ -118,7 +108,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             base.OnSaving();
 
-            if(Session.IsNewObject(this))
+            if (Session.IsNewObject(this))
             {
                 GeneratePurchaseOrderNumber();
             }
@@ -129,7 +119,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             const string PurchaseOrderNumberFormat = "PO{0}{1:0000}";
             var lastPurchaseOrder = Session.Query<PurchaseOrder>()?.OrderByDescending(po => po.PurchaseOrderDate)
                 .FirstOrDefault();
-            if(lastPurchaseOrder != null)
+            if (lastPurchaseOrder != null)
             {
                 var year = lastPurchaseOrder.PurchaseOrderDate.Year;
                 var month = lastPurchaseOrder.PurchaseOrderDate.Month;
@@ -137,7 +127,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 sequence++;
                 var newPurchaseOrderNumber = string.Format(PurchaseOrderNumberFormat, year, month, sequence);
                 PurchaseOrderNumber = newPurchaseOrderNumber;
-            } else
+            }
+            else
             {
                 PurchaseOrderNumber = string.Format(
                     PurchaseOrderNumberFormat,

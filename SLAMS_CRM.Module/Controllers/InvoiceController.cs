@@ -1,18 +1,13 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.IO;
-using System.Net.Mail;
-using System.Data.SqlClient;
-using System.Data;
 using Microsoft.Extensions.Configuration;
-using DevExpress.ExpressApp.Xpo;
-using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using MySql.Data.MySqlClient;
+using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
+using System.Data;
+using System.Net.Mail;
 
 namespace SLAMS_CRM.Module.Controllers
 {
@@ -93,11 +88,11 @@ namespace SLAMS_CRM.Module.Controllers
 
             InvoiceData invoiceData = new InvoiceData();
 
-            using(MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
 
-                using(MySqlCommand command = new MySqlCommand(
+                using (MySqlCommand command = new MySqlCommand(
                     "SELECT `invoice`.`InvoiceNumber`, `invoice`.`InvoiceDate`, `invoice`.`InvoiceDueDate`, " +
                         "`companyinformation`.`CompanyName`, `address`.`City`, `country`.`Name`, `companyinformation`.`CompanyWebsite`, " +
                         "`companyinformation`.`CompanyEmail`, `companyinformation`.`CompanyPhonenumber`, `account`.`Name` AS `account_Name`, " +
@@ -112,12 +107,12 @@ namespace SLAMS_CRM.Module.Controllers
                     connection))
                 {
                     DataTable dataTable = new DataTable();
-                    using(MySqlDataReader reader = command.ExecuteReader())
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         dataTable.Load(reader);
                     }
 
-                    foreach(DataRow row in dataTable.Rows)
+                    foreach (DataRow row in dataTable.Rows)
                     {
                         invoiceData.InvoiceNumber = row["InvoiceNumber"].ToString();
                         invoiceData.InvoiceDate = Convert.ToDateTime(row["InvoiceDate"]);
@@ -205,7 +200,7 @@ namespace SLAMS_CRM.Module.Controllers
             var username = configuration.GetSection("Email")["UserName"];
             var password = configuration.GetSection("Email")["Password"];
 
-            using(MailMessage mailMessage = new MailMessage())
+            using (MailMessage mailMessage = new MailMessage())
             {
                 mailMessage.From = new MailAddress(username);
                 mailMessage.To.Add(recipientEmail);
@@ -216,7 +211,7 @@ namespace SLAMS_CRM.Module.Controllers
                 Attachment attachment = new Attachment(attachmentFilePath);
                 mailMessage.Attachments.Add(attachment);
 
-                using(SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
+                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
                 {
                     // Configure your SMTP server settings
                     smtpClient.Port = 587;

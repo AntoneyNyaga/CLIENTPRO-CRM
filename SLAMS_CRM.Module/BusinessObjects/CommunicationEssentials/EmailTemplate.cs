@@ -2,9 +2,7 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
-using System;
 using System.ComponentModel;
-using System.Linq;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials

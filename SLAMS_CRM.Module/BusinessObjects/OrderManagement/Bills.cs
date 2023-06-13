@@ -1,17 +1,7 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
@@ -81,7 +71,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             base.OnSaving();
 
-            if(Session.IsNewObject(this))
+            if (Session.IsNewObject(this))
             {
                 GenerateBillNumber();
             }
@@ -91,7 +81,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
             const string BillNumberFormat = "BILL{0}{1}{2:0000}";
             var lastBill = Session.Query<Bills>()?.OrderByDescending(b => b.SupplierBillDate).FirstOrDefault();
-            if(lastBill != null)
+            if (lastBill != null)
             {
                 var year = lastBill.SupplierBillDate.Year;
                 var month = lastBill.SupplierBillDate.Month;
@@ -99,7 +89,8 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 sequence++;
                 var newBillNumber = string.Format(BillNumberFormat, year, month, sequence);
                 BillNumber = newBillNumber;
-            } else
+            }
+            else
             {
                 BillNumber = string.Format(BillNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }

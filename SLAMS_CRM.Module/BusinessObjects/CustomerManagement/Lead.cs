@@ -1,18 +1,12 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.Editors;
+﻿using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using MySqlX.XDevAPI;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 {
@@ -31,7 +25,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         {
             base.AfterConstruction();
 
-            if(SourceType.HasValue)
+            if (SourceType.HasValue)
             {
                 ConvertedFrom = SourceType.Value.ToString();
             }
@@ -87,7 +81,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             {
                 SetPropertyValue(nameof(SourceType), ref source, value?.ToString());
 
-                
+                // Update ConvertedFrom whenever SourceType is set
                 if (value.HasValue)
                 {
                     ConvertedFrom = value.Value.ToString();
@@ -105,7 +99,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         }
 
         [RuleRequiredField("RuleRequiredField for Lead.LeadStatus", DefaultContexts.Save)]
-        [ImmediatePostData(true)]        
+        [ImmediatePostData(true)]
         public LeadStatus? LeadStatus
         {
             get => leadStatus;

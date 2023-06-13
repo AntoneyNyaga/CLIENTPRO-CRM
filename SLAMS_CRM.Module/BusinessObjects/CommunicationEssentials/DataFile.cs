@@ -1,10 +1,7 @@
-﻿using DevExpress.ExpressApp.DC;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace SLAMS_CRM.Shared.BusinessObjects.CommunicationEssentials
 {

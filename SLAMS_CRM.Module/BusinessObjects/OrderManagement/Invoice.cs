@@ -1,7 +1,6 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using DevExpress.XtraRichEdit.Fields;
 using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using SLAMS_CRM.Module.BusinessObjects.Settings;
@@ -41,6 +40,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         Account account;
         DateTime invoiceDate;
         string invoiceNumber;
+        private bool taxExempt;
         private Opportunity opportunity;
 
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
@@ -102,9 +102,9 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
         public Address BillingAddress { get; set; }
 
-        public decimal Total { get; set; }
+        public Address ShippingAddress { get; set; }
 
-
+        public bool TaxExempt { get => taxExempt; set => SetPropertyValue(nameof(TaxExempt), ref taxExempt, value); }
 
         [VisibleInDetailView(false)]
         [Association("CompanyInformation-Invoices")]

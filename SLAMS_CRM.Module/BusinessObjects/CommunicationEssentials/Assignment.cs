@@ -68,7 +68,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
         [Action(ToolTip = "Postpone the task to the next day", ImageName = "State_Task_Deferred")]
         public void Postpone()
         {
-            if(DueDate == DateTime.MinValue)
+            if (DueDate == DateTime.MinValue)
             {
                 DueDate = DateTime.Now;
             }

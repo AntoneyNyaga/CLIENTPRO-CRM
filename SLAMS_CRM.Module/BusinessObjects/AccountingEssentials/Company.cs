@@ -3,8 +3,6 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
 {
@@ -46,7 +44,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             set { SetPropertyValue(nameof(IndustryType), ref industryType, Enum.GetName(typeof(IndustryType), value)); }
         }
 
-        
+
         public IndustryType Industry { get => (IndustryType)IndustryType; set => IndustryType = (int)value; }
 
         [RuleRequiredField("RuleRequiredField for Company.Address", DefaultContexts.Save)]

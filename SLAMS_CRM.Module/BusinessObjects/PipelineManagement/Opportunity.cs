@@ -7,7 +7,6 @@ using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
 {
@@ -55,7 +54,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             set => SetPropertyValue(nameof(OpportunityDescription), ref opportunityDescription, value);
         }
 
-        
+
         [Association("ApplicationUser-Opportunities")]
         public ApplicationUser AssignedTo
         {
@@ -78,7 +77,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             }
         }
 
-        
+
         public StageType StageType { get => (StageType)Stage; set => Stage = (int)value; }
 
         [ModelDefault("AllowEdit", "false")]
@@ -112,7 +111,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
             set { SetPropertyValue(nameof(LeadSource), ref leadSource, Enum.GetName(typeof(LeadSource), value)); }
         }
 
-        
+
         public LeadSource LeadSourceType { get => (LeadSource)LeadSource; set => LeadSource = (int)value; }
 
         [VisibleInDetailView(false)]

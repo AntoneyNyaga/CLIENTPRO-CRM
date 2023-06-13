@@ -4,7 +4,6 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using SLAMS_CRM.Module.BusinessObjects.CustomerService;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 {
