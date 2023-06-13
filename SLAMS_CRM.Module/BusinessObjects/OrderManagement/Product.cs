@@ -19,7 +19,6 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         {
         }
 
-        int quantity;
         Bills bills;
         PurchaseOrder purchaseOrder;
         SalesOrder salesOrder;
@@ -36,15 +35,16 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
             get => _description;
             set => SetPropertyValue(nameof(Description), ref _description, value);
         }
-        public int Quantity
-        {
-            get => quantity;
-            private set => SetPropertyValue(nameof(Quantity), ref quantity, value);
-        }
 
-        private decimal pricePerQuantity;
-        [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
-        public decimal PricePerQuantity { get => pricePerQuantity; set => SetPropertyValue(nameof(PricePerQuantity), ref pricePerQuantity, value); }
+        public string ProductCode
+        {
+            get; set;
+
+        }
+        public decimal UnitPrice
+        {
+            get; set;
+        }
 
         private ProductLine _productLine;
         [Association("ProductLine-Products")]
