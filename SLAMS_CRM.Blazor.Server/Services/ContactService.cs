@@ -1,9 +1,9 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 
-namespace SLAMS_CRM.Blazor.Server.Services
+namespace CLIENTPRO_CRM.Blazor.Server.Services
 {
     public interface IContactService
     {

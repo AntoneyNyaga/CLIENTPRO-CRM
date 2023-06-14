@@ -1,13 +1,13 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
-using SLAMS_CRM.Module.BusinessObjects;
 
-namespace SLAMS_CRM.Module.DatabaseUpdate;
+namespace CLIENTPRO_CRM.Module.DatabaseUpdate;
 
 // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.Updating.ModuleUpdater
 public class Updater : ModuleUpdater

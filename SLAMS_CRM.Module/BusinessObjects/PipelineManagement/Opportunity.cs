@@ -1,14 +1,15 @@
-﻿using DevExpress.ExpressApp.Model;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Sales & Marketing")]

@@ -1,14 +1,14 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Microsoft.Extensions.Configuration;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.Net.Mail;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
-namespace SLAMS_CRM.Module.Controllers
+namespace CLIENTPRO_CRM.Module.Controllers
 {
     public partial class CommunicationController : ObjectViewController<ListView, Communication>
     {

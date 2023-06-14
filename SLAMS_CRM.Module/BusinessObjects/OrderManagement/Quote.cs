@@ -1,4 +1,7 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -6,14 +9,12 @@ using DevExpress.Xpo;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Extensions.Configuration;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
 
 
-namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
 
@@ -200,7 +201,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                     Environment.NewLine +
                     "Best regards," +
                     Environment.NewLine +
-                    "SLAMS CRM Team";
+                    "CLIENTPRO CRM Team";
 
                 // Create a new SmtpClient and send the email
                 using (SmtpClient smtpClient = new("smtp.gmail.com", 587))
@@ -330,7 +331,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
                 //message.To.Add(Contact.Email);
                 message.To.Add(Account.EmailAddress);
                 message.Subject = $"Proposal for {Title}";
-                message.Body = $"Dear {Account.Name},\n\nPlease find attached the proposal for {Title}.\n\nKind regards,\n\nSLAMS CRM Team";
+                message.Body = $"Dear {Account.Name},\n\nPlease find attached the proposal for {Title}.\n\nKind regards,\n\nCLIENTPRO CRM Team";
 
                 // Attach the PDF file to the email
                 message.Attachments.Add(attachment);

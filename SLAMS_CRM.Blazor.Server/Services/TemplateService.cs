@@ -1,4 +1,4 @@
-﻿namespace SLAMS_CRM.Blazor.Server.Services
+﻿namespace CLIENTPRO_CRM.Blazor.Server.Services
 {
     public class TemplateService
     {

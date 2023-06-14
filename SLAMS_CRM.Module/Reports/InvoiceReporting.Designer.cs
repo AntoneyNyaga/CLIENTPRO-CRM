@@ -1,4 +1,4 @@
-﻿namespace SLAMS_CRM.Module.Reports
+﻿namespace CLIENTPRO_CRM.Module.Reports
 {
     partial class InvoiceReporting
     {
@@ -717,7 +717,7 @@
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionName = "localhost_slamscrmdb_Connection";
+            this.sqlDataSource1.ConnectionName = "localhost_CLIENTPROcrmdb_Connection";
             this.sqlDataSource1.Name = "sqlDataSource1";
             customSqlQuery1.Name = "Query";
             customSqlQuery1.Sql = resources.GetString("customSqlQuery1.Sql");

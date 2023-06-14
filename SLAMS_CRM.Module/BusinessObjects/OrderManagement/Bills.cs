@@ -1,9 +1,10 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
 
-namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
     [ImageName("Business_Money")]

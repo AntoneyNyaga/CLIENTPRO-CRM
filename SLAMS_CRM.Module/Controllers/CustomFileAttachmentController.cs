@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 
-namespace SLAMS_CRM.Module.Controllers
+namespace CLIENTPRO_CRM.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class CustomFileAttachmentController : ViewController<DetailView>

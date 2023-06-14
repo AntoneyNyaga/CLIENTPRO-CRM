@@ -1,17 +1,18 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement;
-using SLAMS_CRM.Module.BusinessObjects.CustomerService;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
-using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.Collections.ObjectModel;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
-namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
 {
     [DefaultClassOptions]
     [NavigationItem("Accounting")]
@@ -208,7 +209,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
         }
 
 
-        [DevExpress.Xpo.Association("Account-PurchaseOrders")]
+        [Association("Account-PurchaseOrders")]
         public XPCollection<PurchaseOrder> PurchaseOrders
         {
             get
@@ -244,7 +245,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
             }
         }
 
-        [DevExpress.Xpo.Association("Account-Invoices")]
+        [Association("Account-Invoices")]
         public XPCollection<Invoice> Invoices { get { return GetCollection<Invoice>(nameof(Invoices)); } }
     }
 

@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 
-namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
 {
     [DefaultClassOptions]
     [NavigationItem("Inbox")]

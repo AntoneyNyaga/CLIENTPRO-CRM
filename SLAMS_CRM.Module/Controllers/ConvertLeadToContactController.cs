@@ -1,12 +1,12 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 
-namespace SLAMS_CRM.Module.Controllers
+namespace CLIENTPRO_CRM.Module.Controllers
 {
     public partial class ConvertLeadToContactController : ObjectViewController<ListView, Lead>
     {

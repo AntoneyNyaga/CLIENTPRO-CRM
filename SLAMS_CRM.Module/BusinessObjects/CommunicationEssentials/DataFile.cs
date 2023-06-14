@@ -3,7 +3,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Shared.BusinessObjects.CommunicationEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
 {
     [ImageName("BO_Attachment")]
     [DefaultClassOptions]

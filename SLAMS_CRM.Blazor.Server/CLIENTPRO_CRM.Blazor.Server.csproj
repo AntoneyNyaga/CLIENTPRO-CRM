@@ -36,7 +36,7 @@
     <PackageReference Include="MySqlConnector" Version="2.2.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SLAMS_CRM.Module\SLAMS_CRM.Module.csproj" />
+    <ProjectReference Include="..\SLAMS_CRM.Module\CLIENTPRO_CRM.Module.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />

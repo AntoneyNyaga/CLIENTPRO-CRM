@@ -1,9 +1,10 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 
-namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
     [ImageName("CustomerQuickSales")]
@@ -62,11 +63,11 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
         }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
+        [Aggregated]
         public Address BillingAddress { get; set; }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [DevExpress.Xpo.Aggregated]
+        [Aggregated]
         public Address ShippingAddress { get; set; }
 
         [Association("SalesOrder-Products")]

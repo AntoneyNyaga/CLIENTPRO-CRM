@@ -1,10 +1,10 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 
-namespace SLAMS_CRM.Module.BusinessObjects.AccountingEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
 {
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]

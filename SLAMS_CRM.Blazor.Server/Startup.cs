@@ -1,4 +1,7 @@
-﻿using DevExpress.AspNetCore.Reporting;
+﻿using CLIENTPRO_CRM.Blazor.Server.Services;
+using CLIENTPRO_CRM.Module;
+using CLIENTPRO_CRM.Module.BusinessObjects;
+using DevExpress.AspNetCore.Reporting;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
@@ -11,9 +14,8 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server.Circuits;
-using SLAMS_CRM.Blazor.Server.Services;
 
-namespace SLAMS_CRM.Blazor.Server;
+namespace CLIENTPRO_CRM.Blazor.Server;
 
 public class Startup
 {
@@ -79,7 +81,7 @@ public class Startup
             Configuration,
             builder =>
             {
-                builder.UseApplication<SLAMS_CRMBlazorApplication>();
+                builder.UseApplication<CLIENTPRO_CRMBlazorApplication>();
                 builder.Modules
                     .AddAuditTrailXpo()
                     .AddCloningXpo()
@@ -99,8 +101,8 @@ public class Startup
                             options.ShowAdditionalNavigation = true;
                         })
                     .AddValidation()
-                    .Add<SLAMS_CRM.Module.SLAMS_CRMModule>()
-                    .Add<SLAMS_CRMBlazorModule>();
+                    .Add<CLIENTPRO_CRMModule>()
+                    .Add<CLIENTPRO_CRMBlazorModule>();
                 builder.ObjectSpaceProviders
                     .AddSecuredXpo(
                         (serviceProvider, options) =>
@@ -129,10 +131,10 @@ public class Startup
                             options.RoleType = typeof(PermissionPolicyRole);
                             // ApplicationUser descends from PermissionPolicyUser and supports the OAuth authentication. For more information, refer to the following topic: https://docs.devexpress.com/eXpressAppFramework/402197
                             // If your application uses PermissionPolicyUser or a custom user type, set the UserType property as follows:
-                            options.UserType = typeof(SLAMS_CRM.Module.BusinessObjects.ApplicationUser);
+                            options.UserType = typeof(ApplicationUser);
                             // ApplicationUserLoginInfo is only necessary for applications that use the ApplicationUser user type.
                             // If you use PermissionPolicyUser or a custom user type, comment out the following line:
-                            options.UserLoginInfoType = typeof(SLAMS_CRM.Module.BusinessObjects.ApplicationUserLoginInfo);
+                            options.UserLoginInfoType = typeof(ApplicationUserLoginInfo);
                             options.UseXpoPermissionsCaching();
                         })
                     .AddPasswordAuthentication(

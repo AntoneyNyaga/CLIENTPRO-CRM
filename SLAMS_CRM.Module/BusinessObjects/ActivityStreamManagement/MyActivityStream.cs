@@ -1,12 +1,13 @@
-﻿using DevExpress.Data.Filtering;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace SLAMS_CRM.Module.BusinessObjects.ActivityStreamManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 {
     //[DefaultClassOptions]
-    //[NavigationItem("SLAMS CRM")]
+    //[NavigationItem("CLIENTPRO CRM")]
     public class MyActivityStream : BaseObject
     {
         public MyActivityStream(Session session) : base(session)

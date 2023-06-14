@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.Utils;
 using System.Reflection;
 
-namespace SLAMS_CRM.Blazor.Server;
+namespace CLIENTPRO_CRM.Blazor.Server;
 
 public class Program : IDesignTimeApplicationFactory
 {
@@ -29,12 +29,12 @@ public class Program : IDesignTimeApplicationFactory
         }
         else
         {
-            DevExpress.ExpressApp.FrameworkSettings.DefaultSettingsCompatibilityMode = DevExpress.ExpressApp.FrameworkSettingsCompatibilityMode.Latest;
+            FrameworkSettings.DefaultSettingsCompatibilityMode = FrameworkSettingsCompatibilityMode.Latest;
             IHost host = CreateHostBuilder(args).Build();
             if (ContainsArgument(args, "updateDatabase"))
             {
                 using var serviceScope = host.Services.CreateScope();
-                return serviceScope.ServiceProvider.GetRequiredService<DevExpress.ExpressApp.Utils.IDBUpdater>().Update(ContainsArgument(args, "forceUpdate"), ContainsArgument(args, "silent"));
+                return serviceScope.ServiceProvider.GetRequiredService<IDBUpdater>().Update(ContainsArgument(args, "forceUpdate"), ContainsArgument(args, "silent"));
             }
             else
             {

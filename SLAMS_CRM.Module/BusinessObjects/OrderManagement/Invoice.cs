@@ -1,12 +1,12 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.Settings;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
-using SLAMS_CRM.Module.BusinessObjects.Settings;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
     [DefaultProperty("InvoiceNumber")]

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 
-namespace SLAMS_CRM.Blazor.Server.Services;
+namespace CLIENTPRO_CRM.Blazor.Server.Services;
 
 internal class ProxyHubConnectionHandler<THub> : HubConnectionHandler<THub> where THub : Hub
 {
@@ -19,7 +19,7 @@ internal class ProxyHubConnectionHandler<THub> : HubConnectionHandler<THub> wher
         IValueManagerStorageContainerInitializer storageContainerAccessor)
         : base(lifetimeManager, protocolResolver, globalHubOptions, hubOptions, loggerFactory, userIdProvider, serviceScopeFactory)
     {
-        this.storageContainerInitializer = storageContainerAccessor;
+        storageContainerInitializer = storageContainerAccessor;
     }
 
     public override Task OnConnectedAsync(ConnectionContext connection)

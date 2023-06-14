@@ -1,9 +1,9 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 
-namespace SLAMS_CRM.Module.Controllers
+namespace CLIENTPRO_CRM.Module.Controllers
 {
     public partial class QuoteController : ObjectViewController<ListView, Quote>
     {

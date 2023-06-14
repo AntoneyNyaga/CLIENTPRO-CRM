@@ -3,15 +3,15 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 
-namespace SLAMS_CRM.Module;
+namespace CLIENTPRO_CRM.Module;
 
 // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.ModuleBase.
-public sealed class SLAMS_CRMModule : ModuleBase
+public sealed class CLIENTPRO_CRMModule : ModuleBase
 {
-    public SLAMS_CRMModule()
+    public CLIENTPRO_CRMModule()
     {
         // 
-        // SLAMS_CRMModule
+        // CLIENTPRO_CRMModule
         // 
         AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifference));
         AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifferenceAspect));

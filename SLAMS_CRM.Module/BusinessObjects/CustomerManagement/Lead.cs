@@ -1,14 +1,14 @@
-﻿using DevExpress.ExpressApp.ConditionalAppearance;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]
@@ -17,7 +17,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
 
     public class Lead : Person
     {
-        public Lead(DevExpress.Xpo.Session session) : base(session)
+        public Lead(Session session) : base(session)
         {
         }
 
@@ -49,7 +49,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [ImmediatePostData(true)]
         public string JobTitle { get => jobTitle; set => SetPropertyValue(nameof(JobTitle), ref jobTitle, value); }
 
-        [DevExpress.Xpo.Association("Company-Leads")]
+        [Association("Company-Leads")]
         public Company Company
         {
             get => company;
@@ -261,7 +261,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
             Score = score;
         }
 
-        [DevExpress.Xpo.Association("Lead-Communications")]
+        [Association("Lead-Communications")]
         public XPCollection<Communication> Communications
         {
             get
@@ -273,7 +273,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        [DevExpress.Xpo.Association("Lead-EmailTemplates")]
+        [Association("Lead-EmailTemplates")]
         public XPCollection<EmailTemplate> EmailTemplates
         {
             get

@@ -1,11 +1,11 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CustomerService;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 {
     [DefaultClassOptions]
     [DefaultProperty("Name")]
@@ -111,7 +111,7 @@ namespace SLAMS_CRM.Module.BusinessObjects.OrderManagement
 
     //[DefaultClassOptions]
     [DefaultProperty("Name")]
-    //[NavigationItem("SLAMS CRM")]
+    //[NavigationItem("CLIENTPRO CRM")]
     [ImageName("BO_ProductLine")]
     [Persistent("ProductLine")]
     public class ProductLine : BaseObject

@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.ConditionalAppearance;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -6,7 +7,7 @@ using DevExpress.Xpo;
 using Task = DevExpress.Persistent.BaseImpl.Task;
 
 
-namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
 {
     [DefaultClassOptions]
     [NavigationItem("Inbox")]

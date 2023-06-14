@@ -1,6 +1,6 @@
-﻿using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 
-namespace SLAMS_CRM.Module.Reports
+namespace CLIENTPRO_CRM.Module.Reports
 {
     public partial class InvoiceReporting : DevExpress.XtraReports.UI.XtraReport
     {

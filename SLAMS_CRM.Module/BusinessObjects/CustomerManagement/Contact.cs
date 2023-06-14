@@ -1,12 +1,12 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Collections.ObjectModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]

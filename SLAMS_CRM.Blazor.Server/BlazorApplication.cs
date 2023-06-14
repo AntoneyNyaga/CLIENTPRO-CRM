@@ -1,15 +1,15 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Blazor;
 
-namespace SLAMS_CRM.Blazor.Server;
+namespace CLIENTPRO_CRM.Blazor.Server;
 
-public class SLAMS_CRMBlazorApplication : BlazorApplication
+public class CLIENTPRO_CRMBlazorApplication : BlazorApplication
 {
-    public SLAMS_CRMBlazorApplication()
+    public CLIENTPRO_CRMBlazorApplication()
     {
-        ApplicationName = "SLAMS_CRM";
-        CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
-        DatabaseVersionMismatch += SLAMS_CRMBlazorApplication_DatabaseVersionMismatch;
+        ApplicationName = "CLIENTPRO_CRM";
+        CheckCompatibilityType = CheckCompatibilityType.DatabaseSchema;
+        DatabaseVersionMismatch += CLIENTPRO_CRMBlazorApplication_DatabaseVersionMismatch;
     }
     protected override void OnSetupStarted()
     {
@@ -21,7 +21,7 @@ public class SLAMS_CRMBlazorApplication : BlazorApplication
         }
 #endif
     }
-    private void SLAMS_CRMBlazorApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e)
+    private void CLIENTPRO_CRMBlazorApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e)
     {
 #if EASYTEST
         e.Updater.Update();

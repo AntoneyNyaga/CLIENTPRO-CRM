@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace SLAMS_CRM.Module.BusinessObjects;
+namespace CLIENTPRO_CRM.Module.BusinessObjects;
 
 [DeferredDeletion(false)]
 [Persistent("PermissionPolicyUserLoginInfo")]

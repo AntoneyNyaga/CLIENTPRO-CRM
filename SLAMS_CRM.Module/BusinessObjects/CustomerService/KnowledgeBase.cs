@@ -1,8 +1,9 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace SLAMS_CRM.Module.BusinessObjects.CustomerService
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerService
 {
     [DefaultClassOptions]
     [ImageName("FunctionsInformation")]

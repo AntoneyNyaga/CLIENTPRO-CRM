@@ -1,14 +1,14 @@
-﻿using DevExpress.ExpressApp.Security;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
-using SLAMS_CRM.Module.BusinessObjects.CustomerService;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
-using SLAMS_CRM.Module.BusinessObjects.PipelineManagement;
 using System.ComponentModel;
 
-namespace SLAMS_CRM.Module.BusinessObjects;
+namespace CLIENTPRO_CRM.Module.BusinessObjects;
 
 [MapInheritance(MapInheritanceType.ParentTable)]
 [DefaultProperty(nameof(UserName))]

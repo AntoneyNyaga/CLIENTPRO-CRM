@@ -1,15 +1,15 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 using System.Data;
 using System.Net.Mail;
 
-namespace SLAMS_CRM.Module.Controllers
+namespace CLIENTPRO_CRM.Module.Controllers
 {
     // Placeholder for the InvoiceData class
     public class InvoiceData

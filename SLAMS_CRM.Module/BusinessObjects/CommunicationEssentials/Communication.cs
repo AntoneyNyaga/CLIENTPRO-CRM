@@ -1,14 +1,14 @@
-﻿using DevExpress.ExpressApp.ConditionalAppearance;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
-namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
 {
     [NavigationItem("Inbox")]
     [Persistent("Communication")]
@@ -290,10 +290,10 @@ namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
             get { return GetCollection<EmailTemplate>(nameof(EmailTemplates)); }
         }
 
-        [DevExpress.Xpo.DisplayName("Is Target Contact ?")]
+        [DisplayName("Is Target Contact ?")]
         public bool IsTargetContact
         {
-            get => (bool)isTargetContact;
+            get => isTargetContact;
             set
             {
                 SetPropertyValue(nameof(IsTargetContact), ref isTargetContact, value);

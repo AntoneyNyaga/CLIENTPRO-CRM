@@ -1,11 +1,11 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.CustomerManagement;
 using System.ComponentModel;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
-namespace SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
 {
     [ImageName("BO_Resume")]
     [DefaultProperty(nameof(Name))]

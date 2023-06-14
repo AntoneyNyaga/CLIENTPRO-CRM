@@ -1,14 +1,14 @@
-﻿using DevExpress.ExpressApp;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
-using SLAMS_CRM.Module.BusinessObjects.CommunicationEssentials;
 using System.Collections;
 using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
 
 
-namespace SLAMS_CRM.Module.Controllers
+namespace CLIENTPRO_CRM.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class AssignmentActionsController : ObjectViewController<ObjectView, Assignment>

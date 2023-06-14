@@ -3,7 +3,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
-namespace SLAMS_CRM.Module.BusinessObjects.PipelineManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Sales & Marketing")]

@@ -1,4 +1,4 @@
-﻿namespace SLAMS_CRM.Module.Controllers
+﻿namespace CLIENTPRO_CRM.Module.Controllers
 {
     partial class QuoteController
     {

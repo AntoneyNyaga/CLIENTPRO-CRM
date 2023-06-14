@@ -1,10 +1,10 @@
-﻿using DevExpress.Persistent.Base;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using SLAMS_CRM.Module.BusinessObjects.AccountingEssentials;
-using SLAMS_CRM.Module.BusinessObjects.OrderManagement;
 
-namespace SLAMS_CRM.Module.BusinessObjects.CustomerService
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerService
 {
     [DefaultClassOptions]
     [ImageName("Warning")]
