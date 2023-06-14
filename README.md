@@ -1,6 +1,6 @@
-# SLAMS CRM
+# CLIENTPRO CRM
 
-SLAMS CRM is a customer relationship management system built with DevExpress XAF framework. This application helps businesses manage their sales, customer interactions, and customer data in a single, centralized system.
+CLIENTPRO CRM is a customer relationship management system built with DevExpress XAF framework. This application helps businesses manage their sales, customer interactions, and customer data in a single, centralized system.
 
 ## Features
 
@@ -12,7 +12,7 @@ SLAMS CRM is a customer relationship management system built with DevExpress XAF
 
 ## Installation
 
-To install the SLAMS CRM system, follow these steps:
+To install the CLIENTPRO CRM system, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Open the solution file in Visual Studio.
@@ -25,7 +25,7 @@ To install the SLAMS CRM system, follow these steps:
 
 ## Usage
 
-To use the SLAMS CRM system, follow these steps:
+To use the CLIENTPRO CRM system, follow these steps:
 
 1. Log in with your credentials and the first page you will see is the dashboard <br> <br>
 ![image](https://github.com/Freddy10035/SLAMS_CRM/assets/25669630/6f2bfcdc-71e5-4e1d-9e6c-7a5783e5b62d)
@@ -37,7 +37,7 @@ To use the SLAMS CRM system, follow these steps:
 
 ## Contributing
 
-We welcome contributions from the community. To contribute to the SLAMS CRM project, follow these steps:
+We welcome contributions from the community. To contribute to the CLIENTPRO CRM project, follow these steps:
 - Fork the repository
 - Create a new branch for your feature or bug fix
 - Write code and tests for your feature or bug fix
