@@ -367,3 +367,4 @@ FodyWeavers.xsd
 /SLAMS_CRM.Blazor.Server/SentProposals
 /CLIENTPRO_CRM.Blazor.Server/appsettings.json
 /CLIENTPRO_CRM.Blazor.Server/SentProposals/2023-0001-Proposal.pdf
+/CLIENTPRO_CRM.Module/app.config
