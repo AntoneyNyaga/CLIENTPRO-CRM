@@ -48,7 +48,14 @@ public class Startup
         dictionary.GetDataStoreSchema(typeof(Module.BusinessObjects.CustomerManagement.Contact).Assembly);
 
         // Configure your database connection string and XPO data store
-        string connectionString = "XpoProvider=MySql;server=127.0.0.1;password=;port=3306;user id=root;database=slamscrmdb;Convert Zero Datetime=True;Connect Timeout=120;persist security info=true;Character Set=utf8";
+
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
+
+        var Connectionstring = configuration.GetSection("ConnectionStrings")["Connectionstring"];
+
+        string connectionString = Connectionstring;
         IDataStore dataStore = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
 
         // Initialize ThreadSafeDataLayer
