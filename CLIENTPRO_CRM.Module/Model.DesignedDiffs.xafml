@@ -10,9 +10,8 @@
         <Items>
           <Item Id="Communication_ListView" Index="0" ImageName="BO_Localization" Caption="Communication Essentials" ViewId="">
             <Items>
-              <Item Id="Communication" ViewId="Communication_ListView" Caption="New Email/Call" IsNewNode="True">
+              <Item Id="Communication" ViewId="Communication_ListView" Caption="New" IsNewNode="True">
                 <Items IsNewNode="True">
-                  <Item Id="Email" ViewId="Email_DetailView" IsNewNode="True" />
                   <Item Id="PhoneCall" ViewId="PhoneCall_DetailView" IsNewNode="True" />
                 </Items>
               </Item>
@@ -496,49 +495,6 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <DetailView Id="Email_DetailView">
-      <Items>
-        <PropertyEditor Id="Email" Caption="Email Address" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="39.47876447876448">
-            <LayoutGroup Id="Communication" Index="0" RelativeSize="42.053789731051346">
-              <LayoutGroup Id="Communication_col1" RelativeSize="49.76392823418319">
-                <LayoutItem Id="DateTime" RelativeSize="27.272727272727273" />
-                <LayoutItem Id="Type" RelativeSize="19.696969696969695" />
-                <LayoutGroup Id="Autoa6b55346-eb56-4213-b5c7-c539130757e9" ShowCaption="False" Caption="Autoa6b55346-eb56-4213-b5c7-c539130757e9(7)" Direction="Horizontal" Index="2" RelativeSize="53.03030303030303" IsNewNode="True">
-                  <LayoutItem Id="IsTargetContact" ViewItem="IsTargetContact" Index="0" RelativeSize="44.022770398481974" IsNewNode="True" />
-                  <LayoutGroup Id="Autodebfab72-e7b4-44c9-8651-f182dc4f9083" ShowCaption="False" Caption="Autodebfab72-e7b4-44c9-8651-f182dc4f9083(9)" Index="1" RelativeSize="55.977229601518026" IsNewNode="True">
-                    <LayoutItem Id="Contact" ViewItem="Contact" Index="0" RelativeSize="48.57142857142857" IsNewNode="True" />
-                    <LayoutItem Id="Lead" ViewItem="Lead" Index="1" RelativeSize="51.42857142857143" IsNewNode="True" />
-                  </LayoutGroup>
-                </LayoutGroup>
-                <LayoutItem Id="Contact" RelativeSize="20.967741935483872" Removed="True" />
-                <LayoutItem Id="Lead" RelativeSize="29.032258064516128" Removed="True" />
-                <LayoutItem Id="UseTemplate" Removed="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="Communication_col2" RelativeSize="50.23607176581681">
-                <LayoutItem Id="CustomSubject" RelativeSize="27.272727272727273" />
-                <LayoutItem Id="PhoneNumber" Index="1" RelativeSize="19.696969696969695" />
-                <LayoutItem Id="Email" Index="2" RelativeSize="53.03030303030303" />
-                <LayoutItem Id="IsTargetContact" Index="2" RelativeSize="50" Removed="True" />
-              </LayoutGroup>
-            </LayoutGroup>
-            <LayoutItem Id="UseTemplate" ViewItem="UseTemplate" Index="1" RelativeSize="6.356968215158925" IsNewNode="True" />
-            <LayoutGroup Id="EmailTemplates_Group" ShowCaption="True" Caption="Email Templates" Index="2" RelativeSize="51.58924205378973" IsNewNode="True">
-              <LayoutItem Id="EmailTemplates" ViewItem="EmailTemplates" Index="0" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="60.52123552123552" Caption="Custom Email" ShowCaption="True">
-            <LayoutItem Id="CustomBody" Index="0" RelativeSize="100" ViewItem="CustomBody" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="EmailTemplates_Group" Direction="Vertical" RelativeSize="56.332931242460795" Removed="True">
-            <LayoutItem Id="EmailTemplates" RelativeSize="100" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
     <DetailView Id="EmailTemplate_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">

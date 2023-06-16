@@ -6,8 +6,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
+using DevExpress.ExpressApp.Dashboards.Blazor;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -79,7 +81,7 @@ public class Startup
                 return unitOfWork;
             });
 
-
+        services.AddXafDashboards();
         services.AddRazorPages();
         services.AddServerSideBlazor();
         services.AddHttpContextAccessor();
@@ -98,7 +100,10 @@ public class Startup
                         {
                             options.DashboardDataType = typeof(DevExpress.Persistent.BaseImpl.DashboardData);
                         })
-                    .AddOffice()
+                    //enable mail merge
+                    .AddOffice(options => {
+                        options.RichTextMailMergeDataType = typeof(RichTextMailMergeData);
+                    })
                     .AddReports(
                         options =>
                         {
@@ -185,6 +190,7 @@ public class Startup
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapControllers();
+                endpoints.MapXafDashboards();
             });
     }
 }
