@@ -10,8 +10,19 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
     [ImageName("BO_Resume")]
     [DefaultProperty(nameof(Name))]
 
-    public class EmailTemplate : BaseObject
+    public class EmailTemplate : XPLiteObject
     {
+        int id;
+        [Key(true)]
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public int Id
+        {
+            get { return id; }
+            set { SetPropertyValue(nameof(Id), ref id, value); }
+        }
         public EmailTemplate(Session session)
             : base(session)
         {
