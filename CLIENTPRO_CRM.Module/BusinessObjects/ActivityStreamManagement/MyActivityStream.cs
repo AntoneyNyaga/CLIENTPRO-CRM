@@ -8,8 +8,19 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 {
     //[DefaultClassOptions]
     //[NavigationItem("CLIENTPRO CRM")]
-    public class MyActivityStream : BaseObject
+    public class MyActivityStream : XPLiteObject
     {
+        int id;
+        [Key(true)]
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public int Id
+        {
+            get { return id; }
+            set { SetPropertyValue(nameof(Id), ref id, value); }
+        }
         public MyActivityStream(Session session) : base(session)
         {
         }

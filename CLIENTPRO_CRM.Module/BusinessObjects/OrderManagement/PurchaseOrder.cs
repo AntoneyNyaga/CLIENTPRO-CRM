@@ -11,8 +11,19 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [NavigationItem("Orders")]
 
 
-    public class PurchaseOrder : BaseObject
+    public class PurchaseOrder : XPLiteObject
     {
+        int id;
+        [Key(true)]
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public int Id
+        {
+            get { return id; }
+            set { SetPropertyValue(nameof(Id), ref id, value); }
+        }
         public PurchaseOrder(Session session) : base(session)
         {
         }
