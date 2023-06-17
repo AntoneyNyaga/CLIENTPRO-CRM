@@ -10,8 +10,19 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [ImageName("CustomerQuickSales")]
     [NavigationItem("Orders")]
 
-    public class SalesOrder : BaseObject
+    public class SalesOrder : XPLiteObject
     {
+        int id;
+        [Key(true)]
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public int Id
+        {
+            get { return id; }
+            set { SetPropertyValue(nameof(Id), ref id, value); }
+        }
         public SalesOrder(Session session) : base(session)
         {
         }
