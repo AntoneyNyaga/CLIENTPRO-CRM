@@ -13,9 +13,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [ImageName("BO_Invoice")]
     [NavigationItem("Orders")]
 
-    public class Invoice: XPLiteObject
+    public class Invoice: BaseObject
     {
-        int id;
+       /* int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -25,7 +25,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public Invoice(Session session) : base(session)
         {
         }

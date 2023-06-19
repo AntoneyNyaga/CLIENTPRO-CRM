@@ -9,9 +9,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]
     [ImageName("BO_Department")]
-    public class Company : XPLiteObject
+    public class Company : BaseObject
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -21,7 +21,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public Company(Session session) : base(session)
         {
         }

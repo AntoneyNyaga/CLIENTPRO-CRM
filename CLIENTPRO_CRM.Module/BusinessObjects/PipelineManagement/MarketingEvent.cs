@@ -9,9 +9,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
     [DefaultClassOptions]
     [ImageName("CreateLine3DChart")]
     [NavigationItem("Sales & Marketing")]
-    public class MarketingEvent : XPLiteObject
+    public class MarketingEvent : BaseObject
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -21,7 +21,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public MarketingEvent(Session session)
             : base(session)
         {

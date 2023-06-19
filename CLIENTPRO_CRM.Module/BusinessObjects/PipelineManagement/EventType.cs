@@ -5,9 +5,9 @@ using DevExpress.Xpo;
 namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
 {
 
-    public class EventType : XPLiteObject
+    public class EventType : BaseObject
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -17,7 +17,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public EventType(Session session)
             : base(session)
         {

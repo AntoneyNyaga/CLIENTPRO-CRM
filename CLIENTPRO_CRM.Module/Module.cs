@@ -28,6 +28,9 @@ public sealed class CLIENTPRO_CRMModule : ModuleBase
         RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Office.OfficeModule));
         RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ReportsV2.ReportsModuleV2));
         RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
+        RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Scheduler.SchedulerModuleBase));
+        AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Event));
+        AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Resource));
     }
     public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
     {

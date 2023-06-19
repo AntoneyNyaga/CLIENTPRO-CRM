@@ -92,6 +92,7 @@ public class Startup
             {
                 builder.UseApplication<CLIENTPRO_CRMBlazorApplication>();
                 builder.Modules
+                    .AddScheduler()
                     .AddAuditTrailXpo()
                     .AddCloningXpo()
                     .AddConditionalAppearance()

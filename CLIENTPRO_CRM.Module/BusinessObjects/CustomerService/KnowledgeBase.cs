@@ -9,9 +9,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerService
     [ImageName("FunctionsInformation")]
     [NavigationItem("Customer Service & Settings")]
 
-    public class KnowledgeBase : XPLiteObject
+    public class KnowledgeBase : BaseObject
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -21,7 +21,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerService
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public KnowledgeBase(Session session)
             : base(session)
         {

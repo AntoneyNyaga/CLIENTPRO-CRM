@@ -8,9 +8,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
     [DefaultClassOptions]
     [NavigationItem("Sales & Marketing")]
     [ImageName("ChartPoints")]
-    public class Campaign : XPLiteObject
+    public class Campaign : BaseObject
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -20,7 +20,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public Campaign(Session session)
             : base(session)
         {
