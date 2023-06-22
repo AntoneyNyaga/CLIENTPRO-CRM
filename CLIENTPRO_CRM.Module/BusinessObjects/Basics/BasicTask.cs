@@ -1,13 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     [DefaultProperty("Subject")]
     [ImageName("BO_Task")]

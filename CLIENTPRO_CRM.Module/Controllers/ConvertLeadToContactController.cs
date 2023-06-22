@@ -1,4 +1,5 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Xpo;

@@ -6,7 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     [DefaultProperty("FullName")]
     [ImageName("BO_Person")]

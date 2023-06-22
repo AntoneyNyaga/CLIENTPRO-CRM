@@ -4,12 +4,12 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     [MapInheritance(MapInheritanceType.OwnTable)]
     [DefaultProperty("DisplayName")]
     public abstract class BasicParty : BaseObject
-{
+    {
         /*int id;
         [Key(true)]
 

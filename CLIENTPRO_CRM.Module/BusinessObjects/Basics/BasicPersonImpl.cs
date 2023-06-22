@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.Base;
 using System;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     public class BasicPersonImpl
     {
@@ -127,8 +127,8 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 
         public void SetFullName(string fullName)
         {
-            string text2 = (LastName = "");
-            string text5 = (FirstName = (MiddleName = text2));
+            string text2 = LastName = "";
+            string text5 = FirstName = MiddleName = text2;
             int num = fullName.IndexOf(',');
             if (num > 0)
             {

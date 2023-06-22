@@ -1,5 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
-using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Settings;
 using DevExpress.Persistent.Base;

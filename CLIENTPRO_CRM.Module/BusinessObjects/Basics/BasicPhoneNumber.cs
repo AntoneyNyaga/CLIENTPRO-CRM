@@ -4,7 +4,7 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     [DefaultProperty("Number")]
     public class BasicPhoneNumber : BaseObject, BasicIPhoneNumber

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     public interface BasicIPerson
     {

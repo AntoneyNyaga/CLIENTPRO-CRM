@@ -5,7 +5,7 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     [DefaultProperty("FullAddress")]
     [CalculatedPersistentAlias("FullAddress", "FullAddressPersistentAlias")]
@@ -111,7 +111,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
             set
             {
                 BasicICountry country = address.Country;
-                address.Country = (BasicICountry)value;
+                address.Country = value;
                 OnChanged("Country", country, address.Country);
             }
         }

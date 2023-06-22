@@ -7,7 +7,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Newtonsoft.Json;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     [DefaultProperty("Name")]
     public class BasicCountry : BaseObject, BasicICountry

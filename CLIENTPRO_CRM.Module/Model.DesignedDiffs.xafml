@@ -12,7 +12,7 @@
             <Items>
               <Item Id="Communication" ViewId="Communication_ListView" Caption="New" IsNewNode="True">
                 <Items IsNewNode="True">
-                  <Item Id="PhoneCall" ViewId="PhoneCall_DetailView" IsNewNode="True" />
+                  <Item Id="PhoneCall" ViewId="PhoneCall_ListView" IsNewNode="True" />
                 </Items>
               </Item>
               <Item Id="EmailTemplate" ViewId="EmailTemplate_ListView" ToolTip="Email templates to send to your contacts.&#xD;&#xA;" Caption="Email Templates" IsNewNode="True" />
@@ -146,19 +146,6 @@
               <LayoutItem Id="Priority" RelativeSize="8.125" Index="1" Removed="True" />
               <LayoutItem Id="EstimatedWorkHours" RelativeSize="8.125" Index="2" Removed="True" />
               <LayoutItem Id="ActualWorkHours" RelativeSize="8.125" Index="3" Removed="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="Task" RelativeSize="48.75" Removed="True">
-              <LayoutGroup Id="Task_col1" RelativeSize="50">
-                <LayoutItem Id="AssignedTo" RelativeSize="28.333333333333332" />
-                <LayoutItem Id="DueDate" RelativeSize="21.666666666666668" />
-                <LayoutItem Id="StartDate" RelativeSize="21.666666666666668" />
-                <LayoutItem Id="Subject" RelativeSize="28.333333333333332" />
-              </LayoutGroup>
-              <LayoutGroup Id="Task_col2" RelativeSize="50">
-                <LayoutItem Id="DateCompleted" RelativeSize="50" />
-                <LayoutItem Id="PercentCompleted" RelativeSize="21.666666666666668" />
-                <LayoutItem Id="Status" RelativeSize="28.333333333333332" />
-              </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="AssignedUsers_Group" Direction="Vertical" RelativeSize="54.88721804511278" Index="1">

@@ -2,7 +2,7 @@
 using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
 
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     public interface BasicITask
     {
