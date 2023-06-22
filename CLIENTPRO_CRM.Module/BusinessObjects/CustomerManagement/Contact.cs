@@ -14,7 +14,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
     [ImageName("BO_Person")]
 
 
-    public class Contact : Person
+    public class Contact : BasicPerson
     {
         public Contact(Session session) : base(session)
         {

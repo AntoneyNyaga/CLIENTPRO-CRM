@@ -15,7 +15,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
     [Persistent("Lead")]
     [ImageName("BO_Lead")]
 
-    public class Lead : Person
+    public class Lead : BasicPerson
     {
         public Lead(Session session) : base(session)
         {

@@ -1,5 +1,6 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
 using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
@@ -47,7 +48,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         int isAccountCreated;
         //Invoice invoice;
         string associatedWith;
-        Address shippingAddress;
+        BasicAddress shippingAddress;
         DateTime modifiedOn;
         DateTime createdOn;
         decimal annualRevenue;
@@ -84,7 +85,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         [Aggregated]
         [RuleRequiredField("RuleRequiredField for Account.ShippingAddress", DefaultContexts.Save)]
 
-        public Address ShippingAddress
+        public BasicAddress ShippingAddress
         {
             get => shippingAddress;
             set => SetPropertyValue(nameof(ShippingAddress), ref shippingAddress, value);
