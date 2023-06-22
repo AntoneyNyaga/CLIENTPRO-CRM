@@ -1,51 +1,30 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net.Http;
+using System.Threading.Tasks;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using Newtonsoft.Json;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultProperty("Name")]
-    public class BasicCountry : XPLiteObject, BasicICountry
+    public class BasicCountry : BaseObject, BasicICountry
     {
-        int id;
-        [Key(true)]
-
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
         private string name;
-
         private string phoneCode;
 
         public string Name
         {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                SetPropertyValue("Name", ref name, value);
-            }
+            get { return name; }
+            set { SetPropertyValue(nameof(Name), ref name, value); }
         }
 
         public string PhoneCode
         {
-            get
-            {
-                return phoneCode;
-            }
-            set
-            {
-                SetPropertyValue("PhoneCode", ref phoneCode, value);
-            }
+            get { return phoneCode; }
+            set { SetPropertyValue(nameof(PhoneCode), ref phoneCode, value); }
         }
 
         public BasicCountry(Session session)
@@ -56,6 +35,43 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
         public override string ToString()
         {
             return Name;
+        }
+
+        public static async Task<List<BasicICountry>> GetCountries(Session session)
+        {
+            const string countriesApiUrl = "https://restcountries.com/v3.1/all";
+
+            using var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(countriesApiUrl);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var countries = JsonConvert.DeserializeObject<List<Country>>(content);
+
+            var basicICountries = new List<BasicICountry>();
+            foreach (var country in countries)
+            {
+                var basicICountry = new BasicCountry(session)
+                {
+                    Name = country.Name.Common,
+                    PhoneCode = country.PhoneCode
+                };
+                basicICountries.Add(basicICountry);
+            }
+
+            return basicICountries;
+        }
+
+        private class Country
+        {
+            public CountryName Name { get; set; }
+
+            public string PhoneCode { get; set; }
+        }
+
+        private class CountryName
+        {
+            public string Common { get; set; }
         }
     }
 }

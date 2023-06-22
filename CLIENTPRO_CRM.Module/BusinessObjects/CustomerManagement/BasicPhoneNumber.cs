@@ -7,9 +7,9 @@ using DevExpress.Xpo;
 namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultProperty("Number")]
-    public class BasicPhoneNumber : XPLiteObject, BasicIPhoneNumber
+    public class BasicPhoneNumber : BaseObject, BasicIPhoneNumber
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -19,7 +19,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         private BasicPhoneNumberImpl phone = new BasicPhoneNumberImpl();
 
         private BasicParty party;
@@ -52,7 +52,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
             }
         }
 
-        public string PhoneType
+        public PhoneType PhoneType
         {
             get
             {
@@ -60,7 +60,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
             }
             set
             {
-                string phoneType = phone.PhoneType;
+                PhoneType phoneType = phone.PhoneType;
                 phone.PhoneType = value;
                 OnChanged("PhoneType", phoneType, phone.PhoneType);
             }

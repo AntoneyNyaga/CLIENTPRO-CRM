@@ -4,7 +4,7 @@
     {
         private string number;
 
-        private string phoneType;
+        PhoneType phonetype;
 
         public string Number
         {
@@ -18,15 +18,15 @@
             }
         }
 
-        public string PhoneType
+        public PhoneType PhoneType
         {
             get
             {
-                return phoneType;
+                return phonetype;
             }
             set
             {
-                phoneType = value;
+                phonetype = value;
             }
         }
     }

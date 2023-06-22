@@ -9,9 +9,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]
     [ImageName("BO_Department")]
-    public class Company : XPLiteObject
+    public class Company : BaseObject
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -21,7 +21,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public Company(Session session) : base(session)
         {
         }
@@ -37,7 +37,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         string phoneNumber;
         string companyName;
         string industryType;
-        Address address;
+        BasicAddress address;
 
         [Size(50)]
         public string CompanyName
@@ -61,7 +61,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         [RuleRequiredField("RuleRequiredField for Company.Address", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address Address { get => address; set => SetPropertyValue(nameof(Address), ref address, value); }
+        public BasicAddress Address { get => address; set => SetPropertyValue(nameof(Address), ref address, value); }
 
         [Size(50)]
         public string PhoneNumber

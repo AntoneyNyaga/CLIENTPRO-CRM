@@ -1,4 +1,5 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -76,7 +77,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Settings
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address CompanyAddress { get; set; }
+        public BasicAddress CompanyAddress { get; set; }
     }
 
     public enum BusinessModel

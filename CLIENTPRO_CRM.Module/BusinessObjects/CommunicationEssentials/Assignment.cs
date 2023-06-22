@@ -31,7 +31,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         "Status != 'NotStarted'",
         CustomMessageTemplate = "Cannot set the task completed because it's not started.",
         TargetContextIDs = "MarkCompleted")]
-    public class Assignment : Task, IComparable
+    public class Assignment : BasicTask, IComparable
     {
         private Priority priority;
         private int estimatedWorkHours;

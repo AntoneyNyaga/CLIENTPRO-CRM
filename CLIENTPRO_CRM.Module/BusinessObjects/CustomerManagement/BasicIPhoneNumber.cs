@@ -4,6 +4,14 @@
     {
         string Number { get; set; }
 
-        string PhoneType { get; set; }
+        PhoneType PhoneType { get; set; }
+    }
+
+    public enum PhoneType
+    {
+        Home,
+        Mobile,
+        Work,
+        Other
     }
 }

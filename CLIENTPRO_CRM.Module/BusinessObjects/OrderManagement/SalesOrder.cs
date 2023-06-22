@@ -1,4 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -10,9 +11,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [ImageName("CustomerQuickSales")]
     [NavigationItem("Orders")]
 
-    public class SalesOrder : XPLiteObject
+    public class SalesOrder : BaseObject
     {
-        int id;
+     /*   int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -22,7 +23,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public SalesOrder(Session session) : base(session)
         {
         }
@@ -75,11 +76,11 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address BillingAddress { get; set; }
+        public BasicAddress BillingAddress { get; set; }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address ShippingAddress { get; set; }
+        public BasicAddress ShippingAddress { get; set; }
 
         [Association("SalesOrder-Products")]
         public XPCollection<Product> Products { get { return GetCollection<Product>(nameof(Products)); } }

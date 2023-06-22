@@ -11,9 +11,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [NavigationItem("Orders")]
 
 
-    public class Bills : XPLiteObject 
+    public class Bills : BaseObject 
     {
-        int id;
+       /* int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -23,7 +23,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public Bills(Session session) : base(session)
         {
         }

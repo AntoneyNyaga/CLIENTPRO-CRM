@@ -1,4 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Settings;
 using DevExpress.Persistent.Base;
@@ -13,9 +14,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [ImageName("BO_Invoice")]
     [NavigationItem("Orders")]
 
-    public class Invoice: XPLiteObject
+    public class Invoice: BaseObject
     {
-       int id;
+       /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -25,7 +26,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public Invoice(Session session) : base(session)
         {
         }
@@ -111,9 +112,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
             set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
         }
 
-        public Address BillingAddress { get; set; }
+        public BasicAddress BillingAddress { get; set; }
 
-        public Address ShippingAddress { get; set; }
+        public BasicAddress ShippingAddress { get; set; }
 
         public bool TaxExempt { get => taxExempt; set => SetPropertyValue(nameof(TaxExempt), ref taxExempt, value); }
 

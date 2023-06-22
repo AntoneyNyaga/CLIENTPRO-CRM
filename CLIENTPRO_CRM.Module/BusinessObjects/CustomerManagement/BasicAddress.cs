@@ -9,9 +9,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultProperty("FullAddress")]
     [CalculatedPersistentAlias("FullAddress", "FullAddressPersistentAlias")]
-    public class BasicAddress : XPLiteObject, BasicIAddress
+    public class BasicAddress : BaseObject, BasicIAddress
     {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -21,7 +21,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         private const string defaultFullAddressFormat = "{Country.Name}; {StateProvince}; {City}; {Street}; {ZipPostal}";
 
         private const string defaultfullAddressPersistentAlias = "concat(Country.Name,' ', StateProvince, ' ', City, ' ', Street, ' ', ZipPostal)";

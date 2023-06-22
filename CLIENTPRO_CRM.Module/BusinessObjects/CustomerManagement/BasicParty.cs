@@ -8,9 +8,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {
     [MapInheritance(MapInheritanceType.OwnTable)]
     [DefaultProperty("DisplayName")]
-    public abstract class BasicParty : XPLiteObject
+    public abstract class BasicParty : BaseObject
 {
-        int id;
+        /*int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -20,7 +20,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         private BasicAddress address1;
 
         private BasicAddress address2;

@@ -76,7 +76,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
             Account.Name = FullName;
             Account.EmailAddress = Email;
             Account.ShippingAddress = Address1;
+            Account.Industry = Company.Industry;
             Account.IsAccountCreated = 2;
+
         }
 
         protected override void OnSaving()

@@ -1,5 +1,6 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
 using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -11,9 +12,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [NavigationItem("Orders")]
 
 
-    public class PurchaseOrder : XPLiteObject
+    public class PurchaseOrder : BaseObject
     {
-       int id;
+      /* int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -23,7 +24,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }
+        }*/
         public PurchaseOrder(Session session) : base(session)
         {
         }
@@ -76,11 +77,11 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address BillingAddress { get; set; }
+        public BasicAddress BillingAddress { get; set; }
 
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address ShippingAddress { get; set; }
+        public BasicAddress ShippingAddress { get; set; }
 
         [Association("PurchaseOrder-Products")]
         [VisibleInDetailView(false)]
