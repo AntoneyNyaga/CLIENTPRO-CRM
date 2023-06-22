@@ -73,7 +73,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
                     // Add the phone numbers of the lead to the contact
                     foreach (var phoneNumber in lead.PhoneNumbers)
                     {
-                        var phone = new PhoneNumber(session)
+                        var phone = new BasicPhoneNumber(session)
                         {
                             Number = !string.IsNullOrEmpty(phoneNumber.Number) ? phoneNumber.Number : string.Empty,
                             PhoneType = phoneNumber.PhoneType,

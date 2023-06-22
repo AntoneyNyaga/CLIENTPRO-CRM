@@ -1,5 +1,6 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
 using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
@@ -76,7 +77,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         [RuleRequiredField("RuleRequiredField for Quote.ShippingAddress", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address ShippingAddress
+        public BasicAddress ShippingAddress
         {
             get => shippingAddress;
             set => SetPropertyValue(nameof(ShippingAddress), ref shippingAddress, value);
@@ -85,7 +86,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         //[RuleRequiredField("RuleRequiredField for Quote.BillingAddress", DefaultContexts.Save)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [Aggregated]
-        public Address BillingAddress
+        public BasicAddress BillingAddress
         {
             get => billingAddress;
             set => SetPropertyValue(nameof(BillingAddress), ref billingAddress, value);
@@ -98,8 +99,8 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
         Account account;
         ApplicationUser assignedTo;
-        Address billingAddress;
-        Address shippingAddress;
+        BasicAddress billingAddress;
+        BasicAddress shippingAddress;
         string title;
         string approvalIssues;
         DateTime validUntil;
