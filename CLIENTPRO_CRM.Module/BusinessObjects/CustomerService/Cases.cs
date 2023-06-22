@@ -11,9 +11,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerService
     [NavigationItem("Customer Service & Settings")]
 
 
-    public class Cases : BaseObject
+    public class Cases : XPLiteObject
     {
-        /*int id;
+        int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -23,7 +23,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerService
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public Cases(Session session)
             : base(session)
         {
