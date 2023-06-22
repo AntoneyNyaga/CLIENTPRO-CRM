@@ -8,9 +8,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
     [NavigationItem("Inbox")]
     [ImageName("Actions_Send")]
 
-    public class SentEmail : BaseObject
+    public class SentEmail : XPLiteObject
     {
-        /*int id;
+        int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -20,7 +20,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public SentEmail(Session session) : base(session) { }
 
         Communication communication;

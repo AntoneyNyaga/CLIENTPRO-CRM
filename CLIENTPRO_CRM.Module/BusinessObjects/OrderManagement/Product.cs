@@ -12,9 +12,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [NavigationItem("Accounting")]
     [ImageName("BO_Product")]
     [Persistent("Product")]
-    public class Product : BaseObject
+    public class Product : XPLiteObject
     {
-        /*int id;
+        int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -24,7 +24,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public Product(Session session) : base(session)
         {
         }

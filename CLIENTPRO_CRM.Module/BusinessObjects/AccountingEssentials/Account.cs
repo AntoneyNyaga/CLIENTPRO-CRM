@@ -19,9 +19,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
     [NavigationItem("Accounting")]
     [ImageName("AccountingNumberFormat")]
 
-    public class Account : BaseObject
+    public class Account : XPLiteObject
     {
-        /*int id;
+        int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -31,7 +31,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public Account(Session session) : base(session)
         {
         }

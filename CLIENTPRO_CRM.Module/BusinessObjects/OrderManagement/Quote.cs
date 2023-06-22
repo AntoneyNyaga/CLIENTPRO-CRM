@@ -25,9 +25,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [ImageName("BO_Quote")]
 
 
-    public class Quote : BaseObject
+    public class Quote : XPLiteObject
     {
-        /*int id;
+       int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -37,7 +37,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public Quote(Session session) : base(session)
         {
         }
