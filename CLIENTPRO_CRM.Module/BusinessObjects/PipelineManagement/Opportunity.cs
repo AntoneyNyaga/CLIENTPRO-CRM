@@ -16,9 +16,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
     [Persistent("Opportunity")]
     [ImageName("ProductQuickShippments")]
 
-    public class Opportunity : BaseObject
+    public class Opportunity : XPLiteObject
     {
-        /*int id;
+        int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -28,7 +28,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public Opportunity(Session session) : base(session)
         {
         }

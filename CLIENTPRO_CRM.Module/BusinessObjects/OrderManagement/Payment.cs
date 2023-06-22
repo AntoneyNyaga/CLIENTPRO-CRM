@@ -10,9 +10,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [ImageName("Payment")]
     [NavigationItem("Orders")]
 
-    public class Payment : BaseObject
+    public class Payment : XPLiteObject
     {
-        /*int id;
+       int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -22,7 +22,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public Payment(Session session)
             : base(session)
         {

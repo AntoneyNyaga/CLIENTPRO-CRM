@@ -10,9 +10,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [ImageName("CustomerQuickSales")]
     [NavigationItem("Orders")]
 
-    public class SalesOrder : BaseObject
+    public class SalesOrder : XPLiteObject
     {
-        /*int id;
+        int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -22,7 +22,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public SalesOrder(Session session) : base(session)
         {
         }

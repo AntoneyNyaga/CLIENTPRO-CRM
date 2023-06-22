@@ -4,9 +4,9 @@ using DevExpress.Xpo;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
 {
-    public class SalesPipeline : BaseObject
+    public class SalesPipeline : XPLiteObject
     {
-        /*int id;
+        int id;
         [Key(true)]
 
         [VisibleInDetailView(false)]
@@ -16,7 +16,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         {
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+        }
         public SalesPipeline(Session session)
             : base(session)
         {
