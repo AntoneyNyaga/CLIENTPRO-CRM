@@ -42,6 +42,16 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         {
         }
 
+
+        Opportunity opportunity;
+        Account account;
+        ApplicationUser assignedTo;
+        BasicAddress billingAddress;
+        BasicAddress shippingAddress;
+        string title;
+        string approvalIssues;
+        DateTime validUntil;
+
         public override void AfterConstruction()
         {
             base.AfterConstruction();
@@ -49,6 +59,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
             _lastFollowUp = DateTime.Now;
             DateCreated = DateTime.Now;
         }
+
 
         [VisibleInDetailView(false)]
         public string QuoteNumber { get; set; }
@@ -69,7 +80,12 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
         public DateTime DateCreated { get; set; }
 
-        public Opportunity Opportunity { get; set; }
+        [Association("Opportunity-Quotes")]
+        public Opportunity Opportunity
+        {
+            get => opportunity;
+            set => SetPropertyValue(nameof(Opportunity), ref opportunity, value);
+        }
 
         /*[RuleRequiredField("RuleRequiredField for Quote.Contact", DefaultContexts.Save)]
         public Contact Contact { get; set; }*/
@@ -95,15 +111,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         [RuleRequiredField("RuleRequiredField for Quote.Product", DefaultContexts.Save)]
         [VisibleInListView(false)]
         public Product Product { get; set; }
-
-
-        Account account;
-        ApplicationUser assignedTo;
-        BasicAddress billingAddress;
-        BasicAddress shippingAddress;
-        string title;
-        string approvalIssues;
-        DateTime validUntil;
 
         [RuleRequiredField("RuleRequiredField for Quote.DateCreated", DefaultContexts.Save)]
         public DateTime ValidUntil

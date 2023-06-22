@@ -7,19 +7,9 @@ using DevExpress.Xpo;
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {
     [DefaultProperty("Number")]
+    [ImageName("BO_Phone")]
     public class BasicPhoneNumber : BaseObject, BasicIPhoneNumber
     {
-        /*int id;
-        [Key(true)]
-
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
         private BasicPhoneNumberImpl phone = new BasicPhoneNumberImpl();
 
         private BasicParty party;

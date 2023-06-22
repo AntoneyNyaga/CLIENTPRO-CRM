@@ -40,6 +40,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         }
 
 
+        Account account;
         ApplicationUser assignedTo;
         decimal opportunityAmount;
         DateTime estimatedCloseDate;
@@ -111,7 +112,14 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
+        [Association("Opportunity-Quotes")]
+        public XPCollection<Quote> Quotes
+        {
+            get
+            {
+                return GetCollection<Quote>(nameof(Quotes));
+            }
+        }
 
 
         [VisibleInDetailView(false)]
@@ -154,6 +162,16 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
             {
                 return GetCollection<Invoice>(nameof(Invoices));
             }
+        }
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        [Association("Account-Opportunities")]
+        public Account Account
+        {
+            get => account;
+            set => SetPropertyValue(nameof(Account), ref account, value);
         }
 
         protected override void OnSaving()

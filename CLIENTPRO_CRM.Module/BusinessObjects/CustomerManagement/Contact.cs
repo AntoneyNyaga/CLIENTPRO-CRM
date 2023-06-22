@@ -88,11 +88,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
             Account.Save();
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
-
         [Association("Contact-Communications")]
         public XPCollection<Communication> Communications => GetCollection<Communication>(nameof(Communications));
 

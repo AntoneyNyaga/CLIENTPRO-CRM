@@ -181,7 +181,15 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
             set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
         }
 
-        public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
+        //public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
+        [Association("Account-Opportunities")]
+        public XPCollection<Opportunity> Opportunities
+        {
+            get
+            {
+                return GetCollection<Opportunity>(nameof(Opportunities));
+            }
+        }
 
         protected override void OnSaving()
         {
