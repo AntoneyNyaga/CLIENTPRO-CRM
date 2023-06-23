@@ -1,5 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
-using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;

@@ -1,4 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;

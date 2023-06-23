@@ -1,11 +1,13 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
+using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using System.ComponentModel;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
 {
     [DefaultClassOptions]
     [DefaultProperty("Name")]
@@ -14,17 +16,17 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
     [Persistent("Product")]
     public class Product : BaseObject
     {
-       /* int id;
-        [Key(true)]
+        /* int id;
+         [Key(true)]
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+         [VisibleInDetailView(false)]
+         [VisibleInListView(false)]
+         [VisibleInLookupListView(false)]
+         public int Id
+         {
+             get { return id; }
+             set { SetPropertyValue(nameof(Id), ref id, value); }
+         }*/
         public Product(Session session) : base(session)
         {
         }
@@ -35,7 +37,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         private string _name;
         [RuleRequiredField("RuleRequiredField for Product.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        public string Name { get => _name; set => SetPropertyValue(nameof(Name), ref _name, value); }
+        public string Name { get => _name; set => SetPropertyValue(nameof(Name), ref _name, value?.ToUpper()); }
 
         private string _description;
         [RuleRequiredField("RuleRequiredField for Product.Description", DefaultContexts.Save)]

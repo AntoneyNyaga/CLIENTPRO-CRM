@@ -1,5 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
-using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;

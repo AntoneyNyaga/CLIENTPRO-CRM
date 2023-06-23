@@ -1,6 +1,6 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
@@ -15,11 +15,11 @@ using System.Net;
 using System.Net.Mail;
 
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
 {
     [DefaultClassOptions]
 
-    [NavigationItem("Orders")]
+    [NavigationItem("Financials")]
     [DefaultProperty("Description")]
     [Persistent("Quote")]
     [ImageName("BO_Quote")]
@@ -27,17 +27,17 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
     public class Quote : BaseObject
     {
-      /* int id;
-        [Key(true)]
+        /* int id;
+          [Key(true)]
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+          [VisibleInDetailView(false)]
+          [VisibleInListView(false)]
+          [VisibleInLookupListView(false)]
+          public int Id
+          {
+              get { return id; }
+              set { SetPropertyValue(nameof(Id), ref id, value); }
+          }*/
         public Quote(Session session) : base(session)
         {
         }
@@ -66,7 +66,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
         [Size(50)]
         [RuleRequiredField("RuleRequiredField for Quote.Title", DefaultContexts.Save)]
-        public string Title { get => title; set => SetPropertyValue(nameof(Title), ref title, value); }
+        public string Title { get => title; set => SetPropertyValue(nameof(Title), ref title, value?.ToUpper()); }
 
         // one to one relationship between Quote and Account
         //public Account Account { get; set; }

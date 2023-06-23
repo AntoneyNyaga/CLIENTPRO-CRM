@@ -43,7 +43,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         public string Subject
         {
             get { return _subject; }
-            set { SetPropertyValue(nameof(Subject), ref _subject, value); }
+            set { SetPropertyValue(nameof(Subject), ref _subject, value?.ToUpper()); }
         }
 
         private string _body;

@@ -33,13 +33,22 @@
           <Item Id="Account_ListView" ImageName="AccountingNumberFormat" />
         </Items>
       </Item>
-      <Item Id="Orders" ImageName="ProductOrderDetail-21" Index="4" />
-      <Item Id="Sales &amp; Marketing" ImageName="BO_Opportunity" Index="5">
+      <Item Id="Financials" ImageName="Business_Cash" Index="4">
+        <Items>
+          <Item Id="Payment_ListView" Index="0" />
+          <Item Id="Bills_ListView" Index="1" />
+          <Item Id="Invoice_ListView" Caption="Invoices" />
+          <Item Id="Quote_ListView" Caption="Proposals" />
+        </Items>
+      </Item>
+      <Item Id="Orders" ImageName="ProductOrderDetail-21" Index="5" />
+      <Item Id="Sales &amp; Marketing" ImageName="BO_Opportunity" Index="6">
         <Items>
           <Item Id="Event_ListView" ViewId="Event_ListView" ObjectKey="" Caption="Event Scheduler" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="Customer Service &amp; Settings" Index="6" ImageName="ModelEditor_Settings">
+      <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="7" />
+      <Item Id="Customer Service &amp; Settings" Index="8" ImageName="ModelEditor_Settings">
         <Items>
           <Item Id="Administration" ImageName="ShowAllValue" IsNewNode="True">
             <Items IsNewNode="True">
@@ -48,8 +57,7 @@
           </Item>
         </Items>
       </Item>
-      <Item Id="Reports" ImageName="Action_Report_Object_Inplace_Preview" Index="7" />
-      <Item Id="Default">
+      <Item Id="Default" Caption="Profile" ImageName="EmployeeProfile">
         <Items>
           <Item Id="Event_ListView" Removed="True" />
         </Items>

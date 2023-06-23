@@ -1,28 +1,26 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
 {
     [DefaultClassOptions]
     [ImageName("Payment")]
-    [NavigationItem("Orders")]
+    [NavigationItem("Financials")]
 
     public class Payment : BaseObject
     {
-      /* int id;
-        [Key(true)]
+        /* int id;
+          [Key(true)]
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+          [VisibleInDetailView(false)]
+          [VisibleInListView(false)]
+          [VisibleInLookupListView(false)]
+          public int Id
+          {
+              get { return id; }
+              set { SetPropertyValue(nameof(Id), ref id, value); }
+          }*/
         public Payment(Session session)
             : base(session)
         {

@@ -1,5 +1,6 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -55,7 +56,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         public string OpportunityName
         {
             get => opportunityName;
-            set => SetPropertyValue(nameof(OpportunityName), ref opportunityName, value);
+            set => SetPropertyValue(nameof(OpportunityName), ref opportunityName, value?.ToUpper());
         }
 
 

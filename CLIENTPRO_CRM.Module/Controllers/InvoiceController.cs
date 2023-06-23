@@ -1,4 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;

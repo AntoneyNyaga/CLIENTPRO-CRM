@@ -27,7 +27,15 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
             base.AfterConstruction();
         }
 
-        public string EventTypeName { get; set; }
+        //public string EventTypeName { get; set; }
+
+        string eventTypeName;
+
+        public string EventTypeName
+        {
+            get => eventTypeName;
+            set => SetPropertyValue(nameof(EventTypeName), ref eventTypeName, value?.ToUpper());
+        }
 
     }
 }

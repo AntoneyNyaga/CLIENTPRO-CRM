@@ -1,5 +1,7 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
 using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
+using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using DevExpress.ExpressApp.Security;

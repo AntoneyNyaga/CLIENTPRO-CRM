@@ -1,7 +1,7 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
+using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using DevExpress.ExpressApp;
@@ -13,7 +13,7 @@ using DevExpress.Xpo;
 using System.Collections.ObjectModel;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Accounting")]
@@ -61,7 +61,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         string indType;
 
         [RuleRequiredField("RuleRequiredField for Account.Name", DefaultContexts.Save)]
-        public string Name { get => name; set => SetPropertyValue(nameof(Name), ref name, value); }
+        public string Name { get => name; set => SetPropertyValue(nameof(Name), ref name, value?.ToUpper()); }
 
 
         public string Website { get => website; set => SetPropertyValue(nameof(Website), ref website, value); }

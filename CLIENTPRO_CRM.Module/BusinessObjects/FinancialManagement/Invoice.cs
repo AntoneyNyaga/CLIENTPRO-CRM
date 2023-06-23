@@ -1,5 +1,6 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
+using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Settings;
 using DevExpress.Persistent.Base;
@@ -7,26 +8,26 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using System.ComponentModel;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
+namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
 {
     [DefaultClassOptions]
     [DefaultProperty("InvoiceNumber")]
     [ImageName("BO_Invoice")]
-    [NavigationItem("Orders")]
+    [NavigationItem("Financials")]
 
-    public class Invoice: BaseObject
+    public class Invoice : BaseObject
     {
-       /*int id;
-        [Key(true)]
+        /*int id;
+         [Key(true)]
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+         [VisibleInDetailView(false)]
+         [VisibleInListView(false)]
+         [VisibleInLookupListView(false)]
+         public int Id
+         {
+             get { return id; }
+             set { SetPropertyValue(nameof(Id), ref id, value); }
+         }*/
         public Invoice(Session session) : base(session)
         {
         }

@@ -1,5 +1,7 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
+using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -32,7 +34,13 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         [VisibleInDetailView(false)]
         public string SalesOrderNumber { get; set; }
 
-        public string SalesOrderSubject { get; set; }
+        //public string SalesOrderSubject { get; set; }
+        
+        public string SalesOrderSubject
+        {
+            get => salesOrderSubject;
+            set => SetPropertyValue(nameof(SalesOrderSubject), ref salesOrderSubject, value?.ToUpper());
+        }
 
         public DateTime SalesOrderDate { get; set; }
 
@@ -41,6 +49,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         [Size(4096)]
         public string Notes { get; set; }
 
+        string salesOrderSubject;
         PurchaseOrder relatedPurchaseOrder;
         Quote relatedQuote;
         Opportunity opportunity;

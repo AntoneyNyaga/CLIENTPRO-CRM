@@ -1,6 +1,7 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials;
+using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
+using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -33,7 +34,13 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         [VisibleInDetailView(false)]
         public string PurchaseOrderNumber { get; set; }
 
-        public string PurchaseOrderSubject { get; set; }
+        //public string PurchaseOrderSubject { get; set; }
+        
+        public string PurchaseOrderSubject
+        {
+            get => purchaseOrderSubject;
+            set => SetPropertyValue(nameof(PurchaseOrderSubject), ref purchaseOrderSubject, value?.ToUpper());
+        }
 
         public DateTime PurchaseOrderDate { get; set; }
 
@@ -47,6 +54,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         public string Notes { get; set; }
 
 
+        string purchaseOrderSubject;
         Invoice relatedInvoice;
         Account supplier;
         SalesOrder relatedSalesOrder;

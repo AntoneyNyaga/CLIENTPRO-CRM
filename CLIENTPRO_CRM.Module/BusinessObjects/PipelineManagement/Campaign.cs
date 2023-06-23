@@ -31,7 +31,13 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         }
 
         [RuleRequiredField]
-        public string Name { get; set; }
+        //public string Name { get; set; }
+        
+        public string Name
+        {
+            get => name;
+            set => SetPropertyValue(nameof(Name), ref name, value?.ToUpper());
+        }
         public string Description { get; set; }
 
         [RuleRequiredField]
@@ -41,6 +47,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         public CampaignType? Type { get; set; }
 
         //assignedTo
+        string name;
         ApplicationUser assignedTo;
 
         [RuleRequiredField]

@@ -1,4 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 
 namespace CLIENTPRO_CRM.Module.Reports
 {

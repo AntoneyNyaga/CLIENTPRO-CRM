@@ -1,11 +1,11 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
-using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
-namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
+namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {
     [DefaultClassOptions]
     [NavigationItem("Clients and Leads")]
@@ -44,7 +44,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingEssentials
         public string CompanyName
         {
             get => companyName;
-            set => SetPropertyValue(nameof(CompanyName), ref companyName, value);
+            set => SetPropertyValue(nameof(CompanyName), ref companyName, value?.ToUpper());
         }
 
         [VisibleInDetailView(false)]

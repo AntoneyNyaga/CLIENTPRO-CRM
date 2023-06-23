@@ -40,7 +40,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         public string Name
         {
             get { return _name; }
-            set { SetPropertyValue(nameof(Name), ref _name, value); }
+            set { SetPropertyValue(nameof(Name), ref _name, value?.ToUpper()); }
         }
 
         private string _subject;
@@ -48,7 +48,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         public string Subject
         {
             get { return _subject; }
-            set { SetPropertyValue(nameof(Subject), ref _subject, value); }
+            set { SetPropertyValue(nameof(Subject), ref _subject, value?.ToUpper()); }
         }
 
         [Size(SizeAttribute.Unlimited)]

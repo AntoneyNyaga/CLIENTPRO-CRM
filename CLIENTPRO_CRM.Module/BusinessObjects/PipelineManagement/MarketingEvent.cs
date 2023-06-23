@@ -1,5 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -31,13 +31,20 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
             base.AfterConstruction();
         }
 
-        public string EventName { get; set; }
+        //public string EventName { get; set; }
+        
+        public string EventName
+        {
+            get => eventName;
+            set => SetPropertyValue(nameof(EventName), ref eventName, value?.ToUpper());
+        }
         public string EventDescription { get; set; }
         public EventType Type { get; set; }
         public Product Product { get; set; }
         public string NumberOfSessions { get; set; }
         public EventFormatType? Format { get; set; }
 
+        string eventName;
         ApplicationUser assignedTo;
 
         [Association("ApplicationUser-MarketingEvents")]
