@@ -1,4 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
@@ -27,17 +28,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
 
     public class Quote : BaseObject
     {
-        /* int id;
-          [Key(true)]
-
-          [VisibleInDetailView(false)]
-          [VisibleInListView(false)]
-          [VisibleInLookupListView(false)]
-          public int Id
-          {
-              get { return id; }
-              set { SetPropertyValue(nameof(Id), ref id, value); }
-          }*/
         public Quote(Session session) : base(session)
         {
         }
@@ -380,15 +370,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
             Save();
         }
 
-        protected override void OnSaving()
-        {
-            base.OnSaving();
-            if (Session.IsNewObject(this))
-            {
-                GenerateQuoteNumber();
-            }
-        }
-
         private void GenerateQuoteNumber()
         {
             const string QuoteNumberFormat = "{0}-{1:0000}";
@@ -406,6 +387,60 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
                 var currentYear = DateTime.Today.Year;
                 QuoteNumber = string.Format(QuoteNumberFormat, currentYear, 1);
             }
+        }
+
+        DateTime modifiedOn;
+        DateTime createdOn;
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime CreatedOn
+        {
+            get => createdOn;
+            set => SetPropertyValue(nameof(CreatedOn), ref createdOn, value);
+        }
+
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime ModifiedOn
+        {
+            get => modifiedOn;
+            set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
+        }
+
+        protected override void OnSaving()
+        {
+            if (Session.IsNewObject(this))
+            {
+                CreatedOn = DateTime.Now;
+                AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            else
+            {
+                AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            ModifiedOn = DateTime.Now;
+
+            if (Session.IsNewObject(this))
+            {
+                GenerateQuoteNumber();
+            }
+            base.OnSaving();
+        }
+
+        private void AddActivityStreamEntry(string action, ApplicationUser applicationUser)
+        {
+            var activityStreamEntry = new MyActivityStream(Session)
+            {
+                AccountName = QuoteNumber,
+                Action = action,
+                Date = DateTime.Now,
+                CreatedBy = applicationUser?.UserName
+            };
+            activityStreamEntry.Save(GetType().Name); // Pass the class name as a parameter
         }
     }
 

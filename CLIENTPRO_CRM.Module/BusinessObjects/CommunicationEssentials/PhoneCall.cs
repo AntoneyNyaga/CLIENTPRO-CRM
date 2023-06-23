@@ -1,4 +1,6 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System.ComponentModel;
@@ -46,5 +48,32 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         public Contact Participant { get; set; }
+
+        protected override void OnSaving()
+        {
+            if (Session.IsNewObject(this))
+            {
+                CreatedOn = DateTime.Now;
+                AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            else
+            {
+                AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            ModifiedOn = DateTime.Now;
+            base.OnSaving();
+        }
+
+        private void AddActivityStreamEntry(string action, ApplicationUser applicationUser)
+        {
+            var activityStreamEntry = new MyActivityStream(Session)
+            {
+                AccountName = Subject,
+                Action = action,
+                Date = DateTime.Now,
+                CreatedBy = applicationUser?.UserName
+            };
+            activityStreamEntry.Save(GetType().Name); // Pass the class name as a parameter
+        }
     }
 }

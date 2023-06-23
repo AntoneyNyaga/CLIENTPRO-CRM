@@ -6,35 +6,20 @@ using DevExpress.Xpo;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 {
-    //[DefaultClassOptions]
-    //[NavigationItem("CLIENTPRO CRM")]
     public class MyActivityStream : BaseObject
     {
-        /*int id;
-        [Key(true)]
-
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
         public MyActivityStream(Session session) : base(session)
         {
         }
 
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
-        }
+        public override void AfterConstruction() { base.AfterConstruction(); }
 
         private string createdBy;
         private DateTime date;
         private string action;
         private string accountName;
+        DateTime modifiedOn;
+        DateTime createdOn;
 
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -63,6 +48,36 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string CreatedBy { get => createdBy; set => SetPropertyValue(nameof(CreatedBy), ref createdBy, value); }
 
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        public string ClassName { get; set; }
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime CreatedOn
+        {
+            get => createdOn;
+            set => SetPropertyValue(nameof(CreatedOn), ref createdOn, value);
+        }
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime ModifiedOn
+        {
+            get => modifiedOn;
+            set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
+        }
+
+        public void Save(string className)
+        {
+            ClassName = className;
+            base.Save();
+        }
+
 
         [VisibleInListView(true)]
         [VisibleInDetailView(true)]
@@ -70,9 +85,35 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         {
             get
             {
-                string createdByText = string.IsNullOrEmpty(CreatedBy) ? "Someone" : CreatedBy;
-                string actionText = Action == "created" ? "created a new" : "modified the";
-                return $"{createdByText} {actionText} contact {AccountName}{Environment.NewLine} {((DateTime.Now - Date).Hours > 0 ? (DateTime.Now - Date).Hours + " Hours " : "") + (DateTime.Now - Date).Minutes + " Minutes ago"}";
+                string createdByUserText = string.IsNullOrEmpty(CreatedBy) ? "Someone" : CreatedBy;
+                string actionDescription = Action == "created" ? "added" : "modified";
+                string classText = string.IsNullOrEmpty(ClassName) ? "an item" : $"a {ClassName} item";
+                string timeAgo = GetTimeAgo(Date);
+
+                return $"{createdByUserText} {actionDescription} {classText} '{AccountName}'\n{timeAgo}";
+            }
+        }
+
+
+        private string GetTimeAgo(DateTime dateTime)
+        {
+            TimeSpan timeDifference = DateTime.Now - dateTime;
+
+            if(timeDifference.TotalMinutes < 1)
+            {
+                return "Just now";
+            } else if(timeDifference.TotalHours < 1)
+            {
+                int minutes = (int)timeDifference.TotalMinutes;
+                return $"{minutes} minute{(minutes != 1 ? "s" : "")} ago";
+            } else if(timeDifference.TotalDays < 1)
+            {
+                int hours = (int)timeDifference.TotalHours;
+                return $"{hours} hour{(hours != 1 ? "s" : "")} ago";
+            } else
+            {
+                int days = (int)timeDifference.TotalDays;
+                return $"{days} day{(days != 1 ? "s" : "")} ago";
             }
         }
 
@@ -88,9 +129,10 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
             Session session,
             string action,
             string accountName,
-            ApplicationUser currentUser)
+            ApplicationUser currentUser,
+            string className)
         {
-            if (!HasActivityStreamEntry(session, action, accountName))
+            if(!HasActivityStreamEntry(session, action, accountName))
             {
                 var activityStreamEntry = new MyActivityStream(session)
                 {
@@ -99,8 +141,16 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
                     Date = DateTime.Now,
                     CreatedBy = currentUser?.UserName
                 };
-                activityStreamEntry.Save();
+                activityStreamEntry.Save(className);
             }
+        }
+
+        public static MyActivityStream[] GetRecentActivityStreamEntries(Session session, int count)
+        {
+            return session.Query<MyActivityStream>()
+                .OrderByDescending(entry => entry.ModifiedOn)
+                .Take(count)
+                .ToArray();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
+using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -89,6 +91,55 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         {
             get { return actualWorkHours; }
             set { SetPropertyValue<int>(nameof(ActualWorkHours), ref actualWorkHours, value); }
+        }
+
+        DateTime modifiedOn;
+        DateTime createdOn;
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime CreatedOn
+        {
+            get => createdOn;
+            set => SetPropertyValue(nameof(CreatedOn), ref createdOn, value);
+        }
+
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime ModifiedOn
+        {
+            get => modifiedOn;
+            set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
+        }
+
+        protected override void OnSaving()
+        {
+            if (Session.IsNewObject(this))
+            {
+                CreatedOn = DateTime.Now;
+                AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            else
+            {
+                AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            ModifiedOn = DateTime.Now;
+            base.OnSaving();
+        }
+
+        private void AddActivityStreamEntry(string action, ApplicationUser applicationUser)
+        {
+            var activityStreamEntry = new MyActivityStream(Session)
+            {
+                AccountName = Subject,
+                Action = action,
+                Date = DateTime.Now,
+                CreatedBy = applicationUser?.UserName
+            };
+            activityStreamEntry.Save(GetType().Name); // Pass the class name as a parameter
         }
     }
 

@@ -1,7 +1,9 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
 using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -19,17 +21,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
 
     public class Opportunity : BaseObject
     {
-       /* int id;
-        [Key(true)]
-
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
         public Opportunity(Session session) : base(session)
         {
         }
@@ -175,12 +166,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
             set => SetPropertyValue(nameof(Account), ref account, value);
         }
 
-        protected override void OnSaving()
-        {
-            base.OnSaving();
-            CalculateProbabilityOfClosing();
-        }
-
 
         public void CalculateProbabilityOfClosing()
         {
@@ -198,6 +183,58 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
                 StageType.ClosedLost => 0.9,
                 _ => 1,
             };
+        }
+
+        DateTime modifiedOn;
+        DateTime createdOn;
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime CreatedOn
+        {
+            get => createdOn;
+            set => SetPropertyValue(nameof(CreatedOn), ref createdOn, value);
+        }
+
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime ModifiedOn
+        {
+            get => modifiedOn;
+            set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
+        }
+
+        protected override void OnSaving()
+        {
+            if (Session.IsNewObject(this))
+            {
+                CreatedOn = DateTime.Now;
+                AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            else
+            {
+                AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            ModifiedOn = DateTime.Now;
+
+            CalculateProbabilityOfClosing();
+
+            base.OnSaving();
+        }
+
+        private void AddActivityStreamEntry(string action, ApplicationUser applicationUser)
+        {
+            var activityStreamEntry = new MyActivityStream(Session)
+            {
+                AccountName = OpportunityName,
+                Action = action,
+                Date = DateTime.Now,
+                CreatedBy = applicationUser?.UserName
+            };
+            activityStreamEntry.Save(GetType().Name); // Pass the class name as a parameter
         }
     }
 

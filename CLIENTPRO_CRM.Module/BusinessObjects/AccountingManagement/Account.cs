@@ -21,17 +21,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
 
     public class Account : BaseObject
     {
-        /*int id;
-        [Key(true)]
-
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
         public Account(Session session) : base(session)
         {
         }
@@ -46,14 +35,12 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
 
 
         int isAccountCreated;
-        //Invoice invoice;
         string associatedWith;
         BasicAddress shippingAddress;
         DateTime modifiedOn;
         DateTime createdOn;
         decimal annualRevenue;
         string description;
-        //PhoneNumber officePhone;
         string emailAddress;
         string website;
         string name;
@@ -181,7 +168,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
             set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
         }
 
-        //public IList<Opportunity> Opportunities { get; set; } = new ObservableCollection<Opportunity>();
         [Association("Account-Opportunities")]
         public XPCollection<Opportunity> Opportunities
         {
@@ -215,10 +201,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
                 Date = DateTime.Now,
                 CreatedBy = applicationUser?.UserName
             };
-            activityStreamEntry.Save();
+            activityStreamEntry.Save(GetType().Name); // Pass the class name as a parameter
         }
 
-        //public IList<Quote> Quote { get; set; } = new ObservableCollection<Quote>();
         [Association("Account-Quotes")]
         public XPCollection<Quote> Quotes
         {

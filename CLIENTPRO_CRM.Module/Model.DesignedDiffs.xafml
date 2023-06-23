@@ -19,6 +19,7 @@
               <Item Id="SentEmail_ListView" ViewId="SentEmail_ListView" ObjectKey="" ToolTip="Emails that have been sent to your contacts." Caption="Sent Emails" IsNewNode="True" />
             </Items>
           </Item>
+          <Item Id="Activity_Stream" ImageName="ChartType_SwiftPlot" ViewId="MyActivityStream_ListView" Caption="Activity Feed" IsNewNode="True" />
           <Item Id="SentEmail_ListView" Removed="True" />
         </Items>
       </Item>
@@ -471,7 +472,7 @@
     </ListView>
     <DashboardView Id="Dashboard" IsNewNode="True">
       <Items IsNewNode="True">
-        <DashboardViewItem Id="ActivityStream" ViewId="AuditDataItemPersistent_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="ActivityStream" ViewId="MyActivityStream_ListView" Caption="Activity Feed" IsNewNode="True" />
         <DashboardViewItem Id="Contacts" ViewId="Contact_ListView" IsNewNode="True" />
         <DashboardViewItem Id="Leads" ViewId="Lead_ListView" IsNewNode="True" />
         <DashboardViewItem Id="MyAccounts" ViewId="Account_ListView" IsNewNode="True" />
@@ -482,19 +483,21 @@
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" Direction="Vertical" IsNewNode="True">
           <LayoutGroup Id="Auto5f9706e1-fd49-4409-affa-4feab190bd1a" ShowCaption="False" Caption="Auto5f9706e1-fd49-4409-affa-4feab190bd1a(4)" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
             <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="50" IsNewNode="True">
-              <LayoutItem Id="Sales Pipeline" ViewItem="Sales Pipeline" Index="0" RelativeSize="19.140625" IsNewNode="True" />
-              <LayoutGroup Id="Item1" ShowCaption="True" Caption="Contacts" CaptionLocation="Top" Index="1" RelativeSize="36.588541666666664" IsNewNode="True">
+              <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="19.07514450867052" Caption="Sales Pipeline" IsNewNode="True">
+                <LayoutItem Id="Sales Pipeline" ViewItem="Sales Pipeline" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item1" ShowCaption="True" Caption="Contacts" CaptionLocation="Top" Index="1" RelativeSize="36.51252408477842" IsNewNode="True">
                 <LayoutItem Id="Contacts" ViewItem="Contacts" Index="0" RelativeSize="100" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Item2" ShowCaption="True" Caption="Leads" CaptionLocation="Top" Index="2" RelativeSize="44.270833333333336" IsNewNode="True">
+              <LayoutGroup Id="Item2" ShowCaption="True" Caption="Leads" CaptionLocation="Top" Index="2" RelativeSize="44.41233140655106" IsNewNode="True">
                 <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50" IsNewNode="True">
-              <LayoutGroup Id="Item5" ShowCaption="True" Caption="My Activity Stream" CaptionLocation="Top" Index="0" RelativeSize="40.755208333333336" IsNewNode="True">
+              <LayoutGroup Id="Item5" ShowCaption="True" Caption="Activity Feed" CaptionLocation="Top" Index="0" RelativeSize="40.7514450867052" IsNewNode="True">
                 <LayoutItem Id="ActivityStream" ViewItem="ActivityStream" Index="0" RelativeSize="100" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Item4" ShowCaption="True" Caption="My Accounts" CaptionLocation="Top" Index="1" RelativeSize="59.244791666666664" IsNewNode="True">
+              <LayoutGroup Id="Item4" ShowCaption="True" Caption="My Accounts" CaptionLocation="Top" Index="1" RelativeSize="59.2485549132948" IsNewNode="True">
                 <LayoutItem Id="MyAccounts" ViewItem="MyAccounts" Index="0" RelativeSize="100" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>

@@ -1,8 +1,10 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Settings;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -17,17 +19,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
 
     public class Invoice : BaseObject
     {
-        /*int id;
-         [Key(true)]
-
-         [VisibleInDetailView(false)]
-         [VisibleInListView(false)]
-         [VisibleInLookupListView(false)]
-         public int Id
-         {
-             get { return id; }
-             set { SetPropertyValue(nameof(Id), ref id, value); }
-         }*/
         public Invoice(Session session) : base(session)
         {
         }
@@ -131,14 +122,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
 
         public ShippingProviderType ShippingProvider { get; set; }
 
-        protected override void OnSaving()
-        {
-            base.OnSaving();
-            if (Session.IsNewObject(this))
-            {
-                GenerateInvoiceNumber();
-            }
-        }
 
         private void GenerateInvoiceNumber()
         {
@@ -157,6 +140,60 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
             {
                 InvoiceNumber = string.Format(InvoiceNumberFormat, DateTime.Today.Year, DateTime.Today.Month, 1);
             }
+        }
+
+        DateTime modifiedOn;
+        DateTime createdOn;
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime CreatedOn
+        {
+            get => createdOn;
+            set => SetPropertyValue(nameof(CreatedOn), ref createdOn, value);
+        }
+
+
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime ModifiedOn
+        {
+            get => modifiedOn;
+            set => SetPropertyValue(nameof(ModifiedOn), ref modifiedOn, value);
+        }
+
+        protected override void OnSaving()
+        {
+            if (Session.IsNewObject(this))
+            {
+                CreatedOn = DateTime.Now;
+                AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            else
+            {
+                AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
+            }
+            ModifiedOn = DateTime.Now;
+
+            if (Session.IsNewObject(this))
+            {
+                GenerateInvoiceNumber();
+            }
+            base.OnSaving();
+        }
+
+        private void AddActivityStreamEntry(string action, ApplicationUser applicationUser)
+        {
+            var activityStreamEntry = new MyActivityStream(Session)
+            {
+                AccountName = InvoiceNumber,
+                Action = action,
+                Date = DateTime.Now,
+                CreatedBy = applicationUser?.UserName
+            };
+            activityStreamEntry.Save(GetType().Name); // Pass the class name as a parameter
         }
     }
 }
