@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using DevExpress.ExpressApp.Utils;
+using System.ComponentModel.DataAnnotations;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
@@ -15,6 +17,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
         private BasicParty party;
 
         [Persistent]
+   
         public string Number
         {
             get
@@ -29,7 +32,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
             }
         }
 
-        [Association("BasicParty-BasicPhoneNumbers")]
+        [DevExpress.Xpo.Association("BasicParty-BasicPhoneNumbers")]
         public BasicParty Party
         {
             get

@@ -170,7 +170,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
             {
                 UpdateScore();
             }
-            if (propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address1))
+            if (propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address))
             {
                 UpdateAccount();
             }
@@ -190,7 +190,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 
             Account.Name = FullName;
             Account.EmailAddress = Email;
-            Account.ShippingAddress = Address1;
+            Account.ShippingAddress = Address;
             Account.Industry = Company?.Industry;
             Account.IsAccountCreated = 1;
         }

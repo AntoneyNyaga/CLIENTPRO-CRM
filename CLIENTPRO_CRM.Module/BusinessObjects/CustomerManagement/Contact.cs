@@ -76,7 +76,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 
             Account.Name = FullName;
             Account.EmailAddress = Email;
-            Account.ShippingAddress = Address1;
+            Account.ShippingAddress = Address;
             Account.Industry = Company?.Industry;
             Account.IsAccountCreated = 2;
 
@@ -115,7 +115,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
         {
             base.OnChanged(propertyName, oldValue, newValue);
 
-            if (propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address1))
+            if (propertyName == nameof(FullName) || propertyName == nameof(Email) || propertyName == nameof(Address))
             {
                 UpdateAccount();
             }

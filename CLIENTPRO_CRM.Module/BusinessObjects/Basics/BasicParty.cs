@@ -21,7 +21,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
             get { return id; }
             set { SetPropertyValue(nameof(Id), ref id, value); }
         }*/
-        private BasicAddress address1;
+        private BasicAddress address;
 
         private BasicAddress address2;
 
@@ -42,15 +42,15 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 
         [Aggregated]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        public BasicAddress Address1
+        public BasicAddress Address
         {
             get
             {
-                return address1;
+                return address;
             }
             set
             {
-                SetPropertyValue("Address1", ref address1, value);
+                SetPropertyValue("Address", ref address, value);
             }
         }
 

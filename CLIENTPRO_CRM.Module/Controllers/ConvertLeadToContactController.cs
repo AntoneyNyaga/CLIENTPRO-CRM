@@ -50,7 +50,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
                         MiddleName = lead.MiddleName,
                         LastName = lead.LastName,
                         Email = lead.Email,
-                        Address1 = lead.Address1,
+                        Address = lead.Address,
                         Birthday = lead.Birthday,
                         Company = lead.Company,
                         JobTitle = lead.JobTitle,
