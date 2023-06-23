@@ -48,19 +48,16 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
             set => SetPropertyValue(nameof(Description), ref _description, value);
         }
 
-        public string ProductCode
-        {
-            get; set;
+        [RuleRequiredField("RuleRequiredField for Product.ProductCode", DefaultContexts.Save)]
+        [RuleUniqueValue("RuleUniqueValue for Product.ProductCode", DefaultContexts.Save)]
+        public string ProductCode { get; set; }
 
-        }
-        public decimal UnitPrice
-        {
-            get; set;
-        }
+        public decimal UnitPrice { get; set; }
 
         private ProductLine _productLine;
         [Association("ProductLine-Products")]
         [RuleRequiredField("RuleRequiredField for Product.ProductLine", DefaultContexts.Save)]
+        [DevExpress.Xpo.DisplayName("Product Category")] // Change the display name here
         public ProductLine ProductLine
         {
             get => _productLine;
@@ -71,13 +68,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [Association("Products-Invoices")]
-        public XPCollection<Invoice> Invoices
-        {
-            get
-            {
-                return GetCollection<Invoice>(nameof(Invoices));
-            }
-        }
+        public XPCollection<Invoice> Invoices { get { return GetCollection<Invoice>(nameof(Invoices)); } }
 
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -103,23 +94,13 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [Association("Product-Cases")]
-        public XPCollection<Cases> Cases
-        {
-            get
-            {
-                return GetCollection<Cases>(nameof(Cases));
-            }
-        }
+        public XPCollection<Cases> Cases { get { return GetCollection<Cases>(nameof(Cases)); } }
 
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [Association("Bills-Products")]
-        public Bills Bills
-        {
-            get => bills;
-            set => SetPropertyValue(nameof(Bills), ref bills, value);
-        }
+        public Bills Bills { get => bills; set => SetPropertyValue(nameof(Bills), ref bills, value); }
     }
 
     //[DefaultClassOptions]
@@ -136,7 +117,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
         private string _name;
         [RuleRequiredField("RuleRequiredField for ProductLine.Name", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        public string Name { get => _name; set => SetPropertyValue(nameof(Name), ref _name, value); }
+        public string Name { get => _name; set => SetPropertyValue(nameof(Name), ref _name, value?.ToUpper()); }
 
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]

@@ -475,28 +475,28 @@
         <DashboardViewItem Id="Contacts" ViewId="Contact_ListView" IsNewNode="True" />
         <DashboardViewItem Id="Leads" ViewId="Lead_ListView" IsNewNode="True" />
         <DashboardViewItem Id="MyAccounts" ViewId="Account_ListView" IsNewNode="True" />
-        <DashboardViewItem Id="SalesPipeline" ViewId="DashboardData_DetailView" Criteria="" Caption="SalesPipeline" ActionsToolbarVisibility="Show" IsNewNode="True" />
+        <DashboardViewItem Id="Sales Pipeline" ViewId="DashboardViewer_DetailView" Criteria="[Oid] = {e07a73e3-62fd-430b-8804-4c0ec004abc8}" Caption="Sales Pipeline" IsNewNode="True" />
         <DashboardViewItem Id="TopOpenOpportunities" ViewId="Opportunity_ListView" Criteria="" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" Direction="Horizontal" IsNewNode="True">
-          <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="49.94192799070848" IsNewNode="True">
-            <LayoutGroup Id="Item3" ShowCaption="True" Caption="Top Open Opportunities" CaptionLocation="Top" Index="0" RelativeSize="33.26996197718631" IsNewNode="True">
-              <LayoutItem Id="TopOpenOpportunities" ViewItem="TopOpenOpportunities" Index="0" RelativeSize="100" IsNewNode="True" />
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" Direction="Vertical" IsNewNode="True">
+          <LayoutGroup Id="Auto5f9706e1-fd49-4409-affa-4feab190bd1a" ShowCaption="False" Caption="Auto5f9706e1-fd49-4409-affa-4feab190bd1a(4)" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+            <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="50" IsNewNode="True">
+              <LayoutItem Id="Sales Pipeline" ViewItem="Sales Pipeline" Index="0" RelativeSize="19.140625" IsNewNode="True" />
+              <LayoutGroup Id="Item1" ShowCaption="True" Caption="Contacts" CaptionLocation="Top" Index="1" RelativeSize="36.588541666666664" IsNewNode="True">
+                <LayoutItem Id="Contacts" ViewItem="Contacts" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item2" ShowCaption="True" Caption="Leads" CaptionLocation="Top" Index="2" RelativeSize="44.270833333333336" IsNewNode="True">
+                <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="33.26996197718631" Caption="Contacts" Direction="Vertical" IsNewNode="True">
-              <LayoutItem Id="Contacts" ViewItem="Contacts" Index="0" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="Item2" ShowCaption="True" Caption="Leads" CaptionLocation="Top" Index="2" RelativeSize="33.460076045627375" IsNewNode="True">
-              <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50.05807200929152" IsNewNode="True">
-            <LayoutGroup Id="Item5" ShowCaption="True" Caption="My Activity Stream" CaptionLocation="Top" Index="0" RelativeSize="50" IsNewNode="True">
-              <LayoutItem Id="ActivityStream" ViewItem="ActivityStream" Index="0" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="Item4" ShowCaption="True" Caption="My Accounts" CaptionLocation="Top" Index="1" RelativeSize="50" Direction="Vertical" IsNewNode="True">
-              <LayoutItem Id="MyAccounts" ViewItem="MyAccounts" Index="0" RelativeSize="100" IsNewNode="True" />
+            <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50" IsNewNode="True">
+              <LayoutGroup Id="Item5" ShowCaption="True" Caption="My Activity Stream" CaptionLocation="Top" Index="0" RelativeSize="40.755208333333336" IsNewNode="True">
+                <LayoutItem Id="ActivityStream" ViewItem="ActivityStream" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item4" ShowCaption="True" Caption="My Accounts" CaptionLocation="Top" Index="1" RelativeSize="59.244791666666664" IsNewNode="True">
+                <LayoutItem Id="MyAccounts" ViewItem="MyAccounts" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
@@ -681,7 +681,32 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Product_ListView" ShowAutoFilterRow="True" />
+    <DetailView Id="Product_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="True" RelativeSize="100" Caption="Product Details">
+            <LayoutGroup Id="Product" RelativeSize="12.952799121844127">
+              <LayoutItem Id="Name" RelativeSize="30.508474576271187" />
+              <LayoutItem Id="ProductCode" RelativeSize="22.033898305084747" />
+              <LayoutItem Id="UnitPrice" RelativeSize="22.033898305084747" />
+              <LayoutItem Id="ProductLine" RelativeSize="25.423728813559322" />
+            </LayoutGroup>
+            <LayoutGroup Id="SizeableEditors" ShowCaption="False" Caption="Description" Index="1" RelativeSize="87.04720087815588" IsNewNode="True">
+              <LayoutItem Id="Description" ViewItem="Description" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="79.45383615084525" Removed="True">
+            <LayoutItem Id="Description" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Product_ListView" ShowAutoFilterRow="False" IsGroupPanelVisible="True" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProductLine" SortOrder="Ascending" GroupIndex="0" />
+      </Columns>
+    </ListView>
     <ListView Id="PurchaseOrder_ListView" IsGroupPanelVisible="True" AutoExpandAllGroups="True">
       <Columns>
         <ColumnInfo Id="AssignedTo" Index="-1" />
