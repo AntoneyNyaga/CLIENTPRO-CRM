@@ -12,7 +12,11 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         {
         }
 
-        public override void AfterConstruction() { base.AfterConstruction(); }
+        public override void AfterConstruction() 
+        { 
+            CreatedOn = DateTime.Now;
+            base.AfterConstruction(); 
+        }
 
         private string createdBy;
         private DateTime date;
@@ -74,26 +78,94 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 
         public void Save(string className)
         {
-            ClassName = className;
-            base.Save();
+            if(Session.IsNewObject(this))
+            {
+                ClassName = className;
+                base.Save();
+            }
         }
-
 
         [VisibleInListView(true)]
         [VisibleInDetailView(true)]
+        //[Persistent("Description")]
         public string Description
         {
             get
             {
-                string createdByUserText = string.IsNullOrEmpty(CreatedBy) ? "Someone" : CreatedBy;
-                string actionDescription = Action == "created" ? "added" : "modified";
                 string classText = string.IsNullOrEmpty(ClassName) ? "an item" : $"a {ClassName} item";
                 string timeAgo = GetTimeAgo(Date);
+                string description = $"{CreatedBy} {Action} {classText} '{AccountName}'\n{timeAgo}";
 
-                return $"{createdByUserText} {actionDescription} {classText} '{AccountName}'\n{timeAgo}";
+                if (string.IsNullOrEmpty(description) || IsDuplicateEntry())
+                {
+                    if (Session.IsObjectsSaving)
+                    {
+                        Session.ObjectsSaved += (sender, args) =>
+                        {
+                            DeleteEntryIfUseless();
+                            OnChanged("Description"); // Trigger a change event for the Description property
+                        };
+                    }
+                    else
+                    {
+                        DeleteEntryIfUseless();
+                        description = null; // Set description to null to indicate that it should not be displayed
+                    }
+                }
+
+                return description;
             }
         }
 
+        private void DeleteEntryIfUseless()
+        {
+            if (IsDuplicateEntry())
+            {
+                Session.Delete(this); // Delete the duplicate or null object
+            }
+        }
+
+        private bool IsDuplicateEntry()
+        {
+            if (Session.IsObjectsSaving)
+            {
+                // Postpone the duplicate checking until the saving operation is completed
+                Session.ObjectsSaved += (sender, args) =>
+                {
+                    var previousEntry = Session.FindObject<MyActivityStream>(
+                        CriteriaOperator.And(
+                            new BinaryOperator("Action", Action),
+                            new BinaryOperator("AccountName", AccountName),
+                            new BinaryOperator("CreatedBy", CreatedBy),
+                            new BinaryOperator("ClassName", ClassName),
+                            new BinaryOperator("Date", Date, BinaryOperatorType.Less)
+                        )
+                    );
+
+                    if (previousEntry != null)
+                    {
+                        Session.Delete(previousEntry); // Delete the previous duplicate entry
+                    }
+                };
+
+                return false;
+            }
+            else
+            {
+                // Perform the duplicate checking immediately
+                var previousEntry = Session.FindObject<MyActivityStream>(
+                    CriteriaOperator.And(
+                        new BinaryOperator("Action", Action),
+                        new BinaryOperator("AccountName", AccountName),
+                        new BinaryOperator("CreatedBy", CreatedBy),
+                        new BinaryOperator("ClassName", ClassName),
+                        new BinaryOperator("Date", Date, BinaryOperatorType.Less)
+                    )
+                );
+
+                return previousEntry != null;
+            }
+        }
 
         private string GetTimeAgo(DateTime dateTime)
         {
@@ -117,40 +189,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
             }
         }
 
-
-        public static bool HasActivityStreamEntry(Session session, string action, string accountName)
-        {
-            return session.FindObject<MyActivityStream>(
-                    CriteriaOperator.Parse("Action = ? And AccountName = ?", action, accountName)) !=
-                null;
-        }
-
-        public static void AddActivityStreamEntry(
-            Session session,
-            string action,
-            string accountName,
-            ApplicationUser currentUser,
-            string className)
-        {
-            if(!HasActivityStreamEntry(session, action, accountName))
-            {
-                var activityStreamEntry = new MyActivityStream(session)
-                {
-                    AccountName = accountName,
-                    Action = action,
-                    Date = DateTime.Now,
-                    CreatedBy = currentUser?.UserName
-                };
-                activityStreamEntry.Save(className);
-            }
-        }
-
         public static MyActivityStream[] GetRecentActivityStreamEntries(Session session, int count)
-        {
-            return session.Query<MyActivityStream>()
-                .OrderByDescending(entry => entry.ModifiedOn)
-                .Take(count)
-                .ToArray();
-        }
+        { return session.Query<MyActivityStream>().OrderByDescending(entry => entry.createdOn).Take(count).ToArray(); }
     }
 }

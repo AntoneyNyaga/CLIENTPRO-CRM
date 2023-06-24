@@ -9,17 +9,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
 
     public class EventType : BaseObject
     {
-        /*int id;
-        [Key(true)]
-
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
         public EventType(Session session)
             : base(session)
         {

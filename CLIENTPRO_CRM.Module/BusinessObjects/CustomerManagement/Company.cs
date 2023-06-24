@@ -107,7 +107,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
                 CreatedOn = DateTime.Now;
                 AddActivityStreamEntry("created", SecuritySystem.CurrentUser as ApplicationUser);
             }
-            else
+            else if (Session.IsObjectToSave(this) && !Session.IsNewObject(this))
             {
                 AddActivityStreamEntry("modified", SecuritySystem.CurrentUser as ApplicationUser);
             }
