@@ -17,17 +17,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
     [ImageName("Actions_EnvelopeOpen")]
     public class Communication : BaseObject
     {
-        /*int id;
-        [Key(true)]
-
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
         public Communication(Session session) : base(session)
         {
             isTargetContact = true; // Set the default value to true

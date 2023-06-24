@@ -35,6 +35,8 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
         }
 
 
+        AccountType? typeOfAccount;
+        IndustryType? industry;
         int isAccountCreated;
         string associatedWith;
         BasicAddress shippingAddress;
@@ -96,8 +98,12 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
             set => SetPropertyValue(nameof(AcType), ref acType, Enum.GetName(typeof(AccountType), value));
         }
 
-        [ImmediatePostData(true)]
-        public AccountType? TypeOfAccount { get; set; }
+        [ImmediatePostData(true)]        
+        public AccountType? TypeOfAccount
+        {
+            get => typeOfAccount;
+            set => SetPropertyValue(nameof(TypeOfAccount), ref typeOfAccount, value);
+        }
 
 
         public decimal AnnualRevenue
@@ -115,8 +121,12 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
             set => SetPropertyValue(nameof(IndType), ref indType, Enum.GetName(typeof(IndustryType), value));
         }
 
-        [ImmediatePostData(true)]
-        public IndustryType? Industry { get; set; }
+        [ImmediatePostData(true)]        
+        public IndustryType? Industry
+        {
+            get => industry;
+            set => SetPropertyValue(nameof(Industry), ref industry, value);
+        }
 
         [ModelDefault("AllowEdit", "false")]
         public string AssociatedWith
@@ -131,9 +141,13 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
                 {
                     return "Contact";
                 }
+                else if (IsAccountCreated == 3)
+                {
+                    return "Company";
+                }
                 else
                 {
-                    return "Not Related To any Contact or Lead";
+                    return "None";
                 }
             }
 

@@ -49,7 +49,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
 
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         [VisibleInDetailView(false)]
-        //[ReadOnly(true)]
         public string InvoiceNumber
         {
             get { return invoiceNumber; }

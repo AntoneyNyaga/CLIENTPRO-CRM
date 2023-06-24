@@ -12,10 +12,10 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         {
         }
 
-        public override void AfterConstruction() 
-        { 
+        public override void AfterConstruction()
+        {
             CreatedOn = DateTime.Now;
-            base.AfterConstruction(); 
+            base.AfterConstruction();
         }
 
         private string createdBy;
@@ -96,17 +96,16 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
                 string timeAgo = GetTimeAgo(Date);
                 string description = $"{CreatedBy} {Action} {classText} '{AccountName}'\n{timeAgo}";
 
-                if (string.IsNullOrEmpty(description) || IsDuplicateEntry())
+                if(string.IsNullOrEmpty(description) || IsDuplicateEntry())
                 {
-                    if (Session.IsObjectsSaving)
+                    if(Session.IsObjectsSaving)
                     {
                         Session.ObjectsSaved += (sender, args) =>
                         {
                             DeleteEntryIfUseless();
                             OnChanged("Description"); // Trigger a change event for the Description property
                         };
-                    }
-                    else
+                    } else
                     {
                         DeleteEntryIfUseless();
                         description = null; // Set description to null to indicate that it should not be displayed
@@ -119,7 +118,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 
         private void DeleteEntryIfUseless()
         {
-            if (IsDuplicateEntry())
+            if(IsDuplicateEntry())
             {
                 Session.Delete(this); // Delete the duplicate or null object
             }
@@ -127,7 +126,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 
         private bool IsDuplicateEntry()
         {
-            if (Session.IsObjectsSaving)
+            if(Session.IsObjectsSaving)
             {
                 // Postpone the duplicate checking until the saving operation is completed
                 Session.ObjectsSaved += (sender, args) =>
@@ -138,19 +137,16 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
                             new BinaryOperator("AccountName", AccountName),
                             new BinaryOperator("CreatedBy", CreatedBy),
                             new BinaryOperator("ClassName", ClassName),
-                            new BinaryOperator("Date", Date, BinaryOperatorType.Less)
-                        )
-                    );
+                            new BinaryOperator("Date", Date, BinaryOperatorType.Less)));
 
-                    if (previousEntry != null)
+                    if(previousEntry != null)
                     {
                         Session.Delete(previousEntry); // Delete the previous duplicate entry
                     }
                 };
 
                 return false;
-            }
-            else
+            } else
             {
                 // Perform the duplicate checking immediately
                 var previousEntry = Session.FindObject<MyActivityStream>(
@@ -159,9 +155,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
                         new BinaryOperator("AccountName", AccountName),
                         new BinaryOperator("CreatedBy", CreatedBy),
                         new BinaryOperator("ClassName", ClassName),
-                        new BinaryOperator("Date", Date, BinaryOperatorType.Less)
-                    )
-                );
+                        new BinaryOperator("Date", Date, BinaryOperatorType.Less)));
 
                 return previousEntry != null;
             }
@@ -190,6 +184,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         }
 
         public static MyActivityStream[] GetRecentActivityStreamEntries(Session session, int count)
-        { return session.Query<MyActivityStream>().OrderByDescending(entry => entry.createdOn).Take(count).ToArray(); }
+        { return session.Query<MyActivityStream>().OrderByDescending(entry => entry.Date).Take(count).ToArray(); }
     }
 }

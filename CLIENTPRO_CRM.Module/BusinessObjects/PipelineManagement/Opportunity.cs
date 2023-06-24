@@ -32,7 +32,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         }
 
 
-        Account account;
+        Account accountName;
         ApplicationUser assignedTo;
         decimal opportunityAmount;
         DateTime estimatedCloseDate;
@@ -67,7 +67,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
             set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
 
-        public Account AccountName { get; set; }
+        //public Account AccountName { get; set; }
 
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -156,14 +156,11 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
             }
         }
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [Association("Account-Opportunities")]
-        public Account Account
+        public Account AccountName
         {
-            get => account;
-            set => SetPropertyValue(nameof(Account), ref account, value);
+            get => accountName;
+            set => SetPropertyValue(nameof(AccountName), ref accountName, value);
         }
 
 

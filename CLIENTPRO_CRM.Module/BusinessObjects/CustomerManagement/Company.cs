@@ -2,6 +2,7 @@
 using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using DevExpress.ExpressApp;
+using DevExpress.Map.Native;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -21,7 +22,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
+            UpdateAccount();
         }
 
         string emailAddress;
@@ -30,6 +31,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
         string companyName;
         string industryType;
         BasicAddress address;
+        Account account;
 
         [Size(50)]
         public string CompanyName
@@ -125,6 +127,33 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
                 CreatedBy = applicationUser?.UserName
             };
             activityStreamEntry.Save(GetType().Name); // Pass the class name as a parameter
+        }
+
+        [ExpandObjectMembers(ExpandObjectMembers.Never)]
+        [Aggregated]
+        public Account Account { get => account; set => SetPropertyValue(nameof(Account), ref account, value); }
+
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+
+            if (propertyName == nameof(CompanyName) || propertyName == nameof(EmailAddress) || propertyName == nameof(Address))
+            {
+                UpdateAccount();
+            }
+        }
+        public void UpdateAccount()
+        {
+            if (Account == null)
+            {
+                Account = new Account(Session); // Create a new Account object if it is null
+            }
+
+            Account.Name = CompanyName;
+            Account.EmailAddress = EmailAddress;
+            Account.ShippingAddress = Address;
+            Account.Industry = Industry;
+            Account.IsAccountCreated = 3;
         }
     }
 }

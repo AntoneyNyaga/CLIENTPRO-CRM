@@ -369,21 +369,24 @@
     <DetailView Id="Company_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="17.945383615084527">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="20.577164366373903">
             <LayoutGroup Id="Company" RelativeSize="100">
-              <LayoutGroup Id="Company_col1" RelativeSize="49.94179278230501">
-                <LayoutItem Id="CompanyName" RelativeSize="36.170212765957444" />
-                <LayoutItem Id="Industry" RelativeSize="27.659574468085108" />
-                <LayoutItem Id="Address" RelativeSize="36.170212765957444" />
+              <LayoutGroup Id="Company_col1" RelativeSize="49.926793557833086">
+                <LayoutItem Id="CompanyName" RelativeSize="28.333333333333332" />
+                <LayoutItem Id="Industry" RelativeSize="21.666666666666668" />
+                <LayoutItem Id="Address" RelativeSize="21.666666666666668" />
+                <LayoutItem Id="Website" ViewItem="Website" Index="3" RelativeSize="28.333333333333332" IsNewNode="True" />
+                <LayoutItem Id="PhoneNumber" RelativeSize="17.80821917808219" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Company_col2" RelativeSize="50.05820721769499">
-                <LayoutItem Id="PhoneNumber" RelativeSize="36.170212765957444" />
-                <LayoutItem Id="Website" RelativeSize="27.659574468085108" />
-                <LayoutItem Id="EmailAddress" RelativeSize="36.170212765957444" />
+              <LayoutGroup Id="Company_col2" RelativeSize="50.073206442166914">
+                <LayoutItem Id="EmailAddress" RelativeSize="28.333333333333332" Index="0" />
+                <LayoutItem Id="PhoneNumber" ViewItem="PhoneNumber" Index="1" RelativeSize="21.666666666666668" IsNewNode="True" />
+                <LayoutItem Id="Account" ViewItem="Account" Index="2" RelativeSize="50" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Website" RelativeSize="50" Index="2" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" Index="1" RelativeSize="82.05461638491548" IsNewNode="True" Removed="True">
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="79.4228356336261" IsNewNode="True" Removed="True">
             <LayoutGroup Id="Leads" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
               <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
@@ -632,26 +635,40 @@
     <DetailView Id="Opportunity_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="28.468033775633295">
-            <LayoutGroup Id="Opportunity" RelativeSize="100">
-              <LayoutGroup Id="Opportunity_col1" RelativeSize="49.894067796610166">
-                <LayoutItem Id="OpportunityName" RelativeSize="17.708333333333332" />
-                <LayoutItem Id="AssignedTo" RelativeSize="13.541666666666666" />
-                <LayoutItem Id="OpportunityAmount" ViewItem="OpportunityAmount" Index="2" RelativeSize="13.541666666666666" IsNewNode="True" />
-                <LayoutItem Id="StageType" RelativeSize="13.541666666666666" Index="3" />
-                <LayoutItem Id="OpportunityDescription" ViewItem="OpportunityDescription" Index="4" RelativeSize="41.666666666666664" IsNewNode="True" />
-                <LayoutItem Id="AccountName" RelativeSize="15.596330275229358" Index="5" Removed="True" />
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Opportunity" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="Autofaf89290-21cc-49f6-a090-67e02efc1717" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="19.148936170212767" IsNewNode="True">
+                <LayoutGroup Id="Opportunity_col1" ShowCaption="False" Index="0" RelativeSize="49.926793557833086" IsNewNode="True">
+                  <LayoutItem Id="OpportunityName" ViewItem="OpportunityName" Index="0" RelativeSize="23.61111111111111" IsNewNode="True" />
+                  <LayoutItem Id="AssignedTo" ViewItem="AssignedTo" Index="1" RelativeSize="18.055555555555557" IsNewNode="True" />
+                  <LayoutItem Id="OpportunityAmount" ViewItem="OpportunityAmount" Index="2" RelativeSize="18.055555555555557" IsNewNode="True" />
+                  <LayoutItem Id="ProbabilityOfClosing" ViewItem="ProbabilityOfClosing" Index="3" RelativeSize="18.055555555555557" IsNewNode="True" />
+                  <LayoutItem Id="StageType" ViewItem="StageType" Index="4" RelativeSize="22.22222222222222" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Opportunity_col2" ShowCaption="False" Index="1" RelativeSize="50.073206442166914" IsNewNode="True">
+                  <LayoutItem Id="AccountName" ViewItem="AccountName" Index="0" RelativeSize="23.61111111111111" IsNewNode="True" />
+                  <LayoutItem Id="EstimatedCloseDate" ViewItem="EstimatedCloseDate" Index="1" RelativeSize="18.055555555555557" IsNewNode="True" />
+                  <LayoutItem Id="LeadSourceType" ViewItem="LeadSourceType" Index="2" RelativeSize="58.333333333333336" IsNewNode="True" />
+                </LayoutGroup>
               </LayoutGroup>
-              <LayoutGroup Id="Opportunity_col2" RelativeSize="50.105932203389834">
-                <LayoutItem Id="AccountName" ViewItem="AccountName" Index="0" RelativeSize="17.708333333333332" IsNewNode="True" />
-                <LayoutItem Id="ProbabilityOfClosing" Index="1" RelativeSize="13.541666666666666" />
-                <LayoutItem Id="EstimatedCloseDate" RelativeSize="13.541666666666666" Index="2" />
-                <LayoutItem Id="LeadSourceType" RelativeSize="55.208333333333336" Index="3" />
+              <LayoutItem Id="OpportunityDescription" ViewItem="OpportunityDescription" Index="1" RelativeSize="80.85106382978724" IsNewNode="True" />
+              <LayoutGroup Id="Opportunity_col1" RelativeSize="49.926793557833086" Removed="True">
+                <LayoutItem Id="OpportunityAmount" ViewItem="OpportunityAmount" Index="2" RelativeSize="3.4574468085106385" IsNewNode="True" />
+                <LayoutItem Id="StageType" RelativeSize="3.4574468085106385" Index="4" />
+                <LayoutItem Id="OpportunityDescription" ViewItem="OpportunityDescription" Index="5" RelativeSize="81.64893617021276" IsNewNode="True" />
+                <LayoutItem Id="AssignedTo" RelativeSize="3.4574468085106385" />
+                <LayoutItem Id="OpportunityName" RelativeSize="4.5212765957446805" />
+                <LayoutItem Id="ProbabilityOfClosing" RelativeSize="3.4574468085106385" />
+              </LayoutGroup>
+              <LayoutGroup Id="Opportunity_col2" RelativeSize="50.073206442166914" Removed="True">
+                <LayoutItem Id="AccountName" Index="0" RelativeSize="4.5212765957446805" ViewItem="AccountName" IsNewNode="True" />
+                <LayoutItem Id="EstimatedCloseDate" RelativeSize="3.4574468085106385" Index="1" />
+                <LayoutItem Id="LeadSourceType" RelativeSize="92.02127659574468" Index="2" />
                 <LayoutItem Id="OpportunityAmount" RelativeSize="13.541666666666666" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" Caption="Opportunity Description" RelativeSize="71.53196622436671">
+          <LayoutGroup Id="SizeableEditors" Caption="Opportunity Description" RelativeSize="71.53196622436671" Removed="True">
             <LayoutItem Id="OpportunityDescription" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
