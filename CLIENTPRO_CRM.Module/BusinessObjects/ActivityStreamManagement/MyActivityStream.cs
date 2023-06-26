@@ -15,6 +15,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         public override void AfterConstruction()
         {
             CreatedOn = DateTime.Now;
+            ModifiedOn = DateTime.Now;
             base.AfterConstruction();
         }
 
@@ -184,6 +185,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         }
 
         public static MyActivityStream[] GetRecentActivityStreamEntries(Session session, int count)
-        { return session.Query<MyActivityStream>().OrderByDescending(entry => entry.Date).Take(count).ToArray(); }
+        { return session.Query<MyActivityStream>().OrderByDescending(entry => entry.ModifiedOn).Take(count).ToArray(); }
     }
 }

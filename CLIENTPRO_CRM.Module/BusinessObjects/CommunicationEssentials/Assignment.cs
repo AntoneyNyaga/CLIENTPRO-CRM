@@ -7,8 +7,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Task = DevExpress.Persistent.BaseImpl.Task;
-
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
 {
@@ -59,13 +57,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials
         {
             base.AfterConstruction();
             Priority = Priority.Normal;
-        }
-
-        [ToolTip("View, assign or remove employees for the current task")]
-        [Association("ApplicationUser-Assignment")]
-        public XPCollection<ApplicationUser> AssignedUsers
-        {
-            get { return GetCollection<ApplicationUser>(nameof(AssignedUsers)); }
         }
 
         public override string ToString() { return Subject; }

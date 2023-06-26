@@ -1,4 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
 using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
 using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
@@ -45,7 +46,6 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
     }
 
 
-
     [Association("ApplicationUser-Quotes")]
     public XPCollection<Quote> AssignedProposals { get { return GetCollection<Quote>(nameof(AssignedProposals)); } }
 
@@ -54,10 +54,6 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
     {
         get { return GetCollection<Opportunity>(nameof(AssignedOpportunities)); }
     }
-
-    [Association("ApplicationUser-Assignment")]
-    public XPCollection<Assignment> AssignedTasks { get { return GetCollection<Assignment>(nameof(AssignedTasks)); } }
-
     [Association("ApplicationUser-Campaigns")]
     public XPCollection<Campaign> AssignedCampaigns
     {
@@ -93,4 +89,7 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
 
     [Association("ApplicationUser-Topics")]
     public XPCollection<Topic> AssignedTopics { get { return GetCollection<Topic>(nameof(AssignedTopics)); } }
+
+    [Association("ApplicationUser-Assignments")]
+    public XPCollection<BasicTask> Assignments{ get { return GetCollection<BasicTask>(nameof(Assignments)); } }
 }

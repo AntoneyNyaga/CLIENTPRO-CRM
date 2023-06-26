@@ -133,35 +133,36 @@
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="45.11278195488722">
             <LayoutGroup Id="Assignment" RelativeSize="100">
-              <LayoutGroup Id="Task" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="43.888888888888886" IsNewNode="True">
-                <LayoutGroup Id="Task_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+              <LayoutGroup Id="BasicTask" ShowCaption="True" Caption="Task" Direction="Horizontal" Index="0" RelativeSize="43.888888888888886" IsNewNode="True">
+                <LayoutGroup Id="BasicTask_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
                   <LayoutItem Id="Subject" ViewItem="Subject" Index="0" RelativeSize="28.333333333333332" IsNewNode="True" />
                   <LayoutItem Id="DueDate" ViewItem="DueDate" Index="1" RelativeSize="21.666666666666668" IsNewNode="True" />
                   <LayoutItem Id="StartDate" ViewItem="StartDate" Index="2" RelativeSize="21.666666666666668" IsNewNode="True" />
                   <LayoutItem Id="AssignedTo" ViewItem="AssignedTo" Index="3" RelativeSize="28.333333333333332" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="Task_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutGroup Id="BasicTask_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
                   <LayoutItem Id="Status" ViewItem="Status" Index="0" RelativeSize="28.333333333333332" IsNewNode="True" />
                   <LayoutItem Id="PercentCompleted" ViewItem="PercentCompleted" Index="1" RelativeSize="21.666666666666668" IsNewNode="True" />
                   <LayoutItem Id="DateCompleted" ViewItem="DateCompleted" Index="2" RelativeSize="50" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="56.111111111111114" Caption="Details" IsNewNode="True">
+              <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="56.111111111111114" Caption="Additional Information" IsNewNode="True">
                 <LayoutItem Id="Priority" ViewItem="Priority" Index="0" RelativeSize="20.481927710843372" IsNewNode="True" />
                 <LayoutItem Id="EstimatedWorkHours" ViewItem="EstimatedWorkHours" Index="1" RelativeSize="15.662650602409638" IsNewNode="True" />
                 <LayoutItem Id="ActualWorkHours" ViewItem="ActualWorkHours" Index="2" RelativeSize="15.662650602409638" IsNewNode="True" />
                 <LayoutItem Id="Description" ViewItem="Description" Index="3" RelativeSize="48.19277108433735" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutItem Id="Priority" RelativeSize="8.125" Index="1" Removed="True" />
-              <LayoutItem Id="EstimatedWorkHours" RelativeSize="8.125" Index="2" Removed="True" />
-              <LayoutItem Id="ActualWorkHours" RelativeSize="8.125" Index="3" Removed="True" />
+              <LayoutItem Id="Priority" Index="1" RelativeSize="10.743801652892563" Removed="True" />
+              <LayoutItem Id="EstimatedWorkHours" Index="2" RelativeSize="10.743801652892563" Removed="True" />
+              <LayoutItem Id="ActualWorkHours" Index="3" RelativeSize="13.223140495867769" Removed="True" />
             </LayoutGroup>
+            <LayoutGroup Id="BasicTask" Removed="True" />
           </LayoutGroup>
           <LayoutGroup Id="AssignedUsers_Group" Direction="Vertical" RelativeSize="54.88721804511278" Index="1">
             <LayoutItem Id="AssignedUsers" RelativeSize="100" />
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" Caption="Description" RelativeSize="29.949874686716793" Removed="True">
-            <LayoutItem Id="Description" Removed="True" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="27.318295739348372" Caption="Description" Removed="True">
+            <LayoutItem Id="Description" RelativeSize="100" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>

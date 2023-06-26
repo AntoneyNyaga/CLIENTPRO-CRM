@@ -12,9 +12,8 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
     [ImageName("BO_Task")]
     public class BasicTask : BaseObject, BasicITask
     {
+        ApplicationUser assignedTo;
         private BasicTaskImpl task = new BasicTaskImpl();
-
-        private BasicParty assignedTo;
 
         [Persistent("DateCompleted")]
         private DateTime dateCompleted
@@ -41,7 +40,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
             {
                 string subject = task.Subject;
                 task.Subject = value;
-                OnChanged("Subject", subject, task.Subject);
+                OnChanged("Subject", subject, task.Subject.ToUpper());
             }
         }
 
@@ -89,16 +88,11 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
             }
         }
 
-        public BasicParty AssignedTo
+        [Association("ApplicationUser-Assignments")]
+        public ApplicationUser AssignedTo
         {
-            get
-            {
-                return assignedTo;
-            }
-            set
-            {
-                SetPropertyValue("AssignedTo", ref assignedTo, value);
-            }
+            get => assignedTo;
+            set => SetPropertyValue(nameof(AssignedTo), ref assignedTo, value);
         }
 
         public TaskStatus Status
