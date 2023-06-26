@@ -17,8 +17,8 @@ To install the CLIENTPRO CRM system, follow these steps:
 1. Clone the repository to your local machine.
 2. Open the solution file in Visual Studio.
 3. Build the solution.
-4. Create a new database and name it <b>SLAMS_CRM</b>.
-5. Change the `appsettings.Development.json` to `appsettings.json`
+4. Create a new database and name it <b>CLIENTPRO_CRM</b>.
+5. Copy the `example.appsettings.json` to `appsettings.json`
 6. Update the connection string and your environment files in the `appsettings.json` file to point to your database and other functionalities.
 7. Update your start-up project in the solution settings.
 8. Run the application.
