@@ -18,17 +18,6 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
     [Persistent("Product")]
     public class Product : BaseObject
     {
-        /* int id;
-         [Key(true)]
-
-         [VisibleInDetailView(false)]
-         [VisibleInListView(false)]
-         [VisibleInLookupListView(false)]
-         public int Id
-         {
-             get { return id; }
-             set { SetPropertyValue(nameof(Id), ref id, value); }
-         }*/
         public Product(Session session) : base(session)
         {
         }
@@ -154,9 +143,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
         }
     }
 
-    //[DefaultClassOptions]
     [DefaultProperty("Name")]
-    //[NavigationItem("CLIENTPRO CRM")]
     [ImageName("BO_ProductLine")]
     [Persistent("ProductLine")]
     public class ProductLine : BaseObject
