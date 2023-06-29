@@ -519,21 +519,20 @@
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" Direction="Vertical" IsNewNode="True">
           <LayoutGroup Id="Auto5f9706e1-fd49-4409-affa-4feab190bd1a" ShowCaption="False" Caption="Auto5f9706e1-fd49-4409-affa-4feab190bd1a(4)" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-            <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="49.93084370677732" IsNewNode="True">
-              <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="33.333333333333336" Caption="Sales Pipeline" IsNewNode="True">
-                <LayoutItem Id="Sales Pipeline" ViewItem="Sales Pipeline" Index="0" RelativeSize="100" IsNewNode="True" />
+            <LayoutGroup Id="Auto8563b801-795d-4445-a0b9-c1af456fd852" ShowCaption="False" Caption="Auto8563b801-795d-4445-a0b9-c1af456fd852(2)" Index="0" RelativeSize="49.86187845303867" IsNewNode="True">
+              <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="26.953125" Caption="Sales Pipeline" IsNewNode="True">
+                <LayoutItem Id="Sales Pipeline" ViewItem="Sales Pipeline" Index="0" RelativeSize="100" SizeConstraintsType="Custom" MinSize="344, 169" MaxSize="344, 169" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Item3" ShowCaption="True" Caption="Accounts" CaptionLocation="Top" Index="1" RelativeSize="33.333333333333336" IsNewNode="True">
-                <LayoutItem Id="MyAccounts" ViewItem="MyAccounts" Index="0" RelativeSize="100" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="Item2" ShowCaption="True" Caption="Leads" CaptionLocation="Top" Index="2" RelativeSize="33.333333333333336" IsNewNode="True">
-                <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" IsNewNode="True" />
+              <LayoutGroup Id="Item3" ShowCaption="True" Caption="Accounts" CaptionLocation="Top" Index="1" RelativeSize="73.046875" IsNewNode="True">
+                <LayoutItem Id="MyAccounts" ViewItem="MyAccounts" Index="0" RelativeSize="100" SizeConstraintsType="Default" MinSize="386, 523" MaxSize="386, 523" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50.06915629322268" IsNewNode="True">
-              <LayoutGroup Id="Item6" ShowCaption="True" Caption="Activity Feed" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
-                <LayoutItem Id="ActivityStream" ViewItem="ActivityStream" Index="0" RelativeSize="50" IsNewNode="True" />
-                <LayoutItem Id="Item1" Index="1" RelativeSize="50" IsNewNode="True" />
+            <LayoutGroup Id="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a" ShowCaption="False" Caption="Auto88e62d9d-27a8-458b-bea8-c2263ff3e57a(5)" Index="1" RelativeSize="50.13812154696133" IsNewNode="True">
+              <LayoutGroup Id="Item6" ShowCaption="True" Caption="Activity Feed" CaptionLocation="Top" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="ActivityStream" ViewItem="ActivityStream" Index="0" RelativeSize="100" SizeConstraintsType="Default" MinSize="304, 346" MaxSize="304, 346" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item2" ShowCaption="True" Caption="Leads" CaptionLocation="Top" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="Leads" ViewItem="Leads" Index="0" RelativeSize="100" SizeConstraintsType="Default" MinSize="304, 346" MaxSize="304, 346" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
