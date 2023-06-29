@@ -34,7 +34,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
         {
             get
             {
-                return task.Subject;
+                return task.Subject.ToUpper();
             }
             set
             {

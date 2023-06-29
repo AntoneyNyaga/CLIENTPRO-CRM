@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using System.Text.RegularExpressions;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 {
@@ -130,17 +131,29 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
         private void GeneratePurchaseOrderNumber()
         {
-            const string PurchaseOrderNumberFormat = "PO{0}{1:0000}";
-            var lastPurchaseOrder = Session.Query<PurchaseOrder>()?.OrderByDescending(po => po.PurchaseOrderDate)
+            const string PurchaseOrderNumberFormat = "PO{0}{1:00}{2:0000}";
+            var lastPurchaseOrder = Session.Query<PurchaseOrder>()
+                .OrderByDescending(po => po.PurchaseOrderDate)
                 .FirstOrDefault();
+
             if (lastPurchaseOrder != null)
             {
                 var year = lastPurchaseOrder.PurchaseOrderDate.Year;
                 var month = lastPurchaseOrder.PurchaseOrderDate.Month;
-                var sequence = int.Parse(lastPurchaseOrder.PurchaseOrderNumber[7..]);
-                sequence++;
-                var newPurchaseOrderNumber = string.Format(PurchaseOrderNumberFormat, year, month, sequence);
-                PurchaseOrderNumber = newPurchaseOrderNumber;
+                var purchaseOrderNumber = lastPurchaseOrder.PurchaseOrderNumber;
+                var regex = new Regex(@"\d+$"); // Matches the last sequence of digits in the purchase order number
+                var match = regex.Match(purchaseOrderNumber);
+
+                if (match.Success && int.TryParse(match.Value, out var sequence))
+                {
+                    sequence++;
+                    var newPurchaseOrderNumber = string.Format(PurchaseOrderNumberFormat, year, month, sequence);
+                    PurchaseOrderNumber = newPurchaseOrderNumber;
+                }
+                else
+                {
+                    // Handle parsing error
+                }
             }
             else
             {
@@ -151,6 +164,8 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
                     1);
             }
         }
+
+
 
         DateTime modifiedOn;
         DateTime createdOn;
