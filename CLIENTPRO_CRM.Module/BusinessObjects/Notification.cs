@@ -34,376 +34,226 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects
             public List<Notification> GetNotificationsForCurrentUser()
             {
                 List<Notification> notifications = new List<Notification>();
-                List<BasicTask> tasks = GetAssignedTasksForCurrentUser();
-                List<Quote> proposals = GetAssignedProposalsForCurrentUser();
-                List<Opportunity> opportunities = GetAssignedOpportunitiesForCurrentUser();
-                List<Campaign> campaigns = GetAssignedCampaignsForCurrentUser();
-                List<MarketingEvent> marketingevents = GetAssignedMarketingEventsForCurrentUser();
-                List<PurchaseOrder> purchaseorders = GetAssignedPurchaseOrdersForCurrentUser();
-                List<SalesOrder> salesorders = GetAssignedSalesOrdersForCurrentUser();
-                List<Payment> payments = GetAssignedPaymentsForCurrentUser();
-                List<Bills> bills = GetAssignedBillsForCurrentUser();
-                List<Cases> cases = GetAssignedCasesForCurrentUser();
-                List<Topic> topics = GetAssignedTopicsForCurrentUser();
-                List<Assignment> assignments = GetAssignedAssignmentsForCurrentUser();
                 DateTime notificationThreshold = DateTime.Now.AddDays(2); // Define the threshold for approaching deadlines
 
-                foreach(BasicTask task in tasks)
+                // Retrieve the current user's ID or any other identifier
+                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+
+                if(currentUser != null)
                 {
-                    if(task.DueDate <= notificationThreshold)
-                    {
-                        // Create a notification object
-                        Notification notification = new Notification(session)
-                        {
-                            Message = $"Task '{task.Subject}' is due on {task.DueDate.ToShortDateString()}.\n",
-                            Timestamp = DateTime.Now
-                        };
-
-                        notifications.Add(notification);
-                    }
+                    notifications.AddRange(GetNotificationsForTasks(currentUser, notificationThreshold));
+                    notifications.AddRange(GetNotificationsForProposals(currentUser, notificationThreshold));
+                    notifications.AddRange(GetNotificationsForOpportunities(currentUser, notificationThreshold));
+                    notifications.AddRange(GetNotificationsForCampaigns(currentUser, notificationThreshold));
+                    notifications.AddRange(GetNotificationsForMarketingEvents(currentUser));
+                    notifications.AddRange(GetNotificationsForPurchaseOrders(currentUser));
+                    notifications.AddRange(GetNotificationsForSalesOrders(currentUser));
+                    notifications.AddRange(GetNotificationsForPayments(currentUser));
+                    notifications.AddRange(GetNotificationsForBills(currentUser, notificationThreshold));
+                    notifications.AddRange(GetNotificationsForCases(currentUser));
+                    notifications.AddRange(GetNotificationsForTopics(currentUser));
+                    notifications.AddRange(GetNotificationsForAssignments(currentUser, notificationThreshold));
                 }
-
-                foreach(Quote proposal in proposals)
-                {
-                    if(proposal.ValidUntil <= notificationThreshold)
-                    {
-                        Notification notification = new Notification(session)
-                        {
-                            Message =
-                                $"Proposal '{proposal.Title}' is due on {proposal.ValidUntil.ToShortTimeString()}.\n",
-                            Timestamp = DateTime.Now
-                        };
-
-                        notifications.Add(notification);
-                    }
-                }
-
-                foreach(Opportunity opportunity in opportunities)
-                {
-                    if(opportunity.EstimatedCloseDate <= notificationThreshold)
-                    {
-                        Notification notification = new Notification(session)
-                        {
-                            Message =
-                                $"Opportunity '{opportunity.OpportunityName}' is due on {opportunity.EstimatedCloseDate.ToShortTimeString()}.\n",
-                            Timestamp = DateTime.Now
-                        };
-
-                        notifications.Add(notification);
-                    }
-                }
-
-                foreach(Campaign campaign in campaigns)
-                {
-                    if(campaign.EndDate <= notificationThreshold)
-                    {
-                        Notification notification = new Notification(session)
-                        {
-                            Message = $"Campaign '{campaign.Name}' is due on {campaign.EndDate.ToShortTimeString()}.\n",
-                            Timestamp = DateTime.Now
-                        };
-
-                        notifications.Add(notification);
-                    }
-                }
-
-                foreach(MarketingEvent marketingevent in marketingevents)
-                {
-                    Notification notification = new Notification(session)
-                    {
-                        Message = $"Marketing Event '{marketingevent.EventName}' is assigned to you.\n",
-                        Timestamp = DateTime.Now
-                    };
-
-                    notifications.Add(notification);
-                }
-
-                foreach(PurchaseOrder purchaseOrder in purchaseorders)
-                {
-                    Notification notification = new Notification(session)
-                    {
-                        Message =
-                            $"Purchase Order '{purchaseOrder.PurchaseOrderSubject}' assigned to you, is still pending.\n",
-                        Timestamp = DateTime.Now
-                    };
-
-                    notifications.Add(notification);
-                }
-
-                foreach(SalesOrder salesOrder in salesorders)
-                {
-                    Notification notification = new Notification(session)
-                    {
-                        Message = $"Sales Order '{salesOrder.SalesOrderSubject}' assigned to you, is still pending.\n",
-                        Timestamp = DateTime.Now
-                    };
-
-                    notifications.Add(notification);
-                }
-
-                foreach(Payment payment in payments)
-                {
-                    Notification notification = new Notification(session)
-                    {
-                        Message = $"Payment '{payment.PaymentNumber}' assigned to you, is still pending.\n",
-                        Timestamp = DateTime.Now
-                    };
-
-                    notifications.Add(notification);
-                }
-
-                foreach(Bills bill in bills)
-                {
-                    if(bill.SupplierDueDate <= notificationThreshold)
-                    {
-                        Notification notification = new Notification(session)
-                        {
-                            Message = $"Bill '{bill.BillSubject}' is due on {bill.SupplierDueDate.ToShortTimeString()}.\n",
-                            Timestamp = DateTime.Now
-                        };
-
-                        notifications.Add(notification);
-                    }
-                }
-
-                foreach(Cases acase in cases)
-                {
-                    Notification notification = new Notification(session)
-                    {
-                        Message = $"Case No. '{acase.CaseNumber}' assigned to you, is still pending.\n",
-                        Timestamp = DateTime.Now
-                    };
-
-                    notifications.Add(notification);
-                }
-
-                foreach(Topic topic in topics)
-                {
-                    Notification notification = new Notification(session)
-                    {
-                        Message = $"Please provide more information on the topic '{topic.Name}' assigned to you.\n",
-                        Timestamp = DateTime.Now
-                    };
-
-                    notifications.Add(notification);
-                }
-
-                foreach(Assignment assignment in assignments)
-                {
-                    if(assignment.DueDate <= notificationThreshold)
-                    {
-                        Notification notification = new Notification(session)
-                        {
-                            Message =
-                                $"Task '{assignment.Description}' is due on {assignment.DueDate.ToShortTimeString()}.\n",
-                            Timestamp = DateTime.Now
-                        };
-
-                        notifications.Add(notification);
-                    }
-                }
-
 
                 return notifications;
             }
 
-            private List<BasicTask> GetAssignedTasksForCurrentUser()
+            private List<Notification> GetNotificationsForTasks(
+                ApplicationUser currentUser,
+                DateTime notificationThreshold)
             {
-                // Retrieve the current user's ID or any other identifier
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<BasicTask> tasks = session.Query<BasicTask>()
+                    .Where(task => task.AssignedTo == currentUser && task.DueDate <= notificationThreshold)
+                    .ToList();
 
-                // Check if the current user is valid
-                if(currentUser != null)
-                {
-                    // Implement the logic to query the DB and retrieve assigned tasks for the current user
-                    List<BasicTask> assignedTasks = session.Query<BasicTask>()
-                        .Where(task => task.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedTasks;
-                }
-
-                // Return an empty list if the current user is not found or invalid
-                return new List<BasicTask>();
+                return tasks.Select(
+                    task => new Notification(session)
+                    {
+                        Message = $"Task '{task.Subject}' is due on {task.DueDate.ToShortDateString()}.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Quote> GetAssignedProposalsForCurrentUser()
+            private List<Notification> GetNotificationsForProposals(
+                ApplicationUser currentUser,
+                DateTime notificationThreshold)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Quote> proposals = session.Query<Quote>()
+                    .Where(
+                        proposal => proposal.AssignedTo == currentUser && proposal.ValidUntil <= notificationThreshold)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<Quote> assignedTasks = session.Query<Quote>()
-                        .Where(proposal => proposal.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedTasks;
-                }
-
-                return new List<Quote>();
+                return proposals.Select(
+                    proposal => new Notification(session)
+                    {
+                        Message = $"Proposal '{proposal.Title}' is due on {proposal.ValidUntil.ToShortTimeString()}.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Opportunity> GetAssignedOpportunitiesForCurrentUser()
+            private List<Notification> GetNotificationsForOpportunities(
+                ApplicationUser currentUser,
+                DateTime notificationThreshold)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Opportunity> opportunities = session.Query<Opportunity>()
+                    .Where(
+                        opportunity => opportunity.AssignedTo == currentUser &&
+                            opportunity.EstimatedCloseDate <= notificationThreshold)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<Opportunity> assignedOpportunities = session.Query<Opportunity>()
-                        .Where(opportunity => opportunity.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedOpportunities;
-                }
-
-                return new List<Opportunity>();
+                return opportunities.Select(
+                    opportunity => new Notification(session)
+                    {
+                        Message =
+                            $"Opportunity '{opportunity.OpportunityName}' is due on {opportunity.EstimatedCloseDate.ToShortTimeString()}.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Campaign> GetAssignedCampaignsForCurrentUser()
+            private List<Notification> GetNotificationsForCampaigns(
+                ApplicationUser currentUser,
+                DateTime notificationThreshold)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Campaign> campaigns = session.Query<Campaign>()
+                    .Where(campaign => campaign.AssignedTo == currentUser && campaign.EndDate <= notificationThreshold)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<Campaign> assignedCampaigns = session.Query<Campaign>()
-                        .Where(campaign => campaign.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedCampaigns;
-                }
-
-                return new List<Campaign>();
+                return campaigns.Select(
+                    campaign => new Notification(session)
+                    {
+                        Message = $"Campaign '{campaign.Name}' is due on {campaign.EndDate.ToShortTimeString()}.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<MarketingEvent> GetAssignedMarketingEventsForCurrentUser()
+            private List<Notification> GetNotificationsForMarketingEvents(ApplicationUser currentUser)
             {
-                // Retrieve the current user's ID or any other identifier
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<MarketingEvent> marketingevents = session.Query<MarketingEvent>()
+                    .Where(marketingevent => marketingevent.AssignedTo == currentUser)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    // Implement the logic to query the DB and retrieve assigned marketing events for the current user
-                    List<MarketingEvent> assignedMarketingEvents = session.Query<MarketingEvent>()
-                        .Where(marketingEvent => marketingEvent.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedMarketingEvents;
-                }
-
-                // Return an empty list if the current user is not found or invalid
-                return new List<MarketingEvent>();
+                return marketingevents.Select(
+                    marketingevent => new Notification(session)
+                    {
+                        Message = $"Marketing Event '{marketingevent.EventName}' is assigned to you.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<PurchaseOrder> GetAssignedPurchaseOrdersForCurrentUser()
+            private List<Notification> GetNotificationsForPurchaseOrders(ApplicationUser currentUser)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<PurchaseOrder> purchaseorders = session.Query<PurchaseOrder>()
+                    .Where(purchaseOrder => purchaseOrder.AssignedTo == currentUser)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<PurchaseOrder> assignedPurchaseOrders = session.Query<PurchaseOrder>()
-                        .Where(purchaseOrder => purchaseOrder.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedPurchaseOrders;
-                }
-
-                return new List<PurchaseOrder>();
+                return purchaseorders.Select(
+                    purchaseOrder => new Notification(session)
+                    {
+                        Message =
+                            $"Purchase Order '{purchaseOrder.PurchaseOrderSubject}' assigned to you, is still pending.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<SalesOrder> GetAssignedSalesOrdersForCurrentUser()
+            private List<Notification> GetNotificationsForSalesOrders(ApplicationUser currentUser)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<SalesOrder> salesorders = session.Query<SalesOrder>()
+                    .Where(salesOrder => salesOrder.AssignedTo == currentUser)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<SalesOrder> assignedSalesOrders = session.Query<SalesOrder>()
-                        .Where(salesOrder => salesOrder.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedSalesOrders;
-                }
-
-                return new List<SalesOrder>();
+                return salesorders.Select(
+                    salesOrder => new Notification(session)
+                    {
+                        Message = $"Sales Order '{salesOrder.SalesOrderSubject}' assigned to you, is still pending.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Payment> GetAssignedPaymentsForCurrentUser()
+            private List<Notification> GetNotificationsForPayments(ApplicationUser currentUser)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Payment> payments = session.Query<Payment>()
+                    .Where(payment => payment.AssignedTo == currentUser)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<Payment> assignedPayments = session.Query<Payment>()
-                        .Where(payment => payment.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedPayments;
-                }
-
-                return new List<Payment>();
+                return payments.Select(
+                    payment => new Notification(session)
+                    {
+                        Message = $"Payment '{payment.PaymentNumber}' assigned to you, is still pending.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Bills> GetAssignedBillsForCurrentUser()
+            private List<Notification> GetNotificationsForBills(
+                ApplicationUser currentUser,
+                DateTime notificationThreshold)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Bills> bills = session.Query<Bills>()
+                    .Where(bill => bill.AssignedTo == currentUser && bill.SupplierDueDate <= notificationThreshold)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<Bills> assignedBills = session.Query<Bills>()
-                        .Where(bill => bill.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedBills;
-                }
-
-                return new List<Bills>();
+                return bills.Select(
+                    bill => new Notification(session)
+                    {
+                        Message = $"Bill '{bill.BillSubject}' is due on {bill.SupplierDueDate.ToShortTimeString()}.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Cases> GetAssignedCasesForCurrentUser()
+            private List<Notification> GetNotificationsForCases(ApplicationUser currentUser)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Cases> cases = session.Query<Cases>()
+                    .Where(caseEntity => caseEntity.AssignedTo == currentUser)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<Cases> assignedCases = session.Query<Cases>()
-                        .Where(caseEntity => caseEntity.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedCases;
-                }
-
-                return new List<Cases>();
+                return cases.Select(
+                    acase => new Notification(session)
+                    {
+                        Message = $"Case No. '{acase.CaseNumber}' assigned to you, is still pending.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Topic> GetAssignedTopicsForCurrentUser()
+            private List<Notification> GetNotificationsForTopics(ApplicationUser currentUser)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Topic> topics = session.Query<Topic>().Where(topic => topic.AssignedTo == currentUser).ToList();
 
-                if(currentUser != null)
-                {
-                    List<Topic> assignedTopics = session.Query<Topic>()
-                        .Where(topic => topic.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedTopics;
-                }
-
-                return new List<Topic>();
+                return topics.Select(
+                    topic => new Notification(session)
+                    {
+                        Message = $"Please provide more information on the topic '{topic.Name}' assigned to you.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
 
-            private List<Assignment> GetAssignedAssignmentsForCurrentUser()
+            private List<Notification> GetNotificationsForAssignments(
+                ApplicationUser currentUser,
+                DateTime notificationThreshold)
             {
-                ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
+                List<Assignment> assignments = session.Query<Assignment>()
+                    .Where(
+                        assignment => assignment.AssignedTo == currentUser &&
+                            assignment.DueDate <= notificationThreshold)
+                    .ToList();
 
-                if(currentUser != null)
-                {
-                    List<Assignment> assignedAssignments = session.Query<Assignment>()
-                        .Where(assignment => assignment.AssignedTo == currentUser)
-                        .ToList();
-
-                    return assignedAssignments;
-                }
-
-                return new List<Assignment>();
+                return assignments.Select(
+                    assignment => new Notification(session)
+                    {
+                        Message =
+                            $"Task '{assignment.Description}' is due on {assignment.DueDate.ToShortTimeString()}.\n",
+                        Timestamp = DateTime.Now
+                    })
+                    .ToList();
             }
         }
     }

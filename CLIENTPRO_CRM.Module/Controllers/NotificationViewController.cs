@@ -31,16 +31,34 @@ namespace CLIENTPRO_CRM.Module.Controllers
         }
 
         private void ViewNotificationsAction_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
-            ShowNotifications();
-        }
+        { ShowNotifications(); }
 
         private void UpdateNotificationCountAction_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
-            CalculateNotificationCount();
-        }
+        { CalculateNotificationCount(); }
 
-        private void ShowNotifications()
+        /* private void ShowNotifications()
+         {
+             var objectSpace = View.ObjectSpace;
+             var session = ((XPObjectSpace)objectSpace).Session;
+
+             // Retrieve notifications for the current user
+             var notificationService = new Notification.NotificationService(session);
+             List<Notification> notifications = notificationService.GetNotificationsForCurrentUser();
+
+             if (notifications.Count > 0)
+             {
+                 var combinedMessage = string.Join("\n\n", notifications.Select(n => n.Message));
+                 Application.ShowViewStrategy.ShowMessage(combinedMessage, InformationType.Info);
+             }
+             else
+             {
+                 // No notifications to display
+                 Application.ShowViewStrategy.ShowMessage("No new notifications.", InformationType.Info);
+             }
+         }
+ */
+
+        private async void ShowNotifications()
         {
             var objectSpace = View.ObjectSpace;
             var session = ((XPObjectSpace)objectSpace).Session;
@@ -49,20 +67,24 @@ namespace CLIENTPRO_CRM.Module.Controllers
             var notificationService = new Notification.NotificationService(session);
             List<Notification> notifications = notificationService.GetNotificationsForCurrentUser();
 
-            if (notifications.Count > 0)
+            if(notifications.Count > 0)
             {
-                // Build the notification message
-                var message = string.Join(Environment.NewLine, notifications.Select(n => n.Message));
+                foreach(var notification in notifications)
+                {
+                    // Show each notification in a separate message box
+                    var message = notification.Message;
+                    Application.ShowViewStrategy.ShowMessage(message, InformationType.Info);
 
-                // Show the notification in a message box
-                Application.ShowViewStrategy.ShowMessage(message, InformationType.Info);
-            }
-            else
+                    // Delay for a certain period before showing the next notification
+                    await Task.Delay(2000); // Adjust the delay duration as needed
+                }
+            } else
             {
                 // No notifications to display
                 Application.ShowViewStrategy.ShowMessage("No new notifications.", InformationType.Info);
             }
         }
+
 
         private void CalculateNotificationCount()
         {
@@ -91,7 +113,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
         private void UpdateNotificationCountCaption()
         {
             var viewNotificationsAction = Actions["ViewNotifications"] as SimpleAction;
-            if (viewNotificationsAction != null)
+            if(viewNotificationsAction != null)
             {
                 viewNotificationsAction.Caption = $"Notifications ({notificationCount})";
             }
