@@ -10,6 +10,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
     public partial class ClearActivityStreamController : ObjectViewController<ListView, MyActivityStream>
     {
         private SimpleAction clearActivityStreamAction;
+        private SimpleAction refreshActivityStreamAction;
 
         public ClearActivityStreamController()
         {
@@ -18,6 +19,11 @@ namespace CLIENTPRO_CRM.Module.Controllers
             clearActivityStreamAction.ConfirmationMessage = "Are you sure you want to clear the activity stream?";
             clearActivityStreamAction.ImageName = "Delete";
             clearActivityStreamAction.Execute += ClearActivityStreamAction_Execute;
+
+            refreshActivityStreamAction = new SimpleAction(this, "RefreshActivityStreamAction", PredefinedCategory.View);
+            refreshActivityStreamAction.Caption = "Refresh Activity Feed";
+            refreshActivityStreamAction.ImageName = "Actions_Refresh";
+            refreshActivityStreamAction.Execute += RefreshActivityStreamAction_Execute;
         }
 
         private void ClearActivityStreamAction_Execute(object sender, SimpleActionExecuteEventArgs e)
@@ -25,12 +31,18 @@ namespace CLIENTPRO_CRM.Module.Controllers
             var objectSpace = View.ObjectSpace;
             var session = ((XPObjectSpace)objectSpace).Session;
 
-            using (var uow = new UnitOfWork(session.DataLayer))
+            using(var uow = new UnitOfWork(session.DataLayer))
             {
                 ClearAllActivityStreamEntries(objectSpace);
                 objectSpace.CommitChanges();
             }
 
+            // Refresh the current ListView
+            View?.Refresh();
+        }
+
+        private void RefreshActivityStreamAction_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
             // Refresh the current ListView
             View?.Refresh();
         }
@@ -41,7 +53,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
             var activityStreamEntries = objectSpace.GetObjects<MyActivityStream>(null);
             var entriesToDelete = new List<MyActivityStream>(activityStreamEntries);
 
-            foreach (var entry in entriesToDelete)
+            foreach(var entry in entriesToDelete)
             {
                 objectSpace.Delete(entry);
             }
