@@ -36,7 +36,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects
                 List<Notification> notifications = new List<Notification>();
                 DateTime notificationThreshold = DateTime.Now.AddDays(2); // Define the threshold for approaching deadlines
 
-                // Retrieve the current user's ID or any other identifier
+                // Retrieve the current user's ID
                 ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
 
                 if(currentUser != null)

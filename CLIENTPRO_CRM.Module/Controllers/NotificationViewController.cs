@@ -16,7 +16,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
 
         public NotificationViewController()
         {
-            // Register the notification logic to be executed when the View is activated
+            // Notification logic
             TargetViewNesting = Nesting.Root;
             TargetViewType = ViewType.DashboardView;
 
@@ -76,7 +76,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
                     Application.ShowViewStrategy.ShowMessage(message, InformationType.Info);
 
                     // Delay for a certain period before showing the next notification
-                    await Task.Delay(2000); // Adjust the delay duration as needed
+                    await Task.Delay(2000);
                 }
             } else
             {
