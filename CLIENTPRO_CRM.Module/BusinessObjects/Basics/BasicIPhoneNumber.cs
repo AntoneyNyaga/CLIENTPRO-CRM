@@ -1,6 +1,4 @@
-﻿using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
-using System.ComponentModel.DataAnnotations;
+﻿using DevExpress.Persistent.Validation;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {

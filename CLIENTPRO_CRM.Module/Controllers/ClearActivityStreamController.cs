@@ -1,12 +1,9 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
-using CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using DevExpress.XtraEditors;
-using System;
 
 namespace CLIENTPRO_CRM.Module.Controllers
 {
@@ -28,7 +25,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
             var objectSpace = View.ObjectSpace;
             var session = ((XPObjectSpace)objectSpace).Session;
 
-            using(var uow = new UnitOfWork(session.DataLayer))
+            using (var uow = new UnitOfWork(session.DataLayer))
             {
                 ClearAllActivityStreamEntries(objectSpace);
                 objectSpace.CommitChanges();
@@ -44,7 +41,7 @@ namespace CLIENTPRO_CRM.Module.Controllers
             var activityStreamEntries = objectSpace.GetObjects<MyActivityStream>(null);
             var entriesToDelete = new List<MyActivityStream>(activityStreamEntries);
 
-            foreach(var entry in entriesToDelete)
+            foreach (var entry in entriesToDelete)
             {
                 objectSpace.Delete(entry);
             }

@@ -1,5 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using DevExpress.Data.Filtering;
+﻿using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -79,7 +78,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 
         public void Save(string className)
         {
-            if(Session.IsNewObject(this))
+            if (Session.IsNewObject(this))
             {
                 ClassName = className;
                 base.Save();
@@ -97,16 +96,17 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
                 string timeAgo = GetTimeAgo(Date);
                 string description = $"{CreatedBy} {Action} {classText} '{AccountName}'\n{timeAgo}";
 
-                if(string.IsNullOrEmpty(description) || IsDuplicateEntry())
+                if (string.IsNullOrEmpty(description) || IsDuplicateEntry())
                 {
-                    if(Session.IsObjectsSaving)
+                    if (Session.IsObjectsSaving)
                     {
                         Session.ObjectsSaved += (sender, args) =>
                         {
                             DeleteEntryIfUseless();
                             OnChanged("Description"); // Trigger a change event for the Description property
                         };
-                    } else
+                    }
+                    else
                     {
                         DeleteEntryIfUseless();
                         description = null; // Set description to null to indicate that it should not be displayed
@@ -119,7 +119,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 
         private void DeleteEntryIfUseless()
         {
-            if(IsDuplicateEntry())
+            if (IsDuplicateEntry())
             {
                 Session.Delete(this); // Delete the duplicate or null object
             }
@@ -127,7 +127,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
 
         private bool IsDuplicateEntry()
         {
-            if(Session.IsObjectsSaving)
+            if (Session.IsObjectsSaving)
             {
                 // Postpone the duplicate checking until the saving operation is completed
                 Session.ObjectsSaved += (sender, args) =>
@@ -140,14 +140,15 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
                             new BinaryOperator("ClassName", ClassName),
                             new BinaryOperator("Date", Date, BinaryOperatorType.Less)));
 
-                    if(previousEntry != null)
+                    if (previousEntry != null)
                     {
                         Session.Delete(previousEntry); // Delete the previous duplicate entry
                     }
                 };
 
                 return false;
-            } else
+            }
+            else
             {
                 // Perform the duplicate checking immediately
                 var previousEntry = Session.FindObject<MyActivityStream>(
@@ -166,18 +167,21 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement
         {
             TimeSpan timeDifference = DateTime.Now - dateTime;
 
-            if(timeDifference.TotalMinutes < 1)
+            if (timeDifference.TotalMinutes < 1)
             {
                 return "Just now";
-            } else if(timeDifference.TotalHours < 1)
+            }
+            else if (timeDifference.TotalHours < 1)
             {
                 int minutes = (int)timeDifference.TotalMinutes;
                 return $"{minutes} minute{(minutes != 1 ? "s" : "")} ago";
-            } else if(timeDifference.TotalDays < 1)
+            }
+            else if (timeDifference.TotalDays < 1)
             {
                 int hours = (int)timeDifference.TotalHours;
                 return $"{hours} hour{(hours != 1 ? "s" : "")} ago";
-            } else
+            }
+            else
             {
                 int days = (int)timeDifference.TotalDays;
                 return $"{days} day{(days != 1 ? "s" : "")} ago";

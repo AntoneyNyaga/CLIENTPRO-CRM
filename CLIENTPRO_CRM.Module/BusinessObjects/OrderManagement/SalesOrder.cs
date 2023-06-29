@@ -1,5 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
@@ -17,17 +16,17 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
 
     public class SalesOrder : BaseObject
     {
-     /*   int id;
-        [Key(true)]
+        /*   int id;
+           [Key(true)]
 
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public int Id
-        {
-            get { return id; }
-            set { SetPropertyValue(nameof(Id), ref id, value); }
-        }*/
+           [VisibleInDetailView(false)]
+           [VisibleInListView(false)]
+           [VisibleInLookupListView(false)]
+           public int Id
+           {
+               get { return id; }
+               set { SetPropertyValue(nameof(Id), ref id, value); }
+           }*/
         public SalesOrder(Session session) : base(session)
         {
         }
@@ -37,7 +36,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement
         public string SalesOrderNumber { get; set; }
 
         //public string SalesOrderSubject { get; set; }
-        
+
         public string SalesOrderSubject
         {
             get => salesOrderSubject;

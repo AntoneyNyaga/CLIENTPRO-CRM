@@ -2,11 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects
 {
@@ -36,9 +32,9 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects
                 List<BasicTask> tasks = GetAssignedTasksForCurrentUser();
                 DateTime notificationThreshold = DateTime.Now.AddDays(2); // Define the threshold for approaching deadlines
 
-                foreach(BasicTask task in tasks)
+                foreach (BasicTask task in tasks)
                 {
-                    if(task.DueDate <= notificationThreshold)
+                    if (task.DueDate <= notificationThreshold)
                     {
                         // Create a notification object
                         Notification notification = new Notification(session)
@@ -60,7 +56,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects
                 ApplicationUser currentUser = session.GetObjectByKey<ApplicationUser>(SecuritySystem.CurrentUserId);
 
                 // Check if the current user is valid
-                if(currentUser != null)
+                if (currentUser != null)
                 {
                     // Implement the logic to query the DB and retrieve assigned tasks for the current user
                     List<BasicTask> assignedTasks = session.Query<BasicTask>()

@@ -1,5 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
@@ -20,7 +19,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-        }        
+        }
         public string EventName
         {
             get => eventName;

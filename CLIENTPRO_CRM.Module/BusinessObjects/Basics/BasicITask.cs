@@ -1,5 +1,4 @@
-﻿using System;
-using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
+﻿using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
 
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics

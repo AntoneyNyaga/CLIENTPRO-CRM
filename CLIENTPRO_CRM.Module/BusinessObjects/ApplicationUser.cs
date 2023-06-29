@@ -1,6 +1,5 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
-using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
 using CLIENTPRO_CRM.Module.BusinessObjects.CustomerService;
 using CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
@@ -91,5 +90,5 @@ public class ApplicationUser : PermissionPolicyUser, ISecurityUserWithLoginInfo
     public XPCollection<Topic> AssignedTopics { get { return GetCollection<Topic>(nameof(AssignedTopics)); } }
 
     [Association("ApplicationUser-Assignments")]
-    public XPCollection<BasicTask> Assignments{ get { return GetCollection<BasicTask>(nameof(Assignments)); } }
+    public XPCollection<BasicTask> Assignments { get { return GetCollection<BasicTask>(nameof(Assignments)); } }
 }

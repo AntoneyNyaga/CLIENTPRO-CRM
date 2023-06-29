@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net.Http;
-using System.Threading.Tasks;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {

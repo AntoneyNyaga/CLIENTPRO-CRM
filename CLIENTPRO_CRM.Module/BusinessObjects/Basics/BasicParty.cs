@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using System.ComponentModel;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {

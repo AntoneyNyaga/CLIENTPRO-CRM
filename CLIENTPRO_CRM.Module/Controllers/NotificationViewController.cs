@@ -1,19 +1,9 @@
 ﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
-using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CLIENTPRO_CRM.Module.Controllers
 {

@@ -1,5 +1,4 @@
-﻿using CLIENTPRO_CRM.Module.BusinessObjects;
-using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
+﻿using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;

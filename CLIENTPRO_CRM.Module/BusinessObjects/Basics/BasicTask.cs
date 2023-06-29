@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Base.General;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using System.ComponentModel;
 using TaskStatus = DevExpress.Persistent.Base.General.TaskStatus;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics

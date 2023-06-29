@@ -23,7 +23,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.PipelineManagement
 
         [RuleRequiredField]
         //public string Name { get; set; }
-        
+
         public string Name
         {
             get => name;

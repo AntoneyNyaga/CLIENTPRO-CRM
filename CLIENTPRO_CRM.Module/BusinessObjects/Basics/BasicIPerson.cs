@@ -1,6 +1,4 @@
 ﻿using DevExpress.Persistent.Validation;
-using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {

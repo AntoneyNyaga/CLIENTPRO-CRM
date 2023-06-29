@@ -22,7 +22,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.FinancialManagement
 
         [VisibleInDetailView(false)]
         public string BillNumber { get; set; }
-        
+
         public string BillSubject
         {
             get => billSubject;

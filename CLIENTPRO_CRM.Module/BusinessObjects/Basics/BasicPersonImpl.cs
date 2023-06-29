@@ -1,5 +1,4 @@
 ﻿using DevExpress.Persistent.Base;
-using System;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {

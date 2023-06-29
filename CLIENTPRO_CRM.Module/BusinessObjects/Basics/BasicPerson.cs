@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using DevExpress.ExpressApp.Filtering;
+﻿using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
+using System.ComponentModel;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.Basics
 {

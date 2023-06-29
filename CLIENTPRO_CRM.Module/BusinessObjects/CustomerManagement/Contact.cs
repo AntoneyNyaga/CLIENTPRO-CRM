@@ -2,12 +2,9 @@
 using CLIENTPRO_CRM.Module.BusinessObjects.ActivityStreamManagement;
 using CLIENTPRO_CRM.Module.BusinessObjects.Basics;
 using CLIENTPRO_CRM.Module.BusinessObjects.CommunicationEssentials;
-using CLIENTPRO_CRM.Module.BusinessObjects.OrderManagement;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using System.Collections.ObjectModel;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.CustomerManagement
 {

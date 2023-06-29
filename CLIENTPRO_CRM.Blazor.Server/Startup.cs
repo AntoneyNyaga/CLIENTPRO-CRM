@@ -102,7 +102,8 @@ public class Startup
                             options.DashboardDataType = typeof(DevExpress.Persistent.BaseImpl.DashboardData);
                         })
                     //enable mail merge
-                    .AddOffice(options => {
+                    .AddOffice(options =>
+                    {
                         options.RichTextMailMergeDataType = typeof(RichTextMailMergeData);
                     })
                     .AddReports(

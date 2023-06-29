@@ -10,8 +10,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using AssociationAttribute = DevExpress.Xpo.AssociationAttribute;
 
 namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
@@ -98,7 +96,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
             set => SetPropertyValue(nameof(AcType), ref acType, Enum.GetName(typeof(AccountType), value));
         }
 
-        [ImmediatePostData(true)]        
+        [ImmediatePostData(true)]
         public AccountType? TypeOfAccount
         {
             get => typeOfAccount;
@@ -121,7 +119,7 @@ namespace CLIENTPRO_CRM.Module.BusinessObjects.AccountingManagement
             set => SetPropertyValue(nameof(IndType), ref indType, Enum.GetName(typeof(IndustryType), value));
         }
 
-        [ImmediatePostData(true)]        
+        [ImmediatePostData(true)]
         public IndustryType? Industry
         {
             get => industry;
